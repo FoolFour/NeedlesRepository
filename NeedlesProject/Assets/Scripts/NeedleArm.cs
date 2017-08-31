@@ -40,7 +40,7 @@ public class NeedleArm : MonoBehaviour
     /// <summary>
     /// 伸び縮みする腕のモデル
     /// </summary>
-    public Transform mBarModel;
+    //public Transform mBarModel;
 
 
     /// <summary>
@@ -53,9 +53,9 @@ public class NeedleArm : MonoBehaviour
         float len = defeated * mArmLength;
 
         Debug.DrawRay(transform.position, stickdir.normalized * len, mDebugColor);
-        mBarModel.localPosition = transform.position;
-        mBarModel.localRotation = Quaternion.LookRotation(stickdir.normalized);
-        mBarModel.transform.localScale = new Vector3(1, 1, len);
+        //mBarModel.localPosition = transform.position;
+        //mBarModel.localRotation = Quaternion.LookRotation(stickdir.normalized);
+        //mBarModel.transform.localScale = new Vector3(1, 1, len);
 
         RaycastHit hit;
         int layerMask = ~(1 << 8);
@@ -64,7 +64,7 @@ public class NeedleArm : MonoBehaviour
             mCurrentHitObject = (GameObject)Instantiate(mHitObjectPrefab, hit.point, Quaternion.identity);
 
             var hinge = mCurrentHitObject.GetComponent<HingeJoint>();
-            hinge.connectedBody = mBarModel.GetComponent<Rigidbody>();
+            hinge.connectedBody = gameObject.GetComponent<Rigidbody>();
             mFastAnchor = hinge.connectedAnchor;
             mHitPoint = hit.point;
             mHitVector = stickdir;
@@ -80,7 +80,7 @@ public class NeedleArm : MonoBehaviour
 
 
         //mBarModel.localRotation = Quaternion.LookRotation(mHitVector.normalized);
-        mBarModel.transform.localScale = new Vector3(1, 1, len);
+        //mBarModel.transform.localScale = new Vector3(1, 1, len);
 
         Debug.DrawRay(mCurrentHitObject.transform.position, -mHitVector.normalized * len, Color.yellow);
         Debug.DrawRay(transform.position, stickdir.normalized * len, Color.green);
@@ -89,21 +89,21 @@ public class NeedleArm : MonoBehaviour
         float angle = Vector3.Dot(Quaternion.AngleAxis(90, Vector3.forward) * mHitVector.normalized, stickdir.normalized);
         mHitVector = playervec.normalized;
 
-        mCurrentHitObject.GetComponent<Rigidbody>().angularVelocity = Vector3.forward *(angle * 10);
+        Debug.Log(mCurrentHitObject);
+        mCurrentHitObject.GetComponent<Rigidbody>().angularVelocity = (Vector3.forward * (angle * 100));
 
         var hinge = mCurrentHitObject.GetComponent<HingeJoint>();
         hinge.autoConfigureConnectedAnchor = false;
-        hinge.connectedAnchor = Vector3.forward;
+        hinge.connectedAnchor = mFastAnchor.normalized * len;
 
-        //if (defeated < 0.2f)
-        //{
-        //    hinge.breakForce = 0;
-        //    hinge.breakTorque = 0;
-        //    Destroy(mBarModel.GetComponent<HingeJoint>());
-        //    Destroy(mCurrentHitObject);
-        //    mCurrentHitObject = null;
-        //    ishit = false;
-        //}
+        if (defeated < 0.2f)
+        {
+            hinge.breakForce = 0;
+            hinge.breakTorque = 0;
+            Destroy(mCurrentHitObject);
+            mCurrentHitObject = null;
+            ishit = false;
+        }
     }
 
     /// <summary>
