@@ -10,7 +10,10 @@ public class NeedleArm : MonoBehaviour
 
     public Color mDebugColor;
     [SerializeField, TooltipAttribute("腕の長さ")]
-    public float mArmLength;
+    public float mArmMaxLength;
+    float mArmCurrentLenght;
+
+    int mIgnorelayer = ~(1 << 8);
 
     /// <summary>
     /// 腕が壁に当たっているか？
@@ -50,37 +53,30 @@ public class NeedleArm : MonoBehaviour
     public void ArmExtend(Vector3 stickdir)
     {
         float defeated = Mathf.Min(1.0f, (Mathf.Abs(stickdir.x) + Mathf.Abs(stickdir.y)));
-        float len = defeated * mArmLength;
+        mArmCurrentLenght = defeated * mArmMaxLength;
 
-        Debug.DrawRay(transform.position, stickdir.normalized * len, mDebugColor);
-        //mBarModel.localPosition = transform.position;
-        //mBarModel.localRotation = Quaternion.LookRotation(stickdir.normalized);
-        //mBarModel.transform.localScale = new Vector3(1, 1, len);
+        Debug.DrawRay(transform.position, stickdir.normalized * mArmCurrentLenght, mDebugColor);
 
-        RaycastHit hit;
-        int layerMask = ~(1 << 8);
-        if (Physics.Raycast(transform.position, stickdir.normalized, out hit, len,layerMask))
-        {
-            mCurrentHitObject = (GameObject)Instantiate(mHitObjectPrefab, hit.point, Quaternion.identity);
+        Vector3 next = ArmRotateColision(stickdir);
 
-            var hinge = mCurrentHitObject.GetComponent<HingeJoint>();
-            hinge.connectedBody = gameObject.GetComponent<Rigidbody>();
-            mFastAnchor = hinge.connectedAnchor;
-            mHitPoint = hit.point;
-            mHitVector = stickdir;
-            ishit = true;
-        }
+        transform.transform.localScale = new Vector3(1, 1, mArmCurrentLenght);
+
+        //if (mArmCurrentLenght != 0)
+        //{
+        //    var hitcolider = Physics.OverlapSphere(transform.position, mArmCurrentLenght, mIgnorelayer);
+        //    foreach (var colider in hitcolider)
+        //    {
+        //        if (sector_hit(colider, next)) return;
+        //    }
+        //}
+        transform.localRotation = Quaternion.LookRotation(next.normalized);
     }
 
     //刺さった腕を回転する
     public void StickArmRotation(Vector3 stickdir)
     {
         float defeated = Mathf.Min(1.0f, (Mathf.Abs(stickdir.x) + Mathf.Abs(stickdir.y)));
-        float len = defeated * mArmLength;
-
-
-        //mBarModel.localRotation = Quaternion.LookRotation(mHitVector.normalized);
-        //mBarModel.transform.localScale = new Vector3(1, 1, len);
+        float len = defeated * mArmMaxLength;
 
         Debug.DrawRay(mCurrentHitObject.transform.position, -mHitVector.normalized * len, Color.yellow);
         Debug.DrawRay(transform.position, stickdir.normalized * len, Color.green);
@@ -124,5 +120,67 @@ public class NeedleArm : MonoBehaviour
     public bool IsHit()
     {
         return ishit;
+    }
+
+    /// <summary>
+    /// 腕の回転時の押し出し処理
+    /// </summary>
+    /// <param name="next"></param>
+    Vector3 ArmRotateColision(Vector3 next)
+    {
+        //当たり判定１　入力先に障害物があった時の押し出し処理
+        Vector3 start = transform.position;
+        Vector3 end = transform.position + (next.normalized * (mArmCurrentLenght - 1));
+        if (Physics.CheckCapsule(start,end,0.2f,mIgnorelayer))
+        {
+            //１度づつ回転して当たらなくなるまで回転してテスト
+            Vector3 rightsearch = next.normalized;
+            Vector3 leftsearch = next.normalized;
+            for (int i = 0; i < 180; i++)
+            {
+                rightsearch = Quaternion.AngleAxis(1, Vector3.forward) * rightsearch.normalized;
+                Debug.DrawLine(start, start+ (rightsearch *(mArmCurrentLenght - 1)), Color.green);
+                if (!Physics.CheckCapsule(start, start + (rightsearch * (mArmCurrentLenght - 1)), 0.2f, mIgnorelayer))
+                {
+                    return rightsearch;
+                }
+
+                leftsearch = Quaternion.AngleAxis(1, Vector3.back) * leftsearch.normalized;
+                Debug.DrawLine(start, start + (leftsearch * (mArmCurrentLenght - 1)), Color.green);
+                if (!Physics.CheckCapsule(start, start + (leftsearch * (mArmCurrentLenght - 1)), 0.2f, mIgnorelayer))
+                {
+                    return leftsearch;
+                }
+            }
+        }
+        return next;
+    }
+
+    //扇の当たり判定を行い無理な移動ルートに障害物が無いか検索
+    bool sector_hit(Collider colider, Vector3 next)
+    {
+        if (Vector2Cross(transform.forward, next) < 0)
+        {
+            Vector3 closetpoint = colider.ClosestPointOnBounds(transform.position);
+            float angle = Vector2Cross(transform.position + transform.forward, closetpoint);
+            if (angle > 0) return false;
+            angle = Vector2Cross(transform.position + next.normalized, closetpoint);
+            if (angle < 0) return false;
+            return true;
+        }
+        else
+        {
+            Vector3 closetpoint = colider.ClosestPointOnBounds(transform.position);
+            float angle = Vector2Cross(transform.position + transform.forward, closetpoint);
+            if (angle < 0) return false;
+            angle = Vector2Cross(transform.position + next.normalized, closetpoint);
+            if (angle > 0) return false;
+        }
+        return true;
+    }
+
+    float Vector2Cross(Vector3 v1, Vector3 v2)
+    {
+        return v1.x * v2.y - v2.x * v1.y;
     }
 }
