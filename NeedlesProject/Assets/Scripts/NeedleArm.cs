@@ -7,6 +7,10 @@ using UnityEngine;
 /// </summary>
 public class NeedleArm : MonoBehaviour
 {
+    //デバッグ用変数　後で消す
+    public GameObject debugobj;
+    public GameObject[] debugpoint;
+    //-------------------------
 
     public Color mDebugColor;
     [SerializeField, TooltipAttribute("腕の長さ")]
@@ -14,6 +18,12 @@ public class NeedleArm : MonoBehaviour
     float mArmCurrentLenght;
 
     int mIgnorelayer = ~(1 << 8);
+
+    /// <summary>
+    /// 腕の方向を保持しておくための変数
+    ///（ スティックが入力されてない時の対策）
+    /// </summary>
+    private Vector3 mArmDirection;
 
     /// <summary>
     /// 腕が壁に当たっているか？
@@ -40,11 +50,10 @@ public class NeedleArm : MonoBehaviour
     /// </summary>
     private Vector3 mFastAnchor = Vector3.zero;
 
-    /// <summary>
-    /// 伸び縮みする腕のモデル
-    /// </summary>
-    //public Transform mBarModel;
-
+    public void Start()
+    {
+        mArmDirection = transform.forward;
+    }
 
     /// <summary>
     /// 腕を伸ばす処理
@@ -55,21 +64,15 @@ public class NeedleArm : MonoBehaviour
         float defeated = Mathf.Min(1.0f, (Mathf.Abs(stickdir.x) + Mathf.Abs(stickdir.y)));
         mArmCurrentLenght = defeated * mArmMaxLength;
 
-        Debug.DrawRay(transform.position, stickdir.normalized * mArmCurrentLenght, mDebugColor);
+        if (stickdir != Vector3.zero) mArmDirection = stickdir;
 
-        Vector3 next = ArmRotateColision(stickdir);
+        Debug.DrawRay(transform.position, mArmDirection.normalized * mArmCurrentLenght, mDebugColor);
+
+        Vector3 next = ArmRotateColision(mArmDirection);
 
         transform.transform.localScale = new Vector3(1, 1, mArmCurrentLenght);
 
-        //if (mArmCurrentLenght != 0)
-        //{
-        //    var hitcolider = Physics.OverlapSphere(transform.position, mArmCurrentLenght, mIgnorelayer);
-        //    foreach (var colider in hitcolider)
-        //    {
-        //        if (sector_hit(colider, next)) return;
-        //    }
-        //}
-        transform.localRotation = Quaternion.LookRotation(next.normalized);
+        if(!Input.GetKey(KeyCode.C)) transform.localRotation = Quaternion.LookRotation(next.normalized);
     }
 
     //刺さった腕を回転する
@@ -131,52 +134,69 @@ public class NeedleArm : MonoBehaviour
         //当たり判定１　入力先に障害物があった時の押し出し処理
         Vector3 start = transform.position;
         Vector3 end = transform.position + (next.normalized * (mArmCurrentLenght - 1));
-        if (Physics.CheckCapsule(start,end,0.2f,mIgnorelayer))
+        if (Physics.CheckCapsule(start, end, 0.2f, mIgnorelayer))
         {
             //１度づつ回転して当たらなくなるまで回転してテスト
-            Vector3 rightsearch = next.normalized;
-            Vector3 leftsearch = next.normalized;
+            Vector3 checkvector = next.normalized;
+            float angle = -Mathf.Sign(Vector2Cross(transform.forward, next));
             for (int i = 0; i < 180; i++)
             {
-                rightsearch = Quaternion.AngleAxis(1, Vector3.forward) * rightsearch.normalized;
-                Debug.DrawLine(start, start+ (rightsearch *(mArmCurrentLenght - 1)), Color.green);
-                if (!Physics.CheckCapsule(start, start + (rightsearch * (mArmCurrentLenght - 1)), 0.2f, mIgnorelayer))
+                checkvector = Quaternion.AngleAxis(angle, Vector3.forward) * checkvector.normalized;
+                Debug.DrawLine(start, start + (checkvector * (mArmCurrentLenght - 1)), Color.green);
+                if (!Physics.CheckCapsule(start, start + (checkvector * (mArmCurrentLenght - 1)), 0.2f, mIgnorelayer))
                 {
-                    return rightsearch;
+                    return checkvector;
                 }
+            }
+        }
+        else
+        {
+            var coliders = Physics.OverlapSphere(transform.position, mArmCurrentLenght, mIgnorelayer);
+            int debugi = 0;
+            foreach (var c in coliders)
+            {
+                //デブッグ
+                gameObject.GetComponent<CapsuleCollider>();
+                Vector3 point = transform.position;
+                Vector3 closetpoint = c.ClosestPoint(point);
+                debugpoint[debugi].transform.position = c.transform.position;
+                debugi++;
+                //--------------------------------------------------------
 
-                leftsearch = Quaternion.AngleAxis(1, Vector3.back) * leftsearch.normalized;
-                Debug.DrawLine(start, start + (leftsearch * (mArmCurrentLenght - 1)), Color.green);
-                if (!Physics.CheckCapsule(start, start + (leftsearch * (mArmCurrentLenght - 1)), 0.2f, mIgnorelayer))
+                if (sector_hit(c, next))
                 {
-                    return leftsearch;
+                    //Debug.Log(c.name + "HIT");
+                    //return transform.forward;
                 }
             }
         }
         return next;
     }
 
-    //扇の当たり判定を行い無理な移動ルートに障害物が無いか検索
+    //扇の当たり判定を行い移動ルートに障害物が無いか検索
     bool sector_hit(Collider colider, Vector3 next)
     {
-        if (Vector2Cross(transform.forward, next) < 0)
+        Vector3 point = transform.position;
+        Vector3 closetpoint = colider.transform.position;
+        //Vector3 closetpoint = colider.transform.position;
+        if (Vector2Cross(transform.forward, next.normalized) < 0)
         {
-            Vector3 closetpoint = colider.ClosestPointOnBounds(transform.position);
             float angle = Vector2Cross(transform.position + transform.forward, closetpoint);
-            if (angle > 0) return false;
+            Debug.Log("フォワード側"+ angle);
+            if (angle > 0)// return false;
             angle = Vector2Cross(transform.position + next.normalized, closetpoint);
+            Debug.Log("スティック側"+ angle);
             if (angle < 0) return false;
             return true;
         }
-        else
-        {
-            Vector3 closetpoint = colider.ClosestPointOnBounds(transform.position);
-            float angle = Vector2Cross(transform.position + transform.forward, closetpoint);
-            if (angle < 0) return false;
-            angle = Vector2Cross(transform.position + next.normalized, closetpoint);
-            if (angle > 0) return false;
-        }
-        return true;
+        //else
+        //{
+        //    float angle = Vector2Cross(transform.position + transform.forward, closetpoint);
+        //    if (angle < 0) return false;
+        //    angle = Vector2Cross(transform.position + next.normalized, closetpoint);
+        //    if (angle > 0) return false;
+        //}
+        return false;
     }
 
     float Vector2Cross(Vector3 v1, Vector3 v2)
