@@ -131,72 +131,24 @@ public class NeedleArm : MonoBehaviour
     /// <param name="next"></param>
     Vector3 ArmRotateColision(Vector3 next)
     {
-        //当たり判定１　入力先に障害物があった時の押し出し処理
+        int angle = (int)Vector2.Angle(transform.forward, next.normalized);
         Vector3 start = transform.position;
-        Vector3 end = transform.position + (next.normalized * (mArmCurrentLenght - 1));
-        if (Physics.CheckCapsule(start, end, 0.2f, mIgnorelayer))
+        Vector3 checkvector = transform.forward;
+        float LRCheck = Mathf.Sign(Vector2Cross(transform.forward, next));
+        //移動できるかシュミレーションする
+        for (int i = 0; angle > i; i++)
         {
-            //１度づつ回転して当たらなくなるまで回転してテスト
-            Vector3 checkvector = next.normalized;
-            float angle = -Mathf.Sign(Vector2Cross(transform.forward, next));
-            for (int i = 0; i < 180; i++)
+            Debug.DrawLine(start, start + (checkvector * (mArmCurrentLenght - 1)), Color.green);
+            //左右のチェック
+            if (Physics.CheckCapsule(start, start + (checkvector * (mArmCurrentLenght - 1)), 0.2f, mIgnorelayer))
             {
-                checkvector = Quaternion.AngleAxis(angle, Vector3.forward) * checkvector.normalized;
-                Debug.DrawLine(start, start + (checkvector * (mArmCurrentLenght - 1)), Color.green);
-                if (!Physics.CheckCapsule(start, start + (checkvector * (mArmCurrentLenght - 1)), 0.2f, mIgnorelayer))
-                {
-                    return checkvector;
-                }
+                return next;
             }
-        }
-        else
-        {
-            var coliders = Physics.OverlapSphere(transform.position, mArmCurrentLenght, mIgnorelayer);
-            int debugi = 0;
-            foreach (var c in coliders)
-            {
-                //デブッグ
-                gameObject.GetComponent<CapsuleCollider>();
-                Vector3 point = transform.position;
-                Vector3 closetpoint = c.ClosestPoint(point);
-                debugpoint[debugi].transform.position = c.transform.position;
-                debugi++;
-                //--------------------------------------------------------
-
-                if (sector_hit(c, next))
-                {
-                    //Debug.Log(c.name + "HIT");
-                    //return transform.forward;
-                }
-            }
+            next = checkvector;
+            Debug.Log(LRCheck);
+            checkvector = Quaternion.AngleAxis(LRCheck, Vector3.forward) * checkvector.normalized;
         }
         return next;
-    }
-
-    //扇の当たり判定を行い移動ルートに障害物が無いか検索
-    bool sector_hit(Collider colider, Vector3 next)
-    {
-        Vector3 point = transform.position;
-        Vector3 closetpoint = colider.transform.position;
-        //Vector3 closetpoint = colider.transform.position;
-        if (Vector2Cross(transform.forward, next.normalized) < 0)
-        {
-            float angle = Vector2Cross(transform.position + transform.forward, closetpoint);
-            Debug.Log("フォワード側"+ angle);
-            if (angle > 0)// return false;
-            angle = Vector2Cross(transform.position + next.normalized, closetpoint);
-            Debug.Log("スティック側"+ angle);
-            if (angle < 0) return false;
-            return true;
-        }
-        //else
-        //{
-        //    float angle = Vector2Cross(transform.position + transform.forward, closetpoint);
-        //    if (angle < 0) return false;
-        //    angle = Vector2Cross(transform.position + next.normalized, closetpoint);
-        //    if (angle > 0) return false;
-        //}
-        return false;
     }
 
     float Vector2Cross(Vector3 v1, Vector3 v2)
