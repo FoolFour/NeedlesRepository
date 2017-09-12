@@ -18,6 +18,6 @@ public class HingeManualConnectPointUpdate : MonoBehaviour
     void Update()
     {
         //Barの先に球を付けるための数値
-        mHinge.connectedAnchor = Vector3.zero;
+        mHinge.connectedAnchor = Vector3.forward;
     }
 }
