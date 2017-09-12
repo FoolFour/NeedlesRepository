@@ -49,6 +49,10 @@ public class NeedleArm : MonoBehaviour
     private Vector3 mFastAnchor = Vector3.zero;
 
     /// <summary>
+    /// プレイヤーの情報
+    /// </summary>
+    public Transform mPlayer;
+    /// <summary>
     /// 手の部分のオブジェクト
     /// </summary>
     public Transform mHand;
@@ -76,30 +80,55 @@ public class NeedleArm : MonoBehaviour
         //腕の当たり判定のシュミレーションを行い押し出し判定
         Vector3 next = ArmRotateColision(mArmDirection);
 
-        transform.transform.localScale = new Vector3(1, 1, mArmCurrentLenght);
-        transform.localRotation = Quaternion.LookRotation(next.normalized);
-        mHand.localPosition = transform.localPosition + (transform.forward * mArmCurrentLenght);
+        transform.localScale = new Vector3(1, 1, mArmCurrentLenght);
+        transform.rotation = Quaternion.LookRotation(next.normalized);
+        mHand.position = mPlayer.localPosition + (transform.forward * mArmCurrentLenght);
+
+        //壁にハンド部分が刺さったかどうかの判定
+        RaycastHit hit;
+        if(Physics.Raycast(transform.position,next.normalized,out hit,mArmCurrentLenght+0.4f,mIgnorelayer))
+        {
+            mCurrentHitObject = (GameObject)Instantiate(mHitObjectPrefab, hit.point, Quaternion.identity);
+
+            var hinge = mCurrentHitObject.GetComponent<HingeJoint>();
+            hinge.connectedBody = mPlayer.GetComponent<Rigidbody>();
+            mFastAnchor = hinge.connectedAnchor;
+            mHitPoint = hit.point;
+            mHitVector = stickdir;
+            ishit = true;
+        }
     }
 
     //刺さった腕を回転する
     public void StickArmRotation(Vector3 stickdir)
     {
         float defeated = Mathf.Min(1.0f, (Mathf.Abs(stickdir.x) + Mathf.Abs(stickdir.y)));
-        float len = defeated * mArmMaxLength;
+        mArmCurrentLenght = defeated * mArmMaxLength;
 
-        Debug.DrawRay(mCurrentHitObject.transform.position, -mHitVector.normalized * len, Color.yellow);
-        Debug.DrawRay(transform.position, stickdir.normalized * len, Color.green);
+        Debug.DrawRay(mCurrentHitObject.transform.position, -mHitVector.normalized * mArmCurrentLenght, Color.yellow);
+        Debug.DrawRay(transform.position, stickdir.normalized * mArmCurrentLenght, Color.green);
 
         Vector3 playervec = mCurrentHitObject.transform.position - gameObject.transform.position;
         float angle = Vector3.Dot(Quaternion.AngleAxis(90, Vector3.forward) * mHitVector.normalized, stickdir.normalized);
         mHitVector = playervec.normalized;
 
-        Debug.Log(mCurrentHitObject);
+        Vector3 start = transform.position;
+        Vector3 checkvector = transform.forward;
+
         mCurrentHitObject.GetComponent<Rigidbody>().angularVelocity = (Vector3.forward * (angle * 100));
+
+        if (Physics.CheckCapsule(start, start + (checkvector * (mArmCurrentLenght - 0.4f)), 0.2f, mIgnorelayer))
+        {
+            mCurrentHitObject.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+        }
 
         var hinge = mCurrentHitObject.GetComponent<HingeJoint>();
         hinge.autoConfigureConnectedAnchor = false;
-        hinge.connectedAnchor = mFastAnchor.normalized * len;
+        hinge.connectedAnchor = mFastAnchor.normalized * mArmCurrentLenght;
+
+        transform.localScale = new Vector3(1, 1, mArmCurrentLenght);
+        transform.rotation = Quaternion.LookRotation(mHitVector.normalized);
+        mHand.position = mPlayer.localPosition + (transform.forward * mArmCurrentLenght);
 
         if (defeated < 0.2f)
         {
@@ -145,7 +174,7 @@ public class NeedleArm : MonoBehaviour
         //移動できるか１度ずつ調べてシュミレーションする
         for (int i = 0; angle > i; i++)
         {
-            Debug.DrawLine(start, start + (checkvector * (mArmCurrentLenght - 1)), Color.green);
+            Debug.DrawLine(start, start + (checkvector * (mArmCurrentLenght - 0.4f)), Color.green);
             if (Physics.CheckCapsule(start, start + (checkvector * (mArmCurrentLenght - 1)), 0.2f, mIgnorelayer))
             {
                 return next;
