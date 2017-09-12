@@ -13,7 +13,7 @@ public class NeedleArm : MonoBehaviour
     //-------------------------
 
     public Color mDebugColor;
-    [SerializeField, TooltipAttribute("腕の長さ")]
+    [SerializeField, TooltipAttribute("腕の最大の長さ")]
     public float mArmMaxLength;
     float mArmCurrentLenght;
 
@@ -50,6 +50,11 @@ public class NeedleArm : MonoBehaviour
     /// </summary>
     private Vector3 mFastAnchor = Vector3.zero;
 
+    /// <summary>
+    /// 手の部分のオブジェクト
+    /// </summary>
+    public Transform mHand;
+
     public void Start()
     {
         mArmDirection = transform.forward;
@@ -61,18 +66,21 @@ public class NeedleArm : MonoBehaviour
     /// <param name="stickdir"></param>
     public void ArmExtend(Vector3 stickdir)
     {
+        //スティックが倒されている強さを計算する
         float defeated = Mathf.Min(1.0f, (Mathf.Abs(stickdir.x) + Mathf.Abs(stickdir.y)));
         mArmCurrentLenght = defeated * mArmMaxLength;
 
+        //現在の腕の向きを更新
         if (stickdir != Vector3.zero) mArmDirection = stickdir;
 
         Debug.DrawRay(transform.position, mArmDirection.normalized * mArmCurrentLenght, mDebugColor);
 
+        //腕の当たり判定のシュミレーションを行い押し出し判定
         Vector3 next = ArmRotateColision(mArmDirection);
 
         transform.transform.localScale = new Vector3(1, 1, mArmCurrentLenght);
-
-        if(!Input.GetKey(KeyCode.C)) transform.localRotation = Quaternion.LookRotation(next.normalized);
+        transform.localRotation = Quaternion.LookRotation(next.normalized);
+        mHand.localPosition = transform.localPosition + (transform.forward * mArmCurrentLenght);
     }
 
     //刺さった腕を回転する
@@ -134,18 +142,17 @@ public class NeedleArm : MonoBehaviour
         int angle = (int)Vector2.Angle(transform.forward, next.normalized);
         Vector3 start = transform.position;
         Vector3 checkvector = transform.forward;
+        //左右のチェック
         float LRCheck = Mathf.Sign(Vector2Cross(transform.forward, next));
-        //移動できるかシュミレーションする
+        //移動できるか１度ずつ調べてシュミレーションする
         for (int i = 0; angle > i; i++)
         {
             Debug.DrawLine(start, start + (checkvector * (mArmCurrentLenght - 1)), Color.green);
-            //左右のチェック
             if (Physics.CheckCapsule(start, start + (checkvector * (mArmCurrentLenght - 1)), 0.2f, mIgnorelayer))
             {
                 return next;
             }
             next = checkvector;
-            Debug.Log(LRCheck);
             checkvector = Quaternion.AngleAxis(LRCheck, Vector3.forward) * checkvector.normalized;
         }
         return next;
