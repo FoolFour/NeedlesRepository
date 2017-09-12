@@ -8,8 +8,6 @@ using UnityEngine;
 public class NeedleArm : MonoBehaviour
 {
     //デバッグ用変数　後で消す
-    public GameObject debugobj;
-    public GameObject[] debugpoint;
     //-------------------------
 
     public Color mDebugColor;
