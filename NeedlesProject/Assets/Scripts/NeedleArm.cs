@@ -7,10 +7,21 @@ using UnityEngine;
 /// </summary>
 public class NeedleArm : MonoBehaviour
 {
+    //デバッグ用変数　後で消す
+    //-------------------------
 
     public Color mDebugColor;
-    [SerializeField, TooltipAttribute("腕の長さ")]
-    public float mArmLength;
+    [SerializeField, TooltipAttribute("腕の最大の長さ")]
+    public float mArmMaxLength;
+    float mArmCurrentLenght;
+
+    int mIgnorelayer = ~(1 << 8);
+
+    /// <summary>
+    /// 腕の方向を保持しておくための変数
+    ///（ スティックが入力されてない時の対策）
+    /// </summary>
+    private Vector3 mArmDirection;
 
     /// <summary>
     /// 腕が壁に当たっているか？
@@ -38,10 +49,18 @@ public class NeedleArm : MonoBehaviour
     private Vector3 mFastAnchor = Vector3.zero;
 
     /// <summary>
-    /// 伸び縮みする腕のモデル
+    /// プレイヤーの情報
     /// </summary>
-    //public Transform mBarModel;
+    public Transform mPlayer;
+    /// <summary>
+    /// 手の部分のオブジェクト
+    /// </summary>
+    public Transform mHand;
 
+    public void Start()
+    {
+        mArmDirection = transform.forward;
+    }
 
     /// <summary>
     /// 腕を伸ばす処理
@@ -49,22 +68,30 @@ public class NeedleArm : MonoBehaviour
     /// <param name="stickdir"></param>
     public void ArmExtend(Vector3 stickdir)
     {
+        //スティックが倒されている強さを計算する
         float defeated = Mathf.Min(1.0f, (Mathf.Abs(stickdir.x) + Mathf.Abs(stickdir.y)));
-        float len = defeated * mArmLength;
+        mArmCurrentLenght = defeated * mArmMaxLength;
 
-        Debug.DrawRay(transform.position, stickdir.normalized * len, mDebugColor);
-        //mBarModel.localPosition = transform.position;
-        //mBarModel.localRotation = Quaternion.LookRotation(stickdir.normalized);
-        //mBarModel.transform.localScale = new Vector3(1, 1, len);
+        //現在の腕の向きを更新
+        if (stickdir != Vector3.zero) mArmDirection = stickdir;
 
+        Debug.DrawRay(transform.position, mArmDirection.normalized * mArmCurrentLenght, mDebugColor);
+
+        //腕の当たり判定のシュミレーションを行い押し出し判定
+        Vector3 next = ArmRotateColision(mArmDirection);
+
+        transform.localScale = new Vector3(1, 1, mArmCurrentLenght);
+        transform.rotation = Quaternion.LookRotation(next.normalized);
+        mHand.position = mPlayer.localPosition + (transform.forward * mArmCurrentLenght);
+
+        //壁にハンド部分が刺さったかどうかの判定
         RaycastHit hit;
-        int layerMask = ~(1 << 8);
-        if (Physics.Raycast(transform.position, stickdir.normalized, out hit, len,layerMask))
+        if(Physics.Raycast(transform.position,next.normalized,out hit,mArmCurrentLenght+0.4f,mIgnorelayer))
         {
             mCurrentHitObject = (GameObject)Instantiate(mHitObjectPrefab, hit.point, Quaternion.identity);
 
             var hinge = mCurrentHitObject.GetComponent<HingeJoint>();
-            hinge.connectedBody = gameObject.GetComponent<Rigidbody>();
+            hinge.connectedBody = mPlayer.GetComponent<Rigidbody>();
             mFastAnchor = hinge.connectedAnchor;
             mHitPoint = hit.point;
             mHitVector = stickdir;
@@ -76,25 +103,32 @@ public class NeedleArm : MonoBehaviour
     public void StickArmRotation(Vector3 stickdir)
     {
         float defeated = Mathf.Min(1.0f, (Mathf.Abs(stickdir.x) + Mathf.Abs(stickdir.y)));
-        float len = defeated * mArmLength;
+        mArmCurrentLenght = defeated * mArmMaxLength;
 
-
-        //mBarModel.localRotation = Quaternion.LookRotation(mHitVector.normalized);
-        //mBarModel.transform.localScale = new Vector3(1, 1, len);
-
-        Debug.DrawRay(mCurrentHitObject.transform.position, -mHitVector.normalized * len, Color.yellow);
-        Debug.DrawRay(transform.position, stickdir.normalized * len, Color.green);
+        Debug.DrawRay(mCurrentHitObject.transform.position, -mHitVector.normalized * mArmCurrentLenght, Color.yellow);
+        Debug.DrawRay(transform.position, stickdir.normalized * mArmCurrentLenght, Color.green);
 
         Vector3 playervec = mCurrentHitObject.transform.position - gameObject.transform.position;
         float angle = Vector3.Dot(Quaternion.AngleAxis(90, Vector3.forward) * mHitVector.normalized, stickdir.normalized);
         mHitVector = playervec.normalized;
 
-        Debug.Log(mCurrentHitObject);
+        Vector3 start = transform.position;
+        Vector3 checkvector = transform.forward;
+
         mCurrentHitObject.GetComponent<Rigidbody>().angularVelocity = (Vector3.forward * (angle * 100));
+
+        if (Physics.CheckCapsule(start, start + (checkvector * (mArmCurrentLenght - 0.4f)), 0.2f, mIgnorelayer))
+        {
+            mCurrentHitObject.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+        }
 
         var hinge = mCurrentHitObject.GetComponent<HingeJoint>();
         hinge.autoConfigureConnectedAnchor = false;
-        hinge.connectedAnchor = mFastAnchor.normalized * len;
+        hinge.connectedAnchor = mFastAnchor.normalized * mArmCurrentLenght;
+
+        transform.localScale = new Vector3(1, 1, mArmCurrentLenght);
+        transform.rotation = Quaternion.LookRotation(mHitVector.normalized);
+        mHand.position = mPlayer.localPosition + (transform.forward * mArmCurrentLenght);
 
         if (defeated < 0.2f)
         {
@@ -124,5 +158,35 @@ public class NeedleArm : MonoBehaviour
     public bool IsHit()
     {
         return ishit;
+    }
+
+    /// <summary>
+    /// 腕の回転時の押し出し処理
+    /// </summary>
+    /// <param name="next"></param>
+    Vector3 ArmRotateColision(Vector3 next)
+    {
+        int angle = (int)Vector2.Angle(transform.forward, next.normalized);
+        Vector3 start = transform.position;
+        Vector3 checkvector = transform.forward;
+        //左右のチェック
+        float LRCheck = Mathf.Sign(Vector2Cross(transform.forward, next));
+        //移動できるか１度ずつ調べてシュミレーションする
+        for (int i = 0; angle > i; i++)
+        {
+            Debug.DrawLine(start, start + (checkvector * (mArmCurrentLenght - 0.4f)), Color.green);
+            if (Physics.CheckCapsule(start, start + (checkvector * (mArmCurrentLenght - 1)), 0.2f, mIgnorelayer))
+            {
+                return next;
+            }
+            next = checkvector;
+            checkvector = Quaternion.AngleAxis(LRCheck, Vector3.forward) * checkvector.normalized;
+        }
+        return next;
+    }
+
+    float Vector2Cross(Vector3 v1, Vector3 v2)
+    {
+        return v1.x * v2.y - v2.x * v1.y;
     }
 }

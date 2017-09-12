@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class TEST_input : MonoBehaviour {
 
 	// Use this for initialization
@@ -20,10 +21,71 @@ public class TEST_input : MonoBehaviour {
         float len = defeated * 5;
 
         Debug.DrawRay(transform.localPosition, dir.normalized * len, Color.black);
-        transform.localPosition = Vector3.zero;
-        float angle = Vector3.Dot(Quaternion.AngleAxis(90, Vector3.forward) * transform.forward, dir.normalized);
-        if (dir != Vector3.zero) transform.GetComponent<Rigidbody>().angularVelocity = (Vector3.forward * (angle * 10));
+
+        int layerMask = ~(1 << 8);
+        Vector3 nextvector = dir.normalized;
+
+        //当たり判定１　入力先に障害物があった時の押し出し処理
+        RaycastHit hit;
+        if(Physics.CapsuleCast(transform.position, nextvector.normalized, 0.2f, nextvector.normalized,out hit,len - 1,layerMask))
+        {
+            //１度づつ回転して当たらなくなるまで回転してテスト
+            Vector3 rightsearch = nextvector;
+            Vector3 leftsearch = nextvector;
+            for (int i = 0; i < 180; i++)
+            {
+                rightsearch = Quaternion.AngleAxis(1, Vector3.forward) * rightsearch.normalized;
+                if (!Physics.CapsuleCast(transform.position, rightsearch.normalized, 0.2f, rightsearch.normalized, out hit, len - 1, layerMask))
+                {
+                    nextvector = rightsearch;
+                    break;
+                }
+
+                leftsearch = Quaternion.AngleAxis(1, Vector3.back) * leftsearch.normalized;
+                if (!Physics.CapsuleCast(transform.position, leftsearch.normalized, 0.2f, leftsearch.normalized, out hit, len - 1, layerMask))
+                {
+                    nextvector = leftsearch;
+                    break;
+                }
+            }
+        }
+
         transform.transform.localScale = new Vector3(1, 1, len);
 
+        //扇の当たり判定（関数化予定)
+        var hitcolider = Physics.OverlapSphere(transform.position, len, layerMask);
+        foreach (var colider in hitcolider)
+        {
+            if (sector_hit(colider, nextvector, len)) return;
+        }
+        if (!Input.GetKey(KeyCode.X)) transform.localRotation = Quaternion.LookRotation(nextvector.normalized);
+    }
+
+    //扇の当たり判定を行い無理な移動ルートに障害物が無いか検索
+    bool sector_hit(Collider colider,Vector3 next,float len)
+    {
+        if (Vector2Cross(transform.forward, next) < 0)
+        {
+            Vector3 closetpoint = colider.ClosestPointOnBounds(transform.forward * len);
+            float angle = Vector2Cross(transform.forward, closetpoint);
+            if (angle > 0) return false;
+            angle = Vector2Cross(next.normalized, closetpoint);
+            if (angle < 0) return false;
+            return true;
+        }
+        else
+        {
+            Vector3 closetpoint = colider.ClosestPointOnBounds(transform.forward * len);
+            float angle = Vector2Cross(transform.forward, closetpoint);
+            if (angle < 0) return false;
+            angle = Vector2Cross(next.normalized, closetpoint);
+            if (angle > 0) return false;
+        }
+        return true;
+    }
+
+    float Vector2Cross(Vector3 v1, Vector3 v2)
+    {
+        return v1.x * v2.y - v2.x * v1.y;
     }
 }
