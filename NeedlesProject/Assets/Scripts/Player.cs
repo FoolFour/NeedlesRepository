@@ -14,7 +14,7 @@ public class Player : MonoBehaviour {
     {
         mData = GetComponent<PlayerData>();
     }
-	
+
 	// Update is called once per frame
 	void Update ()
     {
@@ -26,15 +26,15 @@ public class Player : MonoBehaviour {
         }
 
         //左スティック
-        float x = Input.GetAxis("Horizontal");
-        float y = Input.GetAxis("Vertical");
+        float x = Input.GetAxis(GamePad.Horizontal);
+        float y = Input.GetAxis(GamePad.Vertical);
         Vector3 dir = new Vector3(x, y, 0);
         if (!mData.mLArm.IsHit()) mData.mLArm.ArmExtend(dir);
         else mData.mLArm.StickArmRotation(dir);
 
         //右
-        float x2 = Input.GetAxis("Horizontal2");
-        float y2 = Input.GetAxis("Vertical2");
+        float x2 = Input.GetAxis(GamePad.Horizontal2);
+        float y2 = Input.GetAxis(GamePad.Vertical2);
         Vector2 dir2 = new Vector3(x2, y2, 0);
         if (!mData.mRArm.IsHit()) mData.mRArm.ArmExtend(dir2);
         else mData.mRArm.StickArmRotation(dir2);
