@@ -117,11 +117,6 @@ public class NeedleArm : MonoBehaviour
 
         mCurrentHitObject.GetComponent<Rigidbody>().angularVelocity = (Vector3.forward * (angle * 100));
 
-        if (Physics.CheckCapsule(start, start + (checkvector * (mArmCurrentLenght - 0.4f)), 0.2f, mIgnorelayer))
-        {
-            mCurrentHitObject.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
-        }
-
         var hinge = mCurrentHitObject.GetComponent<HingeJoint>();
         hinge.autoConfigureConnectedAnchor = false;
         hinge.connectedAnchor = mFastAnchor.normalized * mArmCurrentLenght;
