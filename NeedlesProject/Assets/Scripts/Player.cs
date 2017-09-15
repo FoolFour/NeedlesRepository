@@ -39,5 +39,8 @@ public class Player : MonoBehaviour {
         if (!mData.mRArm.IsHit()) mData.mRArm.ArmExtend(dir2);
         else mData.mRArm.StickArmRotation(dir2);
 
+        Vector3 temp = transform.position;
+        temp.z = 0;
+        transform.position = temp; 
     }
 }

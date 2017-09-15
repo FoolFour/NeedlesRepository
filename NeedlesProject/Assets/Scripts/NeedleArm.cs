@@ -57,6 +57,8 @@ public class NeedleArm : MonoBehaviour
     /// </summary>
     public Transform mHand;
 
+    public float mCentrifugalforce;
+
     public void Start()
     {
         mArmDirection = transform.forward;
@@ -81,20 +83,16 @@ public class NeedleArm : MonoBehaviour
         Vector3 next = ArmRotateColision(mArmDirection);
 
         transform.localScale = new Vector3(1, 1, mArmCurrentLenght);
+        next = Vector3.Lerp(transform.forward, next, 0.5f);
         transform.rotation = Quaternion.LookRotation(next.normalized);
-        mHand.position = mPlayer.localPosition + (transform.forward * mArmCurrentLenght);
-
+        mHand.position = transform.position + (transform.forward * mArmCurrentLenght);
         //壁にハンド部分が刺さったかどうかの判定
         RaycastHit hit;
         if(Physics.Raycast(transform.position,next.normalized,out hit,mArmCurrentLenght+0.4f,mIgnorelayer))
         {
-            mCurrentHitObject = (GameObject)Instantiate(mHitObjectPrefab, hit.point, Quaternion.identity);
-
-            var hinge = mCurrentHitObject.GetComponent<HingeJoint>();
-            hinge.connectedBody = mPlayer.GetComponent<Rigidbody>();
-            mFastAnchor = hinge.connectedAnchor;
             mHitPoint = hit.point;
             mHitVector = stickdir;
+            mPlayer.GetComponent<Rigidbody>().isKinematic = true;
             ishit = true;
         }
     }
@@ -105,34 +103,48 @@ public class NeedleArm : MonoBehaviour
         float defeated = Mathf.Min(1.0f, (Mathf.Abs(stickdir.x) + Mathf.Abs(stickdir.y)));
         mArmCurrentLenght = defeated * mArmMaxLength;
 
-        Debug.DrawRay(mCurrentHitObject.transform.position, -mHitVector.normalized * mArmCurrentLenght, Color.yellow);
-        Debug.DrawRay(transform.position, stickdir.normalized * mArmCurrentLenght, Color.green);
-
-        Vector3 playervec = mCurrentHitObject.transform.position - gameObject.transform.position;
-        float angle = Vector3.Dot(Quaternion.AngleAxis(90, Vector3.forward) * mHitVector.normalized, stickdir.normalized);
-        mHitVector = playervec.normalized;
-
-        Vector3 start = transform.position;
-        Vector3 checkvector = transform.forward;
-
-        mCurrentHitObject.GetComponent<Rigidbody>().angularVelocity = (Vector3.forward * (angle * 100));
-
-        var hinge = mCurrentHitObject.GetComponent<HingeJoint>();
-        hinge.autoConfigureConnectedAnchor = false;
-        hinge.connectedAnchor = mFastAnchor.normalized * mArmCurrentLenght;
-
-        transform.localScale = new Vector3(1, 1, mArmCurrentLenght);
-        transform.rotation = Quaternion.LookRotation(mHitVector.normalized);
-        mHand.position = mPlayer.localPosition + (transform.forward * mArmCurrentLenght);
-
         if (defeated < 0.2f)
         {
-            hinge.breakForce = 0;
-            hinge.breakTorque = 0;
-            Destroy(mCurrentHitObject);
-            mCurrentHitObject = null;
+            mPlayer.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            mPlayer.GetComponent<Rigidbody>().isKinematic = false;
             ishit = false;
+            return;
         }
+
+        //Debug.DrawRay(mCurrentHitObject.transform.position, -mHitVector.normalized * mArmCurrentLenght, Color.yellow);
+        //Debug.DrawRay(mHitPoint, -stickdir.normalized * mArmCurrentLenght, Color.green);
+
+        Vector3 next = -stickdir.normalized;
+        int angle = (int)Vector2.Angle(-transform.forward, next.normalized);
+        Vector3 start = mHitPoint;
+        Vector3 checkvector = -transform.forward;
+        //左右のチェック
+        float LRCheck = -Mathf.Sign(Vector2Cross(transform.forward, next));
+        Debug.DrawLine(start + (checkvector.normalized * 0.5f), start + (checkvector * (mArmCurrentLenght - 0.4f)), Color.green);
+        //移動できるか１度ずつ調べてシュミレーションする
+        for (int i = 0; angle > i; i++)
+        {
+            if (Physics.CheckCapsule(start + (checkvector.normalized * 0.5f), start + (checkvector * (mArmCurrentLenght - 0.4f)), 0.2f, mIgnorelayer))
+            {
+                break;
+            }
+            next = checkvector;
+            checkvector = Quaternion.AngleAxis(LRCheck, Vector3.forward) * checkvector.normalized;
+        }
+        next = Vector3.Lerp(transform.forward, -next, 0.5f);
+
+        //腕を伸ばすことが出来るか検索
+        RaycastHit hit;
+        if (Physics.Raycast(mHitPoint, -next.normalized, out hit, mArmCurrentLenght, mIgnorelayer))
+        {
+            mArmCurrentLenght = Vector3.Distance(mHitPoint, hit.point);
+        }
+
+
+        mPlayer.localPosition = mHitPoint + (-next.normalized * mArmCurrentLenght);
+        transform.localScale = new Vector3(1, 1, mArmCurrentLenght);
+        transform.rotation = Quaternion.LookRotation(next.normalized);
+        mHand.position = transform.position + (transform.forward * mArmCurrentLenght);
     }
 
     /// <summary>
@@ -140,10 +152,10 @@ public class NeedleArm : MonoBehaviour
     /// </summary>
     public void StopPhysics()
     {
-        if (mCurrentHitObject == null) return;
-        var rb = mCurrentHitObject.GetComponent<Rigidbody>();
-        rb.angularVelocity = Vector3.zero;
-        rb.velocity = Vector3.zero;
+        //if (mCurrentHitObject == null) return;
+        //var rb = mCurrentHitObject.GetComponent<Rigidbody>();
+        //rb.angularVelocity = Vector3.zero;
+        //rb.velocity = Vector3.zero;
     }
 
     /// <summary>
