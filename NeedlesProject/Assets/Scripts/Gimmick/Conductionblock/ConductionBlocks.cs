@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ConductionBlocks : MonoBehaviour {
-
     //電導スイッチのブロックの処理
 
     //スイッチのon,off
@@ -24,13 +23,13 @@ public class ConductionBlocks : MonoBehaviour {
         }
 	}
 
-    void OnCollisionEnter(Collision collision)
+    void OnTriggerStay(Collider other)
     {
         blockSwitch = true;
     }
 
 
-    void OnCollisionExit(Collision collision)
+    void OnTriggerExit(Collider other)
     {
         blockSwitch = false;
     }
