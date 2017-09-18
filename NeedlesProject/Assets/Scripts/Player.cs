@@ -15,29 +15,44 @@ public class Player : MonoBehaviour {
         mData = GetComponent<PlayerData>();
     }
 
-	// Update is called once per frame
-	void Update ()
+    // Update is called once per frame
+    void Update()
     {
 
-        if (mData.mRArm.IsHit() && mData.mLArm.IsHit())
+        if (mData.mRArm.IsHit() || mData.mLArm.IsHit())
         {
-            mData.mRArm.StopPhysics();
-            mData.mLArm.StopPhysics();
+            mData.mrb.GetComponent<Rigidbody>().useGravity = false;
+        }
+        else
+        {
+            mData.mrb.GetComponent<Rigidbody>().useGravity = true;
         }
 
         //左スティック
         float x = Input.GetAxis(GamePad.Horizontal);
         float y = Input.GetAxis(GamePad.Vertical);
         Vector3 dir = new Vector3(x, y, 0);
-        if (!mData.mLArm.IsHit()) mData.mLArm.ArmExtend(dir);
-        else mData.mLArm.StickArmRotation(dir);
+        if (!mData.mLArm.IsHit())
+        {
+            mData.mLArm.ArmExtend(dir);
+        }
+        else
+        {
+            mData.mLArm.StickArmRotation(dir);
+        }
 
         //右
         float x2 = Input.GetAxis(GamePad.Horizontal2);
         float y2 = Input.GetAxis(GamePad.Vertical2);
         Vector2 dir2 = new Vector3(x2, y2, 0);
-        if (!mData.mRArm.IsHit()) mData.mRArm.ArmExtend(dir2);
-        else mData.mRArm.StickArmRotation(dir2);
+        if (!mData.mRArm.IsHit())
+        {
+            mData.mRArm.ArmExtend(dir2);
+        }
+        else
+        {
+            mData.mRArm.StickArmRotation(dir2);
+        }
 
         Vector3 temp = transform.position;
         temp.z = 0;
