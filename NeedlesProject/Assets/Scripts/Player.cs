@@ -16,7 +16,7 @@ public class Player : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
 
         if (mData.mRArm.IsHit() || mData.mLArm.IsHit())
