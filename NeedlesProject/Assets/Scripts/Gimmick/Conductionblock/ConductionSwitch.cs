@@ -48,8 +48,8 @@ public class ConductionSwitch : MonoBehaviour
             Doorstate = DoorState.MOVE;
             movePoint += movespeed * Time.deltaTime;
             //
-            DoorR.transform.position += new Vector3(movespeed, 0f, 0f) * Time.deltaTime;
-            DoorL.transform.position -= new Vector3(movespeed, 0f, 0f) * Time.deltaTime;
+            DoorR.transform.localPosition += new Vector3(movespeed, 0f, 0f) * Time.deltaTime;
+            DoorL.transform.localPosition -= new Vector3(movespeed, 0f, 0f) * Time.deltaTime;
 
             if (movePoint >= moveMax)
             {
@@ -65,8 +65,8 @@ public class ConductionSwitch : MonoBehaviour
                 movePoint -= movespeed * Time.deltaTime;
                 //扉が閉まるする
                 Doorstate = DoorState.MOVE;
-                DoorR.transform.position -= new Vector3(movespeed, 0f, 0f) * Time.deltaTime;
-                DoorL.transform.position += new Vector3(movespeed, 0f, 0f) * Time.deltaTime;
+                DoorR.transform.localPosition -= new Vector3(movespeed, 0f, 0f) * Time.deltaTime;
+                DoorL.transform.localPosition += new Vector3(movespeed, 0f, 0f) * Time.deltaTime;
             }
         }
 
