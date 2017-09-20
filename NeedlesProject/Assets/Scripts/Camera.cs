@@ -19,7 +19,6 @@ namespace GameCamera
         void Update()
         {
             transform.position = Player.position + (Player.up * 0.5f) + new Vector3(0, 3, -10);
-            Debug.Log(Player.GetComponent<SphereCollider>().center);
         }
     }
 }

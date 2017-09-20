@@ -45,7 +45,7 @@ public class NeedleArm : MonoBehaviour
     /// <summary>
     /// あたった場所を保存しておく
     /// </summary>
-    private Vector3 m_HitPoint;
+    private RaycastHit m_Hitinfo;
     /// <summary>
     /// 当たった場所の最初のアンカーポイント（Local）
     /// </summary>
@@ -66,6 +66,7 @@ public class NeedleArm : MonoBehaviour
     public void Start()
     {
         m_rb = GetComponent<Rigidbody>();
+        m_CurrentHitObject = (GameObject)Instantiate(m_HitObjectPrefab,Vector3.zero, Quaternion.identity);
     }
 
     /// <summary>
@@ -78,8 +79,9 @@ public class NeedleArm : MonoBehaviour
         float defeated = Mathf.Min(1.0f, (Mathf.Abs(stickdir.x) + Mathf.Abs(stickdir.y)));
         if (stickdir != Vector3.zero && m_ArmCurrentLenght == 0)
         {
-            float dir = Mathf.Sign(Vector2Cross(Vector3.up,stickdir.normalized));
-            float rotate = Vector3.Angle(Vector3.up, stickdir.normalized);
+            float dir = Mathf.Sign(Vector2Cross(transform.parent.up, stickdir.normalized));
+            Debug.Log(dir);
+            float rotate = Vector3.Angle(Vector3.up, stickdir);
             m_rb.rotation = Quaternion.AngleAxis(dir * rotate, Vector3.forward);
         }
         m_ArmCurrentLenght = defeated * m_ArmMaxLength;
@@ -87,21 +89,23 @@ public class NeedleArm : MonoBehaviour
         Debug.DrawRay(transform.position, stickdir.normalized * m_ArmCurrentLenght, mDebugColor);
         Debug.DrawRay(transform.position, m_Arm.up * m_ArmCurrentLenght, mDebugColor);
 
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position, m_Arm.up, out hit, m_ArmCurrentLenght + 0.4f, m_Ignorelayer))
+        if (Physics.Raycast(transform.position, m_Arm.up, out m_Hitinfo, m_ArmCurrentLenght + 1.0f, m_Ignorelayer))
         {
-            m_HitPoint = hit.point;
-            m_CurrentHitObject = (GameObject)Instantiate(m_HitObjectPrefab, m_HitPoint, Quaternion.identity);
-            var hinge = m_CurrentHitObject.GetComponent<HingeJoint>();
+            m_Hitinfo.point = m_Hitinfo.point + (m_Hitinfo.normal * 0.5f);
+            m_CurrentHitObject.transform.position = m_Hitinfo.point;
+            var hinge = m_CurrentHitObject.AddComponent<HingeJoint>();
             hinge.connectedBody = m_rb;
             m_FastAnchor = hinge.connectedAnchor;
             ishit = true;
+            return;
         }
+
         m_Arm.localScale = new Vector3(3f, m_ArmCurrentLenght, 1.5f);
-        float angle = Vector2Cross(transform.up, stickdir.normalized);
+        float angle = Vector2Cross(m_Arm.up, stickdir.normalized);
         m_rb.centerOfMass = transform.localPosition;
         m_rb.angularVelocity = Vector3.forward * 50 * angle;
         m_Hand.position = transform.position + (m_Arm.up * (m_ArmCurrentLenght));
+        m_Hand.up = m_Arm.up;
 
     }
 
@@ -119,20 +123,21 @@ public class NeedleArm : MonoBehaviour
             //float power = m_CurrentHitObject.GetComponent<Rigidbody>().angularVelocity.z;
             //Debug.Log(power);
             //m_Player.GetComponent<Rigidbody>().AddForce(dir * (power * 50 * m_ArmCurrentLenght),ForceMode.Impulse);
-            Destroy(m_CurrentHitObject);
+            Destroy(m_CurrentHitObject.GetComponent<HingeJoint>());
             ishit = false;
             return;
         }
 
         float powers = m_CurrentHitObject.GetComponent<Rigidbody>().angularVelocity.z;
-        Debug.Log(powers);
 
         hinge.autoConfigureConnectedAnchor = false;
         hinge.connectedAnchor = m_FastAnchor.normalized * m_ArmCurrentLenght;
 
-        float len = Vector3.Distance(m_HitPoint,transform.position); 
+        m_Hand.position = m_Hitinfo.point;
+        m_Hand.up = -m_Hitinfo.normal;
+        m_Arm.up = (m_Hand.position - m_Arm.position).normalized;
+        float len = Vector3.Distance(m_Hand.position, transform.position);
         m_Arm.localScale = new Vector3(3f, len, 1.5f);
-        m_Hand.position = m_HitPoint;
 
         float angle = Mathf.Sign(Vector2Cross(m_Arm.up, stickdir.normalized));
         m_CurrentHitObject.GetComponent<Rigidbody>().angularVelocity =Vector3.forward * ((m_TorquePower * angle) * m_ArmCurrentLenght);
