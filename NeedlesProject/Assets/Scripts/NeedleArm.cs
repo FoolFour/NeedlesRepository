@@ -78,17 +78,17 @@ public class NeedleArm : MonoBehaviour
         float defeated = Mathf.Min(1.0f, (Mathf.Abs(stickdir.x) + Mathf.Abs(stickdir.y)));
         if (stickdir != Vector3.zero && m_ArmCurrentLenght == 0)
         {
-            float dir = Mathf.Sign(Vector2Cross(Vector3.right, stickdir.normalized));
-            float rotate = Vector3.Angle(Vector3.right, stickdir.normalized);
-            m_rb.rotation = Quaternion.AngleAxis(dir * rotate,Vector3.forward);
+            float dir = Mathf.Sign(Vector2Cross(Vector3.up,stickdir.normalized));
+            float rotate = Vector3.Angle(Vector3.up, stickdir.normalized);
+            m_rb.rotation = Quaternion.AngleAxis(dir * rotate, Vector3.forward);
         }
         m_ArmCurrentLenght = defeated * m_ArmMaxLength;
 
         Debug.DrawRay(transform.position, stickdir.normalized * m_ArmCurrentLenght, mDebugColor);
-        Debug.DrawRay(transform.position, m_Arm.forward * m_ArmCurrentLenght, mDebugColor);
+        Debug.DrawRay(transform.position, m_Arm.up * m_ArmCurrentLenght, mDebugColor);
 
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, m_Arm.forward, out hit, m_ArmCurrentLenght + 0.4f, m_Ignorelayer))
+        if (Physics.Raycast(transform.position, m_Arm.up, out hit, m_ArmCurrentLenght + 0.4f, m_Ignorelayer))
         {
             m_HitPoint = hit.point;
             m_CurrentHitObject = (GameObject)Instantiate(m_HitObjectPrefab, m_HitPoint, Quaternion.identity);
@@ -97,12 +97,11 @@ public class NeedleArm : MonoBehaviour
             m_FastAnchor = hinge.connectedAnchor;
             ishit = true;
         }
-
-        m_Arm.localScale = new Vector3(1, 1, m_ArmCurrentLenght);
-        float angle = Vector2Cross(transform.right, stickdir.normalized);
+        m_Arm.localScale = new Vector3(3f, m_ArmCurrentLenght, 1.5f);
+        float angle = Vector2Cross(transform.up, stickdir.normalized);
         m_rb.centerOfMass = transform.localPosition;
         m_rb.angularVelocity = Vector3.forward * 50 * angle;
-        m_Hand.position = m_Arm.position + (m_Arm.forward.normalized * (m_Arm.localScale.z));
+        m_Hand.position = transform.position + (m_Arm.up * (m_ArmCurrentLenght));
 
     }
 
@@ -132,10 +131,10 @@ public class NeedleArm : MonoBehaviour
         hinge.connectedAnchor = m_FastAnchor.normalized * m_ArmCurrentLenght;
 
         float len = Vector3.Distance(m_HitPoint,transform.position); 
-        m_Arm.localScale = new Vector3(1, 1, len);
+        m_Arm.localScale = new Vector3(3f, len, 1.5f);
         m_Hand.position = m_HitPoint;
 
-        float angle = Mathf.Sign(Vector2Cross(m_Arm.forward, stickdir.normalized));
+        float angle = Mathf.Sign(Vector2Cross(m_Arm.up, stickdir.normalized));
         m_CurrentHitObject.GetComponent<Rigidbody>().angularVelocity =Vector3.forward * ((m_TorquePower * angle) * m_ArmCurrentLenght);
     }
 
