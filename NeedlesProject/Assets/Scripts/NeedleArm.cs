@@ -52,6 +52,10 @@ public class NeedleArm : MonoBehaviour
     private Vector3 m_FastAnchor = Vector3.zero;
     //---------------------------------------------------------------------------
 
+    //遠心力---------------------------------------------------------------------
+    private Vector3 m_PrevRotate;
+    //---------------------------------------------------------------------------
+
     //数値データ------------------------------------------------------------------
     [SerializeField, TooltipAttribute("腕の最大の長さ")]
     public float m_ArmMaxLength = 5;
@@ -79,18 +83,25 @@ public class NeedleArm : MonoBehaviour
         float defeated = Mathf.Min(1.0f, (Mathf.Abs(stickdir.x) + Mathf.Abs(stickdir.y)));
         if (stickdir != Vector3.zero && m_ArmCurrentLenght == 0)
         {
-            float dir = Mathf.Sign(Vector2Cross(transform.parent.up, stickdir.normalized));
-            Debug.Log(dir);
-            float rotate = Vector3.Angle(Vector3.up, stickdir);
+            float dir = Mathf.Sign(Vector2Cross(Vector3.up, stickdir.normalized));
+            float rotate = Vector3.Angle(Vector3.up, stickdir.normalized);
             m_rb.rotation = Quaternion.AngleAxis(dir * rotate, Vector3.forward);
+            m_ArmCurrentLenght = defeated * m_ArmMaxLength;
+            return;
+
         }
         m_ArmCurrentLenght = defeated * m_ArmMaxLength;
+
+        if (m_ArmCurrentLenght == 0){ m_Arm.GetComponent<CapsuleCollider>().enabled = false; }
+        else { m_Arm.GetComponent<CapsuleCollider>().enabled = true; }
 
         Debug.DrawRay(transform.position, stickdir.normalized * m_ArmCurrentLenght, mDebugColor);
         Debug.DrawRay(transform.position, m_Arm.up * m_ArmCurrentLenght, mDebugColor);
 
-        if (Physics.Raycast(transform.position, m_Arm.up, out m_Hitinfo, m_ArmCurrentLenght + 1.0f, m_Ignorelayer))
+        if (Physics.Raycast(transform.position, m_Arm.up, out m_Hitinfo, m_ArmCurrentLenght + 1.0f, m_Ignorelayer) && m_ArmCurrentLenght != 0)
         {
+            m_PrevRotate = m_Arm.up;
+
             m_Hitinfo.point = m_Hitinfo.point + (m_Hitinfo.normal * 0.5f);
             m_CurrentHitObject.transform.position = m_Hitinfo.point;
             var hinge = m_CurrentHitObject.AddComponent<HingeJoint>();
@@ -118,12 +129,12 @@ public class NeedleArm : MonoBehaviour
 
         if (defeated < 0.4f)
         {
-            m_Player.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            m_Arm.localRotation = Quaternion.identity;
             //Vector3 dir = Vector3.Cross(m_Arm.forward,Vector3.forward);
             //float power = m_CurrentHitObject.GetComponent<Rigidbody>().angularVelocity.z;
             //Debug.Log(power);
             //m_Player.GetComponent<Rigidbody>().AddForce(dir * (power * 50 * m_ArmCurrentLenght),ForceMode.Impulse);
-            Destroy(m_CurrentHitObject.GetComponent<HingeJoint>());
+            m_CurrentHitObject.GetComponent<HingeJoint>().breakTorque = 0;
             ishit = false;
             return;
         }
