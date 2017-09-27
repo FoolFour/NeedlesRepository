@@ -9,6 +9,7 @@ public class NeedleArm : MonoBehaviour
 {
     //デバッグ用変数　後で消す
     public Color mDebugColor;
+    public Transform debugobj;
     //-------------------------
 
     //プレイヤーのトランスフォーム類----------------------------------------------
@@ -54,6 +55,7 @@ public class NeedleArm : MonoBehaviour
 
     //遠心力---------------------------------------------------------------------
     private Vector3 m_PrevRotate;
+    public float m_Centrifugalforce = 10;
     //---------------------------------------------------------------------------
 
     //数値データ------------------------------------------------------------------
@@ -98,16 +100,28 @@ public class NeedleArm : MonoBehaviour
         Debug.DrawRay(transform.position, stickdir.normalized * m_ArmCurrentLenght, mDebugColor);
         Debug.DrawRay(transform.position, m_Arm.up * m_ArmCurrentLenght, mDebugColor);
 
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            GetComponent<Rigidbody>().velocity = Vector3.zero;
+            m_Player.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        }
+
         if (Physics.Raycast(transform.position, m_Arm.up, out m_Hitinfo, m_ArmCurrentLenght + 1.0f, m_Ignorelayer) && m_ArmCurrentLenght != 0)
         {
-            m_PrevRotate = m_Arm.up;
+            m_Player.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            GetComponent<Rigidbody>().velocity = Vector3.zero;
+
+            m_Player.GetComponent<Rigidbody>().useGravity = false;
 
             m_Hitinfo.point = m_Hitinfo.point + (m_Hitinfo.normal * 0.5f);
             m_CurrentHitObject.transform.position = m_Hitinfo.point;
+
             var hinge = m_CurrentHitObject.AddComponent<HingeJoint>();
             hinge.connectedBody = m_rb;
             m_FastAnchor = hinge.connectedAnchor;
+
             ishit = true;
+            m_PrevRotate = m_Arm.up;
             return;
         }
 
@@ -129,20 +143,24 @@ public class NeedleArm : MonoBehaviour
 
         if (defeated < 0.4f)
         {
-            m_Arm.localRotation = Quaternion.identity;
-            //Vector3 dir = Vector3.Cross(m_Arm.forward,Vector3.forward);
-            //float power = m_CurrentHitObject.GetComponent<Rigidbody>().angularVelocity.z;
-            //Debug.Log(power);
-            //m_Player.GetComponent<Rigidbody>().AddForce(dir * (power * 50 * m_ArmCurrentLenght),ForceMode.Impulse);
-            m_CurrentHitObject.GetComponent<HingeJoint>().breakTorque = 0;
+
+            Vector3 dir = Vector3.Cross(m_Arm.up, Vector3.forward);
+            float lr = Mathf.Sign(m_CurrentHitObject.GetComponent<Rigidbody>().angularVelocity.z);
+            float angleVelocity = Vector3.Angle(m_Arm.up, m_PrevRotate);
+            float power = Mathf.Min(angleVelocity * m_ArmCurrentLenght * m_Centrifugalforce, 300);
+            m_CurrentHitObject.GetComponent<StickPoint>().m_Centrifugalforce = dir.normalized * (lr * power);
+            m_Player.GetComponent<Rigidbody>().isKinematic = true;
+            hinge.breakTorque = 0;
             ishit = false;
+            m_Arm.localRotation = Quaternion.identity;
             return;
         }
 
-        float powers = m_CurrentHitObject.GetComponent<Rigidbody>().angularVelocity.z;
+        m_PrevRotate = m_Arm.up;
 
         hinge.autoConfigureConnectedAnchor = false;
         hinge.connectedAnchor = m_FastAnchor.normalized * m_ArmCurrentLenght;
+        debugobj.position = m_Hitinfo.point + -hinge.connectedAnchor;
 
         m_Hand.position = m_Hitinfo.point;
         m_Hand.up = -m_Hitinfo.normal;
