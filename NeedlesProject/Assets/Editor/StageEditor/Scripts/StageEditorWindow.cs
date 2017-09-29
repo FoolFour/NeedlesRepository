@@ -1,8 +1,6 @@
 ﻿using UnityEngine;
 using UnityEditor;
 using UnityEditor.SceneManagement;
-using UnityEditor.VersionControl;
-using System.Collections;
 using System.Collections.Generic;
 
 using IO = System.IO;
@@ -13,61 +11,55 @@ public class StageEditorWindow : EditorWindow
     // 変数
     //----- ----- -----
 
-    //ステージ名
     private string stageName;
     public  string StageName      { get { return stageName;        } }
 
-    //ステージの保存ファイル
     private string saveDirectory;
     public  string SaveDirectory  { get { return saveDirectory;    } }
 
-    //ステージサイズ
+
     private Vector2 stageSize;
     public  Vector2 StageSize     { get { return stageSize;        } }
 
-    //奥行きに配置するブロックの数
     private int zAxisPutBlockNum = 1;
     public  int ZAxisPutBlockNum  { get { return zAxisPutBlockNum; } }
 
-    //選択しているブロックデータ
     private BlockData selectedBlock;
 
     private bool isInitialized = false;
 
-    //ツールの状態
+    ///<summary> ツールの状態 </summary>
     public enum ToolState
     {
         Moving,
         Erase
     }
     private ToolState toolState;
-    public ToolState State { get { return toolState; } }
+    public  ToolState State { get { return toolState; } }
 
-
-    //画像ディレクトリ
     private const string imageDirectory = @"Assets\Editor\StageEditor\Images";
-
     private const string blockDefineDir = @"Assets\Editor\StageEditor\StageBlockData";
 
-    private string stageDirectory;
+    //ステージの情報を保存するディレクトリ
+    private       string stageDirectory;
 
-    class BlockData
+    ///<summary> ブロックのデータ </summary>
+    public class BlockData
     {
-        public string blockName;
-        public string imageFile;
-        public int priority;
+        public string     blockName;
+        public string     imageFile;
+        public int        priority;
         public GameObject blockPrefab;
     }
     List<BlockData> blockData = new List<BlockData>();
 
+    ///<summary>マップエディタ</summary>
     private StageEditorSubWindow subWindow = null;
 
+    ///<summary>選択中の画像ファイル</summary>
     public string SelectedImage
     {
-        get
-        {
-            return selectedBlock.imageFile;
-        }
+        get { return selectedBlock.imageFile; }
     }
 
     //----- ----- -----
@@ -83,25 +75,20 @@ public class StageEditorWindow : EditorWindow
 
     public void Initialize()
     {
-        //stageDirectory = Application.temporaryCachePath + @"\StageEditor";
-
-        ////ロード
-        //bool exists = IO.Directory.Exists(stageDirectory);
-        //if (!exists)
-        //{
-        //    IO.Directory.CreateDirectory(stageDirectory);
-        //}
+        stageDirectory = Application.temporaryCachePath + @"\StageEditor";
+        var info = Format.RichText.Info("Info - ファイルの場所");
+        Debug.Log(info + ":" + stageDirectory);
 
         //string stageBinaryFile = stageDirectory + @"\Stage.stbf";
-        //exists = IO.File.Exists(stageBinaryFile);
+        //bool exists = IO.File.Exists(stageBinaryFile);
         //if (exists)
         //{
         //    var fs = new IO.FileStream(stageBinaryFile, IO.FileMode.Open);
         //    var br = new IO.BinaryReader(fs);
 
-        //    stageName        = br.ReadString();
-        //    stageSize.x      = br.ReadInt32();
-        //    stageSize.y      = br.ReadInt32();
+        //    stageName = br.ReadString();
+        //    stageSize.x = br.ReadInt32();
+        //    stageSize.y = br.ReadInt32();
         //    zAxisPutBlockNum = br.ReadInt32();
 
         //    br.Close();
@@ -158,9 +145,10 @@ public class StageEditorWindow : EditorWindow
 
         GUIStyle style = new GUIStyle();
         style.richText = true;
-        GUILayout.Label("<size=20><b>ス テ ー ジ エ デ ィ タ Ver0.90</b></size>", style);
+        GUILayout.Label("<size=20><b>ス テ ー ジ エ デ ィ タ Ver0.91</b></size>", style);
         GUILayout.Label("更新履歴");
-        GUILayout.Label("とりあえず公開");
+        GUILayout.Label("0.91 - スクロールができるように");
+        GUILayout.Label("0.90 - とりあえず公開");
     }
 
     void DrawStageParametor()
@@ -168,7 +156,6 @@ public class StageEditorWindow : EditorWindow
         int labelWidth = 160;
 
         EditorGUILayout.Space();
-
 
         //ステージ名入力
         EditorGUILayout.BeginHorizontal();
@@ -349,10 +336,10 @@ public class StageEditorWindow : EditorWindow
         //bw.Close();
         //fs.Close();
 
-        if (subWindow != null)
-        {
-            subWindow.Close();
-        }
+        //if (subWindow != null)
+        //{
+        //    subWindow.Close();
+        //}
     }
 
     private Texture2D LoadTexture(string name)
@@ -360,15 +347,26 @@ public class StageEditorWindow : EditorWindow
         return (Texture2D)AssetDatabase.LoadAssetAtPath(name, typeof(Texture2D));
     }
 
-    public GameObject FindBlockObject(string filename)
+    public BlockData FindBlockObject(string filename)
     {
         foreach (var block in blockData)
         {
             if (block.imageFile != filename) { continue; }
-            return block.blockPrefab;
+            return block;
         }
 
-        throw null;
+        return null;
+    }
+
+    public BlockData FindBlockObject(int priority)
+    {
+        foreach (var block in blockData)
+        {
+            if (block.priority != priority) { continue; }
+            return block;
+        }
+
+        return null;
     }
 }
 
@@ -376,17 +374,20 @@ class StageEditorSubWindow : EditorWindow
 {
     public StageEditorWindow parent;
 
-    private Vector3 offset = new Vector3();
+    private Vector2 offset = new Vector2();
 
     private List<List<string>> mapData = new List<List<string>>();
 
     private Rect rect = new Rect();
 
+    private Vector2 editorOffset = new Vector2(32, 64);
+
     private void OnFocus()
     {
         if (parent == null)
         {
-            Debug.Log("<color=lightblue>Info:</color> parent is null");
+            var text = Format.RichText.Info("Info");
+            Debug.Log(text + ": parent is null");
             return;
         }
 
@@ -420,70 +421,151 @@ class StageEditorSubWindow : EditorWindow
 
     private void Init()
     {
-        Debug.Log("初期化開始");
+        //Debug.Log("ステージエディタウィンドウの初期化開始");
+        //Debug.Log("ファイルの読み込み開始");
 
-        for (int x = 0; x < (int)parent.StageSize.x; x++)
-        {
-            List<string> list = new List<string>();
-            for (int y = 0; y < (int)parent.StageSize.y; y++)
-            {
-                list.Add("");
-            }
-            mapData.Add(list);
-        }
-        Debug.Log("初期化終了");
+        //var path = Application.temporaryCachePath + @"\StageEditor\Block.stbd";
+        //if (IO.File.Exists(path))
+        //{
+        //    Load(path);
+        //}
+        //else
+        //{
+        //    var str = Format.RichText.Failed("読みこみ失敗");
+        //    Debug.Log(str + ": ファイルが見つかりませんでした");
+        //    for (int x = 0; x < (int)parent.StageSize.x; x++)
+        //    {
+        //        List<string> list = new List<string>();
+        //        for (int y = 0; y < (int)parent.StageSize.y; y++)
+        //        {
+        //            list.Add("");
+        //        }
+        //        mapData.Add(list);
+        //    }
+        //}
+
+        //Debug.Log("ファイルの読み込み終了");
+        //Debug.Log("ステージエディタウィンドウの初期化終了");
+    }
+
+    private void Load(string path)
+    {
+        //var fs = new IO.FileStream(path, IO.FileMode.Open);
+        //var br = new IO.BinaryReader(fs);
+
+        //int size_x = br.ReadInt32();
+        //int size_y = br.ReadInt32();
+
+        //for (int x = 0; x < size_x; x++)
+        //{
+        //    List<string> list = new List<string>();
+        //    for (int y = 0; y < size_y; y++)
+        //    {
+        //        int a = br.ReadInt32();
+        //        if (a == -1)
+        //        {
+        //            list.Add("");
+        //            continue;
+        //        }
+
+        //        var data = parent.FindBlockObject(a);
+        //        list.Add(data.imageFile);
+        //    }
+        //    mapData.Add(list);
+        //}
+
+        //br.Close();
+        //fs.Close();
+    }
+
+    private void OnDestroy()
+    {
+        //var path = Application.temporaryCachePath + @"\StageEditor\Block.stbd";
+        //var fs = new IO.FileStream(path, IO.FileMode.Create);
+        //var bw = new IO.BinaryWriter(fs);
+
+        //bw.Write((int)parent.StageSize.x);
+        //bw.Write((int)parent.StageSize.y);
+
+        //int x_size = (int)Mathf.Min(parent.StageSize.x, mapData   .Count);
+        //int y_size = (int)Mathf.Min(parent.StageSize.y, mapData[0].Count);
+
+        //for (int x = 0; x < x_size; x++)
+        //{
+        //    for (int y = 0; y < y_size; y++)
+        //    {
+        //        var d = parent.FindBlockObject(mapData[x][y]);
+
+        //        if (d == null)
+        //        {
+        //            bw.Write(-1);
+        //        }
+        //        else
+        //        {
+        //            bw.Write(d.priority);
+        //        }
+        //    }
+        //}
+
+        //bw.Close();
+        //fs.Close();
     }
 
     private void OnGUI()
     {
         MouseDetect();
 
-        for (int x = 0; x < mapData.Count; x++)
+        if (GUILayout.Button("シーンに反映"))
         {
-            for (int y = 0; y < mapData[0].Count; y++)
-            {
-                if (mapData[x][y] == "") { continue; }
-                Debug.Log(x + " : " + y);
-                var tex = (Texture2D)AssetDatabase.LoadAssetAtPath(mapData[x][y], typeof(Texture2D));
+            Generate();
+        }
 
-                rect.x      = x * 32;
-                rect.y      = y * 32+32;
+        //offset = EditorGUILayout.BeginScrollView(offset, false, false);
+        offset.x = (int)GUILayout.HorizontalSlider((int)offset.x, 0, parent.StageSize.x);
+        offset.y = (int)GUILayout.VerticalSlider  ((int)offset.y, 0, parent.StageSize.y);
+
+        for (int x = (int)offset.x; x < mapData.Count; x++)
+        {
+            for (int y = (int)offset.y; y < mapData[0].Count; y++)
+            {
+                if (x >= parent.StageSize.x) { continue; }
+                if (y >= parent.StageSize.y) { continue; }
+
+                rect.x = (x - (int)offset.x) * 32 + editorOffset.x;
+                rect.y = (y - (int)offset.y) * 32 + editorOffset.y;
                 rect.width  = 32;
                 rect.height = 32;
 
-                GUI.DrawTexture(rect, tex);
+                if (mapData[x][y] != "")
+                {
+                    var tex = (Texture2D)AssetDatabase.LoadAssetAtPath(mapData[x][y], typeof(Texture2D));
+                    GUI.DrawTexture(rect, tex);
+                }
             }
         }
 
         Vector3 p1 = new Vector3();
         Vector3 p2 = new Vector3();
         Handles.color = Color.white;
-        p1.y = 32;
-        p2.y = parent.StageSize.y*32+32;
-        for (int x = 1; x < parent.StageSize.x; x++)
+        p1.y = editorOffset.y;
+        p2.y = parent.StageSize.y*32+32 - offset.y * 32;
+        for (int x = (int)offset.x+1; x < parent.StageSize.x; x++)
         {
-            p1.x = x * 32;
-            p2.x = x * 32;
+            p1.x = x * 32+ editorOffset.x - offset.x*32;
+            p2.x = x * 32+ editorOffset.x - offset.x*32;
             Handles.DrawLine(p1, p2);
         }
 
-        p1.x = 0;
-        p2.x = parent.StageSize.x*32;
-        for (int y = 1; y < parent.StageSize.y; y++)
+        p1.x = editorOffset.x;
+        p2.x = parent.StageSize.x*32+32 - offset.x * 32;
+        for (int y = (int)offset.y+1; y < parent.StageSize.y; y++)
         {
-            p1.y = y * 32+32;
-            p2.y = y * 32+32;
+            p1.y = y * 32+ editorOffset.y - offset.y*32;
+            p2.y = y * 32+ editorOffset.y - offset.y*32;
             Handles.DrawLine(p1, p2);
         }
 
         DrawFrame();
-
-        EditorGUILayout.Space();
-
-        if (GUILayout.Button("シーンに反映"))
-        {
-            Generate();
-        }
     }
 
     private void MouseDetect()
@@ -507,7 +589,9 @@ class StageEditorSubWindow : EditorWindow
     {
         Vector2 mousePos = e.mousePosition;
 
-        if (mousePos.x < 0 || mousePos.y < 32) { return; }
+        if (mousePos.x < editorOffset.x || mousePos.y < editorOffset.y) { return; }
+
+        mousePos += offset*32;
 
         //補正
         mousePos /= 32.0f;
@@ -515,11 +599,11 @@ class StageEditorSubWindow : EditorWindow
         int y = (int)Mathf.Floor(mousePos.y);
 
         if (mapData.Count != 0 &&
-            x   < mapData.Count &&
-            y-1 < mapData[0].Count)
+            x-(int)editorOffset.x/32 - offset.x < mapData.Count &&
+            y-(int)editorOffset.y/32 - offset.y < mapData[0].Count)
         {
             //マップに配置
-            mapData[x][y-1] = parent.SelectedImage;
+            mapData[x-(int)editorOffset.x/32][y- (int)editorOffset.y / 32] = parent.SelectedImage;
             Repaint();
         }
     }
@@ -528,7 +612,9 @@ class StageEditorSubWindow : EditorWindow
     {
         Vector2 mousePos = e.mousePosition;
 
-        if (mousePos.x < 0 || mousePos.y < 32) { return; }
+        if (mousePos.x < editorOffset.x || mousePos.y < editorOffset.y) { return; }
+
+        mousePos += offset*32;
 
         //補正
         mousePos /= 32.0f;
@@ -536,7 +622,7 @@ class StageEditorSubWindow : EditorWindow
         int y = (int)Mathf.Floor(mousePos.y);
 
         if (mapData.Count != 0 &&
-            x   < mapData.Count &&
+            x-1 < mapData.Count &&
             y-1 < mapData[0].Count)
         {
             //マップから消す
@@ -547,16 +633,21 @@ class StageEditorSubWindow : EditorWindow
 
     private void DrawFrame()
     {
-        Vector2 top_right = parent.StageSize * 32;
-        top_right.y = 32;
+        //線を描くのに必要な点の定義
 
-        Vector2 bottom_left = parent.StageSize * 32;
-        bottom_left.x = 0;
-        bottom_left.y += 32;
+        Vector2 top_right = parent.StageSize * 32 - offset * 32;
+        top_right.x += 32;
+        top_right.y = editorOffset.y;
 
-        Vector2 bottom_right = parent.StageSize * 32;
-        bottom_right.y += 32;
+        Vector2 bottom_left = parent.StageSize * 32 - offset * 32;
+        bottom_left.x  = editorOffset.x;
+        bottom_left.y  += editorOffset.y;
 
+        Vector2 bottom_right = parent.StageSize * 32 - offset * 32;
+        bottom_right.x += 32;
+        bottom_right.y += editorOffset.y;
+
+        //枠を描く(内側から黒・白・黒と描く)
         Handles.color = Color.black;
         Handles.DrawLine(top_right, bottom_right);
         Handles.DrawLine(bottom_left, bottom_right);
@@ -591,9 +682,11 @@ class StageEditorSubWindow : EditorWindow
         float stageSize_x = parent.StageSize.x;
         float stageSize_y = parent.StageSize.y;
 
+        //シーンを作成
         var saveScene =
             EditorSceneManager.NewScene(NewSceneSetup.DefaultGameObjects, NewSceneMode.Single);
 
+        //ブロックのオブジェクトで溢れないように
         Transform blockParent = new GameObject().transform;
 
         for (int x = 0; x < stageSize_x; x++)
@@ -604,8 +697,9 @@ class StageEditorSubWindow : EditorWindow
 
                 int createNum = parent.ZAxisPutBlockNum;
 
-                var obj = parent.FindBlockObject(mapData[x][y]);
+                var obj = parent.FindBlockObject(mapData[x][y]).blockPrefab;
 
+                //プレイヤーやゴールのオブジェクトが沢山生成してしまうため
                 if (obj.name == "Start" ||
                     obj.name == "Goal")
                 {
