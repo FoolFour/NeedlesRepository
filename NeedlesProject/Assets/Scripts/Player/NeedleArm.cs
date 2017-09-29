@@ -62,7 +62,9 @@ public class NeedleArm : MonoBehaviour
     [SerializeField, TooltipAttribute("腕の最大の長さ")]
     public float m_ArmMaxLength = 5;
     [SerializeField, TooltipAttribute("トルクの回転力")]
-    public float m_TorquePower = 300;
+    public float m_TorquePower = 30;
+    [SerializeField, TooltipAttribute("トルクの最大回転力")]
+    public float m_TorqueMaxPower = 30;
     //----------------------------------------------------------------------------
 
     float m_ArmCurrentLenght;
@@ -100,13 +102,8 @@ public class NeedleArm : MonoBehaviour
         Debug.DrawRay(transform.position, stickdir.normalized * m_ArmCurrentLenght, mDebugColor);
         Debug.DrawRay(transform.position, m_Arm.up * m_ArmCurrentLenght, mDebugColor);
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            GetComponent<Rigidbody>().velocity = Vector3.zero;
-            m_Player.GetComponent<Rigidbody>().velocity = Vector3.zero;
-        }
 
-        if (Physics.Raycast(transform.position, m_Arm.up, out m_Hitinfo, m_ArmCurrentLenght + 1.0f, m_Ignorelayer) && m_ArmCurrentLenght != 0)
+        if (Physics.Raycast(transform.position, m_Arm.up, out m_Hitinfo, m_ArmCurrentLenght + 1.0f, m_Ignorelayer) && m_ArmCurrentLenght != 0 && defeated > 0.4f)
         {
             m_Player.GetComponent<Rigidbody>().velocity = Vector3.zero;
             GetComponent<Rigidbody>().velocity = Vector3.zero;
@@ -118,7 +115,8 @@ public class NeedleArm : MonoBehaviour
 
             var hinge = m_CurrentHitObject.AddComponent<HingeJoint>();
             hinge.connectedBody = m_rb;
-            m_FastAnchor = hinge.connectedAnchor;
+            hinge.autoConfigureConnectedAnchor = false;
+            hinge.connectedAnchor = Vector3.up * m_ArmCurrentLenght;
 
             ishit = true;
             m_PrevRotate = m_Arm.up;
@@ -145,10 +143,9 @@ public class NeedleArm : MonoBehaviour
         {
 
             Vector3 dir = Vector3.Cross(m_Arm.up, Vector3.forward);
-            float lr = Mathf.Sign(m_CurrentHitObject.GetComponent<Rigidbody>().angularVelocity.z);
-            float angleVelocity = Vector3.Angle(m_Arm.up, m_PrevRotate);
-            float power = Mathf.Min(angleVelocity * m_ArmCurrentLenght * m_Centrifugalforce, 300);
-            m_CurrentHitObject.GetComponent<StickPoint>().m_Centrifugalforce = dir.normalized * (lr * power);
+            float power = m_CurrentHitObject.GetComponent<Rigidbody>().angularVelocity.z * m_ArmCurrentLenght * m_Centrifugalforce;
+            m_CurrentHitObject.GetComponent<StickPoint>().m_Centrifugalforce = dir.normalized * power;
+            Debug.Log(m_CurrentHitObject.GetComponent<Rigidbody>().angularVelocity.z);
             m_Player.GetComponent<Rigidbody>().isKinematic = true;
             hinge.breakTorque = 0;
             ishit = false;
@@ -158,18 +155,21 @@ public class NeedleArm : MonoBehaviour
 
         m_PrevRotate = m_Arm.up;
 
-        hinge.autoConfigureConnectedAnchor = false;
-        hinge.connectedAnchor = m_FastAnchor.normalized * m_ArmCurrentLenght;
-        debugobj.position = m_Hitinfo.point + -hinge.connectedAnchor;
+        //hinge.connectedAnchor = -transform.InverseTransformPoint(m_CurrentHitObject.transform.position).normalized * m_ArmCurrentLenght;
 
         m_Hand.position = m_Hitinfo.point;
         m_Hand.up = -m_Hitinfo.normal;
-        m_Arm.up = (m_Hand.position - m_Arm.position).normalized;
+        m_Arm.rotation = Quaternion.LookRotation(Vector3.forward,(m_Hand.position - m_Arm.position).normalized);
         float len = Vector3.Distance(m_Hand.position, transform.position);
         m_Arm.localScale = new Vector3(3f, len, 1.5f);
 
         float angle = Mathf.Sign(Vector2Cross(m_Arm.up, stickdir.normalized));
-        m_CurrentHitObject.GetComponent<Rigidbody>().angularVelocity =Vector3.forward * ((m_TorquePower * angle) * m_ArmCurrentLenght);
+        float check = Vector3.Angle(m_Arm.up, stickdir.normalized);
+        m_CurrentHitObject.GetComponent<Rigidbody>().maxAngularVelocity = m_TorqueMaxPower;
+        m_CurrentHitObject.GetComponent<Rigidbody>().angularVelocity = Vector3.forward * ((m_TorquePower * angle) * m_ArmCurrentLenght);
+        if (check < 10){ m_CurrentHitObject.GetComponent<Rigidbody>().angularVelocity = Vector3.zero; }
+
+        hinge.connectedAnchor = Vector3.up * m_ArmCurrentLenght;
     }
 
     /// <summary>

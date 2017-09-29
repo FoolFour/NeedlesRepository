@@ -23,7 +23,12 @@ public class StickPoint : MonoBehaviour
         m_Arm.velocity = Vector3.zero;
         m_Player.velocity = Vector3.zero;
         m_Player.isKinematic = false;
-        StartCoroutine(DelayMethod(() => { m_Player.AddForce(m_Centrifugalforce, ForceMode.Impulse); }));
+        StartCoroutine(DelayMethod(() => 
+        {
+            m_Player.AddForce(m_Centrifugalforce, ForceMode.Impulse);
+            m_Centrifugalforce = Vector3.zero;
+            GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+        }));
     }
 
     private IEnumerator DelayMethod(System.Action action)
