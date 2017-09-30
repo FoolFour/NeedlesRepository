@@ -509,6 +509,7 @@ class StageEditorSubWindow : EditorWindow
 
         //bw.Close();
         //fs.Close();
+        //
     }
 
     private void OnGUI()
