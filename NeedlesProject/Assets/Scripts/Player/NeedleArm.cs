@@ -9,7 +9,6 @@ public class NeedleArm : MonoBehaviour
 {
     //デバッグ用変数　後で消す
     public Color mDebugColor;
-    public Transform debugobj;
     //-------------------------
 
     //プレイヤーのトランスフォーム類----------------------------------------------
