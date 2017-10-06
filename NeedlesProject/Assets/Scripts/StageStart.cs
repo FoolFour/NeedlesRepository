@@ -4,13 +4,13 @@ using System.Collections.Generic;
 
 public class StageStart : MonoBehaviour
 {
-    public  float              initNearValue;
-    public  float              speed;
-    private UnityEngine.Camera cam;
+    public  float  initNearValue;
+    public  float  speed;
+    private Camera cam;
 
     private void Awake()
     {
-        cam = GetComponent<UnityEngine.Camera>();
+        cam = GetComponent<Camera>();
     }
 
     private void Start()
