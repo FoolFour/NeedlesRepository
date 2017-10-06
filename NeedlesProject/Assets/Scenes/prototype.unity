@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44658017, g: 0.49641502, b: 0.57482153, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -439,7 +439,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &578484597
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -640,6 +640,41 @@ Prefab:
     - target: {fileID: 4354317328767986, guid: 3b9bac58a7c4e8b4d8a417ee917ae658, type: 2}
       propertyPath: m_RootOrder
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 23706499701951688, guid: 3b9bac58a7c4e8b4d8a417ee917ae658,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 23452123631873880, guid: 3b9bac58a7c4e8b4d8a417ee917ae658,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 23012183266580666, guid: 3b9bac58a7c4e8b4d8a417ee917ae658,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 23619059961035324, guid: 3b9bac58a7c4e8b4d8a417ee917ae658,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 23933374680853812, guid: 3b9bac58a7c4e8b4d8a417ee917ae658,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 23435555148755396, guid: 3b9bac58a7c4e8b4d8a417ee917ae658,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 23893916684702380, guid: 3b9bac58a7c4e8b4d8a417ee917ae658,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3b9bac58a7c4e8b4d8a417ee917ae658, type: 2}

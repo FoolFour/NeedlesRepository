@@ -164,9 +164,21 @@ public class NeedleArm : MonoBehaviour
 
         //腕の回転処理
         float angle = Mathf.Sign(Vector2Cross(m_Arm.up, stickdir.normalized));
-        float check = Vector3.Angle(m_Arm.up, stickdir.normalized);
         m_CurrentHitObject.GetComponent<Rigidbody>().maxAngularVelocity = m_TorqueMaxPower;
-        m_CurrentHitObject.GetComponent<Rigidbody>().AddTorque(transform.forward * ((m_TorquePower * angle) * m_ArmCurrentLenght), ForceMode.Force);
+
+        Vector3 startpoint = m_Arm.position + (m_Arm.right * angle * 0.5f);
+        Vector3 endpoint = startpoint + m_Arm.up * len;
+        Debug.DrawLine(startpoint, endpoint, Color.green);
+
+        if (Physics.Linecast(startpoint,endpoint,m_Ignorelayer))
+        {
+            Debug.Log("当たった");
+            m_CurrentHitObject.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+        }
+        else
+        {
+            m_CurrentHitObject.GetComponent<Rigidbody>().AddTorque(transform.forward * ((m_TorquePower * angle) * m_ArmCurrentLenght), ForceMode.Force);
+        }
         //m_CurrentHitObject.GetComponent<Rigidbody>().angularVelocity = Vector3.forward * ((m_TorquePower * angle) * m_ArmCurrentLenght);
         //if (check < 10){ m_CurrentHitObject.GetComponent<Rigidbody>().angularVelocity = Vector3.zero; }
 
