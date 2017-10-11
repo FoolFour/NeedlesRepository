@@ -66,6 +66,12 @@ public class NeedleArm : MonoBehaviour
     public float m_TorqueMaxPower = 30;
     //----------------------------------------------------------------------------
 
+    //ゲーム的データ--------------------------------------------------------------
+    public float m_MaxGripPower = 100;
+    private float m_GripPower = 0;
+    public float m_GripLowerPower = 0.1f;
+    //----------------------------------------------------------------------------
+
     float m_ArmCurrentLenght;
     int m_Ignorelayer = ~(1 << 8);
 
@@ -203,6 +209,11 @@ public class NeedleArm : MonoBehaviour
     public bool IsHit()
     {
         return ishit;
+    }
+
+    public float CurrentGripPower()
+    {
+        return m_GripPower;
     }
 
     float Vector2Cross(Vector3 v1, Vector3 v2)
