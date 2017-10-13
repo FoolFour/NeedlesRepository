@@ -93,17 +93,14 @@ public class PathDrawer : MonoBehaviour
         Debug.Log("パスの数 : " + path.Length);
 
         int positionCount = 0;
-
-        //誤差を考慮
-        var loopEnd = path.Length - float.Epsilon;
-        Debug.Log(loopEnd);
-
-        for (float i = 0.0f; i < loopEnd; i += 1.0f / smoothness)
+        for (float i = 0.0f; i < 1.0; i += 1.0f / lineRenderer.positionCount)
         {
-            Vector3 position = spline.FetchPosition(i);
+            Vector3 position = spline.FetchPosition01(i);
             Debug.Log(position);
             lineRenderer.SetPosition(positionCount, position);
             positionCount++;
         }
+
+        Debug.Log("パスの計算終了");
     }
 }
