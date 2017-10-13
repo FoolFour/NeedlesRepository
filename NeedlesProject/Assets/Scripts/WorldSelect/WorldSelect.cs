@@ -49,6 +49,15 @@ public class WorldSelect : MonoBehaviour
     }
 
     ///////////////////
+    // 関数(public)  /
+    /////////////////
+
+    public Vector3[] GetPath()
+    {
+        return spline.GetPath();
+    }
+
+    ///////////////////
     // 関数(private) /
     /////////////////
 
@@ -58,10 +67,7 @@ public class WorldSelect : MonoBehaviour
 
         spline = new CatmullRomSpline();
         task = gameObject.AddComponent<TaskLock>();
-    }
 
-    private void Start()
-    {
         foreach (Transform child in pathObj)
         {
             spline.AddPath(child.position);
