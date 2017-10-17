@@ -88,18 +88,25 @@ public class PathDrawer : MonoBehaviour
     {
         Debug.Log("パスの計算開始");
         spline.AddPath(path);
-        lineRenderer.positionCount = path.Length * smoothness;
+        int maxPosition = (path.Length-1) * smoothness;
 
-        Debug.Log("パスの数 : " + path.Length);
+        //+1しないと終点の点を含んでくれない
+        lineRenderer.positionCount = maxPosition+1;
+
+        Debug.Log("座標の数 : " + (maxPosition+1));
 
         int positionCount = 0;
-        for (float i = 0.0f; i < 1.0; i += 1.0f / lineRenderer.positionCount)
+        for (float i = 0.0f; i <= path.Length+float.Epsilon; i += 1.0f / smoothness)
         {
-            Vector3 position = spline.FetchPosition01(i);
-            Debug.Log(position);
+            if(positionCount >= maxPosition) { break; }
+
+            Vector3 position = spline.FetchPosition(i);
             lineRenderer.SetPosition(positionCount, position);
             positionCount++;
         }
+
+        //終点の点が入っていないのでここでadd
+        lineRenderer.SetPosition(maxPosition, spline.EndPoint);
 
         Debug.Log("パスの計算終了");
     }

@@ -189,6 +189,16 @@ public class CatmullRomSpline
         get { return points.Count; }
     }
 
+    public Vector3 StartPoint
+    {
+        get { return points[0]; }
+    }
+
+    public Vector3 EndPoint
+    {
+        get { return points[points.Count-1]; }
+    }
+
     //////////////////
     // 関数(public) /
     ////////////////
@@ -321,7 +331,7 @@ public class CatmullRomSpline
     /// <summary>指定したパスの位置を取得</summary>
     public Vector3 FetchPosition(float amount)
     {
-        amount = Mathf.Clamp(amount, 0.0f, points.Count-1.0f);
+        amount = Mathf.Clamp(amount, 0.0f, points.Count-1);
         return FetchPoint(amount);
     }
 
@@ -330,8 +340,7 @@ public class CatmullRomSpline
     {
         amount = Mathf.Clamp01(amount);
 
-        int pointNumber = points.Count;
-        amount *= pointNumber;
+        amount *=  points.Count-1;
 
         return FetchPoint(amount);
     }

@@ -14,7 +14,7 @@ public class WorldSelect : MonoBehaviour
     AnimationCurve   pathAnimation;
 
     [SerializeField, Tooltip("パスのスピード")]
-    [Range(0, 10)]
+    [Range(0.01f, 10.0f)]
     float            pathSpeed;
 
     [SerializeField, Tooltip("現在のパスの座標からみた移動量")]
@@ -94,7 +94,7 @@ public class WorldSelect : MonoBehaviour
 
             transform.position = FetchPosition(selectWorldNum + hoge);
 
-            amount += Time.deltaTime;
+            amount += Time.deltaTime * pathSpeed;
             yield return null;
         }
 
@@ -115,7 +115,7 @@ public class WorldSelect : MonoBehaviour
 
             transform.position = FetchPosition(selectWorldNum - hoge);
 
-            amount += Time.deltaTime;
+            amount += Time.deltaTime * pathSpeed;
             yield return null;
         }
 
