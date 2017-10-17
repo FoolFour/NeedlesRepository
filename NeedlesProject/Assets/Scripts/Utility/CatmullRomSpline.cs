@@ -6,6 +6,9 @@ public class SplinePath
 {
     private List<Vector3?> points;
 
+    //////////////////
+    // 関数(public) /
+    ////////////////
     public int Count
     {
         get { return points.Count - 2; }
@@ -46,6 +49,18 @@ public class SplinePath
         }
     }
 
+    public Vector3[] GetPath()
+    {
+        Vector3[] path = new Vector3[Count];
+
+        for (int i = 0; i < Count; i += 1)
+        {
+            path[i] = points[i+1].Value;
+        }
+
+        return path;
+    }
+
     public void Remove(int index)
     {
         CheckOutOfRange(index);
@@ -70,31 +85,6 @@ public class SplinePath
         points.Reverse();
     }
 
-    public Vector3 this[int i]
-    {
-        set
-        {
-            CheckOutOfRange(i);
-            points[i+1] = value;
-        }
-
-        get
-        {
-            CheckOutOfRange(i);
-            return points[i+1].Value;
-        }
-    }
-
-    private void CheckOutOfRange(int index)
-    {
-        bool isRange = (0 <= index && index < Count);
-
-        if(!isRange)
-        {
-            throw new System.IndexOutOfRangeException();
-        }
-    }
-
     public List<Vector3?> __ListData()
     {
         return points;
@@ -110,6 +100,37 @@ public class SplinePath
         }
 
         return output;
+    }
+
+    //////////////////////
+    // アクセサ(public) /
+    ////////////////////
+    public Vector3 this[int i]
+    {
+        set
+        {
+            CheckOutOfRange(i);
+            points[i + 1] = value;
+        }
+
+        get
+        {
+            CheckOutOfRange(i);
+            return points[i + 1].Value;
+        }
+    }
+
+    ///////////////////
+    // 関数(private) /
+    /////////////////
+    private void CheckOutOfRange(int index)
+    {
+        bool isRange = (0 <= index && index < Count);
+
+        if (!isRange)
+        {
+            throw new System.IndexOutOfRangeException();
+        }
     }
 }
 
@@ -141,9 +162,9 @@ public class CatmullRomSpline
 
     private bool         isPlay;
 
-    ////////////////
-    // プロパティ /
-    //////////////
+    /////////////////////////
+    // プロパティ(private) /
+    ///////////////////////
     /// <summary>再生しているか</summary>
     public bool IsPlay
     {
@@ -168,9 +189,9 @@ public class CatmullRomSpline
         get { return points.Count; }
     }
 
+    //////////////////
+    // 関数(public) /
     ////////////////
-    // public関数 /
-    //////////////
     /// <summary>コンストラクタ</summary>
     public CatmullRomSpline()
     {
@@ -201,6 +222,12 @@ public class CatmullRomSpline
     public void AddPath(params Vector3[] path)
     {
         points.AddRange(path);
+    }
+
+    /// <summary>パスの取得</summary>
+    public Vector3[] GetPath()
+    {
+        return points.GetPath();
     }
 
     /// <summary>再生</summary>
@@ -238,6 +265,7 @@ public class CatmullRomSpline
         return (amount == 0.0f);
     }
 
+    /// <summary>パスの開始地点にいるか</summary>
     public bool IsStartPoint(float amount)
     {
         return (amount == 0);
@@ -250,6 +278,7 @@ public class CatmullRomSpline
         return (amount >= points.__ListData().Count - 3);
     }
 
+    /// <summary>パスの終点地点にいるか</summary>
     public bool IsEndPoint(float amount)
     {
         points.__ListData();
@@ -283,17 +312,20 @@ public class CatmullRomSpline
         }
     }
 
+    /// <summary>現在のパスの位置を取得</summary>
     public Vector3 FetchPosition()
     {
         return FetchPoint(amount);
     }
 
+    /// <summary>指定したパスの位置を取得</summary>
     public Vector3 FetchPosition(float amount)
     {
         amount = Mathf.Clamp(amount, 0.0f, points.Count-1.0f);
         return FetchPoint(amount);
     }
 
+    /// <summary>指定したパスの位置を取得(0～1で取得)</summary>
     public Vector3 FetchPosition01(float amount)
     {
         amount = Mathf.Clamp01(amount);
@@ -303,6 +335,11 @@ public class CatmullRomSpline
 
         return FetchPoint(amount);
     }
+
+
+    ///////////////////
+    // 関数(private) /
+    /////////////////
 
     private void OnFinishAction()
     {

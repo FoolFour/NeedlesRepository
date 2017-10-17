@@ -56,6 +56,6 @@ public class Player : MonoBehaviour {
 
         Vector3 temp = transform.position;
         temp.z = 0;
-        transform.position = temp; 
+        transform.position = temp;
     }
 }
