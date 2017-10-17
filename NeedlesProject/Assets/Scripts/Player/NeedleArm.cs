@@ -73,7 +73,7 @@ public class NeedleArm : MonoBehaviour
     //----------------------------------------------------------------------------
 
     float m_ArmCurrentLenght;
-    int m_Ignorelayer = ~(1 << 8);
+    int m_Ignorelayer = 1 << 9; //ブロックのみ当たる
 
 
     public void Start()
@@ -114,19 +114,24 @@ public class NeedleArm : MonoBehaviour
             m_Player.GetComponent<Rigidbody>().velocity = Vector3.zero;
             GetComponent<Rigidbody>().velocity = Vector3.zero;
 
-            m_Player.GetComponent<Rigidbody>().useGravity = false;
+            //ブロックに当たった時
+            m_Hitinfo.collider.GetComponent<BlockBase>().StickEnter();
 
-            m_Hitinfo.point = m_Hitinfo.point + (m_Hitinfo.normal * 0.5f);
-            m_CurrentHitObject.transform.position = m_Hitinfo.point;
+            //ブロックが刺さる場合
+            if (m_Hitinfo.collider.GetComponent<BlockBase>().isHitBlock)
+            {
+                m_Hitinfo.point = m_Hitinfo.point + (m_Hitinfo.normal * 0.5f);
+                m_CurrentHitObject.transform.position = m_Hitinfo.point;
 
-            var hinge = m_CurrentHitObject.AddComponent<HingeJoint>();
-            hinge.connectedBody = m_rb;
-            hinge.autoConfigureConnectedAnchor = false;
-            hinge.connectedAnchor = Vector3.up * m_ArmCurrentLenght;
+                var hinge = m_CurrentHitObject.AddComponent<HingeJoint>();
+                hinge.connectedBody = m_rb;
+                hinge.autoConfigureConnectedAnchor = false;
+                hinge.connectedAnchor = Vector3.up * m_ArmCurrentLenght;
 
-            ishit = true;
-            m_PrevRotate = m_Arm.up;
-            return;
+                ishit = true;
+                m_PrevRotate = m_Arm.up;
+                return;
+            }
         }
 
         m_Arm.localScale = new Vector3(3f, m_ArmCurrentLenght, 1.5f);
@@ -157,6 +162,9 @@ public class NeedleArm : MonoBehaviour
             hinge.breakTorque = 0;
             ishit = false;
             m_Arm.localRotation = Quaternion.identity;
+
+            m_Hitinfo.collider.GetComponent<BlockBase>().StickExit();
+
             return;
         }
 
