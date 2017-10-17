@@ -22,8 +22,8 @@ GameObject:
   - component: {fileID: 33352001764864880}
   - component: {fileID: 23139558364284344}
   - component: {fileID: 65104510091031024}
-  - component: {fileID: 54933207419794646}
-  m_Layer: 0
+  - component: {fileID: 114609597128089984}
+  m_Layer: 9
   m_Name: PlainStoneBlock01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -82,21 +82,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1138813202159824}
   m_Mesh: {fileID: 4300000, guid: e76e61d81e5ad5f4ea954f4a189bde88, type: 3}
---- !u!54 &54933207419794646
-Rigidbody:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1138813202159824}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 126
-  m_CollisionDetection: 0
 --- !u!65 &65104510091031024
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -109,3 +94,15 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &114609597128089984
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1138813202159824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 138e0f2402532494a8d30813c52cb69e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isHitBlock: 1
