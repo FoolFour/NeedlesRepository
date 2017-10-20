@@ -5,10 +5,10 @@ using UnityEngine;
 public class BlockPlain : BlockBase {
 
 
-    public override void StickEnter()
+    public override void StickEnter(GameObject arm)
     {
         Debug.Log("plainに当たった");
-        base.StickEnter();
+        base.StickEnter(arm);
     }
 
     public override void StickExit()

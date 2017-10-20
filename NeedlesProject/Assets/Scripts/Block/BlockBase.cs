@@ -10,8 +10,8 @@ public class BlockBase : MonoBehaviour {
     /// <summary>
     /// 刺さったときの判定
     /// </summary>
-    /// <param name="HitPoint"></param>
-    public virtual void StickEnter()
+    /// <param name="arm">どちらかの腕</param>
+    public virtual void StickEnter(GameObject arm)
     {
 
     }

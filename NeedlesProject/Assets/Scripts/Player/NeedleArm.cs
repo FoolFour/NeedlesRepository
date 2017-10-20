@@ -70,6 +70,7 @@ public class NeedleArm : MonoBehaviour
     public float m_MaxGripPower = 100;
     private float m_GripPower = 0;
     public float m_GripLowerPower = 0.1f;
+    public float m_ImpactPower = 5;
     //----------------------------------------------------------------------------
 
     float m_ArmCurrentLenght;
@@ -111,15 +112,17 @@ public class NeedleArm : MonoBehaviour
 
         if (Physics.Raycast(transform.position, m_Arm.up, out m_Hitinfo, m_ArmCurrentLenght + 1.0f, m_Ignorelayer) && m_ArmCurrentLenght != 0 && defeated > 0.4f)
         {
-            m_Player.GetComponent<Rigidbody>().velocity = Vector3.zero;
-            GetComponent<Rigidbody>().velocity = Vector3.zero;
 
             //ブロックに当たった時
-            m_Hitinfo.collider.GetComponent<BlockBase>().StickEnter();
+            m_Hitinfo.collider.GetComponent<BlockBase>().StickEnter(gameObject);
+            m_ArmCurrentLenght = Vector3.Distance(m_Hitinfo.point + (m_Hitinfo.normal * 0.5f), transform.position);
 
             //ブロックが刺さる場合
             if (m_Hitinfo.collider.GetComponent<BlockBase>().isHitBlock)
             {
+                m_Player.GetComponent<Rigidbody>().velocity = Vector3.zero;
+                GetComponent<Rigidbody>().velocity = Vector3.zero;
+
                 m_Hitinfo.point = m_Hitinfo.point + (m_Hitinfo.normal * 0.5f);
                 m_CurrentHitObject.transform.position = m_Hitinfo.point;
 
@@ -227,5 +230,13 @@ public class NeedleArm : MonoBehaviour
     float Vector2Cross(Vector3 v1, Vector3 v2)
     {
         return v1.x * v2.y - v2.x * v1.y;
+    }
+
+    public void PlayerAddForce()
+    {
+        if (m_Player.GetComponent<Rigidbody>().velocity.magnitude < 25)
+        {
+            m_Player.GetComponent<Rigidbody>().AddForce(-m_Arm.up * m_ImpactPower, ForceMode.Impulse);
+        }
     }
 }

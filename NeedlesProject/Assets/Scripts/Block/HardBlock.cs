@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class HardBlock : BlockBase {
 
-    public override void StickEnter()
+    public override void StickEnter(GameObject arm)
     {
-        Debug.Log("Hardに当たった");
-        base.StickEnter();
+        arm.GetComponent<NeedleArm>().PlayerAddForce();
+        base.StickEnter(arm);
     }
 
     public override void StickExit()
     {
-        Debug.Log("Hardからはずれた");
+        Debug.Assert(true);
         base.StickExit();
     }
 }
