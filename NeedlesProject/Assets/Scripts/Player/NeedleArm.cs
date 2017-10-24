@@ -71,9 +71,6 @@ public class NeedleArm : MonoBehaviour
     //----------------------------------------------------------------------------
 
     //ゲーム的データ--------------------------------------------------------------
-    public float m_MaxGripPower = 100;
-    private float m_GripPower = 0;
-    public float m_GripLowerPower = 0.1f;
     public float m_ImpactPower = 5;
     //----------------------------------------------------------------------------
 
@@ -107,14 +104,14 @@ public class NeedleArm : MonoBehaviour
         }
         m_ArmCurrentLenght = defeated * m_ArmMaxLength;
 
-        if (m_ArmCurrentLenght == 0){ m_Arm.GetComponent<CapsuleCollider>().enabled = false; }
+        if (m_ArmCurrentLenght == 0) { m_Arm.GetComponent<CapsuleCollider>().enabled = false; }
         else { m_Arm.GetComponent<CapsuleCollider>().enabled = true; }
 
         Debug.DrawRay(transform.position, stickdir.normalized * m_ArmCurrentLenght, mDebugColor);
         Debug.DrawRay(transform.position, m_Arm.up * m_ArmCurrentLenght, mDebugColor);
 
 
-        if (Physics.Raycast(transform.position, m_Arm.up, out m_Hitinfo, m_ArmCurrentLenght + 1.0f, m_Ignorelayer) && m_ArmCurrentLenght != 0 && defeated > 0.4f)
+        if (Physics.Raycast(transform.position, m_Arm.up, out m_Hitinfo, m_ArmCurrentLenght + 1.0f, m_Ignorelayer) && m_ArmCurrentLenght != 0)
         {
 
             //ブロックに当たった時
@@ -157,17 +154,22 @@ public class NeedleArm : MonoBehaviour
         float defeated = Mathf.Min(1.0f, (Mathf.Abs(stickdir.x) + Mathf.Abs(stickdir.y)));
         m_ArmCurrentLenght = defeated * m_ArmMaxLength;
         var hinge = m_CurrentHitObject.GetComponent<HingeJoint>();
-        Debug.Log(Mathf.Abs(defeated - m_PrevDefeated));
 
+        //傾きの差異を見て針を外す
         if (Mathf.Abs(defeated - m_PrevDefeated) > 0.2f || defeated == 0)
         {
-            //腕が壁から外れる時に遠心力を作る
-            //Vector3 dir = Vector3.Cross(m_Arm.up, Vector3.forward);
-            //float power = m_CurrentHitObject.GetComponent<Rigidbody>().angularVelocity.z * m_ArmCurrentLenght * m_Centrifugalforce;
-            //m_CurrentHitObject.GetComponent<StickPoint>().m_Centrifugalforce = dir.normalized * power;
-            //m_Player.GetComponent<Rigidbody>().isKinematic = true; //isKinematicを利用して物理を初期化する
-
             hinge.breakTorque = 0;
+            m_CurrentHitObject.GetComponent<StickPoint>().BreakAction(() =>
+            {
+                var temp = m_Player.GetComponent<Rigidbody>().velocity;
+                temp = m_Arm.InverseTransformVector(temp);
+                temp.y = 0;
+                m_Player.GetComponent<Rigidbody>().velocity = m_Arm.TransformVector(temp);
+
+
+            }
+            );
+
             ishit = false;
             m_Arm.localRotation = Quaternion.identity;
 
@@ -175,6 +177,7 @@ public class NeedleArm : MonoBehaviour
 
             return;
         }
+
         m_PrevDefeated = defeated;
         m_PrevRotate = m_Arm.up;
 
@@ -194,14 +197,12 @@ public class NeedleArm : MonoBehaviour
         Debug.DrawLine(startpoint, endpoint, Color.green);
         if (Physics.Linecast(startpoint, endpoint, m_Ignorelayer))
         {
-            Debug.Log("当たった");
             m_CurrentHitObject.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
         }
         else
         {
             m_CurrentHitObject.GetComponent<Rigidbody>().AddTorque(transform.forward * ((m_TorquePower * angle) * m_ArmCurrentLenght), ForceMode.Force);
         }
-
         hinge.connectedAnchor = Vector3.up * m_ArmCurrentLenght;
     }
 
@@ -223,11 +224,6 @@ public class NeedleArm : MonoBehaviour
     public bool IsHit()
     {
         return ishit;
-    }
-
-    public float CurrentGripPower()
-    {
-        return m_GripPower;
     }
 
     float Vector2Cross(Vector3 v1, Vector3 v2)
