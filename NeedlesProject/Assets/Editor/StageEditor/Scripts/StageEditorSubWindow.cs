@@ -15,6 +15,8 @@ class StageEditorSubWindow : EditorWindow
 
     private Vector2 editorOffset = new Vector2(32, 64);
 
+    private Vector2 prevMousePos = new Vector2();
+
     private void OnFocus()
     {
         if (parent == null)
@@ -155,8 +157,8 @@ class StageEditorSubWindow : EditorWindow
         }
 
         //offset = EditorGUILayout.BeginScrollView(offset, false, false);
-        offset.x = (int)GUILayout.HorizontalSlider((int)offset.x, 0, parent.StageSize.x);
-        offset.y = (int)GUILayout.VerticalSlider((int)offset.y, 0, parent.StageSize.y);
+        offset.x = GUILayout.HorizontalSlider(offset.x, 0, parent.StageSize.x);
+        offset.y = GUILayout.VerticalSlider  (offset.y, 0, parent.StageSize.y);
 
         for (int x = (int)offset.x; x < mapData.Count; x++)
         {
@@ -182,20 +184,20 @@ class StageEditorSubWindow : EditorWindow
         Vector3 p2 = new Vector3();
         Handles.color = Color.white;
         p1.y = editorOffset.y;
-        p2.y = parent.StageSize.y * 32 + 32 - offset.y * 32;
+        p2.y = parent.StageSize.y * 32 + 32 - (int)offset.y * 32;
         for (int x = (int)offset.x + 1; x < parent.StageSize.x; x++)
         {
-            p1.x = x * 32 + editorOffset.x - offset.x * 32;
-            p2.x = x * 32 + editorOffset.x - offset.x * 32;
+            p1.x = x * 32 + editorOffset.x - (int)offset.x * 32;
+            p2.x = x * 32 + editorOffset.x - (int)offset.x * 32;
             Handles.DrawLine(p1, p2);
         }
 
         p1.x = editorOffset.x;
-        p2.x = parent.StageSize.x * 32 + 32 - offset.x * 32;
+        p2.x = parent.StageSize.x * 32 + 32 - (int)offset.x * 32;
         for (int y = (int)offset.y + 1; y < parent.StageSize.y; y++)
         {
-            p1.y = y * 32 + editorOffset.y - offset.y * 32;
-            p2.y = y * 32 + editorOffset.y - offset.y * 32;
+            p1.y = y * 32 + editorOffset.y - (int)offset.y * 32;
+            p2.y = y * 32 + editorOffset.y - (int)offset.y * 32;
             Handles.DrawLine(p1, p2);
         }
 
@@ -205,9 +207,30 @@ class StageEditorSubWindow : EditorWindow
     private void MouseDetect()
     {
         Event e = Event.current;
-        if (e.type == EventType.mouseDown ||
-            e.type == EventType.mouseDrag)
+
+        if (e.type == EventType.MouseDown)
         {
+            if(e.button == 2)
+            {
+                prevMousePos = e.mousePosition;
+            }
+        }
+
+        if (e.type == EventType.MouseDrag)
+        {
+            if(e.button == 2)
+            {
+                Vector2 delta = e.mousePosition - prevMousePos;
+                MoveOffset(-delta / 16.0f);
+                prevMousePos = e.mousePosition;
+            }
+        }
+
+
+        if (e.type == EventType.MouseDown ||
+            e.type == EventType.MouseDrag)
+        {
+
             if (parent.State == StageEditorWindow.ToolState.Moving)
             {
                 PutBlock(e);
@@ -217,15 +240,34 @@ class StageEditorSubWindow : EditorWindow
                 EraseBlock(e);
             }
         }
+        else if(e.type == EventType.ScrollWheel)
+        {
+            MoveOffset(e.delta);
+        }
+    }
+
+    private void MoveOffset(Vector2 delta)
+    {
+        offset += delta;
+
+        offset.x = Mathf.Clamp(offset.x, 0.0f, parent.StageSize.x);
+        offset.y = Mathf.Clamp(offset.y, 0.0f, parent.StageSize.y);
+        Repaint();
     }
 
     private void PutBlock(Event e)
     {
+        if(e.button == 2) { return; }
+
         Vector2 mousePos = e.mousePosition;
 
         if (mousePos.x < editorOffset.x || mousePos.y < editorOffset.y) { return; }
 
-        mousePos += offset * 32;
+        Vector2 tempOffset = offset;
+        tempOffset.x = Mathf.Floor(tempOffset.x);
+        tempOffset.y = Mathf.Floor(tempOffset.y);
+
+        mousePos += tempOffset * 32;
 
         //補正
         mousePos /= 32.0f;
@@ -233,8 +275,8 @@ class StageEditorSubWindow : EditorWindow
         int y = (int)Mathf.Floor(mousePos.y);
 
         if (mapData.Count != 0 &&
-            x - (int)editorOffset.x / 32 - offset.x < mapData.Count &&
-            y - (int)editorOffset.y / 32 - offset.y < mapData[0].Count)
+            x - (int)editorOffset.x / 32 - (int)tempOffset.x < mapData.Count &&
+            y - (int)editorOffset.y / 32 - (int)tempOffset.y < mapData[0].Count)
         {
             //マップに配置
             mapData[x - (int)editorOffset.x / 32][y - (int)editorOffset.y / 32] = parent.SelectedImage;
@@ -244,11 +286,17 @@ class StageEditorSubWindow : EditorWindow
 
     private void EraseBlock(Event e)
     {
+        if(e.button == 2) { return; }
+
         Vector2 mousePos = e.mousePosition;
 
         if (mousePos.x < editorOffset.x || mousePos.y < editorOffset.y) { return; }
 
-        mousePos += offset * 32;
+        Vector2 tempOffset = offset;
+        tempOffset.x = Mathf.Floor(tempOffset.x);
+        tempOffset.y = Mathf.Floor(tempOffset.y);
+
+        mousePos += tempOffset * 32;
 
         //補正
         mousePos /= 32.0f;
@@ -256,8 +304,8 @@ class StageEditorSubWindow : EditorWindow
         int y = (int)Mathf.Floor(mousePos.y);
 
         if (mapData.Count != 0 &&
-            x - (int)editorOffset.x / 32 - offset.x < mapData.Count &&
-            y - (int)editorOffset.y / 32 - offset.y < mapData[0].Count)
+            x - (int)editorOffset.x / 32 - tempOffset.x < mapData.Count &&
+            y - (int)editorOffset.y / 32 - tempOffset.y < mapData[0].Count)
         {
             //マップから消す
             mapData[x - (int)editorOffset.x / 32][y - (int)editorOffset.y / 32] = "";
@@ -267,17 +315,21 @@ class StageEditorSubWindow : EditorWindow
 
     private void DrawFrame()
     {
+        Vector2 tempOffset = offset;
+        tempOffset.x = Mathf.Floor(tempOffset.x);
+        tempOffset.y = Mathf.Floor(tempOffset.y);
+
         //線を描くのに必要な点の定義
 
-        Vector2 top_right = parent.StageSize * 32 - offset * 32;
+        Vector2 top_right    = parent.StageSize * 32 - tempOffset * 32;
         top_right.x += 32;
         top_right.y = editorOffset.y;
 
-        Vector2 bottom_left = parent.StageSize * 32 - offset * 32;
+        Vector2 bottom_left  = parent.StageSize * 32 - tempOffset * 32;
         bottom_left.x = editorOffset.x;
         bottom_left.y += editorOffset.y;
 
-        Vector2 bottom_right = parent.StageSize * 32 - offset * 32;
+        Vector2 bottom_right = parent.StageSize * 32 - tempOffset * 32;
         bottom_right.x += 32;
         bottom_right.y += editorOffset.y;
 
