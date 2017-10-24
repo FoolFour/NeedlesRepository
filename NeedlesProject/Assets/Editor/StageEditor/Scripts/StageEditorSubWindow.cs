@@ -333,8 +333,9 @@ class StageEditorSubWindow : EditorWindow
 
                 createPosition.x = x;
                 createPosition.y = stageSize_y - y - 1;
-
-                var inst = Instantiate(obj, createPosition, Quaternion.identity);
+                var inst = new GameObject();
+                inst = PrefabUtility.ConnectGameObjectToPrefab(inst, obj);
+                inst.transform.position = createPosition;
 
                 inst.transform.parent = blockParent;
             }
