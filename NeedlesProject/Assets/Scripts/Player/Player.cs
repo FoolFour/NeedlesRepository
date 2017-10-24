@@ -18,16 +18,6 @@ public class Player : MonoBehaviour {
     // Update is called once per frame
     void FixedUpdate()
     {
-
-        if (mData.mRArm.IsHit() || mData.mLArm.IsHit())
-        {
-            mData.mrb.GetComponent<Rigidbody>().useGravity = false;
-        }
-        else
-        {
-            mData.mrb.GetComponent<Rigidbody>().useGravity = true;
-        }
-
         //左スティック
         float x = Input.GetAxis(GamePad.Horizontal);
         float y = Input.GetAxis(GamePad.Vertical);
@@ -53,9 +43,5 @@ public class Player : MonoBehaviour {
         {
             mData.mRArm.StickArmRotation(dir2);
         }
-
-        Vector3 temp = transform.position;
-        temp.z = 0;
-        transform.position = temp;
     }
 }

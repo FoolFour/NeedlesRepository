@@ -10,6 +10,8 @@ public class StickPoint : MonoBehaviour
     private Rigidbody m_Arm;
     private Rigidbody m_Player;
 
+    private System.Action m_Action;
+
     public void Start()
     {
 
@@ -17,18 +19,13 @@ public class StickPoint : MonoBehaviour
 
     void OnJointBreak(float breakForce)
     {
-        ////m_Arm = GetComponent<HingeJoint>().connectedBody;
-        //m_Player = GetComponent<HingeJoint>().connectedBody.transform.parent.GetComponent<Rigidbody>();
+        m_Action();
+        m_Action = () => { };
+    }
 
-        //m_Player.isKinematic = false;
-        //StartCoroutine(DelayMethod(() => 
-        //{
-        //    Debug.Log(m_Centrifugalforce.magnitude);
-        //    Debug.DrawRay(transform.position, m_Centrifugalforce);
-        //    m_Player.AddForce(m_Centrifugalforce, ForceMode.VelocityChange);
-        //    m_Centrifugalforce = Vector3.zero;
-        //    GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
-        //}));
+    public void BreakAction(System.Action action)
+    {
+        m_Action = action;
     }
 
     private IEnumerator DelayMethod(System.Action action)
