@@ -50,6 +50,10 @@ public class NeedleArm : MonoBehaviour
     /// 当たった場所の最初のアンカーポイント（Local）
     /// </summary>
     private Vector3 m_FastAnchor = Vector3.zero;
+    /// <summary>
+    /// 1フレ前のスティックの傾き
+    /// </summary>
+    private float m_PrevDefeated;
     //---------------------------------------------------------------------------
 
     //遠心力---------------------------------------------------------------------
@@ -70,10 +74,11 @@ public class NeedleArm : MonoBehaviour
     public float m_MaxGripPower = 100;
     private float m_GripPower = 0;
     public float m_GripLowerPower = 0.1f;
+    public float m_ImpactPower = 5;
     //----------------------------------------------------------------------------
 
     float m_ArmCurrentLenght;
-    int m_Ignorelayer = ~(1 << 8);
+    int m_Ignorelayer = 1 << 9; //ブロックのみ当たる
 
 
     public void Start()
@@ -111,22 +116,30 @@ public class NeedleArm : MonoBehaviour
 
         if (Physics.Raycast(transform.position, m_Arm.up, out m_Hitinfo, m_ArmCurrentLenght + 1.0f, m_Ignorelayer) && m_ArmCurrentLenght != 0 && defeated > 0.4f)
         {
-            m_Player.GetComponent<Rigidbody>().velocity = Vector3.zero;
-            GetComponent<Rigidbody>().velocity = Vector3.zero;
 
-            m_Player.GetComponent<Rigidbody>().useGravity = false;
+            //ブロックに当たった時
+            m_Hitinfo.collider.GetComponent<BlockBase>().StickEnter(gameObject);
+            m_ArmCurrentLenght = Vector3.Distance(m_Hitinfo.point + (m_Hitinfo.normal * 0.5f), transform.position);
 
-            m_Hitinfo.point = m_Hitinfo.point + (m_Hitinfo.normal * 0.5f);
-            m_CurrentHitObject.transform.position = m_Hitinfo.point;
+            //ブロックが刺さる場合
+            if (m_Hitinfo.collider.GetComponent<BlockBase>().isHitBlock)
+            {
+                m_Player.GetComponent<Rigidbody>().velocity = Vector3.zero;
+                GetComponent<Rigidbody>().velocity = Vector3.zero;
 
-            var hinge = m_CurrentHitObject.AddComponent<HingeJoint>();
-            hinge.connectedBody = m_rb;
-            hinge.autoConfigureConnectedAnchor = false;
-            hinge.connectedAnchor = Vector3.up * m_ArmCurrentLenght;
+                m_Hitinfo.point = m_Hitinfo.point + (m_Hitinfo.normal * 0.5f);
+                m_CurrentHitObject.transform.position = m_Hitinfo.point;
 
-            ishit = true;
-            m_PrevRotate = m_Arm.up;
-            return;
+                var hinge = m_CurrentHitObject.AddComponent<HingeJoint>();
+                hinge.connectedBody = m_rb;
+                hinge.autoConfigureConnectedAnchor = false;
+                hinge.connectedAnchor = Vector3.up * m_ArmCurrentLenght;
+
+                ishit = true;
+                m_PrevRotate = m_Arm.up;
+                m_PrevDefeated = defeated;
+                return;
+            }
         }
 
         m_Arm.localScale = new Vector3(3f, m_ArmCurrentLenght, 1.5f);
@@ -144,22 +157,25 @@ public class NeedleArm : MonoBehaviour
         float defeated = Mathf.Min(1.0f, (Mathf.Abs(stickdir.x) + Mathf.Abs(stickdir.y)));
         m_ArmCurrentLenght = defeated * m_ArmMaxLength;
         var hinge = m_CurrentHitObject.GetComponent<HingeJoint>();
+        Debug.Log(Mathf.Abs(defeated - m_PrevDefeated));
 
-        if (defeated < 0.4f)
+        if (Mathf.Abs(defeated - m_PrevDefeated) > 0.2f || defeated == 0)
         {
             //腕が壁から外れる時に遠心力を作る
-            Vector3 dir = Vector3.Cross(m_Arm.up, Vector3.forward);
-            float power = m_CurrentHitObject.GetComponent<Rigidbody>().angularVelocity.z * m_ArmCurrentLenght * m_Centrifugalforce;
-            m_CurrentHitObject.GetComponent<StickPoint>().m_Centrifugalforce = dir.normalized * power;
-            m_Player.GetComponent<Rigidbody>().isKinematic = true; //isKinematicを利用して物理を初期化する
+            //Vector3 dir = Vector3.Cross(m_Arm.up, Vector3.forward);
+            //float power = m_CurrentHitObject.GetComponent<Rigidbody>().angularVelocity.z * m_ArmCurrentLenght * m_Centrifugalforce;
+            //m_CurrentHitObject.GetComponent<StickPoint>().m_Centrifugalforce = dir.normalized * power;
+            //m_Player.GetComponent<Rigidbody>().isKinematic = true; //isKinematicを利用して物理を初期化する
 
-            Debug.Log(m_CurrentHitObject.GetComponent<Rigidbody>().angularVelocity.z);
             hinge.breakTorque = 0;
             ishit = false;
             m_Arm.localRotation = Quaternion.identity;
+
+            m_Hitinfo.collider.GetComponent<BlockBase>().StickExit();
+
             return;
         }
-
+        m_PrevDefeated = defeated;
         m_PrevRotate = m_Arm.up;
 
         m_Hand.position = m_Hitinfo.point;
@@ -172,11 +188,11 @@ public class NeedleArm : MonoBehaviour
         float angle = Mathf.Sign(Vector2Cross(m_Arm.up, stickdir.normalized));
         m_CurrentHitObject.GetComponent<Rigidbody>().maxAngularVelocity = m_TorqueMaxPower;
 
+        //左右に判定して壁だったら止める処理
         Vector3 startpoint = m_Arm.position + (m_Arm.right * angle * 0.5f);
         Vector3 endpoint = startpoint + m_Arm.up * len;
         Debug.DrawLine(startpoint, endpoint, Color.green);
-
-        if (Physics.Linecast(startpoint,endpoint,m_Ignorelayer))
+        if (Physics.Linecast(startpoint, endpoint, m_Ignorelayer))
         {
             Debug.Log("当たった");
             m_CurrentHitObject.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
@@ -185,8 +201,6 @@ public class NeedleArm : MonoBehaviour
         {
             m_CurrentHitObject.GetComponent<Rigidbody>().AddTorque(transform.forward * ((m_TorquePower * angle) * m_ArmCurrentLenght), ForceMode.Force);
         }
-        //m_CurrentHitObject.GetComponent<Rigidbody>().angularVelocity = Vector3.forward * ((m_TorquePower * angle) * m_ArmCurrentLenght);
-        //if (check < 10){ m_CurrentHitObject.GetComponent<Rigidbody>().angularVelocity = Vector3.zero; }
 
         hinge.connectedAnchor = Vector3.up * m_ArmCurrentLenght;
     }
@@ -219,5 +233,13 @@ public class NeedleArm : MonoBehaviour
     float Vector2Cross(Vector3 v1, Vector3 v2)
     {
         return v1.x * v2.y - v2.x * v1.y;
+    }
+
+    public void PlayerAddForce()
+    {
+        if (m_Player.GetComponent<Rigidbody>().velocity.magnitude < 25)
+        {
+            m_Player.GetComponent<Rigidbody>().AddForce(-m_Arm.up * m_ImpactPower, ForceMode.Impulse);
+        }
     }
 }
