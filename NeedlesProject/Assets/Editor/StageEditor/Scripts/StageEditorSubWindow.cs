@@ -48,7 +48,7 @@ class StageEditorSubWindow : EditorWindow
         var subWindow = EditorWindow.GetWindow<StageEditorSubWindow>();
         subWindow.parent = p;
         subWindow.Init();
-
+        Debug.Log("初期化");
         return subWindow;
     }
 
@@ -286,8 +286,8 @@ class StageEditorSubWindow : EditorWindow
         Handles.DrawLine(top_right, bottom_right);
         Handles.DrawLine(bottom_left, bottom_right);
 
-        top_right.x += 1;
-        bottom_left.y += 1;
+        top_right.x    += 1;
+        bottom_left.y  += 1;
 
         bottom_right.x += 1;
         bottom_right.y += 1;
@@ -329,27 +329,14 @@ class StageEditorSubWindow : EditorWindow
             {
                 if (mapData[x][y] == "") { continue; }
 
-                int createNum = parent.ZAxisPutBlockNum;
-
                 var obj = parent.FindBlockObject(mapData[x][y]).blockPrefab;
 
-                //プレイヤーやゴールのオブジェクトが沢山生成してしまうため
-                if (obj.name == "Start" ||
-                    obj.name == "Goal")
-                {
-                    createNum = 1;
-                }
+                createPosition.x = x;
+                createPosition.y = stageSize_y - y - 1;
 
-                for (int z = 0; z < createNum; z++)
-                {
-                    createPosition.x = x;
-                    createPosition.y = stageSize_y - y - 1;
-                    createPosition.z = (float)z - (float)createNum / 2.0f;
+                var inst = Instantiate(obj, createPosition, Quaternion.identity);
 
-                    var inst = Instantiate(obj, createPosition, Quaternion.identity);
-
-                    inst.transform.parent = blockParent;
-                }
+                inst.transform.parent = blockParent;
             }
         }
 

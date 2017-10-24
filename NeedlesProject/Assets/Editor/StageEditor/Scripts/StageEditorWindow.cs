@@ -13,15 +13,12 @@ public class StageEditorWindow : EditorWindow
     private string stageName;
     public  string StageName      { get { return stageName;        } }
 
-    private string saveDirectory;
+    private string saveDirectory = "./Assets";
     public  string SaveDirectory  { get { return saveDirectory;    } }
 
 
-    private Vector2 stageSize;
+    private Vector2 stageSize = new Vector2(5, 5);
     public  Vector2 StageSize     { get { return stageSize;        } }
-
-    private int zAxisPutBlockNum = 1;
-    public  int ZAxisPutBlockNum  { get { return zAxisPutBlockNum; } }
 
     private BlockData selectedBlock;
 
@@ -260,17 +257,6 @@ public class StageEditorWindow : EditorWindow
 
         stageSize.x = Mathf.Max(stageSize.x, 1);
         stageSize.y = Mathf.Max(stageSize.y, 1);
-
-
-        //Z方向に配置するブロックの数入力
-        EditorGUILayout.BeginHorizontal();
-        {
-            DrawParamTitle("Z方向に配置するブロックの数");
-            zAxisPutBlockNum = EditorGUILayout.IntField((int)zAxisPutBlockNum);
-        }
-        EditorGUILayout.EndHorizontal();
-
-        zAxisPutBlockNum = Mathf.Max(zAxisPutBlockNum, 1);
     }
 
     /// <summary>ツール部分の表示</summary>
@@ -364,6 +350,7 @@ public class StageEditorWindow : EditorWindow
             if (GUILayout.Button(tex, GUILayout.MaxWidth(w), GUILayout.MaxHeight(h), GUILayout.ExpandWidth(false), GUILayout.ExpandHeight(false)))
             {
                 selectedBlock = data;
+                toolState = ToolState.Moving;
             }
             GUILayout.FlexibleSpace();
             x += w;
