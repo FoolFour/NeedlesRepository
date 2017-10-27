@@ -10,7 +10,7 @@ public class StickPoint : MonoBehaviour
     private Rigidbody m_Arm;
     private Rigidbody m_Player;
 
-    private System.Action m_Action;
+    private System.Action m_Action = () => { };
 
     public void Start()
     {

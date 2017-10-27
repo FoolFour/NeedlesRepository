@@ -217,6 +217,19 @@ public class NeedleArm : MonoBehaviour
         //rb.velocity = Vector3.zero;
     }
 
+    public void StanMode()
+    {
+        var hinge = m_CurrentHitObject.GetComponent<HingeJoint>();
+        if(hinge) hinge.breakTorque = 0;
+        m_CurrentHitObject.transform.parent = null;
+
+        ishit = false;
+        m_ArmCurrentLenght = 0;
+        m_Arm.localScale = new Vector3(3f, m_ArmCurrentLenght, 1.5f);
+        m_Hand.position = transform.position + (m_Arm.up * (m_ArmCurrentLenght));
+        m_Hand.up = m_Arm.up;
+    }
+
     /// <summary>
     /// 針が壁に刺さったか？
     /// </summary>
