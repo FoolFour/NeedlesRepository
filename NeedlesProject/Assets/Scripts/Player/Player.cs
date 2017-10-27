@@ -13,6 +13,8 @@ public class Player : MonoBehaviour {
     private bool mStan = false;
     private float mStanTimer = 0;
 
+    int mIgnorelayer = 1 << 9; //ブロックのみ当たる
+
     // Use this for initialization
     void Start ()
     {
@@ -66,5 +68,20 @@ public class Player : MonoBehaviour {
         mStan = true;
         mData.mrb.velocity = Vector3.zero;
         mData.mrb.AddForce(velocity, ForceMode.VelocityChange);
+    }
+
+    public bool HitCheck()
+    {
+        return mData.mLArm.IsHit() || mData.mRArm.IsHit();
+    }
+
+    public bool IsGround()
+    {
+        Ray ray = new Ray(transform.position, Vector3.down);
+        if(Physics.Raycast(ray,1,mIgnorelayer))
+        {
+            return true;
+        }
+        return false;
     }
 }
