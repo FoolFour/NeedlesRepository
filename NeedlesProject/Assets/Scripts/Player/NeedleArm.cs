@@ -125,6 +125,7 @@ public class NeedleArm : MonoBehaviour
                 GetComponent<Rigidbody>().velocity = Vector3.zero;
 
                 m_Hitinfo.point = m_Hitinfo.point + (m_Hitinfo.normal * 0.5f);
+                m_CurrentHitObject.transform.parent = m_Hitinfo.collider.transform;
                 m_CurrentHitObject.transform.position = m_Hitinfo.point;
 
                 var hinge = m_CurrentHitObject.AddComponent<HingeJoint>();
@@ -165,11 +166,10 @@ public class NeedleArm : MonoBehaviour
                 temp = m_Arm.InverseTransformVector(temp);
                 temp.y = 0;
                 m_Player.GetComponent<Rigidbody>().velocity = m_Arm.TransformVector(temp);
-
-
             }
             );
 
+            m_CurrentHitObject.transform.parent = null;
             ishit = false;
             m_Arm.localRotation = Quaternion.identity;
 
@@ -181,7 +181,7 @@ public class NeedleArm : MonoBehaviour
         m_PrevDefeated = defeated;
         m_PrevRotate = m_Arm.up;
 
-        m_Hand.position = m_Hitinfo.point;
+        m_Hand.position = m_CurrentHitObject.transform.position;
         m_Hand.up = -m_Hitinfo.normal;
         m_Arm.rotation = Quaternion.LookRotation(Vector3.forward,(m_Hand.position - m_Arm.position).normalized);
         float len = Vector3.Distance(m_Hand.position, transform.position);
