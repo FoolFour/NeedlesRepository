@@ -34,10 +34,7 @@ public class NormalEnemy : BlockBase
     }
     public rotation rotation_;
 
-    void Start()
-    {
-
-    }
+    void Start() { }
 
     void Update()
     {
@@ -55,12 +52,12 @@ public class NormalEnemy : BlockBase
         //前方確認用のray
         ray3 = new Ray(transform.position, new Vector3(1, 0, 0));
         Debug.DrawRay(ray3.origin, ray3.direction * distance, Color.red);
-        ishit3 = Physics.Raycast(ray3, out hit, Mathf.Infinity);
+        ishit3 = Physics.Raycast(ray3, out hit, 1);
 
         //後方確認用のray
         ray4 = new Ray(transform.position, new Vector3(-1, 0, 0));
         Debug.DrawRay(ray4.origin, ray4.direction * distance, Color.red);
-        ishit4 = Physics.Raycast(ray4, out hit, Mathf.Infinity);
+        ishit4 = Physics.Raycast(ray4, out hit, 1);
 
         //移動中
         if (rotation_ == rotation.MOVE)
@@ -71,32 +68,32 @@ public class NormalEnemy : BlockBase
         //ブロックがなければ
         if (ishit == false)
         {
-            Debug.Log("前下:yが0の時");
+            //Debug.Log("前下:yが0の時");
             rotation_ = rotation.REVERSE01;
         }
-        //else if (ishit3 == true)
-        //{
-        //    Debug.Log("前:yが0の時");
-        //    rotation_ = rotation.REVERSE01;
-        //}
+        else if (ishit3 == true)
+        {
+            //Debug.Log("前:yが0の時");
+            rotation_ = rotation.REVERSE01;
+        }
 
 
         //ブロックがなければ
         if (ishit2 == false)
         {
-            Debug.Log("後ろ下:yが180の時");
+            //Debug.Log("後ろ下:yが180の時");
             rotation_ = rotation.REVERSE02;
         }
-        //else if (ishit4 == true)
-        //{
-        //    Debug.Log("後ろ:yが180の時");
-        //    rotation_ = rotation.REVERSE02;
-        //}
+        else if (ishit4 == true)
+        {
+            //Debug.Log("後ろ:yが180の時");
+            rotation_ = rotation.REVERSE02;
+        }
 
         //ブロックがない場合回転
         if (rotation_ == rotation.REVERSE01)
         {
-            Debug.Log("回転中");
+            //Debug.Log("回転中");
 
             float angle = Mathf.LerpAngle(0, 180, 10.0f);
             transform.eulerAngles = new Vector3(0, angle, 0);
@@ -126,7 +123,7 @@ public class NormalEnemy : BlockBase
 
     public void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "Player")
         {
             Debug.Log("敵にあたった");
             Vector3 temp = collision.gameObject.transform.position - transform.position;

@@ -49,14 +49,21 @@ public class FloatEnemy : BlockBase
 
     }
 
-    public void Destory()
-    {
-        Destroy(gameObject);
-    }
-
     public override void StickEnter(GameObject arm)
     {
         Debug.Log("敵に当たった");
+        Destroy(gameObject);
         base.StickEnter(arm);
+    }
+
+    public void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            Debug.Log("敵にあたった");
+            Vector3 temp = collision.gameObject.transform.position - transform.position;
+            temp.y = 1;
+            collision.gameObject.GetComponent<Player>().StanMode(temp.normalized * 10);
+        }
     }
 }
