@@ -5,12 +5,12 @@ using UnityEngine;
 public class DeadLine : MonoBehaviour
 {
 
-    public Transform m_SpwnPoint;
+    private SpawnManager m_SpawnManager;
 
     // Use this for initialization
     void Start()
     {
-
+        m_SpawnManager = GameObject.Find("GameManager").GetComponent<SpawnManager>();
     }
 
     // Update is called once per frame
@@ -24,7 +24,7 @@ public class DeadLine : MonoBehaviour
         if(other.gameObject.name == "Player")
         {
             other.gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
-            other.gameObject.transform.position = m_SpwnPoint.position;
+            other.gameObject.transform.position = m_SpawnManager.GetCurrentSpawnPoint(); ;
         }
     }
 }

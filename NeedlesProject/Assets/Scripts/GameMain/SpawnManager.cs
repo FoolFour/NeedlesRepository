@@ -2,15 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpawnManager : MonoBehaviour {
+public class SpawnManager : MonoBehaviour
+{
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    [SerializeField, TooltipAttribute("初期スポーンポイント")]
+    public Transform m_FirstSpawnPoint;
+
+    private Vector3 m_CurrentSpawnPoint;
+
+    public void Start()
+    {
+        m_CurrentSpawnPoint = m_FirstSpawnPoint.position;
+    }
+
+    public void CurrentSpawnChange(Vector3 point)
+    {
+        m_CurrentSpawnPoint = point;
+    }
+
+    public Vector3 GetCurrentSpawnPoint()
+    {
+        return m_CurrentSpawnPoint;
+    }
 }
