@@ -124,12 +124,19 @@ public class NormalEnemy : BlockBase
 
     public void OnCollisionEnter(Collision collision)
     {
+        Debug.Log(collision.gameObject.tag);
         if (collision.gameObject.tag == "Player")
         {
-            Debug.Log("敵にあたった");
             Vector3 temp = collision.gameObject.transform.position - transform.position;
             temp.y = 1;
-            collision.gameObject.GetComponent<Player>().StanMode(temp.normalized * 10);
+            if (collision.gameObject.GetComponent<Player>())
+            {
+                collision.gameObject.GetComponent<Player>().StanMode(temp.normalized * 10);
+            }
+            else
+            {
+                collision.gameObject.transform.parent.GetComponent<Player>().StanMode(temp.normalized * 10);
+            }
         }
     }
 }

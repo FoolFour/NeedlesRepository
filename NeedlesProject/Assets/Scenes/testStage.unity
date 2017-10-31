@@ -251,6 +251,9 @@ MonoBehaviour:
   movespeed: 3
   ishit3: 0
   ishit4: 0
+  mask:
+    serializedVersion: 2
+    m_Bits: 512
   rotation_: 2
 --- !u!23 &1418818243
 MeshRenderer:
@@ -671,6 +674,14 @@ Prefab:
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 1459246240238286, guid: 3b9bac58a7c4e8b4d8a417ee917ae658, type: 2}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 1322746834274938, guid: 3b9bac58a7c4e8b4d8a417ee917ae658, type: 2}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 1265551622803418, guid: 3b9bac58a7c4e8b4d8a417ee917ae658, type: 2}
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
