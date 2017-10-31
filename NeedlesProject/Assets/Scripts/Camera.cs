@@ -8,6 +8,10 @@ namespace GameCamera
     {
 
         public Transform Player;
+        public Vector2 minPosition;
+        public Vector2 maxPosition;
+        [SerializeField, TooltipAttribute("正の数字をいれてください")]
+        public float zPosition = 20;
         Vector3 camerapos;
 
         // Use this for initialization
@@ -33,8 +37,9 @@ namespace GameCamera
                 camerapos.x = Player.position.x;
             }
 
-
-            transform.position = Vector3.Lerp(transform.position, camerapos + (Player.up * 0.5f) + new Vector3(0, 3, -20), 0.2f);
+            Vector3 temp = Vector3.Max(minPosition,camerapos + (Player.up * 0.5f));
+            temp = Vector3.Min(maxPosition, temp);
+            transform.position = Vector3.Lerp(transform.position, temp + new Vector3(0, 3, -zPosition), 0.2f);
         }
     }
 }
