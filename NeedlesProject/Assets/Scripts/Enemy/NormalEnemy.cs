@@ -29,9 +29,9 @@ public class NormalEnemy : BlockBase
     public LayerMask mask;
     public enum rotation
     {
-        REVERSE01,
-        REVERSE02,
         MOVE,
+        REVERSE01,
+        REVERSE02
     }
     public rotation rotation_;
 
