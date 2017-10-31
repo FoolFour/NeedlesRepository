@@ -2,23 +2,29 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class nomaleemy : BlockBase
+public class NormalEnemy : BlockBase
 {
     //移動速度
     public float movespeed;
     //
     string undername;
-    //
+    //斜め前と後ろ確認用
     Ray ray;
     Ray ray2;
+    //前と後ろ確認用
+    Ray ray3;
+    Ray ray4;
     //
     RaycastHit hit;
-    //
-    float distance = 1.0f;
-    //
+    //rayの長さ
+    float distance = 2.0f;
+    //当たっているならtrue当たってないならfalse
     bool ishit;
     bool ishit2;
-    public Vector3 eulerAngles;
+    public bool ishit3;
+    public bool ishit4;
+    //
+    Vector3 eulerAngles;
 
     public enum rotation
     {
@@ -36,43 +42,58 @@ public class nomaleemy : BlockBase
     void Update()
     {
         eulerAngles = gameObject.transform.eulerAngles;
-
+        //前下確認用のray
         ray = new Ray(transform.position, new Vector3(1, -1, 0));
         Debug.DrawRay(ray.origin, ray.direction * distance, Color.red);
         ishit = Physics.Raycast(ray, out hit, Mathf.Infinity);
 
+        //後ろ下確認用のray
         ray2 = new Ray(transform.position, new Vector3(-1, -1, 0));
         Debug.DrawRay(ray2.origin, ray2.direction * distance, Color.red);
         ishit2 = Physics.Raycast(ray2, out hit, Mathf.Infinity);
 
-        //Debug.Log(hit.collider.gameObject.name);
+        //前方確認用のray
+        ray3 = new Ray(transform.position, new Vector3(1, 0, 0));
+        Debug.DrawRay(ray3.origin, ray3.direction * distance, Color.red);
+        ishit3 = Physics.Raycast(ray3, out hit, Mathf.Infinity);
+
+        //後方確認用のray
+        ray4 = new Ray(transform.position, new Vector3(-1, 0, 0));
+        Debug.DrawRay(ray4.origin, ray4.direction * distance, Color.red);
+        ishit4 = Physics.Raycast(ray4, out hit, Mathf.Infinity);
 
         //移動中
         if (rotation_ == rotation.MOVE)
         {
-            gameObject.transform.position +=transform.right * movespeed * Time.deltaTime;
+            gameObject.transform.position += transform.right * movespeed * Time.deltaTime;
         }
 
         //ブロックがなければ
         if (ishit == false)
         {
-            if (eulerAngles.y >= 0)
-            {
-                Debug.Log("yが0の時");
-                rotation_ = rotation.REVERSE01;
-            }
+            Debug.Log("前下:yが0の時");
+            rotation_ = rotation.REVERSE01;
         }
+        //else if (ishit3 == true)
+        //{
+        //    Debug.Log("前:yが0の時");
+        //    rotation_ = rotation.REVERSE01;
+        //}
 
+
+        //ブロックがなければ
         if (ishit2 == false)
         {
-            if (eulerAngles.y >= 180)
-            {
-                Debug.Log("yが180の時");
-                rotation_ = rotation.REVERSE02;
-            }
+            Debug.Log("後ろ下:yが180の時");
+            rotation_ = rotation.REVERSE02;
         }
+        //else if (ishit4 == true)
+        //{
+        //    Debug.Log("後ろ:yが180の時");
+        //    rotation_ = rotation.REVERSE02;
+        //}
 
-        //
+        //ブロックがない場合回転
         if (rotation_ == rotation.REVERSE01)
         {
             Debug.Log("回転中");
@@ -94,12 +115,16 @@ public class nomaleemy : BlockBase
                 rotation_ = rotation.MOVE;
             }
         }
-
     }
 
     public override void StickEnter(GameObject arm)
     {
         Debug.Log("敵に当たった");
         base.StickEnter(arm);
+    }
+
+    public void Destory()
+    {
+        Destroy(gameObject);
     }
 }

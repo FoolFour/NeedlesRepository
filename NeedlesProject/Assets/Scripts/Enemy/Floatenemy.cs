@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Floatenemy : BlockBase
+public class FloatEnemy : BlockBase
 {
     //移動速度
     public float movespeed;
@@ -47,6 +47,11 @@ public class Floatenemy : BlockBase
             gameObject.transform.position -= transform.right * movespeed * Time.deltaTime;
         }
 
+    }
+
+    public void Destory()
+    {
+        Destroy(gameObject);
     }
 
     public override void StickEnter(GameObject arm)
