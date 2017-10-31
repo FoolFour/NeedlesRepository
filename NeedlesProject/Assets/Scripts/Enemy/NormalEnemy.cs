@@ -25,7 +25,8 @@ public class NormalEnemy : BlockBase
     public bool ishit4;
     //
     Vector3 eulerAngles;
-
+    //
+    public LayerMask mask;
     public enum rotation
     {
         REVERSE01,
@@ -42,22 +43,22 @@ public class NormalEnemy : BlockBase
         //前下確認用のray
         ray = new Ray(transform.position, new Vector3(1, -1, 0));
         Debug.DrawRay(ray.origin, ray.direction * distance, Color.red);
-        ishit = Physics.Raycast(ray, out hit, Mathf.Infinity);
+        ishit = Physics.Raycast(ray, out hit,1.5f,mask);
 
         //後ろ下確認用のray
         ray2 = new Ray(transform.position, new Vector3(-1, -1, 0));
         Debug.DrawRay(ray2.origin, ray2.direction * distance, Color.red);
-        ishit2 = Physics.Raycast(ray2, out hit, Mathf.Infinity);
+        ishit2 = Physics.Raycast(ray2, out hit, 1.5f,mask);
 
         //前方確認用のray
         ray3 = new Ray(transform.position, new Vector3(1, 0, 0));
         Debug.DrawRay(ray3.origin, ray3.direction * distance, Color.red);
-        ishit3 = Physics.Raycast(ray3, out hit, 1);
+        ishit3 = Physics.Raycast(ray3, out hit, 1,mask);
 
         //後方確認用のray
         ray4 = new Ray(transform.position, new Vector3(-1, 0, 0));
         Debug.DrawRay(ray4.origin, ray4.direction * distance, Color.red);
-        ishit4 = Physics.Raycast(ray4, out hit, 1);
+        ishit4 = Physics.Raycast(ray4, out hit, 1,mask);
 
         //移動中
         if (rotation_ == rotation.MOVE)
