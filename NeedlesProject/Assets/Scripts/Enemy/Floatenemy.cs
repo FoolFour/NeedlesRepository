@@ -29,23 +29,23 @@ public class FloatEnemy : BlockBase
     void Update()
     {
         //はしこっまで行ったら逆に移動
-        if (movenum >= 3)
+        if (movenum >= max)
         {
             leftright = LR.RIGHT;
         }
-        else if(movenum <= -3)
+        else if(movenum <= min)
         {
             leftright = LR.LEFT;
         }
 
         if (leftright==LR.LEFT)
         {
-            movenum += 0.1f * Time.deltaTime;
+            movenum += movespeed * Time.deltaTime;
             gameObject.transform.position += transform.right * movespeed * Time.deltaTime;
         }
         else
         {
-            movenum -= 0.1f * Time.deltaTime;
+            movenum -=movespeed * Time.deltaTime;
             gameObject.transform.position -= transform.right * movespeed * Time.deltaTime;
         }
 
