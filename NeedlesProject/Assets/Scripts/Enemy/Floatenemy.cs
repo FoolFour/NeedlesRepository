@@ -12,6 +12,8 @@ public class FloatEnemy : BlockBase
     //
     float movenum;
 
+    public LayerMask mask;
+
     //向き
     public enum LR
     {
