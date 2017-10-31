@@ -5,6 +5,8 @@ using UnityEngine;
 public class DeadLine : MonoBehaviour
 {
 
+    public Transform m_SpwnPoint;
+
     // Use this for initialization
     void Start()
     {
@@ -21,8 +23,8 @@ public class DeadLine : MonoBehaviour
     {
         if(other.gameObject.name == "Player")
         {
-            Destroy(other.gameObject);
-            Debug.Log("GAME OVER");
+            other.gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            other.gameObject.transform.position = m_SpwnPoint.position;
         }
     }
 }
