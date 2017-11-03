@@ -7,7 +7,7 @@ public class testCoin : MonoBehaviour {
     private Transform _child;
     // Use this for initialization
     void Start () {
-        _child = transform.FindChild("default");
+        _child = transform.Find("default");
 
     }
 
