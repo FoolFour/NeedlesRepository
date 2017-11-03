@@ -183,7 +183,7 @@ public class NeedleArm : MonoBehaviour
 
         m_Hand.position = m_CurrentHitObject.transform.position;
         m_Hand.up = -m_Hitinfo.normal;
-        m_Arm.rotation = Quaternion.LookRotation(Vector3.forward,(m_Hand.position - m_Arm.position).normalized);
+        transform.rotation = Quaternion.LookRotation(Vector3.forward,(m_Hand.position - m_Arm.position).normalized);
         float len = Vector3.Distance(m_Hand.position, transform.position);
         m_Arm.localScale = new Vector3(3f, len, 1.5f);
 
