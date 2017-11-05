@@ -76,8 +76,8 @@ public class WorldSelect : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKey(KeyCode.RightArrow)) { task.Run(NextSelect); }
-        if (Input.GetKey(KeyCode. LeftArrow)) { task.Run(PrevSelect); }
+        if (GamePad.IsStickRightInclined(0.5f)) { task.Run(NextSelect); }
+        if (GamePad.IsStickLeftInclined (0.5f)) { task.Run(PrevSelect); }
     }
 
     /// <summary>次のワールドを選択</summary>
