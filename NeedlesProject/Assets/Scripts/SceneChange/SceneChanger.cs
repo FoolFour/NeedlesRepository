@@ -27,7 +27,14 @@ public class SceneChanger : MonoBehaviour
     // 関数(public) /
     ////////////////
 
-    public void SceneChange(string name, LoadSceneMode mode = LoadSceneMode.Single)
+    public void SceneChange(string name)
+    {
+        sceneName = name;
+        sceneMode = LoadSceneMode.Single;
+        taskLock.Run(Change);
+    }
+
+    public void SceneChange(string name, LoadSceneMode mode)
     {
         sceneName = name;
         sceneMode = mode;
