@@ -27,6 +27,7 @@ public class SceneChanger : MonoBehaviour
     // 関数(public) /
     ////////////////
 
+    /// <summary>シーンを切り替えます</summary>
     public void SceneChange(string name)
     {
         sceneName = name;
@@ -34,6 +35,7 @@ public class SceneChanger : MonoBehaviour
         taskLock.Run(Change);
     }
 
+    /// <summary>シーンを切り替えます</summary>
     public void SceneChange(string name, LoadSceneMode mode)
     {
         sceneName = name;
