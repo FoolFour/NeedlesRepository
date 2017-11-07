@@ -1,0 +1,28 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Arm : MonoBehaviour {
+
+    NeedleArm m_Arm;
+    Vector3 m_FirstPosition;
+    public float m_BreakValue = 1;
+
+	// Use this for initialization
+	void Start ()
+    {
+        m_Arm = transform.GetComponent<NeedleArm>();
+        m_FirstPosition = transform.localPosition;
+	}
+	
+	// Update is called once per frame
+	void Update ()
+    {
+        Debug.Log(Vector3.Distance(m_FirstPosition, transform.localPosition));
+        if(Vector3.Distance(m_FirstPosition, transform.localPosition) > m_BreakValue)
+        {
+            Debug.Log(Vector3.Distance(m_FirstPosition, transform.localPosition));
+            m_Arm.PlayerStan(Vector3.zero);
+        }
+	}
+}

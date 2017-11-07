@@ -1663,7 +1663,6 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 615371393}
   - {fileID: 1438635572}
   - {fileID: 398981890}
   - {fileID: 942615562}
@@ -1792,6 +1791,7 @@ Transform:
   - {fileID: 1216896888}
   - {fileID: 168186122}
   - {fileID: 1204439394}
+  - {fileID: 615371393}
   - {fileID: 625445382}
   - {fileID: 1754815942}
   - {fileID: 180034597}
@@ -2807,6 +2807,23 @@ Transform:
   m_PrefabParentObject: {fileID: 4619588156581440, guid: 85557157b896727489f2dc35761c5a08,
     type: 2}
   m_PrefabInternal: {fileID: 422214549}
+--- !u!1 &933956672 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1459246240238286, guid: 3b9bac58a7c4e8b4d8a417ee917ae658,
+    type: 2}
+  m_PrefabInternal: {fileID: 397761976}
+--- !u!114 &933956674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 933956672}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac8382dacd64c784b9332a0a1b3131eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_BreakValue: 1
 --- !u!4 &938132353 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4619588156581440, guid: 85557157b896727489f2dc35761c5a08,

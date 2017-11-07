@@ -251,4 +251,9 @@ public class NeedleArm : MonoBehaviour
             m_Player.GetComponent<Rigidbody>().AddForce(-m_Arm.up * m_ImpactPower, ForceMode.Impulse);
         }
     }
+
+    public void PlayerStan(Vector3 velocity)
+    {
+        m_Player.GetComponent<Player>().StanMode(velocity);
+    }
 }

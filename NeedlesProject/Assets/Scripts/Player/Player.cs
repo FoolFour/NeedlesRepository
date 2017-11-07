@@ -8,6 +8,7 @@ using UnityEngine;
 public class Player : MonoBehaviour {
 
     public float mStanTime = 1;
+    public GameObject mStanEffect;
 
     private PlayerData mData;
     private bool mStan = false;
@@ -65,6 +66,8 @@ public class Player : MonoBehaviour {
 
     public void StanMode(Vector3 velocity)
     {
+        Debug.Log("Stan");
+        Instantiate(mStanEffect, transform.position + new Vector3(0, 1.5f, 0), Quaternion.identity, transform);
         mStan = true;
         mData.mrb.velocity = Vector3.zero;
         mData.mrb.AddForce(velocity, ForceMode.VelocityChange);
