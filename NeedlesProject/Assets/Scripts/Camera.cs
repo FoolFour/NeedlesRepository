@@ -7,9 +7,11 @@ namespace GameCamera
     public class Camera : MonoBehaviour
     {
 
-        public Transform Player;
-        public Vector2 minPosition;
-        public Vector2 maxPosition;
+        private Transform Player;
+        [SerializeField, TooltipAttribute("カメラの移動限界")]
+        public Vector2 minPositionLimit;
+        [SerializeField, TooltipAttribute("カメラの移動限界")]
+        public Vector2 maxPositionLimit;
         [SerializeField, TooltipAttribute("正の数字をいれてください")]
         public float zPosition = 20;
         Vector3 camerapos;
@@ -18,6 +20,7 @@ namespace GameCamera
         void Start()
         {
             camerapos = Vector3.zero;
+            Player = GameObject.Find("Player").transform;
         }
 
         // Update is called once per frame
@@ -37,8 +40,8 @@ namespace GameCamera
                 camerapos.x = Player.position.x;
             }
 
-            Vector3 temp = Vector3.Max(minPosition,camerapos + (Player.up * 0.5f));
-            temp = Vector3.Min(maxPosition, temp);
+            Vector3 temp = Vector3.Max(minPositionLimit,camerapos + (Player.up * 0.5f));
+            temp = Vector3.Min(maxPositionLimit, temp);
             transform.position = Vector3.Lerp(transform.position, temp + new Vector3(0, 3, -zPosition), 0.2f);
         }
     }
