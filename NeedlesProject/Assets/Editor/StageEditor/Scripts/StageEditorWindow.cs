@@ -10,15 +10,13 @@ public class StageEditorWindow : EditorWindow
     // 変数
     //----- ----- -----
 
-    private string stageName;
-    public  string StageName      { get { return stageName;        } }
+    public string stageName;
 
-    private string saveDirectory = "./Assets";
+    private string saveDirectory = "";
     public  string SaveDirectory  { get { return saveDirectory;    } }
 
 
-    private Vector2 stageSize = new Vector2(5, 5);
-    public  Vector2 StageSize     { get { return stageSize;        } }
+    public Vector2 stageSize = new Vector2(5, 5);
 
     private BlockData selectedBlock;
 
@@ -186,10 +184,10 @@ public class StageEditorWindow : EditorWindow
         //bw.Close();
         //fs.Close();
 
-        //if (subWindow != null)
-        //{
-        //    subWindow.Close();
-        //}
+        if (subWindow != null)
+        {
+            subWindow.Close();
+        }
     }
 
 #region 描画関連

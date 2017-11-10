@@ -2,6 +2,11 @@
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using System.Collections.Generic;
+using System;
+
+using IO = System.IO;
+using Diagnostics = System.Diagnostics;
+using System.Linq;
 
 class StageEditorSubWindow : EditorWindow
 {
@@ -13,31 +18,47 @@ class StageEditorSubWindow : EditorWindow
 
     private Rect rect = new Rect();
 
-    private Vector2 editorOffset = new Vector2(32, 64);
+    private Vector2 editorOffset = new Vector2(32, 128);
 
     private Vector2 prevMousePos = new Vector2();
 
+    private Diagnostics.Stopwatch stopwatch = new Diagnostics.Stopwatch();
+
+    private string fileName;
+
     private void OnFocus()
     {
+        if(!stopwatch.IsRunning)
+        {
+            stopwatch.Start();
+        }
+
         if (parent == null)
         {
             var text = Format.RichText.Info("Info");
             Debug.Log(text + ": parent is null");
+
+            parent = EditorWindow.GetWindow<StageEditorWindow>();
             return;
         }
 
+        MapFix();
+    }
+
+    private void MapFix()
+    {
         for (int x = 0; x < mapData.Count; x++)
         {
-            for (int y = mapData[x].Count; y < (int)parent.StageSize.y; y++)
+            for (int y = mapData[x].Count; y < (int)parent.stageSize.y; y++)
             {
                 mapData[x].Add("");
             }
         }
 
-        for (int x = mapData.Count; x < (int)parent.StageSize.x; x++)
+        for (int x = mapData.Count; x < (int)parent.stageSize.x; x++)
         {
             List<string> list = new List<string>();
-            for (int y = 0; y < (int)parent.StageSize.y; y++)
+            for (int y = 0; y < (int)parent.stageSize.y; y++)
             {
                 list.Add("");
             }
@@ -49,102 +70,19 @@ class StageEditorSubWindow : EditorWindow
     {
         var subWindow = EditorWindow.GetWindow<StageEditorSubWindow>();
         subWindow.parent = p;
-        subWindow.Init();
         Debug.Log("初期化");
+        subWindow.MapFix();
         return subWindow;
     }
 
-    private void Init()
+    public void Update()
     {
-        //Debug.Log("ステージエディタウィンドウの初期化開始");
-        //Debug.Log("ファイルの読み込み開始");
-
-        //var path = Application.temporaryCachePath + @"\StageEditor\Block.stbd";
-        //if (IO.File.Exists(path))
-        //{
-        //    Load(path);
-        //}
-        //else
-        //{
-        //    var str = Format.RichText.Failed("読みこみ失敗");
-        //    Debug.Log(str + ": ファイルが見つかりませんでした");
-        //    for (int x = 0; x < (int)parent.StageSize.x; x++)
-        //    {
-        //        List<string> list = new List<string>();
-        //        for (int y = 0; y < (int)parent.StageSize.y; y++)
-        //        {
-        //            list.Add("");
-        //        }
-        //        mapData.Add(list);
-        //    }
-        //}
-
-        //Debug.Log("ファイルの読み込み終了");
-        //Debug.Log("ステージエディタウィンドウの初期化終了");
-    }
-
-    private void Load(string path)
-    {
-        //var fs = new IO.FileStream(path, IO.FileMode.Open);
-        //var br = new IO.BinaryReader(fs);
-
-        //int size_x = br.ReadInt32();
-        //int size_y = br.ReadInt32();
-
-        //for (int x = 0; x < size_x; x++)
-        //{
-        //    List<string> list = new List<string>();
-        //    for (int y = 0; y < size_y; y++)
-        //    {
-        //        int a = br.ReadInt32();
-        //        if (a == -1)
-        //        {
-        //            list.Add("");
-        //            continue;
-        //        }
-
-        //        var data = parent.FindBlockObject(a);
-        //        list.Add(data.imageFile);
-        //    }
-        //    mapData.Add(list);
-        //}
-
-        //br.Close();
-        //fs.Close();
-    }
-
-    private void OnDestroy()
-    {
-        //var path = Application.temporaryCachePath + @"\StageEditor\Block.stbd";
-        //var fs = new IO.FileStream(path, IO.FileMode.Create);
-        //var bw = new IO.BinaryWriter(fs);
-
-        //bw.Write((int)parent.StageSize.x);
-        //bw.Write((int)parent.StageSize.y);
-
-        //int x_size = (int)Mathf.Min(parent.StageSize.x, mapData   .Count);
-        //int y_size = (int)Mathf.Min(parent.StageSize.y, mapData[0].Count);
-
-        //for (int x = 0; x < x_size; x++)
-        //{
-        //    for (int y = 0; y < y_size; y++)
-        //    {
-        //        var d = parent.FindBlockObject(mapData[x][y]);
-
-        //        if (d == null)
-        //        {
-        //            bw.Write(-1);
-        //        }
-        //        else
-        //        {
-        //            bw.Write(d.priority);
-        //        }
-        //    }
-        //}
-
-        //bw.Close();
-        //fs.Close();
-        //
+        if(stopwatch.Elapsed.TotalSeconds > 60.0f * 5)
+        {
+            Backup();
+            stopwatch.Reset();
+            stopwatch.Start();
+        }
     }
 
     private void OnGUI()
@@ -153,19 +91,51 @@ class StageEditorSubWindow : EditorWindow
 
         if (GUILayout.Button("シーンに反映"))
         {
-            Generate();
+            Generate(true);
         }
 
+        if(GUILayout.Button("現在のシーンに反映"))
+        {
+            Generate(false);
+        }
+
+        GUILayout.BeginHorizontal();
+        {
+            GUILayout.BeginVertical();
+            {
+                GUILayout.Space(4);
+                GUILayout.Label("ファイル名");
+                GUILayout.Space(3);
+                fileName = GUILayout.TextField(fileName);
+            }
+            GUILayout.EndVertical();
+
+            GUILayout.BeginVertical();
+            {
+                if(GUILayout.Button("ファイルの保存"))
+                {
+                    SaveFile();
+                }
+
+                if(GUILayout.Button("ファイルの読込"))
+                {
+                    LoadFile();
+                }
+            }
+            GUILayout.EndVertical();
+        }
+        GUILayout.EndHorizontal();
+
         //offset = EditorGUILayout.BeginScrollView(offset, false, false);
-        offset.x = GUILayout.HorizontalSlider(offset.x, 0, parent.StageSize.x);
-        offset.y = GUILayout.VerticalSlider  (offset.y, 0, parent.StageSize.y);
+        offset.x = GUILayout.HorizontalSlider(offset.x, 0, parent.stageSize.x);
+        offset.y = GUILayout.VerticalSlider  (offset.y, 0, parent.stageSize.y);
 
         for (int x = (int)offset.x; x < mapData.Count; x++)
         {
             for (int y = (int)offset.y; y < mapData[0].Count; y++)
             {
-                if (x >= parent.StageSize.x) { continue; }
-                if (y >= parent.StageSize.y) { continue; }
+                if (x >= parent.stageSize.x) { continue; }
+                if (y >= parent.stageSize.y) { continue; }
 
                 rect.x = (x - (int)offset.x) * 32 + editorOffset.x;
                 rect.y = (y - (int)offset.y) * 32 + editorOffset.y;
@@ -184,8 +154,8 @@ class StageEditorSubWindow : EditorWindow
         Vector3 p2 = new Vector3();
         Handles.color = Color.white;
         p1.y = editorOffset.y;
-        p2.y = parent.StageSize.y * 32 + 32 - (int)offset.y * 32;
-        for (int x = (int)offset.x + 1; x < parent.StageSize.x; x++)
+        p2.y = parent.stageSize.y * 32 + editorOffset.y - (int)offset.y * 32;
+        for (int x = (int)offset.x + 1; x < parent.stageSize.x; x++)
         {
             p1.x = x * 32 + editorOffset.x - (int)offset.x * 32;
             p2.x = x * 32 + editorOffset.x - (int)offset.x * 32;
@@ -193,8 +163,8 @@ class StageEditorSubWindow : EditorWindow
         }
 
         p1.x = editorOffset.x;
-        p2.x = parent.StageSize.x * 32 + 32 - (int)offset.x * 32;
-        for (int y = (int)offset.y + 1; y < parent.StageSize.y; y++)
+        p2.x = parent.stageSize.x * 32 + editorOffset.x - (int)offset.x * 32;
+        for (int y = (int)offset.y + 1; y < parent.stageSize.y; y++)
         {
             p1.y = y * 32 + editorOffset.y - (int)offset.y * 32;
             p2.y = y * 32 + editorOffset.y - (int)offset.y * 32;
@@ -202,6 +172,134 @@ class StageEditorSubWindow : EditorWindow
         }
 
         DrawFrame();
+    }
+
+    private void Backup()
+    {
+        Debug.Log("ステージデータのバックアップ開始");
+
+        const string directory = "./StageData/Temp";
+        if(!IO.Directory.Exists(directory))
+        {
+            IO.Directory.CreateDirectory(directory);
+        }
+
+        DateTime dt = DateTime.Now;
+        string saveFileName = dt.ToString("yyyyMMddHHmmss") + ".csv";
+        Debug.Log("セーブファイル名：" + saveFileName);
+        Save(directory + "/" + saveFileName);
+
+        //11個以上あれば古いファイルから削除する
+        var files = IO.Directory.GetFiles(directory).OrderByDescending(f => IO.File.GetLastAccessTime(f));
+        int count = 0;
+        foreach(string file in files)
+        {
+            if(count < 10)
+            {
+                count++;
+                continue;
+            }
+
+            IO.File.Delete(file);
+        }
+
+        Debug.Log("バックアップ完了");
+    }
+
+    private void SaveFile()
+    {
+        const string directory = "./StageData";
+
+        if(!IO.Directory.Exists(directory))
+        {
+            IO.Directory.CreateDirectory(directory);
+        }
+
+        var r = new System.Text.RegularExpressions.Regex(
+                    "[\\x00-\\x1f<>:\"/\\\\|?*]" +
+                    "|^(CON|PRN|AUX|NUL|COM[0-9]|LPT[0-9]|CLOCK\\$)(\\.|$)" +
+                    "|[\\. ]$",
+                    System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+
+        if(r.IsMatch(fileName))
+        {
+            Debug.LogError("ファイル名に不正な文字列を含んでいます\n 別の名前を使ってください");
+            return;
+        }
+
+        Save(directory + "/" + fileName + ".csv");
+    }
+
+    private void Save(string path)
+    {
+        var ws = new IO.StreamWriter(path);
+
+        ws.WriteLine(parent.stageName);
+        ws.WriteLine(parent.stageSize.x + "," + parent.stageSize.y + ",");
+        ws.Flush();
+
+        for (int x = 0; x < parent.stageSize.x; x++)
+        {
+            for(int y = 0; y < parent.stageSize.y; y++)
+            {
+                var b = parent.FindBlockObject(mapData[x][y]);
+
+                if(b == null)
+                {
+                    ws.Write(",");
+                }
+                else
+                {
+                    ws.Write(b.priority + ",");
+                }
+            }
+            ws.WriteLine();
+            ws.Flush();
+        }
+
+        ws.Flush();
+        ws.Close();
+    }
+
+    private void LoadFile()
+    {
+        const string directory = "./StageData";
+
+        if(!IO.File.Exists(directory + "/" + fileName + ".csv"))
+        {
+            Debug.LogError("ファイル名が見つかりませんでした");
+            return;
+        }
+
+        var rs = new IO.StreamReader(directory + "/"+ fileName + ".csv");
+
+        string stageName = rs.ReadLine();
+
+        parent.stageName = stageName;
+
+        string stageSize = rs.ReadLine();
+
+        string[] size = stageSize.Split(',');
+        parent.stageSize.x = int.Parse(size[0]);
+        parent.stageSize.y = int.Parse(size[1]);
+
+
+        mapData.Clear();
+        MapFix();
+
+        for(int x = 0; x < mapData.Count; x++)
+        {
+            string tmp = rs.ReadLine();
+            string[] stageData = tmp.Split(',');
+            for(int y = 0; y < mapData[0].Count; y++)
+            {
+                if(stageData[y] == "") { continue; }
+                int priority = int.Parse(stageData[y]);
+                mapData[x][y] = parent.FindBlockObject(priority).imageFile;
+            }
+        }
+
+        rs.Close();
     }
 
     private void MouseDetect()
@@ -250,8 +348,8 @@ class StageEditorSubWindow : EditorWindow
     {
         offset += delta;
 
-        offset.x = Mathf.Clamp(offset.x, 0.0f, parent.StageSize.x);
-        offset.y = Mathf.Clamp(offset.y, 0.0f, parent.StageSize.y);
+        offset.x = Mathf.Clamp(offset.x, 0.0f, parent.stageSize.x);
+        offset.y = Mathf.Clamp(offset.y, 0.0f, parent.stageSize.y);
         Repaint();
     }
 
@@ -321,15 +419,15 @@ class StageEditorSubWindow : EditorWindow
 
         //線を描くのに必要な点の定義
 
-        Vector2 top_right    = parent.StageSize * 32 - tempOffset * 32;
+        Vector2 top_right    = parent.stageSize * 32 - tempOffset * 32;
         top_right.x += 32;
         top_right.y = editorOffset.y;
 
-        Vector2 bottom_left  = parent.StageSize * 32 - tempOffset * 32;
+        Vector2 bottom_left  = parent.stageSize * 32 - tempOffset * 32;
         bottom_left.x = editorOffset.x;
         bottom_left.y += editorOffset.y;
 
-        Vector2 bottom_right = parent.StageSize * 32 - tempOffset * 32;
+        Vector2 bottom_right = parent.stageSize * 32 - tempOffset * 32;
         bottom_right.x += 32;
         bottom_right.y += editorOffset.y;
 
@@ -359,18 +457,25 @@ class StageEditorSubWindow : EditorWindow
         Handles.DrawLine(bottom_left, bottom_right);
     }
 
-    private void Generate()
+    private void Generate(bool newScene)
     {
         Debug.Log("ステージの保存開始");
 
         Vector3 createPosition = new Vector3();
 
-        float stageSize_x = parent.StageSize.x;
-        float stageSize_y = parent.StageSize.y;
+        float stageSize_x = parent.stageSize.x;
+        float stageSize_y = parent.stageSize.y;
 
         //シーンを作成
-        var saveScene =
-            EditorSceneManager.NewScene(NewSceneSetup.DefaultGameObjects, NewSceneMode.Single);
+        UnityEngine.SceneManagement.Scene saveScene;
+        if(newScene)
+        {
+            saveScene = EditorSceneManager.NewScene(NewSceneSetup.DefaultGameObjects, NewSceneMode.Single);
+        }
+        else
+        {
+            saveScene = EditorSceneManager.GetActiveScene();
+        }
 
         //ブロックのオブジェクトで溢れないように
         Transform blockParent = new GameObject().transform;
@@ -393,7 +498,7 @@ class StageEditorSubWindow : EditorWindow
             }
         }
 
-        EditorSceneManager.SaveScene(saveScene, parent.SaveDirectory + "\\" + parent.StageName + ".unity");
+        EditorSceneManager.SaveScene(saveScene, "./Assets" + parent.SaveDirectory + "\\" + parent.stageName + ".unity");
         Debug.Log("保存が終了しました");
     }
 }
