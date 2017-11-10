@@ -18,10 +18,8 @@ public class Arm : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        Debug.Log(Vector3.Distance(m_FirstPosition, transform.localPosition));
         if(Vector3.Distance(m_FirstPosition, transform.localPosition) > m_BreakValue)
         {
-            Debug.Log(Vector3.Distance(m_FirstPosition, transform.localPosition));
             m_Arm.PlayerStan(Vector3.zero);
         }
 	}
