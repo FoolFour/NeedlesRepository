@@ -20,7 +20,6 @@ namespace GameCamera
         void Start()
         {
             camerapos = Vector3.zero;
-            Player = GameManagers.Instance.PlayerManager.GetPlayer().transform;
         }
 
         // Update is called once per frame

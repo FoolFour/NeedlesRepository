@@ -19,7 +19,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4231716639495146}
+  - component: {fileID: 114938665880913112}
   - component: {fileID: 114002678923947206}
+  - component: {fileID: 114499938982631344}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -52,3 +54,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_FirstSpawnPoint: {fileID: 0}
+--- !u!114 &114499938982631344
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1237952258836030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ea4068dda71eba4d8f83a342355ddff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_NowPlayer: {fileID: 0}
+--- !u!114 &114938665880913112
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1237952258836030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5a8c9b64c4707f4090bd58c53b59f26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SpawnManager: {fileID: 0}
+  PlayerManager: {fileID: 0}
