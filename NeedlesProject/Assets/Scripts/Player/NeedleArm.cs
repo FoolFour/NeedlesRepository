@@ -9,6 +9,7 @@ public class NeedleArm : MonoBehaviour
 {
     //デバッグ用変数　後で消す
     public Color mDebugColor;
+    public GameObject obj;
     //-------------------------
 
     //プレイヤーのトランスフォーム類----------------------------------------------
@@ -54,6 +55,14 @@ public class NeedleArm : MonoBehaviour
     /// 1フレ前のスティックの傾き
     /// </summary>
     private float m_PrevDefeated;
+    /// <summary>
+    /// 物理の不正の計測タイマー
+    /// </summary>
+    private float m_BreakTimer = 0;
+    /// <summary>
+    /// この時間、腕の芯部分に当たっていると壊れるように
+    /// </summary>
+    public float m_BreakTime = 3;
     //---------------------------------------------------------------------------
 
     //数値データ------------------------------------------------------------------
@@ -63,9 +72,7 @@ public class NeedleArm : MonoBehaviour
     public float m_TorquePower = 30;
     [SerializeField, TooltipAttribute("トルクの最大回転力")]
     public float m_TorqueMaxPower = 30;
-    //----------------------------------------------------------------------------
-
-    //ゲーム的データ--------------------------------------------------------------
+    [SerializeField, TooltipAttribute("壁をはじいた時の力")]
     public float m_ImpactPower = 5;
     //----------------------------------------------------------------------------
 
@@ -73,10 +80,14 @@ public class NeedleArm : MonoBehaviour
     int m_Ignorelayer = 1 << 9; //ブロックのみ当たる
 
 
-    public void Start()
+    public void OnEnable()
     {
         m_rb = GetComponent<Rigidbody>();
-        m_CurrentHitObject = (GameObject)Instantiate(m_HitObjectPrefab,Vector3.zero, Quaternion.identity);
+    }
+
+    public void Start()
+    {
+        m_CurrentHitObject = (GameObject)Instantiate(m_HitObjectPrefab, Vector3.zero, Quaternion.identity);
     }
 
     /// <summary>
@@ -90,10 +101,8 @@ public class NeedleArm : MonoBehaviour
         //腕を急速旋回させるための処理
         if (stickdir != Vector3.zero && m_ArmCurrentLenght == 0)
         {
-            float dir = Mathf.Sign(Vector2Cross(Vector3.up, stickdir.normalized));
-            float rotate = Vector3.Angle(Vector3.up, stickdir.normalized);
-            m_rb.rotation = Quaternion.AngleAxis(dir * rotate, Vector3.forward);
             m_ArmCurrentLenght = defeated * m_ArmMaxLength;
+            transform.rotation = Quaternion.LookRotation(Vector3.forward, stickdir.normalized);
             return;
 
         }
@@ -102,7 +111,7 @@ public class NeedleArm : MonoBehaviour
         if (m_ArmCurrentLenght == 0) { m_Arm.GetComponent<CapsuleCollider>().enabled = false; }
         else { m_Arm.GetComponent<CapsuleCollider>().enabled = true; }
 
-        if (Physics.Raycast(transform.position, m_Arm.up, out m_Hitinfo, m_ArmCurrentLenght + 1.0f, m_Ignorelayer) && m_ArmCurrentLenght != 0)
+        if (Physics.Raycast(transform.position, transform.up, out m_Hitinfo, m_ArmCurrentLenght + 1.0f, m_Ignorelayer) && m_Arm.localScale.y != 0)
         {
 
             //ブロックに当たった時
@@ -175,21 +184,24 @@ public class NeedleArm : MonoBehaviour
 
         m_Hand.position = m_CurrentHitObject.transform.position;
         m_Hand.up = -m_Hitinfo.normal;
-        transform.rotation = Quaternion.LookRotation(Vector3.forward,(m_Hand.position - m_Arm.position).normalized);
+        transform.rotation = Quaternion.LookRotation(Vector3.forward, (m_Hand.position - m_Arm.position).normalized);
 
         float len = Vector3.Distance(m_Hand.position, transform.position);
         m_Arm.localScale = new Vector3(3f, len, 1.5f);
+
+        //Armが壊れてないかcheckする
+        ArmBreakCheck(len);
 
         //腕の回転処理
         float angle = Mathf.Sign(Vector2Cross(m_Arm.up, stickdir.normalized));
         m_CurrentHitObject.GetComponent<Rigidbody>().maxAngularVelocity = m_TorqueMaxPower;
 
-        //左右に判定して壁だったら止める処理
-        if (CircumferenceCheck(angle,len))
+        //周りを判定して壁だったら止める処理
+        if (CircumferenceCheck(angle, len))
         {
             m_CurrentHitObject.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
         }
-        else{ m_CurrentHitObject.GetComponent<Rigidbody>().AddTorque(transform.forward * ((m_TorquePower * angle) * m_ArmCurrentLenght), ForceMode.Force);}
+        else { m_CurrentHitObject.GetComponent<Rigidbody>().AddTorque(transform.forward * ((m_TorquePower * angle) * m_ArmCurrentLenght), ForceMode.Force); }
         hinge.autoConfigureConnectedAnchor = false;
         hinge.connectedAnchor = Vector3.up * m_ArmCurrentLenght;
     }
@@ -208,7 +220,7 @@ public class NeedleArm : MonoBehaviour
     public void StanMode()
     {
         var hinge = m_CurrentHitObject.GetComponent<HingeJoint>();
-        if(hinge) hinge.breakTorque = 0;
+        if (hinge) hinge.breakTorque = 0;
         m_CurrentHitObject.transform.parent = null;
 
         ishit = false;
@@ -216,6 +228,11 @@ public class NeedleArm : MonoBehaviour
         m_Arm.localScale = new Vector3(3f, m_ArmCurrentLenght, 1.5f);
         m_Hand.position = transform.position + (m_Arm.up * (m_ArmCurrentLenght));
         m_Hand.up = m_Arm.up;
+    }
+
+    public void Dead()
+    {
+        m_CurrentHitObject.transform.parent = null;
     }
 
     /// <summary>
@@ -256,5 +273,21 @@ public class NeedleArm : MonoBehaviour
 
         return Physics.Linecast(startpoint, endpoint, m_Ignorelayer) ||
             Physics.Linecast(temp, transform.position, m_Ignorelayer);
+    }
+
+    private void ArmBreakCheck(float len)
+    {
+        if (Physics.Linecast(m_Arm.transform.position, m_Arm.transform.position + (m_Arm.up * len), m_Ignorelayer, QueryTriggerInteraction.Ignore))
+        {
+            m_BreakTimer += Time.deltaTime;
+            if (m_BreakTimer > m_BreakTime)
+            {
+                PlayerStan(Vector3.zero);
+            }
+        }
+        else
+        {
+            m_BreakTimer = 0;
+        }
     }
 }
