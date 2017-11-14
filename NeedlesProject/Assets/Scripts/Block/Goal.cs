@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using LoadSceneMode = UnityEngine.SceneManagement.LoadSceneMode;
 
-public class Goal : MonoBehaviour
+public class Goal : BlockBase
 {
     [SerializeField]
     private SceneChanger sceneChanger;
@@ -13,12 +13,15 @@ public class Goal : MonoBehaviour
         sceneChanger = FindObjectOfType<SceneChanger>();
     }
 
-    public void OnTriggerEnter(Collider other)
+    public override void StickEnter(GameObject arm)
     {
-        if(other.tag == "Player")
-        {
-            sceneChanger.SceneChange("Result", LoadSceneMode.Additive);
-            Destroy(this);
-        }
+        sceneChanger.SceneChange("Result", LoadSceneMode.Additive);
+        Destroy();
+        Destroy(GetComponent<BoxCollider>());
+    }
+
+    public override void StickExit()
+    {
+        base.StickExit();
     }
 }

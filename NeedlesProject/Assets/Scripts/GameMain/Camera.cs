@@ -48,5 +48,11 @@ namespace GameCamera
             temp = Vector3.Min(maxPositionLimit, temp);
             transform.position = Vector3.Lerp(transform.position, temp + new Vector3(0, 3, -zPosition), 0.2f);
         }
+
+        public void CameraReset(Vector3 position)
+        {
+            transform.position = position;
+            camerapos = position;
+        }
     }
 }

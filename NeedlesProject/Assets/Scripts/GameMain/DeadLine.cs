@@ -23,9 +23,12 @@ public class DeadLine : MonoBehaviour
     {
         if(other.gameObject.tag == "Player")
         {
+            Camera.main.GetComponent<GameCamera.Camera>().CameraReset(new Vector3(m_SpawnManager.GetCurrentSpawnPoint().x,
+                                                         m_SpawnManager.GetCurrentSpawnPoint().y,
+                                                            Camera.main.transform.position.z));
             other.gameObject.GetComponent<Player>().Dead();
             other.gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
-            other.gameObject.transform.position = m_SpawnManager.GetCurrentSpawnPoint(); ;
+            other.gameObject.transform.position = m_SpawnManager.GetCurrentSpawnPoint();
         }
     }
 }

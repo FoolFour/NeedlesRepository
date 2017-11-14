@@ -81,7 +81,7 @@ public class Player : MonoBehaviour {
     public bool IsGround()
     {
         Ray ray = new Ray(transform.position, Vector3.down);
-        if(Physics.Raycast(ray,1,mIgnorelayer))
+        if (Physics.Raycast(ray, 1, mIgnorelayer))
         {
             return true;
         }
@@ -94,6 +94,5 @@ public class Player : MonoBehaviour {
         mData.mRArm.Dead();
         mStan = false;
         mStanTimer = 0;
-
     }
 }
