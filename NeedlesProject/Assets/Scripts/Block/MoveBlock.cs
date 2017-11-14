@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 public class MoveBlock : BlockBase {
 
@@ -15,8 +16,8 @@ public class MoveBlock : BlockBase {
 	// Use this for initialization
 	void Start ()
     {
+        Assert.IsFalse(m_MovePoint.Length <= 1, "少な過ぎる!");
         transform.position = m_MovePoint[0].position;
-
     }
 	
 	// Update is called once per frame
