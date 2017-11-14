@@ -13,12 +13,18 @@ public class BackGroundScroll : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
     {
-        m_FirstYPosition = m_Player.position.y;
 	}
 
     // Update is called once per frame
     void Update()
     {
+        if (!m_Player)
+        {
+            m_Player = GameManagers.Instance.PlayerManager.GetPlayer().transform;
+            if(m_Player) m_FirstYPosition = m_Player.position.y;
+            return;
+        }
+
         m_CurrentY = (m_FirstYPosition - m_Player.position.y) * speed;
         m_CurrentY = Mathf.Clamp(m_CurrentY, m_MinValue, 0);
 

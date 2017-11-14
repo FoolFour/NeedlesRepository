@@ -20,13 +20,18 @@ namespace GameCamera
         void Start()
         {
             camerapos = Vector3.zero;
-            Player = GameObject.Find("Player").transform;
+            Player = GameManagers.Instance.PlayerManager.GetPlayer().transform;
         }
 
         // Update is called once per frame
-        void Update()
+        void LateUpdate()
         {
-            if (!Player) return;
+            if (!Player)
+            {
+                Player = GameManagers.Instance.PlayerManager.GetPlayer().transform;
+                return;
+            }
+
             if (Player.GetComponent<Player>().HitCheck() || Player.GetComponent<Player>().IsGround())
             {
                 camerapos = Player.position;

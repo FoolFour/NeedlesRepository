@@ -21,8 +21,9 @@ public class DeadLine : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.name == "Player")
+        if(other.gameObject.tag == "Player")
         {
+            other.gameObject.GetComponent<Player>().Dead();
             other.gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
             other.gameObject.transform.position = m_SpawnManager.GetCurrentSpawnPoint(); ;
         }

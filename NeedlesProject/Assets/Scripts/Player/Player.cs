@@ -87,4 +87,13 @@ public class Player : MonoBehaviour {
         }
         return false;
     }
+
+    public void Dead()
+    {
+        mData.mLArm.Dead();
+        mData.mRArm.Dead();
+        mStan = false;
+        mStanTimer = 0;
+
+    }
 }

@@ -102,9 +102,10 @@ GameObject:
   - component: {fileID: 4818390824605356}
   - component: {fileID: 54352358616705364}
   - component: {fileID: 114752104781262962}
+  - component: {fileID: 114542934558613530}
   m_Layer: 8
   m_Name: ShoulderLeft
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -119,9 +120,10 @@ GameObject:
   - component: {fileID: 4516956042211568}
   - component: {fileID: 54411648681700530}
   - component: {fileID: 114083698492018486}
+  - component: {fileID: 114665201343028870}
   m_Layer: 8
   m_Name: ShoulderRight
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -465,7 +467,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1378789054465186}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.357, y: 0.106, z: 0}
+  m_LocalPosition: {x: 88.85, y: 7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4731202910434146}
@@ -1252,7 +1254,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ecfbc23f3ad52d498fb4c605b8449ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mStanTime: 1
+  mStanTime: 3
+  mStanEffect: {fileID: 1955285482504192, guid: 0a0a9365bbc153d47b0e6496b0631901,
+    type: 2}
 --- !u!114 &114083698492018486
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1265,16 +1269,41 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mDebugColor: {r: 0, g: 0, b: 1, a: 1}
+  obj: {fileID: 0}
   m_Player: {fileID: 4409340502447334}
   m_Arm: {fileID: 4911888058201096}
   m_Hand: {fileID: 4080262122392568}
   m_HitObjectPrefab: {fileID: 1786725584866122, guid: 37855bfe3ead9e843b22557a0f214ef5,
     type: 2}
-  m_Centrifugalforce: 3
+  m_BreakTime: 3
   m_ArmMaxLength: 5
-  m_TorquePower: 100
-  m_TorqueMaxPower: 100
+  m_TorquePower: 150
+  m_TorqueMaxPower: 150
   m_ImpactPower: 3
+--- !u!114 &114542934558613530
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1265551622803418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac8382dacd64c784b9332a0a1b3131eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_BreakValue: 1
+--- !u!114 &114665201343028870
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1322746834274938}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac8382dacd64c784b9332a0a1b3131eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_BreakValue: 1
 --- !u!114 &114752104781262962
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1287,15 +1316,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mDebugColor: {r: 1, g: 0, b: 0, a: 1}
+  obj: {fileID: 0}
   m_Player: {fileID: 4409340502447334}
   m_Arm: {fileID: 4850824134716814}
   m_Hand: {fileID: 4847760031356830}
   m_HitObjectPrefab: {fileID: 1786725584866122, guid: 37855bfe3ead9e843b22557a0f214ef5,
     type: 2}
-  m_Centrifugalforce: 3
+  m_BreakTime: 3
   m_ArmMaxLength: 5
-  m_TorquePower: 100
-  m_TorqueMaxPower: 100
+  m_TorquePower: 150
+  m_TorqueMaxPower: 150
   m_ImpactPower: 3
 --- !u!114 &114999709441917462
 MonoBehaviour:
