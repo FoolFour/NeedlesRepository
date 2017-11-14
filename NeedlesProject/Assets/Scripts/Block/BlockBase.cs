@@ -26,6 +26,7 @@ public class BlockBase : MonoBehaviour {
 
     public void Destroy()
     {
+        if(transform.Find("StickPoint(Clone)"))
         transform.Find("StickPoint(Clone)").parent = null;
     }
 }
