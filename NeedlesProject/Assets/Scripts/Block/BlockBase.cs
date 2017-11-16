@@ -24,6 +24,11 @@ public class BlockBase : MonoBehaviour {
 
     }
 
+    public virtual void Reset()
+    {
+
+    }
+
     public void Destroy()
     {
         if(transform.Find("StickPoint(Clone)"))
