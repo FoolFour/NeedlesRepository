@@ -13,6 +13,11 @@ public class SceneChangeFade : SceneChanger
     [SerializeField]
     private Color     color;
 
+    private void Reset()
+    {
+        image = FindObjectOfType<FadeImage>();
+    }
+
     protected override IEnumerator SceneChangePerformance()
     {
         yield return image.FadeInStart(color);

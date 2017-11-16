@@ -20,8 +20,6 @@ public class FadeImage : Image
     public delegate void OnFadeCompleteHandler(FadeType type);
     public event OnFadeCompleteHandler OnFadeComplete;
 
-
-
     //////////
     // 変数 /
     ////////
@@ -32,9 +30,6 @@ public class FadeImage : Image
         get { return fadeSpeed_; }
         set { fadeSpeed_ = value; }
     }
-
-    private IEnumerator fadeCoroutine_;
-
 
 
     //////////////////
@@ -50,43 +45,37 @@ public class FadeImage : Image
     }
 
     /// <summary>フェードインの開始</summary>
-    public void FadeInStart()
+    [ContextMenu("FadeIn")]
+    public Coroutine FadeInStart()
     {
-        fadeCoroutine_ = FadeIn();
-        StartCoroutine(fadeCoroutine_);
+        return StartCoroutine(FadeIn());
     }
 
     /// <summary>フェードインの開始</summary>
-    public void FadeInStart(Color c)
+    public Coroutine FadeInStart(Color c)
     {
         color = c;
-        FadeInStart();
+        return FadeInStart();
     }
 
     /// <summary>フェードアウトの開始</summary>
-    public void FadeOutStart()
+    [ContextMenu("FadeOut")]
+    public Coroutine FadeOutStart()
     {
-        fadeCoroutine_ = FadeOut();
-        StartCoroutine(fadeCoroutine_);
+        return StartCoroutine(FadeOut());
     }
 
     /// <summary>フェードアウトの開始</summary>
-    public void FadeOutStart(Color c)
+    public Coroutine FadeOutStart(Color c)
     {
         color = c;
-        FadeOutStart();
+        return FadeOutStart();
     }
 
     /// <summary>フェードの一時停止</summary>
-    public void FadePause()
+    public void FadeStop()
     {
-        StopCoroutine(fadeCoroutine_);
-    }
-
-    /// <summary>フェードの再開</summary>
-    public void FadeResume()
-    {
-        StartCoroutine(fadeCoroutine_);
+        StopAllCoroutines();
     }
 
     ///////////////////
@@ -102,7 +91,7 @@ public class FadeImage : Image
             yield return null;
         }
         SetAlpha(1.0f);
-        OnFadeComplete(FadeType.FadeIn);
+        SendFadeComplete(FadeType.FadeIn);
     }
 
     /// <summary>フェードアウト</summary>
@@ -114,6 +103,14 @@ public class FadeImage : Image
             yield return null;
         }
         SetAlpha(0.0f);
-        OnFadeComplete(FadeType.FadeOut);
+        SendFadeComplete(FadeType.FadeOut);
+    }
+
+    private void SendFadeComplete(FadeType fadeType)
+    {
+        if(OnFadeComplete != null)
+        {
+            OnFadeComplete(fadeType);
+        }
     }
 }
