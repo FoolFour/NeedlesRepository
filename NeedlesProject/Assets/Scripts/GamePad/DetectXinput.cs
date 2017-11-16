@@ -53,6 +53,7 @@ public class DetectXinput : MonoBehaviour
             if(debugXInputMode)
             {
                 Log("強制的にX Inputの設定にします");
+                GamePad.SetXinputMode();
                 Destroy(this);
             }
 #endif
