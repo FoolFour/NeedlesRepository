@@ -5,21 +5,11 @@ using System.Collections.Generic;
 
 public class SceneChanger : MonoBehaviour
 {
-    //////////////////////////
-    // 変数(SerializeField) /
-    ////////////////////////
-
-    [SerializeField]
-    [Header("単位:秒")]
-    private uint           changeTimer;
-
     /////////////////////////////
     // 変数(NonSerializeField) /
     ///////////////////////////
     private string         sceneName;
     private LoadSceneMode  sceneMode;
-
-    private WaitForSeconds wait;
 
     private TaskLock       taskLock;
 
@@ -49,7 +39,6 @@ public class SceneChanger : MonoBehaviour
 
     private void Awake()
     {
-        wait = new WaitForSeconds(changeTimer);
         taskLock = GetComponent<TaskLock>();
         if(taskLock == null)
         {
