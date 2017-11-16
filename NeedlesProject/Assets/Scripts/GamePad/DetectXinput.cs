@@ -30,6 +30,15 @@ public class DetectXinput : MonoBehaviour
 
     private void Awake()
     {
+#if UNITY_EDITOR
+        if(debugXInputMode)
+        {
+            Log("強制的にX Inputの設定にします");
+            GamePad.SetXinputMode();
+            Destroy(this);
+        }
+#endif
+
         Log("コントローラーのタイプの判別開始");
         var joysticks = Input.GetJoystickNames();
 
@@ -49,14 +58,6 @@ public class DetectXinput : MonoBehaviour
         if (!isDetected)
         {
             Log("<color=orange>コントローラーの判別失敗 :</color> コントローラーが接続されていません");
-#if UNITY_EDITOR
-            if(debugXInputMode)
-            {
-                Log("強制的にX Inputの設定にします");
-                GamePad.SetXinputMode();
-                Destroy(this);
-            }
-#endif
         }
         Log("コントローラの判別処理をを終了します");
     }
