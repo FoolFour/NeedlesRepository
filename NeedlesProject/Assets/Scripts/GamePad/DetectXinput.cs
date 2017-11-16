@@ -13,6 +13,11 @@ public class DetectXinput : MonoBehaviour
 #if UNITY_EDITOR
     [SerializeField]
     private bool showLog;
+
+    [Space()]
+    [Header("下のチェックボックスで強制的にXinputに")]
+    [SerializeField]
+    private bool debugXInputMode;
 #endif
 
     //様々な可能性を考慮
@@ -22,9 +27,6 @@ public class DetectXinput : MonoBehaviour
         "Xinput",  "X input",  "X-input",  "X_input",
         "Xbox360", "Xbox 360", "Xbox-360", "Xbox_360",
     };
-
-    const string xbox1 = "XBOX 360";
-    //const string xbox2 =
 
     private void Awake()
     {
@@ -47,6 +49,13 @@ public class DetectXinput : MonoBehaviour
         if (!isDetected)
         {
             Log("<color=orange>コントローラーの判別失敗 :</color> コントローラーが接続されていません");
+#if UNITY_EDITOR
+            if(debugXInputMode)
+            {
+                Log("強制的にX Inputの設定にします");
+                Destroy(this);
+            }
+#endif
         }
         Log("コントローラの判別処理をを終了します");
     }
