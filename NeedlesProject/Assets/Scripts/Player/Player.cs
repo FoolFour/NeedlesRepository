@@ -81,10 +81,18 @@ public class Player : MonoBehaviour {
     public bool IsGround()
     {
         Ray ray = new Ray(transform.position, Vector3.down);
-        if(Physics.Raycast(ray,1,mIgnorelayer))
+        if (Physics.Raycast(ray, 1, mIgnorelayer))
         {
             return true;
         }
         return false;
+    }
+
+    public void Dead()
+    {
+        mData.mLArm.Dead();
+        mData.mRArm.Dead();
+        mStan = false;
+        mStanTimer = 0;
     }
 }
