@@ -10,6 +10,8 @@ public class Pauser : MonoBehaviour
     // ポーズ対象のコンポーネント
     Behaviour[] pauseBehavs = null;
 
+    ParticleSystem[] pauseParticle = null;
+
     Rigidbody[] rgBodies = null;
     Vector3[] rgBodyVels = null;
     Vector3[] rgBodyAVels = null;
@@ -47,6 +49,12 @@ public class Pauser : MonoBehaviour
             com.enabled = false;
         }
 
+        pauseParticle = Array.FindAll(GetComponentsInChildren<ParticleSystem>(), (obj) => { return obj.isPlaying; });
+        foreach (var ppa in pauseParticle)
+        {
+            ppa.Stop();
+        }
+
         rgBodies = Array.FindAll(GetComponentsInChildren<Rigidbody>(), (obj) => { return !obj.IsSleeping(); });
         rgBodyVels = new Vector3[rgBodies.Length];
         rgBodyAVels = new Vector3[rgBodies.Length];
@@ -80,6 +88,11 @@ public class Pauser : MonoBehaviour
         foreach (var com in pauseBehavs)
         {
             com.enabled = true;
+        }
+
+        foreach (var ppa in pauseParticle)
+        {
+            ppa.Play();
         }
 
         for (var i = 0; i < rgBodies.Length; ++i)

@@ -16,7 +16,7 @@ public class Goal : BlockBase
     public override void StickEnter(GameObject arm)
     {
         sceneChanger.SceneChange("Result", LoadSceneMode.Additive);
-        Destroy();
+        StickPointOut();
         Destroy(GetComponent<BoxCollider>());
     }
 
