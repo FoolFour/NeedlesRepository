@@ -111,8 +111,7 @@ public class NeedleArm : MonoBehaviour
         if (m_ArmCurrentLenght == 0) { m_Arm.GetComponent<CapsuleCollider>().enabled = false; }
         else { m_Arm.GetComponent<CapsuleCollider>().enabled = true; }
 
-        float length = defeated * m_ArmMaxLength + 1;
-        if (Physics.Raycast(transform.position, transform.up, out m_Hitinfo, length, m_Ignorelayer))
+        if (Physics.Raycast(transform.position, transform.up, out m_Hitinfo, m_ArmMaxLength, m_Ignorelayer) && defeated != 0)
         {
 
             //ブロックに当たった時
