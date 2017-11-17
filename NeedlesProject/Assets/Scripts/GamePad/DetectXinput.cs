@@ -13,16 +13,32 @@ public class DetectXinput : MonoBehaviour
 #if UNITY_EDITOR
     [SerializeField]
     private bool showLog;
+
+    [Space()]
+    [Header("下のチェックボックスで強制的にXinputに")]
+    [SerializeField]
+    private bool debugXInputMode;
 #endif
 
     //様々な可能性を考慮
-    const string xinput1 = " Xinput";
-    const string xinput2 = " X input";
-    const string xinput3 = " X-input";
-    const string xinput4 = " X_input";
+
+    readonly string[] detectList = new []
+    {
+        "Xinput",  "X input",  "X-input",  "X_input",
+        "Xbox360", "Xbox 360", "Xbox-360", "Xbox_360",
+    };
 
     private void Awake()
     {
+#if UNITY_EDITOR
+        if(debugXInputMode)
+        {
+            Log("強制的にX Inputの設定にします");
+            GamePad.SetXinputMode();
+            Destroy(this);
+        }
+#endif
+
         Log("コントローラーのタイプの判別開始");
         var joysticks = Input.GetJoystickNames();
 
@@ -95,22 +111,15 @@ public class DetectXinput : MonoBehaviour
 
     private bool IsXinput(string joystickName)
     {
-        //ゲームパッドによって[Xinput]の文字が全て小文字の場合や全て大文字の可能性を考慮し
+        //ゲームパッドによってリストの文字が全て小文字の場合や全て大文字の可能性を考慮し
         //大文字と小文字を無視して判定するようにする
         var option = System.StringComparison.OrdinalIgnoreCase;
-        int result;
 
-        result = joystickName.IndexOf(xinput1, option);
-        if (result != -1) { return true; }
-
-        result = joystickName.IndexOf(xinput2, option);
-        if (result != -1) { return true; }
-
-        result = joystickName.IndexOf(xinput3, option);
-        if (result != -1) { return true; }
-
-        result = joystickName.IndexOf(xinput4, option);
-        if (result != -1) { return true; }
+        foreach(string controllerName in detectList)
+        {
+            int result = joystickName.IndexOf(controllerName, option);
+            if (result != -1) { return true; }
+        }
 
         return false;
     }
