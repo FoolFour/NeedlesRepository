@@ -11,6 +11,7 @@ public class GroundEnemy : BlockBase
     Ray ray2;
     //前と後ろ確認用
     Ray ray3;
+    Ray ray4;
 
     //rayの長さ
     float distance = 1.0f;
@@ -18,6 +19,7 @@ public class GroundEnemy : BlockBase
     public bool ishit;
     public bool ishit2;
     public bool ishit3;
+    public bool ishit4;
 
     float StartAngle;
     float EndAngle;
@@ -27,17 +29,19 @@ public class GroundEnemy : BlockBase
     //
     public LayerMask mask;
     //回転前の角度
-    private float PointangleZ;  
+    private float PointangleZ;
     //
     Rigidbody rig;
+    RaycastHit hit;
 
-     enum State
+    public enum State
     {
         MOVE,
-        ROTATIONM,
+        ROTATIONM_N,
+        ROTATIONM_R,
         IDOL
     }
-    State state_;
+    public State state_;
 
     void Start()
     {
@@ -47,52 +51,70 @@ public class GroundEnemy : BlockBase
     {
         eulerAngles = gameObject.transform.eulerAngles;
         rig = gameObject.GetComponent<Rigidbody>();
-        //
-       
 
         //前下確認用のray
         ishit = GameObject.Find("DiagonallRay").GetComponent<Diagonallybelow>().ishitsecond;
-        //ray = new Ray(transform.position, transform.right + new Vector3(0, -1, 0));
-        //Debug.DrawRay(ray.origin, ray.direction * distance, Color.red);
         //ishit = Physics.Raycast(ray, out hit, ray_Meter, mask);
 
         //下確認用のray
         ishit2 = GameObject.Find("UnderRay").GetComponent<ForwardRay>().ishitUnder;
-        //ray2 = new Ray(transform.position+new Vector3(-0.5f,0,0), -transform.up);
-        //Debug.DrawRay(ray2.origin, ray2.direction * distance, Color.red);
         //ishit2 = Physics.Raycast(ray2, out hit, ray_Meter, mask);
 
         //前方確認用のray
-        //ray3 = new Ray(transform.position, transform.right);
-        //Debug.DrawRay(ray3.origin, ray3.direction * distance, Color.red);
+        //ray3 = new Ray(transform.position, transform.right);      
         ishit3 = GameObject.Find("CenterRay").GetComponent<ForwardRay>().ishitUnder;
 
+        //進行方向の障害物確認
+        ray4 = new Ray(transform.position, transform.right);
+        Debug.DrawRay(ray4.origin, ray4.direction * distance, Color.blue);
+        ishit4 = Physics.Raycast(ray4, out hit, 1.5f, mask);
+
         //状態の判定
-        if (ishit == false && ishit2 == false&&ishit3==false)
-        {          
-            state_ = State.ROTATIONM;     
+        if (ishit == false && ishit2 == false && ishit3 == false)
+        {
+            state_ = State.ROTATIONM_N;
         }
-        else if (ishit == true && state_ == State.IDOL )
-        {           
-            state_ = State.MOVE; 
-        }  
+        else if (ishit == true && ishit2 == true && ishit3 == true && ishit4 == true)
+        {
+            state_ = State.ROTATIONM_R;
+        }
+        else if ((ishit == true || ishit2 == true) && state_ == State.IDOL)
+        {
+            state_ = State.MOVE;
+        }
 
         //移動中
         if (state_ == State.MOVE)
         {
-            rig.constraints = RigidbodyConstraints.FreezeRotationX| RigidbodyConstraints.FreezeRotationZ 
-                            | RigidbodyConstraints.FreezeRotationY| RigidbodyConstraints.FreezePositionZ;
-            StartAngle = transform.eulerAngles.z;
-            EndAngle = StartAngle - 90f;           
-            gameObject.transform.position += transform.right * movespeed * Time.deltaTime;            
+            rig.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ
+                            | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezePositionZ;
+            StartAngle = Mathf.Floor( transform.eulerAngles.z);     
+            gameObject.transform.position +=transform.right * movespeed * Time.deltaTime;
         }
-      
-        else if (state_ == State.ROTATIONM)
+
+        else if (state_ == State.ROTATIONM_N)
         {
             rig.constraints = RigidbodyConstraints.None;
-
-            Angle_Z = Mathf.LerpAngle(StartAngle, EndAngle,300f);
+            EndAngle = StartAngle - 90f;
+            Angle_Z = Mathf.LerpAngle(StartAngle, EndAngle, 60f);
             transform.eulerAngles = new Vector3(0, 0, Angle_Z);
+            rig.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ
+                           | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezePositionZ;
+            state_ = State.IDOL;
+        }
+        else if (state_ == State.ROTATIONM_R)
+        {
+
+            rig.constraints = RigidbodyConstraints.None;
+
+            EndAngle = StartAngle + 90f;
+
+            Angle_Z = Mathf.LerpAngle(StartAngle, EndAngle, 60f);
+
+            transform.eulerAngles = new Vector3(0, 0, Angle_Z);
+
+            rig.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ
+                            | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezePositionZ;
 
             state_ = State.IDOL;
         }
