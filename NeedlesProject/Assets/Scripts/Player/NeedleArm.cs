@@ -111,7 +111,7 @@ public class NeedleArm : MonoBehaviour
         if (m_ArmCurrentLenght == 0) { m_Arm.GetComponent<CapsuleCollider>().enabled = false; }
         else { m_Arm.GetComponent<CapsuleCollider>().enabled = true; }
 
-        if (Physics.Raycast(transform.position, transform.up, out m_Hitinfo, m_ArmCurrentLenght + 1.0f, m_Ignorelayer) && m_Arm.localScale.y != 0)
+        if (Physics.Raycast(transform.position, transform.up, out m_Hitinfo, m_ArmMaxLength, m_Ignorelayer) && defeated != 0)
         {
 
             //ブロックに当たった時
@@ -145,7 +145,6 @@ public class NeedleArm : MonoBehaviour
         m_rb.angularVelocity = Vector3.forward * 50 * angle;
         m_Hand.position = transform.position + (m_Arm.up * (m_ArmCurrentLenght));
         m_Hand.up = m_Arm.up;
-
     }
 
     //刺さった腕を回転する

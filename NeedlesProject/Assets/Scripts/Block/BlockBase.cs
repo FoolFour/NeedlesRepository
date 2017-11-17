@@ -24,12 +24,12 @@ public class BlockBase : MonoBehaviour {
 
     }
 
-    public virtual void Reset()
+    public virtual void Init()
     {
 
     }
 
-    public void Destroy()
+    public void StickPointOut()
     {
         if(transform.Find("StickPoint(Clone)"))
         transform.Find("StickPoint(Clone)").parent = null;
