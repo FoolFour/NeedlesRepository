@@ -25,10 +25,11 @@ public class CoinCounting : MonoBehaviour
     private void Awake()
     {
         string tmp_name = gameObject.name;
-        Debug.Assert(tmp_name == "Coin", "親の名前を「Coin」にしてください");
+        Debug.Assert(tmp_name == "Coins", "親の名前を「Coins」にしてください");
 
         startCoinNum = coinRest;
     }
+
 
     private void CoinNumTest()
     {
@@ -52,6 +53,12 @@ public class CoinCounting : MonoBehaviour
 
         Debug.Log("コインの枚数チェック - <color=lightblue>正常終了</color>");
 #endif
+    }
+
+    [ContextMenu("Show player get coin")]
+    private void Show()
+    {
+        Debug.Log(playerGetCoinNum);
     }
 
     private void Update()
