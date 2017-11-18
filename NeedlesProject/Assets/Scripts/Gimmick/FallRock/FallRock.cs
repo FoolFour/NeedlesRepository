@@ -22,21 +22,21 @@ public class FallRock : BlockBase
         base.StickEnter(arm);
     }
 
-
-    public void OnTriggerEnter(Collider other)
+    public void OnCollisionEnter(Collision collision)
     {
-        if (other.gameObject.tag == "Player")
+        if (collision.gameObject.tag.Contains("Player"))
         {
-            Vector3 temp = other.gameObject.transform.position - transform.position;
+            Vector3 temp = collision.gameObject.transform.position - transform.position;
             temp.y = 1;
-            if (other.gameObject.GetComponent<Player>())
+            if (collision.gameObject.GetComponent<Player>())
             {
-                other.gameObject.GetComponent<Player>().StanMode(temp.normalized * 10);
+                collision.gameObject.GetComponent<Player>().StanMode(temp.normalized * 10);
             }
             else
             {
-                other.gameObject.transform.parent.GetComponent<Player>().StanMode(temp.normalized * 10);
+                collision.gameObject.transform.parent.GetComponent<Player>().StanMode(temp.normalized * 10);
             }
         }
+        Destroy(gameObject);
     }
 }
