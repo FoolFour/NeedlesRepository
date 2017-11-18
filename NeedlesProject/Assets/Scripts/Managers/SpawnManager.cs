@@ -24,4 +24,15 @@ public class SpawnManager : MonoBehaviour
     {
         return m_CurrentSpawnPoint;
     }
+
+    public void ReSpawn()
+    {
+        var player = GameManagers.Instance.PlayerManager.GetPlayer();
+        Camera.main.GetComponent<GameCamera.Camera>().CameraReset(new Vector3(GetCurrentSpawnPoint().x,
+                                                            GetCurrentSpawnPoint().y,
+                                                            Camera.main.transform.position.z));
+        player.gameObject.GetComponent<Player>().Dead();
+        player.gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        player.gameObject.transform.position = GetCurrentSpawnPoint();
+    }
 }
