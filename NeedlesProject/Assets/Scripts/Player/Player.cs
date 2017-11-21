@@ -57,11 +57,6 @@ public class Player : MonoBehaviour {
         Vector2 dir2 = new Vector3(x2, y2, 0);
         if (!mData.mRArm.IsHit()){mData.mRArm.ArmExtend(dir2);}
         else{mData.mRArm.StickArmRotation(dir2);}
-
-        if(Input.GetKeyDown(KeyCode.G))
-        {
-            StanMode(((Vector3.left / 2) + Vector3.up).normalized * 8);
-        }
     }
 
     public void StanMode(Vector3 velocity)
@@ -94,5 +89,10 @@ public class Player : MonoBehaviour {
         mData.mRArm.Dead();
         mStan = false;
         mStanTimer = 0;
+    }
+
+    public void Stop()
+    {
+        this.enabled = false;
     }
 }
