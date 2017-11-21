@@ -10,6 +10,9 @@ public class PushButtonToScenechange : MonoBehaviour
     [SerializeField]
     string  sceneName;
 
+    [SerializeField]
+    UnityEngine.SceneManagement.LoadSceneMode mode;
+
     SceneChanger sceneChanger;
 
     private void Awake()
@@ -21,7 +24,7 @@ public class PushButtonToScenechange : MonoBehaviour
     {
         if(Input.GetButtonDown(buttonName))
         {
-            sceneChanger.SceneChange(sceneName);
+            sceneChanger.SceneChange(sceneName, mode);
         }
     }
 }
