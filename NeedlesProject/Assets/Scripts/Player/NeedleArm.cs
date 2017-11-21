@@ -111,31 +111,38 @@ public class NeedleArm : MonoBehaviour
         if (m_ArmCurrentLenght == 0) { m_Arm.GetComponent<CapsuleCollider>().enabled = false; }
         else { m_Arm.GetComponent<CapsuleCollider>().enabled = true; }
 
-        if (Physics.Raycast(transform.position, transform.up, out m_Hitinfo, m_ArmMaxLength, m_Ignorelayer) && defeated != 0)
+        //ブロックとの当たり判定を二重にする
+        var armPoint1 = m_Arm.position + (m_Arm.up * m_Arm.localScale.y);
+        var armPoint2 = m_Arm.position + (m_Arm.up * (m_ArmCurrentLenght + 1));
+        RaycastHit hit;
+        if (Physics.Linecast(armPoint1, armPoint2,out hit, m_Ignorelayer) && defeated != 0)
         {
-
-            //ブロックに当たった時
-            m_Hitinfo.collider.GetComponent<BlockBase>().StickEnter(gameObject);
-            m_ArmCurrentLenght = Vector3.Distance(m_Hitinfo.point + (m_Hitinfo.normal * 0.5f), transform.position);
-
-            //ブロックが刺さる場合
-            if (m_Hitinfo.collider.GetComponent<BlockBase>().isHitBlock)
+            if (Physics.Raycast(transform.position, m_Arm.up, out m_Hitinfo, m_ArmCurrentLenght + 1, m_Ignorelayer) && m_Hitinfo.collider.gameObject == hit.collider.gameObject)
             {
-                m_Player.GetComponent<Rigidbody>().velocity = Vector3.zero;
-                GetComponent<Rigidbody>().velocity = Vector3.zero;
 
-                m_Hitinfo.point = m_Hitinfo.point + (m_Hitinfo.normal * 0.5f);
-                m_CurrentHitObject.transform.parent = m_Hitinfo.collider.transform;
-                m_CurrentHitObject.transform.position = m_Hitinfo.point;
+                //ブロックに当たった時
+                m_Hitinfo.collider.GetComponent<BlockBase>().StickEnter(gameObject);
+                m_ArmCurrentLenght = Vector3.Distance(m_Hitinfo.point + (m_Hitinfo.normal * 0.5f), transform.position);
 
-                var hinge = m_CurrentHitObject.AddComponent<HingeJoint>();
-                hinge.connectedBody = m_rb;
-                hinge.autoConfigureConnectedAnchor = false;
-                hinge.connectedAnchor = Vector3.up * m_ArmCurrentLenght;
+                //ブロックが刺さる場合
+                if (m_Hitinfo.collider.GetComponent<BlockBase>().isHitBlock)
+                {
+                    m_Player.GetComponent<Rigidbody>().velocity = Vector3.zero;
+                    GetComponent<Rigidbody>().velocity = Vector3.zero;
 
-                ishit = true;
-                m_PrevDefeated = defeated;
-                return;
+                    m_Hitinfo.point = m_Hitinfo.point + (m_Hitinfo.normal * 0.5f);
+                    m_CurrentHitObject.transform.parent = m_Hitinfo.collider.transform;
+                    m_CurrentHitObject.transform.position = m_Hitinfo.point;
+
+                    var hinge = m_CurrentHitObject.AddComponent<HingeJoint>();
+                    hinge.connectedBody = m_rb;
+                    hinge.autoConfigureConnectedAnchor = false;
+                    hinge.connectedAnchor = Vector3.up * m_ArmCurrentLenght;
+
+                    ishit = true;
+                    m_PrevDefeated = defeated;
+                    return;
+                }
             }
         }
 
@@ -270,8 +277,8 @@ public class NeedleArm : MonoBehaviour
         Vector3 temp = m_CurrentHitObject.transform.position + (-transform.up * m_ArmCurrentLenght);
         Debug.DrawLine(temp, transform.position, Color.green);
 
-        return Physics.Linecast(startpoint, endpoint, m_Ignorelayer) ||
-            Physics.Linecast(temp, transform.position, m_Ignorelayer);
+        return Physics.Linecast(startpoint, endpoint, m_Ignorelayer,QueryTriggerInteraction.Ignore) ||
+            Physics.Linecast(temp, transform.position, m_Ignorelayer, QueryTriggerInteraction.Ignore);
     }
 
     private void ArmBreakCheck(float len)

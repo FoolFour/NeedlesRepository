@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4928891277683544}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: PlayerRocketBody
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34,7 +34,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4850335276447158}
-  m_Layer: 0
+  - component: {fileID: 65739245642762766}
+  - component: {fileID: 114111711540092428}
+  m_Layer: 9
   m_Name: Rocket
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -51,7 +53,7 @@ GameObject:
   - component: {fileID: 4016879323478052}
   - component: {fileID: 33789783768748958}
   - component: {fileID: 23076405772429328}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: default
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -68,7 +70,7 @@ GameObject:
   - component: {fileID: 4247707200998228}
   - component: {fileID: 33151698745698432}
   - component: {fileID: 23243741939860174}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: default
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -83,7 +85,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4144211895062516}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: PlayerRocketDown
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -137,7 +139,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1185097171814616}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 12.27, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4928891277683544}
@@ -237,3 +239,28 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1535859890826742}
   m_Mesh: {fileID: 4300000, guid: 60cac03449b723e4483652f489783041, type: 3}
+--- !u!65 &65739245642762766
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1185097171814616}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2, y: 2, z: 3}
+  m_Center: {x: 0, y: -0.5, z: 0}
+--- !u!114 &114111711540092428
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1185097171814616}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f62071811555e549be52e963ee1bb8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isHitBlock: 0
+  sceneChanger: {fileID: 0}
