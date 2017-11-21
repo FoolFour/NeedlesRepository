@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class SpawnManager : MonoBehaviour
 {
@@ -34,5 +35,21 @@ public class SpawnManager : MonoBehaviour
         player.gameObject.GetComponent<Player>().Dead();
         player.gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
         player.gameObject.transform.position = GetCurrentSpawnPoint();
+
+        GameObjectAllInit();
+
+    }
+    /// <summary>
+    /// ゲーム内のオブジェクトを初期化する
+    /// </summary>
+    void GameObjectAllInit()
+    {
+#warning クソ遅いらしいので注意
+        var components = GameObject.FindObjectsOfType<Component>();
+        foreach (var com in components)
+        {
+            var respawnobj = com as IRespawnMessage;
+            if (respawnobj != null) respawnobj.RespawnInit();
+        }
     }
 }

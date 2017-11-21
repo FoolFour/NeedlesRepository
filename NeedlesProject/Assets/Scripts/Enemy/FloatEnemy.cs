@@ -1,8 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FloatEnemy : BlockBase
+public class FloatEnemy : BlockBase , IRespawnMessage
 {
     //移動速度
     public float movespeed;
@@ -153,5 +154,11 @@ public class FloatEnemy : BlockBase
                 collision.gameObject.transform.parent.GetComponent<Player>().StanMode(temp.normalized * 10);
             }
         }
+    }
+
+    public void RespawnInit()
+    {
+#warning 初期化処理書いたら消していいぞ
+        Debug.Log("初期化処理書けこの野郎");
     }
 }

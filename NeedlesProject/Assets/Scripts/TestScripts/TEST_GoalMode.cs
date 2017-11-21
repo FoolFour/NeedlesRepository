@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TEST_GoalMode : BlockBase
+public class TEST_GoalMode : BlockBase,IRespawnMessage
 {
     public override void StickEnter(GameObject arm)
     {
@@ -13,5 +13,9 @@ public class TEST_GoalMode : BlockBase
     public override void StickExit()
     {
         base.StickExit();
+    }
+    public void RespawnInit()
+    {
+        Debug.Log("レスポン処理");
     }
 }
