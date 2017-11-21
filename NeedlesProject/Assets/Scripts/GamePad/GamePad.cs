@@ -6,41 +6,84 @@ using System.Collections.Generic;
 public static class GamePad
 {
     // 入力関係
-    private static string vertical    = "Vertical";
+    private static string vertical    = VERTICAL;
     public  static string Vertical     { get { return vertical;    } }
 
-    private static string horizontal  = "Horizontal";
+    private static string horizontal  = HORIZONTAL;
     public  static string Horizontal   { get { return horizontal;  } }
 
-    private static string vertical2   = "Vertical2";
+    private static string vertical2   = VERTICAL + "2";
     public  static string Vertical2    { get { return vertical2;   } }
 
-    private static string horizontal2 = "Horizontal2";
+    private static string horizontal2 = HORIZONTAL + "2";
     public  static string Horizontal2  { get { return horizontal2; } }
 
     private static bool   isDirectMode;
     public  static bool   IsDirectMode { get { return isDirectMode; } }
 
+    private static bool   isFlipAnalog;
+    public  static bool   IsFlipAnalog { get { return isFlipAnalog; } }
+
+    const string VERTICAL     = "Vertical";
+    const string HORIZONTAL   = "Horizontal";
+    const string X_VERTICAL   = "x" + VERTICAL;
+    const string X_HORIZONTAL = "x" + HORIZONTAL; 
+
+
     // ダイレクトモードで設定
     public static void SetDirectMode()
     {
-        vertical    = "Vertical";
-        horizontal  = "Horizontal";
-        vertical2   = "Vertical2";
-        horizontal2 = "Horizontal2";
-
+        if(isFlipAnalog)
+        {
+            vertical    = VERTICAL   + "2";
+            horizontal  = HORIZONTAL + "2";
+            vertical2   = VERTICAL;
+            horizontal2 = HORIZONTAL;
+        }
+        else
+        {
+            vertical    = VERTICAL;
+            horizontal  = HORIZONTAL;
+            vertical2   = VERTICAL   + "2";
+            horizontal2 = HORIZONTAL + "2";
+        }
         isDirectMode = false;
     }
 
     // Xinputモードで設定
     public static void SetXinputMode()
     {
-        vertical    = "xVertical";
-        horizontal  = "xHorizontal";
-        vertical2   = "xVertical2";
-        horizontal2 = "xHorizontal2";
+        
 
+        if (isFlipAnalog)
+        {
+            vertical    = X_VERTICAL   + "2";
+            horizontal  = X_HORIZONTAL + "2";
+            vertical2   = X_VERTICAL;
+            horizontal2 = X_HORIZONTAL;
+        }
+        else
+        {
+            vertical    = X_VERTICAL;
+            horizontal  = X_HORIZONTAL;
+            vertical2   = X_VERTICAL   + "2";
+            horizontal2 = X_HORIZONTAL + "2";
+        }
+        
         isDirectMode = true;
+    }
+
+    public static void SetFlipAnalog(bool isFlip)
+    {
+        isFlipAnalog = isFlip;
+        if (isDirectMode)
+        {
+            SetDirectMode();
+        }
+        else
+        {
+            SetXinputMode();
+        }
     }
 
     /// <summary>スティックが右方向に入力されているか</summary>

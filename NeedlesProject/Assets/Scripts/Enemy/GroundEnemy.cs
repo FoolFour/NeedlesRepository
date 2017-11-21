@@ -32,7 +32,7 @@ public class GroundEnemy : BlockBase
     private float PointangleZ;
     //
     Rigidbody rig;
-    RaycastHit hit;
+    private RaycastHit hit;
 
     public enum State
     {
@@ -45,6 +45,8 @@ public class GroundEnemy : BlockBase
 
     void Start()
     {
+        eulerAngles =new Vector3 (0,0,0);
+        
     }
 
     void Update()
@@ -131,7 +133,7 @@ public class GroundEnemy : BlockBase
     public void OnCollisionEnter(Collision collision)
     {
         //Debug.Log(collision.gameObject.tag);
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "PlayerArm")
         {
             Vector3 temp = collision.gameObject.transform.position - transform.position;
             temp.y = 1;

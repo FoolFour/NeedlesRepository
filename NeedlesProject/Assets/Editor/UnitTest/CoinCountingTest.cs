@@ -6,20 +6,19 @@ using System.Collections;
 
 public class CoinCountingTest
 {
-
     [Test]
     public void CoinCountingTestSimplePasses()
     {
         // Use the Assert class to test conditions.
-    }
+        CoinCounting component = GameObject.FindObjectOfType<CoinCounting>();
+        if(component == null) { return; }
 
-    // A UnityTest behaves like a coroutine in PlayMode
-    // and allows you to yield null to skip a frame in EditMode
-    [UnityTest]
-    public IEnumerator CoinCountingTestWithEnumeratorPasses()
-    {
-        // Use the Assert class to test conditions.
-        // yield to skip a frame
-        yield return null;
+        int coinNum = component.transform.childCount;
+        Assert.AreEqual(CoinCounting.defaultCoinNum, coinNum, "コインが既定の枚数になっていません");
+
+        foreach(Transform child in component.transform)
+        {
+            Assert.AreEqual("Coin", child.tag, "コインのオブジェクトではないオブジェクトが検出しました");
+        }
     }
 }

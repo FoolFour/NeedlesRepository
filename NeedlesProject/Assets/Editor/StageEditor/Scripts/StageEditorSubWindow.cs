@@ -498,7 +498,13 @@ class StageEditorSubWindow : EditorWindow
             }
         }
 
-        EditorSceneManager.SaveScene(saveScene, "./Assets/" + parent.SaveDirectory + "\\" + parent.stageName + ".unity");
+        string saveDirectory = parent.SaveDirectory;
+        if (saveDirectory != "")
+        {
+            saveDirectory += "\\";
+        }
+
+        EditorSceneManager.SaveScene(saveScene, "./Assets/" + saveDirectory + parent.stageName + ".unity");
         Debug.Log("保存が終了しました");
     }
 }
