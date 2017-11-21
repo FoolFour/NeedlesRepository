@@ -14,13 +14,13 @@ public class NormalEnemy : BlockBase
     //前と後ろ確認用
     Ray ray3;
     Ray ray4;
-    //
+    
     RaycastHit hit;
     //rayの長さ
-    float distance = 2.0f;
+    private float distance = 2.0f;
     //当たっているならtrue当たってないならfalse
-    bool ishit;
-    bool ishit2;
+    public bool ishit;
+    public  bool ishit2;
     public bool ishit3;
     public bool ishit4;
     //
@@ -57,7 +57,7 @@ public class NormalEnemy : BlockBase
 
         //後方確認用のray
         ray4 = new Ray(transform.position, new Vector3(-1, 0, 0));
-        Debug.DrawRay(ray4.origin, ray4.direction * distance, Color.red);
+        Debug.DrawRay(transform.position, ray4.direction * distance, Color.red);
         ishit4 = Physics.Raycast(ray4, out hit, 1,mask);
 
         //移動中
@@ -69,32 +69,31 @@ public class NormalEnemy : BlockBase
         //ブロックがなければ
         if (ishit == false)
         {
-            //Debug.Log("前下:yが0の時");
+            
             rotation_ = rotation.REVERSE01;
         }
         else if (ishit3 == true)
         {
-            //Debug.Log("前:yが0の時");
+           
             rotation_ = rotation.REVERSE01;
         }
-
 
         //ブロックがなければ
         if (ishit2 == false)
         {
-            //Debug.Log("後ろ下:yが180の時");
+            
             rotation_ = rotation.REVERSE02;
         }
         else if (ishit4 == true)
         {
-            //Debug.Log("後ろ:yが180の時");
+           
             rotation_ = rotation.REVERSE02;
         }
 
         //ブロックがない場合回転
         if (rotation_ == rotation.REVERSE01)
         {
-            //Debug.Log("回転中");
+            
 
             float angle = Mathf.LerpAngle(0, 180, 10.0f);
             transform.eulerAngles = new Vector3(0, angle, 0);
@@ -115,6 +114,7 @@ public class NormalEnemy : BlockBase
         }
     }
 
+    //プレイヤーと当たった場合
     public override void StickEnter(GameObject arm)
     {
         Debug.Log("敵に当たった");
@@ -125,7 +125,8 @@ public class NormalEnemy : BlockBase
     public void OnCollisionEnter(Collision collision)
     {
         Debug.Log(collision.gameObject.tag);
-        if (collision.gameObject.tag == "Player")
+
+        if (collision.gameObject.tag == "PlayerArm")
         {
             Vector3 temp = collision.gameObject.transform.position - transform.position;
             temp.y = 1;

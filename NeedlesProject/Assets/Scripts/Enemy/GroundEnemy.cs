@@ -131,7 +131,7 @@ public class GroundEnemy : BlockBase
     public void OnCollisionEnter(Collision collision)
     {
         //Debug.Log(collision.gameObject.tag);
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "PlayerArm")
         {
             Vector3 temp = collision.gameObject.transform.position - transform.position;
             temp.y = 1;
