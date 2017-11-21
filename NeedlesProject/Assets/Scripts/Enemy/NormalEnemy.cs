@@ -14,15 +14,15 @@ public class NormalEnemy : BlockBase
     //前と後ろ確認用
     Ray ray3;
     Ray ray4;
-    
+
     RaycastHit hit;
     //rayの長さ
     private float distance = 2.0f;
     //当たっているならtrue当たってないならfalse
-    public bool ishit;
-    public  bool ishit2;
-    public bool ishit3;
-    public bool ishit4;
+    bool ishit;
+    bool ishit2;
+    bool ishit3;
+    bool ishit4;
     //
     Vector3 eulerAngles;
     //
@@ -43,22 +43,22 @@ public class NormalEnemy : BlockBase
         //前下確認用のray
         ray = new Ray(transform.position, new Vector3(1, -1, 0));
         Debug.DrawRay(ray.origin, ray.direction * distance, Color.red);
-        ishit = Physics.Raycast(ray, out hit,1.5f,mask);
+        ishit = Physics.Raycast(ray, out hit, 1.5f, mask);
 
         //後ろ下確認用のray
         ray2 = new Ray(transform.position, new Vector3(-1, -1, 0));
         Debug.DrawRay(ray2.origin, ray2.direction * distance, Color.red);
-        ishit2 = Physics.Raycast(ray2, out hit, 1.5f,mask);
+        ishit2 = Physics.Raycast(ray2, out hit, 1.5f, mask);
 
         //前方確認用のray
         ray3 = new Ray(transform.position, new Vector3(1, 0, 0));
         Debug.DrawRay(ray3.origin, ray3.direction * distance, Color.red);
-        ishit3 = Physics.Raycast(ray3, out hit, 1,mask);
+        ishit3 = Physics.Raycast(ray3, out hit, 1, mask);
 
         //後方確認用のray
         ray4 = new Ray(transform.position, new Vector3(-1, 0, 0));
         Debug.DrawRay(transform.position, ray4.direction * distance, Color.red);
-        ishit4 = Physics.Raycast(ray4, out hit, 1,mask);
+        ishit4 = Physics.Raycast(ray4, out hit, 1, mask);
 
         //移動中
         if (rotation_ == rotation.MOVE)
@@ -69,31 +69,31 @@ public class NormalEnemy : BlockBase
         //ブロックがなければ
         if (ishit == false)
         {
-            
+
             rotation_ = rotation.REVERSE01;
         }
         else if (ishit3 == true)
         {
-           
+
             rotation_ = rotation.REVERSE01;
         }
 
         //ブロックがなければ
         if (ishit2 == false)
         {
-            
+
             rotation_ = rotation.REVERSE02;
         }
         else if (ishit4 == true)
         {
-           
+
             rotation_ = rotation.REVERSE02;
         }
 
         //ブロックがない場合回転
         if (rotation_ == rotation.REVERSE01)
         {
-            
+
 
             float angle = Mathf.LerpAngle(0, 180, 10.0f);
             transform.eulerAngles = new Vector3(0, angle, 0);

@@ -15,7 +15,7 @@ public class FloatEnemy : BlockBase
     Vector3 startPosition;
     //現在位置
     Vector3 currentposition;
-    
+
     public enum Direction
     {
         LEFT,
@@ -87,7 +87,7 @@ public class FloatEnemy : BlockBase
                 movenum -= movespeed * Time.deltaTime;
                 gameObject.transform.position += transform.right * movespeed * Time.deltaTime;
 
-                if(0 >= movenum)
+                if (0 >= movenum)
                 {
                     direction_ = Direction.LEFT;
                 }
@@ -140,7 +140,7 @@ public class FloatEnemy : BlockBase
     public void OnCollisionEnter(Collision collision)
     {
         Debug.Log(collision.gameObject.tag);
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "PlayerArm")
         {
             Vector3 temp = collision.gameObject.transform.position - transform.position;
             temp.y = 1;

@@ -32,7 +32,7 @@ public class GroundEnemy : BlockBase
     private float PointangleZ;
     //
     Rigidbody rig;
-    RaycastHit hit;
+    private RaycastHit hit;
 
     public enum State
     {
@@ -45,6 +45,8 @@ public class GroundEnemy : BlockBase
 
     void Start()
     {
+        eulerAngles =new Vector3 (0,0,0);
+        
     }
 
     void Update()
