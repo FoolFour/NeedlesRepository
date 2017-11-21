@@ -182,7 +182,7 @@ public class NeedleArm : MonoBehaviour
             m_Arm.localRotation = Quaternion.identity;
 
             m_Hitinfo.collider.GetComponent<BlockBase>().StickExit();
-
+            m_Hitinfo = new RaycastHit();
             return;
         }
 
@@ -228,6 +228,14 @@ public class NeedleArm : MonoBehaviour
     public void Dead()
     {
         m_CurrentHitObject.transform.parent = null;
+    }
+
+    public void Goal()
+    {
+        if(m_Hitinfo.collider.tag != "Finish")
+        {
+            StanMode();
+        }
     }
 
     /// <summary>

@@ -93,6 +93,10 @@ public class Player : MonoBehaviour {
 
     public void Stop()
     {
+        mData.mLArm.Goal();
+        mData.mRArm.Goal();
+        mStan = false;
+        mStanTimer = 0;
         this.enabled = false;
     }
 }
