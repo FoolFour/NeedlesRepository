@@ -13,7 +13,7 @@ public enum FadeType
 public class FadeImage : Image
 {
     //////////////
-    // イベント /
+    // イベント  /
     ////////////
 
     //フェード完了
@@ -24,10 +24,17 @@ public class FadeImage : Image
     // 変数 /
     ////////
 
+    private bool  isFadeStart_;
+    public  bool  isFadeStart
+    {
+        get { return isFadeStart_;  }
+        set { isFadeStart_ = value; }
+    }
+
     private float fadeSpeed_ = 1.0f;
     public  float fadeSpeed
     {
-        get { return fadeSpeed_; }
+        get { return fadeSpeed_;  }
         set { fadeSpeed_ = value; }
     }
 
@@ -81,6 +88,23 @@ public class FadeImage : Image
     ///////////////////
     // 関数(private) /
     /////////////////
+
+    protected override void Start()
+    {
+        if (isFadeStart)
+        {
+            const string Fade = "Fade";
+            float r = PlayerPrefs.GetFloat(Fade + "_R");
+            float g = PlayerPrefs.GetFloat(Fade + "_G");
+            float b = PlayerPrefs.GetFloat(Fade + "_B");
+
+            FadeOutStart(new Color(r, g, b));
+        }
+        else
+        {
+            SetAlpha(0.0f);
+        }
+    }
 
     /// <summary>フェードイン</summary>
     private IEnumerator FadeIn()

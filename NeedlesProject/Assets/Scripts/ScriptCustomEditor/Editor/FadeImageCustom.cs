@@ -21,6 +21,8 @@ public class FadeImageCustom : Editor
 
         image.raycastTarget = EditorGUILayout.Toggle("Raycast Target", image.raycastTarget);
 
+        image.isFadeStart   = EditorGUILayout.Toggle("Fade Start", image.isFadeStart);
+
         image.fadeSpeed     = EditorGUILayout.FloatField("Fade Speed", image.fadeSpeed);
     }
 }

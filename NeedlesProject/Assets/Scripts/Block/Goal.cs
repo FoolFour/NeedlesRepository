@@ -6,7 +6,7 @@ using LoadSceneMode = UnityEngine.SceneManagement.LoadSceneMode;
 public class Goal : BlockBase
 {
     [SerializeField]
-    private SceneChanger sceneChanger;
+    public SceneChanger sceneChanger;
 
     private void Reset()
     {
