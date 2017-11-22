@@ -5,17 +5,31 @@ using UnityEngine;
 
 public class BlockAutoTiling : MonoBehaviour {
 
-    public int x = 0;
-    public int y = 0;
-    public int z = 0;
+    [Tooltip("materialが３つのみの場合こちらを使う")]
+    public int front = 0;
+    [Tooltip("materialが３つのみの場合こちらを使う")]
+    public int top = 0;
+    [Tooltip("materialが３つのみの場合こちらを使う")]
+    public int left = 0;
+
+    [Tooltip("materialが４つ以降の場合こちらを使う")]
+    public int back = -1;
+    [Tooltip("materialが４つ以降の場合こちらを使う")]
+    public int bottom = -1;
+    [Tooltip("materialが４つ以降の場合こちらを使う")]
+    public int right = -1;
     MeshRenderer renderer;
 
     // Use this for initialization
     void Start ()
     {
         renderer = GetComponent<MeshRenderer>();
-        renderer.materials[x].mainTextureScale = new Vector2(transform.localScale.z, transform.localScale.y);
-        renderer.materials[y].mainTextureScale = new Vector2(transform.localScale.x, transform.localScale.z);
-        renderer.materials[z].mainTextureScale = new Vector2(transform.localScale.x, transform.localScale.y);
+        renderer.materials[left].mainTextureScale = new Vector2(transform.localScale.z, transform.localScale.y);
+        renderer.materials[top].mainTextureScale = new Vector2(transform.localScale.x, transform.localScale.z);
+        renderer.materials[front].mainTextureScale = new Vector2(transform.localScale.x, transform.localScale.y);
+
+        if (back != -1) renderer.materials[back].mainTextureScale = new Vector2(transform.localScale.z, transform.localScale.y);
+        if (bottom != -1) renderer.materials[bottom].mainTextureScale = new Vector2(transform.localScale.x, transform.localScale.z);
+        if (right != -1) renderer.materials[right].mainTextureScale = new Vector2(transform.localScale.x, transform.localScale.y);
     }
 }
