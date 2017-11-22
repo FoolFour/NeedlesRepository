@@ -9,15 +9,17 @@ public class BlockDataFile
     private const string stageEditorPath = @"Assets\Editor\StageEditor";
     private const string blockDefineDir  = stageEditorPath + @"\StageBlockData";
 
-    public static IEnumerable<BlockData> LoadBlockData()
+    /// <summary>既定のディレクトリにあるブロックのデータを読み込む</summary>
+    public static IEnumerable<BlockData> LoadBlockDatas()
     {
-        string[] names = System.IO.Directory.GetFiles(blockDefineDir, "*.sbdf");
+        string[] names = IO.Directory.GetFiles(blockDefineDir, "*.sbdf");
         foreach (var n in names)
         {
             yield return Load(n);
         }
     }
 
+    /// <summary>ブロックデータの読込</summary>
     private static BlockData Load(string name)
     {
         BlockData blockData = null;
@@ -30,7 +32,7 @@ public class BlockDataFile
                 {
                     blockName = br.ReadString(),
                     imageFile = br.ReadString(),
-                    priority = br.ReadInt32()
+                    priority  = br.ReadInt32()
                 };
 
                 string path = br.ReadString();

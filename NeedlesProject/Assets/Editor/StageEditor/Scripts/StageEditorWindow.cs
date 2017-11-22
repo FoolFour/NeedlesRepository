@@ -10,7 +10,7 @@ public class StageEditorWindow : EditorWindow
     // 変数
     //----- ----- -----
 
-    public string stageName;
+    public  string stageName;
 
     private string saveDirectory = "";
     public  string SaveDirectory  { get { return saveDirectory;    } }
@@ -38,14 +38,6 @@ public class StageEditorWindow : EditorWindow
     //ステージの情報を保存するディレクトリ
     private       string stageDirectory;
 
-    ///<summary> ブロックのデータ </summary>
-    public class BlockData
-    {
-        public string     blockName;
-        public string     imageFile;
-        public int        priority;
-        public GameObject blockPrefab;
-    }
     List<BlockData> blockData = new List<BlockData>();
 
     ///<summary>マップエディタ</summary>
@@ -68,26 +60,6 @@ public class StageEditorWindow : EditorWindow
     /// <summary>ウィンドウの初期化</summary>
     public void Initialize()
     {
-        //stageDirectory = Application.temporaryCachePath + @"\StageEditor";
-        //var info = Format.RichText.Info("Info - ファイルの場所");
-        //Debug.Log(info + ":" + stageDirectory);
-
-        //string stageBinaryFile = stageDirectory + @"\Stage.stbf";
-        //bool exists = IO.File.Exists(stageBinaryFile);
-        //if (exists)
-        //{
-        //    var fs = new IO.FileStream(stageBinaryFile, IO.FileMode.Open);
-        //    var br = new IO.BinaryReader(fs);
-
-        //    stageName = br.ReadString();
-        //    stageSize.x = br.ReadInt32();
-        //    stageSize.y = br.ReadInt32();
-        //    zAxisPutBlockNum = br.ReadInt32();
-
-        //    br.Close();
-        //    fs.Close();
-        //}
-
         LoadBlockData();
 
         isInitialized = true;
@@ -133,29 +105,10 @@ public class StageEditorWindow : EditorWindow
     /// <summary>ブロックのデータをロード</summary>
     private void LoadBlockData()
     {
-
-        string[] names = System.IO.Directory.GetFiles(blockDefineDir, "*.sbdf");
-        foreach (var n in names)
+        foreach(var data in BlockDataFile.LoadBlockDatas())
         {
-            var fs = new IO.FileStream(n, IO.FileMode.Open);
-            var br = new IO.BinaryReader(fs);
-
-            var data = new BlockData
-            {
-                blockName = br.ReadString(),
-                imageFile = br.ReadString(),
-                priority = br.ReadInt32()
-            };
-
-            string path = br.ReadString();
-            data.blockPrefab = (GameObject)AssetDatabase.LoadAssetAtPath(path, typeof(GameObject));
-
             blockData.Add(data);
-
-            br.Close();
-            fs.Close();
         }
-
         //昇順
         blockData.Sort((a, b) => { return a.priority - b.priority; });
 
@@ -173,17 +126,6 @@ public class StageEditorWindow : EditorWindow
 
     private void OnDestroy()
     {
-        //var fs = new IO.FileStream(stageDirectory + @"\Stage.stbf", IO.FileMode.Create);
-        //var bw = new IO.BinaryWriter(fs);
-
-        //bw.Write(stageName);
-        //bw.Write((int)stageSize.x);
-        //bw.Write((int)stageSize.y);
-        //bw.Write(zAxisPutBlockNum);
-
-        //bw.Close();
-        //fs.Close();
-
         if (subWindow != null)
         {
             subWindow.Close();

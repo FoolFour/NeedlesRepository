@@ -123,18 +123,45 @@ public class BlockRegister : EditorWindow
 
         if (GUILayout.Button("Register"))
         {
-            var fs = new IO.FileStream(saveDirectory + "\\" + blockID + ".sbdf", IO.FileMode.Create);
-            var bw = new IO.BinaryWriter(fs);
+            if(!IsUniquePriority())
+            {
+                Debug.LogError("同じ優先度のブロックがあります\n変更してください");
+            }
 
-            bw.Write(blockName);
-            bw.Write(selectImageFile);
-            bw.Write(priority);
-            bw.Write(AssetDatabase.GetAssetPath(prefab));
-
-            bw.Close();
-            fs.Close();
-
-            Debug.Log("保存終了");
+            SaveBlockData();
         }
+    }
+
+    bool IsUniquePriority()
+    {
+        foreach (var data in BlockDataFile.LoadBlockDatas())
+        {
+            if(priority == data.priority)
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    void SaveBlockData()
+    {
+        var saveFile = saveDirectory + "\\" + blockID + ".sbdf";
+        using (var fs = new IO.FileStream(saveFile, IO.FileMode.Create))
+        {
+            using (var bw = new IO.BinaryWriter(fs))
+            {
+                bw.Write(blockName);
+                bw.Write(selectImageFile);
+                bw.Write(priority);
+                bw.Write(AssetDatabase.GetAssetPath(prefab));
+
+                bw.Close();
+                fs.Close();
+            }
+        }
+
+        Debug.Log("保存終了");
     }
 }

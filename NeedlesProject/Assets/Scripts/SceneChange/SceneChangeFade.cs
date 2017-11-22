@@ -21,5 +21,10 @@ public class SceneChangeFade : SceneChanger
     protected override IEnumerator SceneChangePerformance()
     {
         yield return image.FadeInStart(color);
+
+        const string Fade = "Fade";
+        PlayerPrefs.SetFloat(Fade + "_R", color.r);
+        PlayerPrefs.SetFloat(Fade + "_G", color.g);
+        PlayerPrefs.SetFloat(Fade + "_B", color.b);
     }
 }
