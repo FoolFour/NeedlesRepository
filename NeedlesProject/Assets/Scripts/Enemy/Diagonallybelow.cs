@@ -13,6 +13,8 @@ public class Diagonallybelow : MonoBehaviour
     public bool ishitsecond;
     //
     public LayerMask mask;
+    //距離の指定
+    public float Meter;
 
     void Start()
     {
@@ -23,6 +25,6 @@ public class Diagonallybelow : MonoBehaviour
     {
         ray = new Ray(transform.position, transform.right);
         Debug.DrawRay(ray.origin, ray.direction * distance, Color.red);
-        ishitsecond = Physics.Raycast(ray, out hit, 1.5f, mask);
+        ishitsecond = Physics.Raycast(ray, out hit, Meter, mask);
     }
 }
