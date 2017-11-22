@@ -10,11 +10,11 @@ FBXHeaderExtension:  {
 		Version: 1000
 		Year: 2017
 		Month: 11
-		Day: 21
-		Hour: 4
-		Minute: 57
-		Second: 9
-		Millisecond: 346
+		Day: 22
+		Hour: 8
+		Minute: 59
+		Second: 4
+		Millisecond: 584
 	}
 	Creator: "FBX SDK/FBX Plugins version 2016.1.2"
 	SceneInfo: "SceneInfo::GlobalInfo", "UserData" {
@@ -77,7 +77,7 @@ GlobalSettings:  {
 
 Documents:  {
 	Count: 1
-	Document: 27465280, "", "Scene" {
+	Document: 5124840, "", "Scene" {
 		Properties70:  {
 			P: "SourceObject", "object", "", ""
 			P: "ActiveAnimStackName", "KString", "", "", ""
@@ -275,9 +275,9 @@ Definitions:  {
 ;------------------------------------------------------------------
 
 Objects:  {
-	Geometry: 27588192, "Geometry::mqo_mesh", "Mesh" {
+	Geometry: 5247664, "Geometry::mqo_mesh", "Mesh" {
 		Vertices: *72 {
-			a: -50,50,50,-50,-50,50,50,-50,50,50,50,50,50,50,50,50,-50,50,50,-50,-50,50,50,-50,50,50,-50,50,-50,-50,-50,-50,-50,-50,50,-50,-50,50,-50,-50,-50,-50,-50,-50,50,-50,50,50,-50,50,-50,-50,50,50,50,50,50,50,50,-50,-50,-50,50,-50,-50,-50,50,-50,-50,50,-50,50
+			a: -50,50,-50,-50,50,50,50,50,50,50,50,-50,-50,-50,50,-50,-50,-50,50,-50,-50,50,-50,50,50,50,50,50,-50,50,50,-50,-50,50,50,-50,-50,50,-50,-50,-50,-50,-50,-50,50,-50,50,50,-50,50,50,-50,-50,50,50,-50,50,50,50,50,50,50,-50,50,-50,-50,-50,-50,-50,-50,50,-50
 		} 
 		PolygonVertexIndex: *36 {
 			a: 0,1,-3,0,2,-4,4,5,-7,4,6,-8,8,9,-11,8,10,-12,12,13,-15,12,14,-16,16,17,-19,16,18,-20,20,21,-23,20,22,-24
@@ -289,7 +289,7 @@ Objects:  {
 			MappingInformationType: "ByVertice"
 			ReferenceInformationType: "Direct"
 			Normals: *72 {
-				a: 0,0,1,0,0,1,0,0,1,0,0,1,1,0,0,1,0,0,1,0,0,1,0,0,0,0,-1,0,0,-1,0,0,-1,0,0,-1,-1,0,0,-1,0,0,-1,0,0,-1,0,0,0,1,0,0,1,0,0,1,0,0,1,0,0,-1,0,0,-1,0,0,-1,0,0,-1,0
+				a: 0,1,0,0,1,0,0,1,0,0,1,0,0,-1,0,0,-1,0,0,-1,0,0,-1,0,1,0,0,1,0,0,1,0,0,1,0,0,-1,0,0,-1,0,0,-1,0,0,-1,0,0,0,0,1,0,0,1,0,0,1,0,0,1,0,0,-1,0,0,-1,0,0,-1,0,0,-1
 			} 
 			NormalsW: *24 {
 				a: 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
@@ -310,7 +310,7 @@ Objects:  {
 			MappingInformationType: "ByPolygon"
 			ReferenceInformationType: "IndexToDirect"
 			Materials: *12 {
-				a: 0,0,0,0,0,0,0,0,0,0,0,0
+				a: 0,0,0,0,1,1,1,1,2,2,2,2
 			} 
 		}
 		Layer: 0 {
@@ -329,7 +329,7 @@ Objects:  {
 			}
 		}
 	}
-	Model: 27586824, "Model::mqo_mesh", "Mesh" {
+	Model: 5246296, "Model::mqo_mesh", "Mesh" {
 		Version: 232
 		Properties70:  {
 			P: "ScalingMax", "Vector3D", "Vector", "",0,0,0
@@ -338,7 +338,7 @@ Objects:  {
 		Shading: Y
 		Culling: "CullingOff"
 	}
-	Material: 27591016, "Material::material0", "" {
+	Material: 5254224, "Material::material0", "" {
 		Version: 102
 		ShadingModel: "phong"
 		MultiLayer: 0
@@ -357,7 +357,7 @@ Objects:  {
 			P: "Reflectivity", "double", "Number", "",0
 		}
 	}
-	Material: 27628464, "Material::material1", "" {
+	Material: 5252112, "Material::material1", "" {
 		Version: 102
 		ShadingModel: "phong"
 		MultiLayer: 0
@@ -376,7 +376,7 @@ Objects:  {
 			P: "Reflectivity", "double", "Number", "",0
 		}
 	}
-	Material: 27629024, "Material::material2", "" {
+	Material: 5253960, "Material::material2", "" {
 		Version: 102
 		ShadingModel: "phong"
 		MultiLayer: 0
@@ -395,11 +395,20 @@ Objects:  {
 			P: "Reflectivity", "double", "Number", "",0
 		}
 	}
-	Deformer: 27629584, "Deformer::", "Skin" {
+	Deformer: 5292368, "Deformer::", "Skin" {
 		Version: 101
 		Link_DeformAcuracy: 50
 	}
-	Video: 27650392, "Video::Diffuse Texture", "Clip" {
+	Video: 5312144, "Video::Diffuse Texture", "Clip" {
+		Type: "Clip"
+		Properties70:  {
+			P: "Path", "KString", "XRefUrl", "", "SeaBlock01_00.png"
+		}
+		UseMipMap: 0
+		Filename: "SeaBlock01_00.png"
+		RelativeFilename: "D:\NEEC\Projects3\CreativeResearchOZ\Data\2017_05_11配布\2017_05_11配布\OhzuTools\SeaBlock01_00.png"
+	}
+	Video: 5292864, "Video::Diffuse Texture", "Clip" {
 		Type: "Clip"
 		Properties70:  {
 			P: "Path", "KString", "XRefUrl", "", "SeaBlock01_01.png"
@@ -408,25 +417,32 @@ Objects:  {
 		Filename: "SeaBlock01_01.png"
 		RelativeFilename: "D:\NEEC\Projects3\CreativeResearchOZ\Data\2017_05_11配布\2017_05_11配布\OhzuTools\SeaBlock01_01.png"
 	}
-	Video: 27658816, "Video::Diffuse Texture", "Clip" {
+	Video: 5324680, "Video::Diffuse Texture", "Clip" {
 		Type: "Clip"
 		Properties70:  {
-			P: "Path", "KString", "XRefUrl", "", "PlainBlock01_00.png"
+			P: "Path", "KString", "XRefUrl", "", "SeaBlock01_02.png"
 		}
 		UseMipMap: 0
-		Filename: "PlainBlock01_00.png"
-		RelativeFilename: "D:\NEEC\Projects3\CreativeResearchOZ\Data\2017_05_11配布\2017_05_11配布\OhzuTools\PlainBlock01_00.png"
+		Filename: "SeaBlock01_02.png"
+		RelativeFilename: "D:\NEEC\Projects3\CreativeResearchOZ\Data\2017_05_11配布\2017_05_11配布\OhzuTools\SeaBlock01_02.png"
 	}
-	Video: 27659040, "Video::Diffuse Texture", "Clip" {
-		Type: "Clip"
+	Texture: 5254592, "Texture::Diffuse Texture", "" {
+		Type: "TextureVideoClip"
+		Version: 202
+		TextureName: "Texture::Diffuse Texture"
 		Properties70:  {
-			P: "Path", "KString", "XRefUrl", "", "plainBlock00_02.png"
+			P: "UVSet", "KString", "", "", "DiffuseUV"
+			P: "UseMaterial", "bool", "", "",1
 		}
-		UseMipMap: 0
-		Filename: "plainBlock00_02.png"
-		RelativeFilename: "D:\NEEC\Projects3\CreativeResearchOZ\Data\2017_05_11配布\2017_05_11配布\OhzuTools\plainBlock00_02.png"
+		Media: "Video::Diffuse Texture"
+		FileName: "SeaBlock01_00.png"
+		RelativeFilename: "D:\NEEC\Projects3\CreativeResearchOZ\Data\2017_05_11配布\2017_05_11配布\OhzuTools\SeaBlock01_00.png"
+		ModelUVTranslation: 0,0
+		ModelUVScaling: 1,1
+		Texture_Alpha_Source: "None"
+		Cropping: 0,0,0,0
 	}
-	Texture: 27591280, "Texture::Diffuse Texture", "" {
+	Texture: 5291776, "Texture::Diffuse Texture", "" {
 		Type: "TextureVideoClip"
 		Version: 202
 		TextureName: "Texture::Diffuse Texture"
@@ -442,7 +458,7 @@ Objects:  {
 		Texture_Alpha_Source: "None"
 		Cropping: 0,0,0,0
 	}
-	Texture: 27628728, "Texture::Diffuse Texture", "" {
+	Texture: 5292072, "Texture::Diffuse Texture", "" {
 		Type: "TextureVideoClip"
 		Version: 202
 		TextureName: "Texture::Diffuse Texture"
@@ -451,24 +467,8 @@ Objects:  {
 			P: "UseMaterial", "bool", "", "",1
 		}
 		Media: "Video::Diffuse Texture"
-		FileName: "PlainBlock01_00.png"
-		RelativeFilename: "D:\NEEC\Projects3\CreativeResearchOZ\Data\2017_05_11配布\2017_05_11配布\OhzuTools\PlainBlock01_00.png"
-		ModelUVTranslation: 0,0
-		ModelUVScaling: 1,1
-		Texture_Alpha_Source: "None"
-		Cropping: 0,0,0,0
-	}
-	Texture: 27629288, "Texture::Diffuse Texture", "" {
-		Type: "TextureVideoClip"
-		Version: 202
-		TextureName: "Texture::Diffuse Texture"
-		Properties70:  {
-			P: "UVSet", "KString", "", "", "DiffuseUV"
-			P: "UseMaterial", "bool", "", "",1
-		}
-		Media: "Video::Diffuse Texture"
-		FileName: "plainBlock00_02.png"
-		RelativeFilename: "D:\NEEC\Projects3\CreativeResearchOZ\Data\2017_05_11配布\2017_05_11配布\OhzuTools\plainBlock00_02.png"
+		FileName: "SeaBlock01_02.png"
+		RelativeFilename: "D:\NEEC\Projects3\CreativeResearchOZ\Data\2017_05_11配布\2017_05_11配布\OhzuTools\SeaBlock01_02.png"
 		ModelUVTranslation: 0,0
 		ModelUVScaling: 1,1
 		Texture_Alpha_Source: "None"
@@ -482,40 +482,40 @@ Objects:  {
 Connections:  {
 	
 	;Model::mqo_mesh, Model::RootNode
-	C: "OO",27586824,0
+	C: "OO",5246296,0
 	
 	;Geometry::mqo_mesh, Model::mqo_mesh
-	C: "OO",27588192,27586824
+	C: "OO",5247664,5246296
 	
 	;Material::material0, Model::mqo_mesh
-	C: "OO",27591016,27586824
+	C: "OO",5254224,5246296
 	
 	;Material::material1, Model::mqo_mesh
-	C: "OO",27628464,27586824
+	C: "OO",5252112,5246296
 	
 	;Material::material2, Model::mqo_mesh
-	C: "OO",27629024,27586824
+	C: "OO",5253960,5246296
 	
 	;Deformer::, Geometry::mqo_mesh
-	C: "OO",27629584,27588192
+	C: "OO",5292368,5247664
 	
 	;Texture::Diffuse Texture, Material::material0
-	C: "OP",27591280,27591016, "DiffuseColor"
+	C: "OP",5254592,5254224, "DiffuseColor"
 	
 	;Video::Diffuse Texture, Texture::Diffuse Texture
-	C: "OO",27650392,27591280
+	C: "OO",5312144,5254592
 	
 	;Texture::Diffuse Texture, Material::material1
-	C: "OP",27628728,27628464, "DiffuseColor"
+	C: "OP",5291776,5252112, "DiffuseColor"
 	
 	;Video::Diffuse Texture, Texture::Diffuse Texture
-	C: "OO",27658816,27628728
+	C: "OO",5292864,5291776
 	
 	;Texture::Diffuse Texture, Material::material2
-	C: "OP",27629288,27629024, "DiffuseColor"
+	C: "OP",5292072,5253960, "DiffuseColor"
 	
 	;Video::Diffuse Texture, Texture::Diffuse Texture
-	C: "OO",27659040,27629288
+	C: "OO",5324680,5292072
 }
 ;Takes section
 ;----------------------------------------------------

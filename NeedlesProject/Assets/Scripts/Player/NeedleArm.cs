@@ -182,7 +182,7 @@ public class NeedleArm : MonoBehaviour
             m_Arm.localRotation = Quaternion.identity;
 
             m_Hitinfo.collider.GetComponent<BlockBase>().StickExit();
-
+            m_Hitinfo = new RaycastHit();
             return;
         }
 
@@ -212,17 +212,6 @@ public class NeedleArm : MonoBehaviour
         hinge.connectedAnchor = Vector3.up * m_ArmCurrentLenght;
     }
 
-    /// <summary>
-    /// ２つ刺さった時に物理の動きを止める用の関数
-    /// </summary>
-    public void StopPhysics()
-    {
-        //if (mCurrentHitObject == null) return;
-        //var rb = mCurrentHitObject.GetComponent<Rigidbody>();
-        //rb.angularVelocity = Vector3.zero;
-        //rb.velocity = Vector3.zero;
-    }
-
     public void StanMode()
     {
         var hinge = m_CurrentHitObject.GetComponent<HingeJoint>();
@@ -239,6 +228,14 @@ public class NeedleArm : MonoBehaviour
     public void Dead()
     {
         m_CurrentHitObject.transform.parent = null;
+    }
+
+    public void Goal()
+    {
+        if(m_Hitinfo.collider.tag != "Finish")
+        {
+            StanMode();
+        }
     }
 
     /// <summary>
