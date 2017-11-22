@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4424073346344642}
   - component: {fileID: 33564823590087144}
   - component: {fileID: 23001650471588436}
+  - component: {fileID: 114579248326850488}
   m_Layer: 0
   m_Name: PlainBlock01
   m_TagString: Untagged
@@ -88,9 +89,9 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: b692eb1ffae1b884ab0e1f0b0695e866, type: 2}
-  - {fileID: 2100000, guid: 8baac4bc71dd354418d681a0e8ab5235, type: 2}
-  - {fileID: 2100000, guid: 5234669a61bbba74bb5259d903337baf, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -190,3 +191,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isHitBlock: 1
+--- !u!114 &114579248326850488
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1004561619991054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e770840d10f57bb4cb3a426487867281, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  x: 1
+  y: 0
+  z: 2

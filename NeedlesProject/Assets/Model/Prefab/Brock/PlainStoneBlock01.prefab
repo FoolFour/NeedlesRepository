@@ -41,6 +41,7 @@ GameObject:
   - component: {fileID: 4733124069802430}
   - component: {fileID: 33551949710844796}
   - component: {fileID: 23036060241176352}
+  - component: {fileID: 114301212559736540}
   m_Layer: 0
   m_Name: PlainStoneBlock01 (1)
   m_TagString: Untagged
@@ -88,9 +89,9 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: f9b60366003ce08418bc05dc6af84ec1, type: 2}
-  - {fileID: 2100000, guid: 0f0aa212290fd9541bf41c4720915935, type: 2}
-  - {fileID: 2100000, guid: b0c2c9de7f0423e479790ee4339ebf5e, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -178,6 +179,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6334626140e70fe43adf074985526166, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114301212559736540
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1948917650022546}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e770840d10f57bb4cb3a426487867281, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  x: 1
+  y: 2
+  z: 0
 --- !u!114 &114609597128089984
 MonoBehaviour:
   m_ObjectHideFlags: 1

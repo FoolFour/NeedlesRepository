@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4353052871932078}
   - component: {fileID: 33663690622215360}
   - component: {fileID: 23098215684910678}
+  - component: {fileID: 114524362549878048}
   m_Layer: 0
   m_Name: SeaBlock00
   m_TagString: Untagged
@@ -86,9 +87,9 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 61f472d06db5b2248aad5f629d7b5532, type: 2}
-  - {fileID: 2100000, guid: 97114f1db440a3c4ab629fcf0df34f31, type: 2}
-  - {fileID: 2100000, guid: 0c03d582daa61c64a8b715bd8efa093c, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -138,6 +139,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isHitBlock: 0
+--- !u!114 &114524362549878048
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1069245863183226}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e770840d10f57bb4cb3a426487867281, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  x: 1
+  y: 0
+  z: 2
 --- !u!114 &114597757942739984
 MonoBehaviour:
   m_ObjectHideFlags: 1

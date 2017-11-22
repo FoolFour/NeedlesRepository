@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4500027169465008}
   - component: {fileID: 33211571554923374}
   - component: {fileID: 23563378387729600}
+  - component: {fileID: 114734796877969794}
   m_Layer: 0
   m_Name: SeaBlock01 (1)
   m_TagString: Untagged
@@ -86,9 +87,9 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 9289db6362d74654395ed526bb8a9d67, type: 2}
-  - {fileID: 2100000, guid: 22cccbcc1ed717243a0c0130da5d5fda, type: 2}
-  - {fileID: 2100000, guid: 7940d55ef0741ca4a9072ea462a4c345, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -137,6 +138,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6334626140e70fe43adf074985526166, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114734796877969794
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1061144094777732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e770840d10f57bb4cb3a426487867281, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  x: 1
+  y: 0
+  z: 2
 --- !u!114 &114800056612255538
 MonoBehaviour:
   m_ObjectHideFlags: 1
