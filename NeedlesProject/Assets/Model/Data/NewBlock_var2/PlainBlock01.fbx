@@ -10,11 +10,11 @@ FBXHeaderExtension:  {
 		Version: 1000
 		Year: 2017
 		Month: 11
-		Day: 21
-		Hour: 4
-		Minute: 32
-		Second: 38
-		Millisecond: 410
+		Day: 22
+		Hour: 8
+		Minute: 59
+		Second: 3
+		Millisecond: 949
 	}
 	Creator: "FBX SDK/FBX Plugins version 2016.1.2"
 	SceneInfo: "SceneInfo::GlobalInfo", "UserData" {
@@ -30,8 +30,8 @@ FBXHeaderExtension:  {
 			Comment: ""
 		}
 		Properties70:  {
-			P: "DocumentUrl", "KString", "Url", "", "C:\Users\Mizuki\Desktop\MagicaVoxel-0.98.2-win\export\ブロックズ\BrittleStoneBlock0.fbx"
-			P: "SrcDocumentUrl", "KString", "Url", "", "C:\Users\Mizuki\Desktop\MagicaVoxel-0.98.2-win\export\ブロックズ\BrittleStoneBlock0.fbx"
+			P: "DocumentUrl", "KString", "Url", "", "C:\Users\Mizuki\Desktop\MagicaVoxel-0.98.2-win\export\metaseko\PlainBlock01.fbx"
+			P: "SrcDocumentUrl", "KString", "Url", "", "C:\Users\Mizuki\Desktop\MagicaVoxel-0.98.2-win\export\metaseko\PlainBlock01.fbx"
 			P: "Original", "Compound", "", ""
 			P: "Original|ApplicationVendor", "KString", "", "", ""
 			P: "Original|ApplicationName", "KString", "", "", ""
@@ -77,7 +77,7 @@ GlobalSettings:  {
 
 Documents:  {
 	Count: 1
-	Document: 9578152, "", "Scene" {
+	Document: 28914320, "", "Scene" {
 		Properties70:  {
 			P: "SourceObject", "object", "", ""
 			P: "ActiveAnimStackName", "KString", "", "", ""
@@ -275,9 +275,9 @@ Definitions:  {
 ;------------------------------------------------------------------
 
 Objects:  {
-	Geometry: 9696648, "Geometry::mqo_mesh", "Mesh" {
+	Geometry: 29037408, "Geometry::mqo_mesh", "Mesh" {
 		Vertices: *72 {
-			a: -50,50,50,-50,-50,50,50,-50,50,50,50,50,50,50,50,50,-50,50,50,-50,-50,50,50,-50,50,50,-50,50,-50,-50,-50,-50,-50,-50,50,-50,-50,50,-50,-50,-50,-50,-50,-50,50,-50,50,50,-50,50,-50,-50,50,50,50,50,50,50,50,-50,-50,-50,50,-50,-50,-50,50,-50,-50,50,-50,50
+			a: -50,50,-50,-50,50,50,50,50,50,50,50,-50,-50,-50,50,-50,-50,-50,50,-50,-50,50,-50,50,50,50,50,50,-50,50,50,-50,-50,50,50,-50,-50,50,-50,-50,-50,-50,-50,-50,50,-50,50,50,-50,50,50,-50,-50,50,50,-50,50,50,50,50,50,50,-50,50,-50,-50,-50,-50,-50,-50,50,-50
 		} 
 		PolygonVertexIndex: *36 {
 			a: 0,1,-3,0,2,-4,4,5,-7,4,6,-8,8,9,-11,8,10,-12,12,13,-15,12,14,-16,16,17,-19,16,18,-20,20,21,-23,20,22,-24
@@ -289,7 +289,7 @@ Objects:  {
 			MappingInformationType: "ByVertice"
 			ReferenceInformationType: "Direct"
 			Normals: *72 {
-				a: 0,0,1,0,0,1,0,0,1,0,0,1,1,0,0,1,0,0,1,0,0,1,0,0,0,0,-1,0,0,-1,0,0,-1,0,0,-1,-1,0,0,-1,0,0,-1,0,0,-1,0,0,0,1,0,0,1,0,0,1,0,0,1,0,0,-1,0,0,-1,0,0,-1,0,0,-1,0
+				a: 0,1,0,0,1,0,0,1,0,0,1,0,0,-1,0,0,-1,0,0,-1,0,0,-1,0,1,0,0,1,0,0,1,0,0,1,0,0,-1,0,0,-1,0,0,-1,0,0,-1,0,0,0,0,1,0,0,1,0,0,1,0,0,1,0,0,-1,0,0,-1,0,0,-1,0,0,-1
 			} 
 			NormalsW: *24 {
 				a: 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
@@ -310,7 +310,7 @@ Objects:  {
 			MappingInformationType: "ByPolygon"
 			ReferenceInformationType: "IndexToDirect"
 			Materials: *12 {
-				a: 0,0,0,0,0,0,0,0,0,0,0,0
+				a: 0,0,0,0,1,1,1,1,2,2,2,2
 			} 
 		}
 		Layer: 0 {
@@ -329,7 +329,7 @@ Objects:  {
 			}
 		}
 	}
-	Model: 9695280, "Model::mqo_mesh", "Mesh" {
+	Model: 29036040, "Model::mqo_mesh", "Mesh" {
 		Version: 232
 		Properties70:  {
 			P: "ScalingMax", "Vector3D", "Vector", "",0,0,0
@@ -338,7 +338,7 @@ Objects:  {
 		Shading: Y
 		Culling: "CullingOff"
 	}
-	Material: 9698944, "Material::material0", "" {
+	Material: 29040272, "Material::material0", "" {
 		Version: 102
 		ShadingModel: "phong"
 		MultiLayer: 0
@@ -357,7 +357,7 @@ Objects:  {
 			P: "Reflectivity", "double", "Number", "",0
 		}
 	}
-	Material: 9736928, "Material::material1", "" {
+	Material: 29040800, "Material::material1", "" {
 		Version: 102
 		ShadingModel: "phong"
 		MultiLayer: 0
@@ -376,7 +376,7 @@ Objects:  {
 			P: "Reflectivity", "double", "Number", "",0
 		}
 	}
-	Material: 9738520, "Material::material2", "" {
+	Material: 29042912, "Material::material2", "" {
 		Version: 102
 		ShadingModel: "phong"
 		MultiLayer: 0
@@ -395,38 +395,38 @@ Objects:  {
 			P: "Reflectivity", "double", "Number", "",0
 		}
 	}
-	Deformer: 9739080, "Deformer::", "Skin" {
+	Deformer: 29082112, "Deformer::", "Skin" {
 		Version: 101
 		Link_DeformAcuracy: 50
 	}
-	Video: 9754408, "Video::Diffuse Texture", "Clip" {
+	Video: 29101544, "Video::Diffuse Texture", "Clip" {
 		Type: "Clip"
 		Properties70:  {
-			P: "Path", "KString", "XRefUrl", "", "BrittleStoneBlock0_01.png"
+			P: "Path", "KString", "XRefUrl", "", "PlainBlock01_00.png"
 		}
 		UseMipMap: 0
-		Filename: "BrittleStoneBlock0_01.png"
-		RelativeFilename: "D:\NEEC\Projects3\CreativeResearchOZ\Data\2017_05_11配布\2017_05_11配布\OhzuTools\BrittleStoneBlock0_01.png"
+		Filename: "PlainBlock01_00.png"
+		RelativeFilename: "D:\NEEC\Projects3\CreativeResearchOZ\Data\2017_05_11配布\2017_05_11配布\OhzuTools\PlainBlock01_00.png"
 	}
-	Video: 9763104, "Video::Diffuse Texture", "Clip" {
+	Video: 29110248, "Video::Diffuse Texture", "Clip" {
 		Type: "Clip"
 		Properties70:  {
-			P: "Path", "KString", "XRefUrl", "", "BrittleStoneBlock0_00.png"
+			P: "Path", "KString", "XRefUrl", "", "PlainBlock01_01.png"
 		}
 		UseMipMap: 0
-		Filename: "BrittleStoneBlock0_00.png"
-		RelativeFilename: "D:\NEEC\Projects3\CreativeResearchOZ\Data\2017_05_11配布\2017_05_11配布\OhzuTools\BrittleStoneBlock0_00.png"
+		Filename: "PlainBlock01_01.png"
+		RelativeFilename: "D:\NEEC\Projects3\CreativeResearchOZ\Data\2017_05_11配布\2017_05_11配布\OhzuTools\PlainBlock01_01.png"
 	}
-	Video: 9767432, "Video::Diffuse Texture", "Clip" {
+	Video: 29110472, "Video::Diffuse Texture", "Clip" {
 		Type: "Clip"
 		Properties70:  {
-			P: "Path", "KString", "XRefUrl", "", "plainBlock00_02.png"
+			P: "Path", "KString", "XRefUrl", "", "PlainBlock01_02.png"
 		}
 		UseMipMap: 0
-		Filename: "plainBlock00_02.png"
-		RelativeFilename: "D:\NEEC\Projects3\CreativeResearchOZ\Data\2017_05_11配布\2017_05_11配布\OhzuTools\plainBlock00_02.png"
+		Filename: "PlainBlock01_02.png"
+		RelativeFilename: "D:\NEEC\Projects3\CreativeResearchOZ\Data\2017_05_11配布\2017_05_11配布\OhzuTools\PlainBlock01_02.png"
 	}
-	Texture: 9699744, "Texture::Diffuse Texture", "" {
+	Texture: 29044336, "Texture::Diffuse Texture", "" {
 		Type: "TextureVideoClip"
 		Version: 202
 		TextureName: "Texture::Diffuse Texture"
@@ -435,14 +435,14 @@ Objects:  {
 			P: "UseMaterial", "bool", "", "",1
 		}
 		Media: "Video::Diffuse Texture"
-		FileName: "BrittleStoneBlock0_01.png"
-		RelativeFilename: "D:\NEEC\Projects3\CreativeResearchOZ\Data\2017_05_11配布\2017_05_11配布\OhzuTools\BrittleStoneBlock0_01.png"
+		FileName: "PlainBlock01_00.png"
+		RelativeFilename: "D:\NEEC\Projects3\CreativeResearchOZ\Data\2017_05_11配布\2017_05_11配布\OhzuTools\PlainBlock01_00.png"
 		ModelUVTranslation: 0,0
 		ModelUVScaling: 1,1
 		Texture_Alpha_Source: "None"
 		Cropping: 0,0,0,0
 	}
-	Texture: 9737192, "Texture::Diffuse Texture", "" {
+	Texture: 29081520, "Texture::Diffuse Texture", "" {
 		Type: "TextureVideoClip"
 		Version: 202
 		TextureName: "Texture::Diffuse Texture"
@@ -451,14 +451,14 @@ Objects:  {
 			P: "UseMaterial", "bool", "", "",1
 		}
 		Media: "Video::Diffuse Texture"
-		FileName: "BrittleStoneBlock0_00.png"
-		RelativeFilename: "D:\NEEC\Projects3\CreativeResearchOZ\Data\2017_05_11配布\2017_05_11配布\OhzuTools\BrittleStoneBlock0_00.png"
+		FileName: "PlainBlock01_01.png"
+		RelativeFilename: "D:\NEEC\Projects3\CreativeResearchOZ\Data\2017_05_11配布\2017_05_11配布\OhzuTools\PlainBlock01_01.png"
 		ModelUVTranslation: 0,0
 		ModelUVScaling: 1,1
 		Texture_Alpha_Source: "None"
 		Cropping: 0,0,0,0
 	}
-	Texture: 9738784, "Texture::Diffuse Texture", "" {
+	Texture: 29081816, "Texture::Diffuse Texture", "" {
 		Type: "TextureVideoClip"
 		Version: 202
 		TextureName: "Texture::Diffuse Texture"
@@ -467,8 +467,8 @@ Objects:  {
 			P: "UseMaterial", "bool", "", "",1
 		}
 		Media: "Video::Diffuse Texture"
-		FileName: "plainBlock00_02.png"
-		RelativeFilename: "D:\NEEC\Projects3\CreativeResearchOZ\Data\2017_05_11配布\2017_05_11配布\OhzuTools\plainBlock00_02.png"
+		FileName: "PlainBlock01_02.png"
+		RelativeFilename: "D:\NEEC\Projects3\CreativeResearchOZ\Data\2017_05_11配布\2017_05_11配布\OhzuTools\PlainBlock01_02.png"
 		ModelUVTranslation: 0,0
 		ModelUVScaling: 1,1
 		Texture_Alpha_Source: "None"
@@ -482,40 +482,40 @@ Objects:  {
 Connections:  {
 	
 	;Model::mqo_mesh, Model::RootNode
-	C: "OO",9695280,0
+	C: "OO",29036040,0
 	
 	;Geometry::mqo_mesh, Model::mqo_mesh
-	C: "OO",9696648,9695280
+	C: "OO",29037408,29036040
 	
 	;Material::material0, Model::mqo_mesh
-	C: "OO",9698944,9695280
+	C: "OO",29040272,29036040
 	
 	;Material::material1, Model::mqo_mesh
-	C: "OO",9736928,9695280
+	C: "OO",29040800,29036040
 	
 	;Material::material2, Model::mqo_mesh
-	C: "OO",9738520,9695280
+	C: "OO",29042912,29036040
 	
 	;Deformer::, Geometry::mqo_mesh
-	C: "OO",9739080,9696648
+	C: "OO",29082112,29037408
 	
 	;Texture::Diffuse Texture, Material::material0
-	C: "OP",9699744,9698944, "DiffuseColor"
+	C: "OP",29044336,29040272, "DiffuseColor"
 	
 	;Video::Diffuse Texture, Texture::Diffuse Texture
-	C: "OO",9754408,9699744
+	C: "OO",29101544,29044336
 	
 	;Texture::Diffuse Texture, Material::material1
-	C: "OP",9737192,9736928, "DiffuseColor"
+	C: "OP",29081520,29040800, "DiffuseColor"
 	
 	;Video::Diffuse Texture, Texture::Diffuse Texture
-	C: "OO",9763104,9737192
+	C: "OO",29110248,29081520
 	
 	;Texture::Diffuse Texture, Material::material2
-	C: "OP",9738784,9738520, "DiffuseColor"
+	C: "OP",29081816,29042912, "DiffuseColor"
 	
 	;Video::Diffuse Texture, Texture::Diffuse Texture
-	C: "OO",9767432,9738784
+	C: "OO",29110472,29081816
 }
 ;Takes section
 ;----------------------------------------------------
