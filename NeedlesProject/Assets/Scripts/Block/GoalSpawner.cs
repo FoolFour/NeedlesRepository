@@ -12,13 +12,21 @@ public class GoalSpawner : MonoBehaviour
     private GameObject   rocketPrefab;
 
     [SerializeField]
-    private Vector3      spawnPosition;
+    private Vector2      spawnPosition;
 
     [SerializeField]
     private SceneChanger sceneChanger;
 
 #if UNITY_EDITOR
+    [Header("デバッグ用")]
+
+    [SerializeField]
+    [Tooltip("母船のメッシュ")]
     private Mesh         rocketMesh;
+
+    [SerializeField]
+    [Tooltip("非選択時にも母船のスポーン位置を表示するか")]
+    private bool         showAlways;
 #endif
 
     private void Reset()
@@ -28,7 +36,7 @@ public class GoalSpawner : MonoBehaviour
 
     private void Awake()
     {
-        Vector3 create_pos = transform.position + spawnPosition;
+        Vector3 create_pos = transform.position + (Vector3)spawnPosition;
         GameObject instance = Instantiate(rocketPrefab, create_pos, Quaternion.identity);
         var goal = instance.GetComponent<Goal>();
 
@@ -39,8 +47,32 @@ public class GoalSpawner : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-#warning TODO - 出現する位置を可視化する
+        if(showAlways)
+        {
+            DrawMesh();
+        }
+    }
 
-        //Gizmos.DrawWireMesh()
+    private void OnDrawGizmosSelected()
+    {
+        if(!showAlways)
+        {
+            DrawMesh();
+        }
+    }
+
+    private void DrawMesh()
+    {
+#if UNITY_EDITOR
+        Color c = Gizmos.color;
+        c.a = 0.05f;
+        c.r = 0.6f;
+        c.g = 0.75f;
+        c.b = 1.0f;
+        Gizmos.color = c;
+
+        Vector3 showPosition = transform.position + (Vector3)spawnPosition;
+        Gizmos.DrawWireMesh(rocketMesh, showPosition);
+#endif
     }
 }

@@ -12,6 +12,8 @@ public class ForwardRay : MonoBehaviour {
     public bool ishitUnder;
     //何に対して当たるようにするか
     public LayerMask mask;
+    //距離の指定
+    public float Meter;
 
     void Start()
     {
@@ -21,6 +23,6 @@ public class ForwardRay : MonoBehaviour {
     {
         ray = new Ray(transform.position, transform.right);
         Debug.DrawRay(ray.origin, ray.direction * distance, Color.red);
-        ishitUnder = Physics.Raycast(ray, out hit, 1.5f, mask);
+        ishitUnder = Physics.Raycast(ray, out hit, Meter, mask);
     }
 }
