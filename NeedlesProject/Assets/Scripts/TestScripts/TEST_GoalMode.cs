@@ -6,7 +6,7 @@ public class TEST_GoalMode : BlockBase,IRespawnMessage
 {
     public override void StickEnter(GameObject arm)
     {
-        arm.transform.parent.GetComponent<Player>().Stop();
+        arm.transform.parent.GetComponent<Player>().Goal();
         base.StickEnter(arm);
     }
 

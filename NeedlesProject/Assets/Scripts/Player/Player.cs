@@ -14,6 +14,8 @@ public class Player : MonoBehaviour {
     private bool mStan = false;
     private float mStanTimer = 0;
 
+    private bool mWait = false;
+
     int mIgnorelayer = 1 << 9; //ブロックのみ当たる
 
     // Use this for initialization
@@ -35,13 +37,18 @@ public class Player : MonoBehaviour {
     {
         if(mStan)
         {
-            mData.mLArm.StanMode();
-            mData.mRArm.StanMode();
+            if (mWait) Flash();
+            mData.mLArm.Return_Arm();
+            mData.mRArm.Return_Arm();
             if (mStanTimer > mStanTime)
             {
                 mStan = false;
                 mStanTimer = 0;
+
+                if (mWait) FlashEnd();
+                mWait = false;
             }
+            return;
         }
 
         //左スティック
@@ -87,16 +94,34 @@ public class Player : MonoBehaviour {
     {
         mData.mLArm.Dead();
         mData.mRArm.Dead();
-        mStan = false;
-        mStanTimer = 0;
+        mStan = true;
+        mWait = true;
+        mStanTimer = 1;
     }
 
-    public void Stop()
+    public void Goal()
     {
         mData.mLArm.Goal();
         mData.mRArm.Goal();
         mStan = false;
         mStanTimer = 0;
         this.enabled = false;
+    }
+
+    public void Flash()
+    {
+        var mrs = transform.GetComponentsInChildren<MeshRenderer>();
+        foreach(var mr in mrs)
+        {
+            mr.enabled = !mr.enabled;
+        }
+    }
+    public void FlashEnd()
+    {
+        var mrs = transform.GetComponentsInChildren<MeshRenderer>();
+        foreach (var mr in mrs)
+        {
+            mr.enabled = true;
+        }
     }
 }

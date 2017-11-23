@@ -14,6 +14,8 @@ public class SpawnManager : MonoBehaviour
     public void Start()
     {
         m_CurrentSpawnPoint = m_FirstSpawnPoint.position;
+        var startpoint = GameObject.Find("Start");
+        if(startpoint) m_CurrentSpawnPoint = startpoint.transform.position;
     }
 
     public void CurrentSpawnChange(Vector3 point)

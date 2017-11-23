@@ -212,7 +212,10 @@ public class NeedleArm : MonoBehaviour
         hinge.connectedAnchor = Vector3.up * m_ArmCurrentLenght;
     }
 
-    public void StanMode()
+    /// <summary>
+    /// アームを元に戻す
+    /// </summary>
+    public void Return_Arm()
     {
         var hinge = m_CurrentHitObject.GetComponent<HingeJoint>();
         if (hinge) hinge.breakTorque = 0;
@@ -227,6 +230,7 @@ public class NeedleArm : MonoBehaviour
 
     public void Dead()
     {
+        Return_Arm();
         m_CurrentHitObject.transform.parent = null;
     }
 
@@ -234,7 +238,7 @@ public class NeedleArm : MonoBehaviour
     {
         if(m_Hitinfo.collider.tag != "Finish")
         {
-            StanMode();
+            Return_Arm();
         }
     }
 
