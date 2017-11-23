@@ -8,10 +8,10 @@ public class GroundEnemy : BlockBase,IRespawnMessage
     //移動速度
     public float movespeed;
     //斜め前と後ろ確認用
-    Ray ray;
-    Ray ray2;
+    public GameObject ray;
+    public GameObject ray2;
     //前と後ろ確認用
-    Ray ray3;
+    public GameObject ray3;
     Ray ray4;
 
     //rayの長さ
@@ -56,16 +56,16 @@ public class GroundEnemy : BlockBase,IRespawnMessage
         rig = gameObject.GetComponent<Rigidbody>();
 
         //前下確認用のray
-        ishit = GameObject.Find("DiagonallRay").GetComponent<Diagonallybelow>().ishitsecond;
+        ishit = ray.GetComponent<Diagonallybelow>().ishitsecond;
         //ishit = Physics.Raycast(ray, out hit, ray_Meter, mask);
 
         //下確認用のray
-        ishit2 = GameObject.Find("UnderRay").GetComponent<ForwardRay>().ishitUnder;
+        ishit2 = ray2.GetComponent<ForwardRay>().ishitUnder;
         //ishit2 = Physics.Raycast(ray2, out hit, ray_Meter, mask);
 
         //前方確認用のray
         //ray3 = new Ray(transform.position, transform.right);      
-        ishit3 = GameObject.Find("CenterRay").GetComponent<ForwardRay>().ishitUnder;
+        ishit3 = ray3.GetComponent<ForwardRay>().ishitUnder;
 
         //進行方向の障害物確認
         ray4 = new Ray(transform.position, transform.right);
@@ -98,11 +98,16 @@ public class GroundEnemy : BlockBase,IRespawnMessage
         else if (state_ == State.ROTATIONM_N)
         {
             rig.constraints = RigidbodyConstraints.None;
+
             EndAngle = StartAngle - 90f;
+
             Angle_Z = Mathf.LerpAngle(StartAngle, EndAngle, 60f);
+
             transform.eulerAngles = new Vector3(0, 0, Angle_Z);
+
             rig.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ
                            | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezePositionZ;
+
             state_ = State.IDOL;
         }
         else if (state_ == State.ROTATIONM_R)
@@ -152,6 +157,6 @@ public class GroundEnemy : BlockBase,IRespawnMessage
     public void RespawnInit()
     {
 #warning 初期化処理書いたら消していいぞ
-        Debug.Log("初期化処理書けこの野郎");
+        //Debug.Log("初期化処理書けこの野郎");
     }
 }
