@@ -12,10 +12,10 @@ public class SearchEnemy : BlockBase
     Vector3 Lostpos;
 
     //敵の位置
-    Vector3 E_pos;
+    public Vector3 E_pos;
 
     //初期生成位置
-    Vector3 StartPosition;
+    public Vector3 StartPosition;
 
     //プレイヤーまでの距離
     public float P_distance;
@@ -26,7 +26,7 @@ public class SearchEnemy : BlockBase
     public float r;
 
     //プレイヤーまでに障害物があるか
-    Ray ray;
+    public Ray ray;
 
     //Blockに当たりそうか
     public GameObject ray2;
@@ -44,7 +44,7 @@ public class SearchEnemy : BlockBase
     //オブジェクトが当たっているか
     public RaycastHit ishit;
     //当たっているオブジェクトの名前
-    string hit_name;
+    public string hit_tag;
 
     //プレイヤーを見失ってからの時間
     public float LostTime;
@@ -80,7 +80,7 @@ public class SearchEnemy : BlockBase
     void Update()
     {
         //プレイヤーの位置
-        P_pos = GameObject.Find("Player").GetComponent<Transform>().gameObject.transform.position;
+        P_pos = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>().gameObject.transform.position;
         P_pos = P_pos + new Vector3(0, 0.5f, 0);
 
         //敵の位置
@@ -94,8 +94,8 @@ public class SearchEnemy : BlockBase
         ray = new Ray(transform.position, P_distanceV);
 
         //表示
-        //Debug.DrawRay(ray.origin, ray.direction * r, Color.red);
-        //Debug.DrawRay(ray.origin, Lostpos, Color.blue);
+        Debug.DrawRay(ray.origin, ray.direction * r, Color.red);
+        Debug.DrawRay(ray.origin, Lostpos, Color.blue);
 
         //
         ishit2 = ray2.GetComponent<ForwardRay>().ishitUnder;
@@ -104,11 +104,11 @@ public class SearchEnemy : BlockBase
         //何かに当たっているなら名前を所得
         if (Physics.Raycast(ray, out ishit) == true)
         {
-            hit_name = ishit.collider.gameObject.name;
+            hit_tag = ishit.collider.gameObject.tag;
         }
 
         //プレイヤーを見つけたら
-        if (P_distance <= r && hit_name == "Player")
+        if (P_distance <= r && hit_tag == "Player")
         {
             state = State.STEAT_CHASE;
         }
@@ -144,12 +144,12 @@ public class SearchEnemy : BlockBase
                 }
                 else if (ishit2 == true)
                 {
-                    Debug.Log("上にブロックがある");
+                    //Debug.Log("上にブロックがある");
                     gameObject.transform.position += new Vector3(0, -2, 0) * Time.deltaTime;
                 }
                 else if (ishit3 == true)
                 {
-                    Debug.Log("下にブロックがある");
+                    //Debug.Log("下にブロックがある");
                     gameObject.transform.position += new Vector3(0, 2, 0) * Time.deltaTime;
                     //gameObject.GetComponent<Rigidbody>().AddForce( gameObject.transform.up*100.0f, ForceMode.VelocityChange);
                 }
@@ -181,7 +181,7 @@ public class SearchEnemy : BlockBase
         gameObject.transform.LookAt(P_pos);
 
         //追いかける
-        if (hit_name != "Player" || hit_name != "PlayerArm")
+        if (hit_tag != "Player" || hit_tag != "PlayerArm")
         {
             Lostpos = ishit.point;
             state = State.STEAT_WARNING;
@@ -219,6 +219,14 @@ public class SearchEnemy : BlockBase
         if (E_pos != StartPosition)
         {
             gameObject.transform.position += gameObject.transform.forward * move * Time.deltaTime;
+        }
+
+        if (E_pos.x + 1.5f >=StartPosition.x && E_pos.x - 1.5f <= StartPosition.x)
+        {
+            if (E_pos.y + 1.5f >=StartPosition.y && E_pos.y - 1.5f <= StartPosition.y)
+            {
+                state = State.STEAT_IDLE;
+            }
         }
 
     }

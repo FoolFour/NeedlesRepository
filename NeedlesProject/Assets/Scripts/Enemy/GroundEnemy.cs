@@ -8,10 +8,10 @@ public class GroundEnemy : BlockBase,IRespawnMessage
     //移動速度
     public float movespeed;
     //斜め前と後ろ確認用
-    Ray ray;
-    Ray ray2;
+    public GameObject ray;
+    public GameObject ray2;
     //前と後ろ確認用
-    Ray ray3;
+    public GameObject ray3;
     Ray ray4;
 
     //rayの長さ
@@ -22,9 +22,9 @@ public class GroundEnemy : BlockBase,IRespawnMessage
     public bool ishit3;
     public bool ishit4;
 
-    float StartAngle;
-    float EndAngle;
-    float Angle_Z;
+    public float StartAngle;
+    public float EndAngle;
+    public float Angle_Z;
     //
     Vector3 eulerAngles;
     //
@@ -34,6 +34,8 @@ public class GroundEnemy : BlockBase,IRespawnMessage
     //
     Rigidbody rig;
     private RaycastHit hit;
+    //
+    public bool debuglog;
 
     public enum State
     {
@@ -52,25 +54,30 @@ public class GroundEnemy : BlockBase,IRespawnMessage
 
     void Update()
     {
+        if (debuglog == true)
+        {
+            Debug.Log(state_);
+        }
+
         eulerAngles = gameObject.transform.eulerAngles;
         rig = gameObject.GetComponent<Rigidbody>();
 
         //前下確認用のray
-        ishit = GameObject.Find("DiagonallRay").GetComponent<Diagonallybelow>().ishitsecond;
+        ishit = ray.GetComponent<Diagonallybelow>().ishitsecond;
         //ishit = Physics.Raycast(ray, out hit, ray_Meter, mask);
 
         //下確認用のray
-        ishit2 = GameObject.Find("UnderRay").GetComponent<ForwardRay>().ishitUnder;
+        ishit2 = ray2.GetComponent<ForwardRay>().ishitUnder;
         //ishit2 = Physics.Raycast(ray2, out hit, ray_Meter, mask);
 
         //前方確認用のray
         //ray3 = new Ray(transform.position, transform.right);      
-        ishit3 = GameObject.Find("CenterRay").GetComponent<ForwardRay>().ishitUnder;
+        ishit3 = ray3.GetComponent<ForwardRay>().ishitUnder;
 
         //進行方向の障害物確認
         ray4 = new Ray(transform.position, transform.right);
         Debug.DrawRay(ray4.origin, ray4.direction * distance, Color.blue);
-        ishit4 = Physics.Raycast(ray4, out hit, 1.5f, mask);
+        ishit4 = Physics.Raycast(ray4, out hit, 0.5f, mask);
 
         //状態の判定
         if (ishit == false && ishit2 == false && ishit3 == false)
@@ -98,11 +105,16 @@ public class GroundEnemy : BlockBase,IRespawnMessage
         else if (state_ == State.ROTATIONM_N)
         {
             rig.constraints = RigidbodyConstraints.None;
+
             EndAngle = StartAngle - 90f;
+
             Angle_Z = Mathf.LerpAngle(StartAngle, EndAngle, 60f);
+
             transform.eulerAngles = new Vector3(0, 0, Angle_Z);
+
             rig.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ
                            | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezePositionZ;
+
             state_ = State.IDOL;
         }
         else if (state_ == State.ROTATIONM_R)
@@ -152,6 +164,6 @@ public class GroundEnemy : BlockBase,IRespawnMessage
     public void RespawnInit()
     {
 #warning 初期化処理書いたら消していいぞ
-        Debug.Log("初期化処理書けこの野郎");
+        //Debug.Log("初期化処理書けこの野郎");
     }
 }

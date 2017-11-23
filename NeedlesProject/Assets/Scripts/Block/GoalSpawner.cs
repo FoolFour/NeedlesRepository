@@ -45,6 +45,7 @@ public class GoalSpawner : MonoBehaviour
         Destroy(gameObject);
     }
 
+#if UNITY_EDITOR
     private void OnDrawGizmos()
     {
         if(showAlways)
@@ -63,7 +64,7 @@ public class GoalSpawner : MonoBehaviour
 
     private void DrawMesh()
     {
-#if UNITY_EDITOR
+
         Color c = Gizmos.color;
         c.a = 0.05f;
         c.r = 0.6f;
@@ -71,8 +72,9 @@ public class GoalSpawner : MonoBehaviour
         c.b = 1.0f;
         Gizmos.color = c;
 
-        Vector3 showPosition = transform.position + (Vector3)spawnPosition;
-        Gizmos.DrawWireMesh(rocketMesh, showPosition);
-#endif
+        Vector3 show_position = transform.position + (Vector3)spawnPosition;
+        Gizmos.DrawWireMesh(rocketMesh, show_position);
+
     }
+#endif
 }
