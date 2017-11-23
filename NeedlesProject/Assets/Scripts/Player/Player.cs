@@ -8,7 +8,6 @@ using UnityEngine;
 public class Player : MonoBehaviour {
 
     public float mStanTime = 1;
-    public GameObject mStanEffect;
 
     private PlayerData mData;
     private bool mStan = false;
@@ -66,20 +65,31 @@ public class Player : MonoBehaviour {
         else{mData.mRArm.StickArmRotation(dir2);}
     }
 
+    /// <summary>
+    /// スタンさせる
+    /// </summary>
+    /// <param name="velocity"></param>
     public void StanMode(Vector3 velocity)
     {
         Debug.Log("Stan");
-        Instantiate(mStanEffect, transform.position + new Vector3(0, 1.5f, 0), Quaternion.identity, transform);
         mStan = true;
         mData.mrb.velocity = Vector3.zero;
         mData.mrb.AddForce(velocity, ForceMode.VelocityChange);
     }
 
+    /// <summary>
+    /// 腕のどっちかが当たっているか判定
+    /// </summary>
+    /// <returns></returns>
     public bool HitCheck()
     {
         return mData.mLArm.IsHit() || mData.mRArm.IsHit();
     }
 
+    /// <summary>
+    /// 地面に設置している
+    /// </summary>
+    /// <returns></returns>
     public bool IsGround()
     {
         Ray ray = new Ray(transform.position, Vector3.down);
@@ -90,6 +100,9 @@ public class Player : MonoBehaviour {
         return false;
     }
 
+    /// <summary>
+    /// 志望時の処理
+    /// </summary>
     public void Dead()
     {
         mData.mLArm.Dead();
@@ -99,6 +112,10 @@ public class Player : MonoBehaviour {
         mStanTimer = 1;
     }
 
+    /// <summary>
+    /// Goal時の処理
+    /// 止まる
+    /// </summary>
     public void Goal()
     {
         mData.mLArm.Goal();
@@ -108,6 +125,9 @@ public class Player : MonoBehaviour {
         this.enabled = false;
     }
 
+    /// <summary>
+    /// 点滅処理
+    /// </summary>
     public void Flash()
     {
         var mrs = transform.GetComponentsInChildren<MeshRenderer>();
@@ -116,6 +136,9 @@ public class Player : MonoBehaviour {
             mr.enabled = !mr.enabled;
         }
     }
+    /// <summary>
+    /// 点滅終了処理
+    /// </summary>
     public void FlashEnd()
     {
         var mrs = transform.GetComponentsInChildren<MeshRenderer>();
@@ -123,5 +146,14 @@ public class Player : MonoBehaviour {
         {
             mr.enabled = true;
         }
+    }
+    /// <summary>
+    /// スタンしているか
+    /// waitが真の時は違う
+    /// </summary>
+    /// <returns></returns>
+    public bool isStan()
+    {
+        return mStan && !mWait;
     }
 }
