@@ -12,10 +12,10 @@ public class SearchEnemy : BlockBase
     Vector3 Lostpos;
 
     //敵の位置
-    Vector3 E_pos;
+    public Vector3 E_pos;
 
     //初期生成位置
-    Vector3 StartPosition;
+    public Vector3 StartPosition;
 
     //プレイヤーまでの距離
     public float P_distance;
@@ -219,6 +219,14 @@ public class SearchEnemy : BlockBase
         if (E_pos != StartPosition)
         {
             gameObject.transform.position += gameObject.transform.forward * move * Time.deltaTime;
+        }
+
+        if (E_pos.x + 1.5f >=StartPosition.x && E_pos.x - 1.5f <= StartPosition.x)
+        {
+            if (E_pos.y + 1.5f >=StartPosition.y && E_pos.y - 1.5f <= StartPosition.y)
+            {
+                state = State.STEAT_IDLE;
+            }
         }
 
     }

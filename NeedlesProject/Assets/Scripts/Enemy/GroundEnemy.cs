@@ -22,9 +22,9 @@ public class GroundEnemy : BlockBase,IRespawnMessage
     public bool ishit3;
     public bool ishit4;
 
-    float StartAngle;
-    float EndAngle;
-    float Angle_Z;
+    public float StartAngle;
+    public float EndAngle;
+    public float Angle_Z;
     //
     Vector3 eulerAngles;
     //
@@ -34,6 +34,8 @@ public class GroundEnemy : BlockBase,IRespawnMessage
     //
     Rigidbody rig;
     private RaycastHit hit;
+    //
+    public bool debuglog;
 
     public enum State
     {
@@ -52,6 +54,11 @@ public class GroundEnemy : BlockBase,IRespawnMessage
 
     void Update()
     {
+        if (debuglog == true)
+        {
+            Debug.Log(state_);
+        }
+
         eulerAngles = gameObject.transform.eulerAngles;
         rig = gameObject.GetComponent<Rigidbody>();
 
@@ -70,7 +77,7 @@ public class GroundEnemy : BlockBase,IRespawnMessage
         //進行方向の障害物確認
         ray4 = new Ray(transform.position, transform.right);
         Debug.DrawRay(ray4.origin, ray4.direction * distance, Color.blue);
-        ishit4 = Physics.Raycast(ray4, out hit, 1.5f, mask);
+        ishit4 = Physics.Raycast(ray4, out hit, 0.5f, mask);
 
         //状態の判定
         if (ishit == false && ishit2 == false && ishit3 == false)
