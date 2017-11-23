@@ -77,20 +77,27 @@ public class GroundEnemy : BlockBase,IRespawnMessage
         //進行方向の障害物確認
         ray4 = new Ray(transform.position, transform.right);
         Debug.DrawRay(ray4.origin, ray4.direction * distance, Color.blue);
-        ishit4 = Physics.Raycast(ray4, out hit, 0.5f, mask);
+        ishit4 = Physics.Raycast(ray4, out hit, 0.7f, mask);
 
         //状態の判定
         if (ishit == false && ishit2 == false && ishit3 == false)
         {
+            Debug.Log("下向きに回転");
             state_ = State.ROTATIONM_N;
         }
-        else if (ishit == true && ishit2 == true && ishit3 == true && ishit4 == true)
+
+        if (ishit == true && ishit2 == true && ishit3 == true && ishit4 == true)
         {
+            Debug.Log("上向きに回転");
             state_ = State.ROTATIONM_R;
         }
-        else if ((ishit == true || ishit2 == true) && state_ == State.IDOL)
+
+        if ((ishit == true || ishit2 == true))
         {
-            state_ = State.MOVE;
+            if (state_ == State.IDOL)
+            {
+                state_ = State.MOVE;
+            }
         }
 
         //移動中
