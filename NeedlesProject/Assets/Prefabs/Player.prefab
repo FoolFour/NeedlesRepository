@@ -180,7 +180,7 @@ GameObject:
   - component: {fileID: 114091801593343418}
   m_Layer: 10
   m_Name: ArmLeft
-  m_TagString: Untagged
+  m_TagString: PlayerArm
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -403,7 +403,7 @@ GameObject:
   - component: {fileID: 136999646201081932}
   m_Layer: 10
   m_Name: ArmRight
-  m_TagString: Untagged
+  m_TagString: PlayerArm
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1258,6 +1258,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mStanTime: 3
+  mMaxSpeed: 100
 --- !u!114 &114083698492018486
 MonoBehaviour:
   m_ObjectHideFlags: 1
