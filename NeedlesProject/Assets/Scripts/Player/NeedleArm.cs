@@ -301,6 +301,10 @@ public class NeedleArm : MonoBehaviour
 
     public void MaxSpeed(float max)
     {
-        m_rb.velocity = Vector3.(new Vector3(max, max, max), m_rb.velocity);
+        var temp = m_rb.velocity;
+        temp.x = Mathf.Min(temp.x, max);
+        temp.y = Mathf.Min(temp.y, max);
+        temp.z = Mathf.Min(temp.z, max);
+        m_rb.velocity = temp;
     }
 }
