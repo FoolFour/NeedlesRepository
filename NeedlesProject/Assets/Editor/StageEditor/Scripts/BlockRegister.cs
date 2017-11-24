@@ -126,6 +126,7 @@ public class BlockRegister : EditorWindow
             if(!IsUniquePriority())
             {
                 Debug.LogError("同じ優先度のブロックがあります\n変更してください");
+                return;
             }
 
             SaveBlockData();
