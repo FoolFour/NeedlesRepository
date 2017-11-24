@@ -7,12 +7,12 @@ public class BrittleBlock : BlockBase,IRespawnMessage
 {
     public void RespawnInit()
     {
-#warning　ブロックが軽量化されたら行う
+        GetComponent<RemoveComponent>().SwitchActive(true);
     }
 
     public override void StickEnter(GameObject arm)
     {
-        Destroy(gameObject);
+        GetComponent<RemoveComponent>().SwitchActive(false);
         base.StickEnter(arm);
     }
 
@@ -20,5 +20,4 @@ public class BrittleBlock : BlockBase,IRespawnMessage
     {
         base.StickExit();
     }
-
 }

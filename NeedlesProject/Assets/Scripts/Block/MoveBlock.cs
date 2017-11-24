@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
 
-public class MoveBlock : BlockBase {
+public class MoveBlock : MonoBehaviour {
 
     [SerializeField,Tooltip("軌道")]
     public Transform[] m_MovePoint;
