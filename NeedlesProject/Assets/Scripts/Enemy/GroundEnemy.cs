@@ -27,29 +27,37 @@ public class GroundEnemy : BlockBase,IRespawnMessage
     public float Angle_Z;
     //
     Vector3 eulerAngles;
-    //
+    //当たり判定を取りたいLayer
     public LayerMask mask;
+    //rayの判定距離
+    public float raymater;
     //回転前の角度
     private float PointangleZ;
     //
     Rigidbody rig;
     private RaycastHit hit;
-    //
-    public bool debuglog;
+    //デバック確認用
+    bool debuglog;
+
+    //初期化用
+    public Vector3 FirstPos;
+    public Vector3 FirstAngle;
 
     public enum State
     {
         MOVE,
         ROTATIONM_N,
         ROTATIONM_R,
-        IDOL
+        IDOL,
+        DESTORY
     }
     public State state_;
 
     void Start()
     {
         eulerAngles =new Vector3 (0,0,0);
-        
+        FirstPos = transform.position;
+        FirstAngle = transform.eulerAngles;
     }
 
     void Update()
@@ -77,24 +85,24 @@ public class GroundEnemy : BlockBase,IRespawnMessage
         //進行方向の障害物確認
         ray4 = new Ray(transform.position, transform.right);
         Debug.DrawRay(ray4.origin, ray4.direction * distance, Color.blue);
-        ishit4 = Physics.Raycast(ray4, out hit, 0.7f, mask);
+        ishit4 = Physics.Raycast(ray4, out hit, raymater, mask);
 
-        //状態の判定
-        if (ishit == false && ishit2 == false && ishit3 == false)
+        if (state_ != State.DESTORY)
         {
-            Debug.Log("下向きに回転");
-            state_ = State.ROTATIONM_N;
-        }
+            //状態の判定
+            if (ishit == false && ishit2 == false && ishit3 == false)
+            {
+                //Debug.Log("下向きに回転");
+                state_ = State.ROTATIONM_N;
+            }
 
-        if (ishit == true && ishit2 == true && ishit3 == true && ishit4 == true)
-        {
-            Debug.Log("上向きに回転");
-            state_ = State.ROTATIONM_R;
-        }
+            if (ishit == true && ishit2 == true && ishit3 == true && ishit4 == true)
+            {
+                //Debug.Log("上向きに回転");
+                state_ = State.ROTATIONM_R;
+            }
 
-        if ((ishit == true || ishit2 == true))
-        {
-            if (state_ == State.IDOL)
+            if ((ishit == true || ishit2 == true)&& state_ == State.IDOL)
             {
                 state_ = State.MOVE;
             }
@@ -103,12 +111,15 @@ public class GroundEnemy : BlockBase,IRespawnMessage
         //移動中
         if (state_ == State.MOVE)
         {
+            //使わないところの固定
             rig.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ
                             | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezePositionZ;
-            StartAngle = Mathf.Floor( transform.eulerAngles.z);     
+
+            StartAngle = Mathf.Floor( transform.eulerAngles.z);
+
             gameObject.transform.position +=transform.right * movespeed * Time.deltaTime;
         }
-
+        //回転
         else if (state_ == State.ROTATIONM_N)
         {
             rig.constraints = RigidbodyConstraints.None;
@@ -124,6 +135,7 @@ public class GroundEnemy : BlockBase,IRespawnMessage
 
             state_ = State.IDOL;
         }
+        //回転
         else if (state_ == State.ROTATIONM_R)
         {
 
@@ -141,12 +153,17 @@ public class GroundEnemy : BlockBase,IRespawnMessage
             state_ = State.IDOL;
         }
 
+        if (state_==State.DESTORY)
+        {
+
+        }
     }
     //プレイヤーと当たった場合
     public override void StickEnter(GameObject arm)
     {
         Debug.Log("敵に当たった");
-        Destroy(gameObject);
+        //Destroy(gameObject);
+        state_ = State.DESTORY;
         base.StickEnter(arm);
     }
 
