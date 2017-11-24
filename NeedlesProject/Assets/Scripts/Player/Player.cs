@@ -8,6 +8,7 @@ using UnityEngine;
 public class Player : MonoBehaviour {
 
     public float mStanTime = 1;
+    public float mMaxSpeed = 100;
 
     private PlayerData mData;
     private bool mStan = false;
@@ -63,6 +64,8 @@ public class Player : MonoBehaviour {
         Vector2 dir2 = new Vector3(x2, y2, 0);
         if (!mData.mRArm.IsHit()){mData.mRArm.ArmExtend(dir2);}
         else{mData.mRArm.StickArmRotation(dir2);}
+
+        MaxSpeed();
     }
 
     /// <summary>
@@ -107,6 +110,7 @@ public class Player : MonoBehaviour {
     {
         mData.mLArm.Dead();
         mData.mRArm.Dead();
+        mData.mrb.velocity = Vector3.zero;
         mStan = true;
         mWait = true;
         mStanTimer = 1;
@@ -155,5 +159,15 @@ public class Player : MonoBehaviour {
     public bool isStan()
     {
         return mStan && !mWait;
+    }
+
+    /// <summary>
+    ///物理の速度抑制処理 
+    /// </summary>
+    private void MaxSpeed()
+    {
+        mData.mrb.velocity = Vector3.Max(new Vector3(mMaxSpeed, mMaxSpeed, mMaxSpeed), mData.mrb.velocity);
+        mData.mLArm.MaxSpeed(mMaxSpeed);
+        mData.mRArm.MaxSpeed(mMaxSpeed);
     }
 }

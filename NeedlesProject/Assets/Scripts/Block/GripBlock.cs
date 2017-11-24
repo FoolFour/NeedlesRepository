@@ -20,8 +20,8 @@ public class GripBlock : BlockBase
 
     public void Update()
     {
-#warning ゲットコンポーネントしすぎ
         var spoint = transform.GetComponentsInChildren<StickPoint>();
+        if (spoint.Length == 0) m_Arm = null;
         foreach(var sp in spoint)
         {
             sp.gameObject.transform.localPosition = Vector3.zero;

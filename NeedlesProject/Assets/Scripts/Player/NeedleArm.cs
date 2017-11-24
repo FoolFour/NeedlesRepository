@@ -231,6 +231,7 @@ public class NeedleArm : MonoBehaviour
     public void Dead()
     {
         Return_Arm();
+        m_rb.velocity = Vector3.zero;
         m_CurrentHitObject.transform.parent = null;
     }
 
@@ -296,5 +297,10 @@ public class NeedleArm : MonoBehaviour
         {
             m_BreakTimer = 0;
         }
+    }
+
+    public void MaxSpeed(float max)
+    {
+        m_rb.velocity = Vector3.(new Vector3(max, max, max), m_rb.velocity);
     }
 }

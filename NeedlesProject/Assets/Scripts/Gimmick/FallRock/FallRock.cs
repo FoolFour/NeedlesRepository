@@ -1,8 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FallRock : BlockBase
+public class FallRock : BlockBase, IRespawnMessage
 {
 
     // Use this for initialization
@@ -37,6 +38,11 @@ public class FallRock : BlockBase
                 collision.gameObject.transform.parent.GetComponent<Player>().StanMode(temp.normalized * 10);
             }
         }
+        Destroy(gameObject);
+    }
+
+    public void RespawnInit()
+    {
         Destroy(gameObject);
     }
 }
