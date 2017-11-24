@@ -8,12 +8,13 @@ public class SpawnManager : MonoBehaviour
 
     [SerializeField, TooltipAttribute("初期スポーンポイント")]
     public Transform m_FirstSpawnPoint;
-
+    [SerializeField, TooltipAttribute("デバッグモード時設定する")]
     private Vector3 m_CurrentSpawnPoint;
 
     public void Start()
     {
-        m_CurrentSpawnPoint = m_FirstSpawnPoint.position;
+        if(m_FirstSpawnPoint) m_CurrentSpawnPoint = m_FirstSpawnPoint.position;
+
         var startpoint = GameObject.Find("Start");
         if(startpoint) m_CurrentSpawnPoint = startpoint.transform.position;
     }
