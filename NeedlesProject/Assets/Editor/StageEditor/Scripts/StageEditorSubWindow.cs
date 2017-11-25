@@ -26,6 +26,8 @@ class StageEditorSubWindow : EditorWindow
 
     private string fileName;
 
+    private const int tileSize = 32;
+
     private void OnFocus()
     {
         if(!stopwatch.IsRunning)
@@ -137,10 +139,10 @@ class StageEditorSubWindow : EditorWindow
                 if (x >= parent.stageSize.x) { continue; }
                 if (y >= parent.stageSize.y) { continue; }
 
-                rect.x = (x - (int)offset.x) * 32 + editorOffset.x;
-                rect.y = (y - (int)offset.y) * 32 + editorOffset.y;
-                rect.width = 32;
-                rect.height = 32;
+                rect.x = (x - (int)offset.x) * tileSize + editorOffset.x;
+                rect.y = (y - (int)offset.y) * tileSize + editorOffset.y;
+                rect.width  = tileSize;
+                rect.height = tileSize;
 
                 if (mapData[x][y] != "")
                 {
@@ -154,20 +156,20 @@ class StageEditorSubWindow : EditorWindow
         Vector3 p2 = new Vector3();
         Handles.color = Color.white;
         p1.y = editorOffset.y;
-        p2.y = parent.stageSize.y * 32 + editorOffset.y - (int)offset.y * 32;
+        p2.y = parent.stageSize.y * tileSize + editorOffset.y - (int)offset.y * tileSize;
         for (int x = (int)offset.x + 1; x < parent.stageSize.x; x++)
         {
-            p1.x = x * 32 + editorOffset.x - (int)offset.x * 32;
-            p2.x = x * 32 + editorOffset.x - (int)offset.x * 32;
+            p1.x = x * tileSize + editorOffset.x - (int)offset.x * tileSize;
+            p2.x = x * tileSize + editorOffset.x - (int)offset.x * tileSize;
             Handles.DrawLine(p1, p2);
         }
 
         p1.x = editorOffset.x;
-        p2.x = parent.stageSize.x * 32 + editorOffset.x - (int)offset.x * 32;
+        p2.x = parent.stageSize.x * tileSize + editorOffset.x - (int)offset.x * tileSize;
         for (int y = (int)offset.y + 1; y < parent.stageSize.y; y++)
         {
-            p1.y = y * 32 + editorOffset.y - (int)offset.y * 32;
-            p2.y = y * 32 + editorOffset.y - (int)offset.y * 32;
+            p1.y = y * tileSize + editorOffset.y - (int)offset.y * tileSize;
+            p2.y = y * tileSize + editorOffset.y - (int)offset.y * tileSize;
             Handles.DrawLine(p1, p2);
         }
 
@@ -215,6 +217,7 @@ class StageEditorSubWindow : EditorWindow
             IO.Directory.CreateDirectory(directory);
         }
 
+        //指定されたファイル名に不正な名前が無いか調べる
         var r = new System.Text.RegularExpressions.Regex(
                     "[\\x00-\\x1f<>:\"/\\\\|?*]" +
                     "|^(CON|PRN|AUX|NUL|COM[0-9]|LPT[0-9]|CLOCK\\$)(\\.|$)" +
@@ -232,33 +235,35 @@ class StageEditorSubWindow : EditorWindow
 
     private void Save(string path)
     {
-        var ws = new IO.StreamWriter(path);
-
-        ws.WriteLine(parent.stageName);
-        ws.WriteLine(parent.stageSize.x + "," + parent.stageSize.y + ",");
-        ws.Flush();
-
-        for (int x = 0; x < parent.stageSize.x; x++)
+        using (var ws = new IO.StreamWriter(path))
         {
-            for(int y = 0; y < parent.stageSize.y; y++)
-            {
-                var b = parent.FindBlockObject(mapData[x][y]);
 
-                if(b == null)
-                {
-                    ws.Write(",");
-                }
-                else
-                {
-                    ws.Write(b.priority + ",");
-                }
-            }
-            ws.WriteLine();
+            ws.WriteLine(parent.stageName);
+            ws.WriteLine(parent.stageSize.x + "," + parent.stageSize.y + ",");
             ws.Flush();
-        }
 
-        ws.Flush();
-        ws.Close();
+            for (int x = 0; x < parent.stageSize.x; x++)
+            {
+                for(int y = 0; y < parent.stageSize.y; y++)
+                {
+                    var b = parent.FindBlockObject(mapData[x][y]);
+
+                    if(b == null)
+                    {
+                        ws.Write(",");
+                    }
+                    else
+                    {
+                        ws.Write(b.priority + ",");
+                    }
+                }
+                ws.WriteLine();
+                ws.Flush();
+            }
+
+            ws.Flush();
+            ws.Close();
+        }
     }
 
     private void LoadFile()
@@ -323,8 +328,7 @@ class StageEditorSubWindow : EditorWindow
                 prevMousePos = e.mousePosition;
             }
         }
-
-
+        
         if (e.type == EventType.MouseDown ||
             e.type == EventType.MouseDrag)
         {
@@ -365,19 +369,19 @@ class StageEditorSubWindow : EditorWindow
         tempOffset.x = Mathf.Floor(tempOffset.x);
         tempOffset.y = Mathf.Floor(tempOffset.y);
 
-        mousePos += tempOffset * 32;
+        mousePos += tempOffset * tileSize;
 
         //補正
-        mousePos /= 32.0f;
+        mousePos /= (float)tileSize;
         int x = (int)Mathf.Floor(mousePos.x);
         int y = (int)Mathf.Floor(mousePos.y);
 
         if (mapData.Count != 0 &&
-            x - (int)editorOffset.x / 32 - (int)tempOffset.x < mapData.Count &&
-            y - (int)editorOffset.y / 32 - (int)tempOffset.y < mapData[0].Count)
+            x - (int)editorOffset.x / tileSize - (int)tempOffset.x < mapData.Count &&
+            y - (int)editorOffset.y / tileSize - (int)tempOffset.y < mapData[0].Count)
         {
             //マップに配置
-            mapData[x - (int)editorOffset.x / 32][y - (int)editorOffset.y / 32] = parent.SelectedImage;
+            mapData[x - (int)editorOffset.x / tileSize][y - (int)editorOffset.y / tileSize] = parent.SelectedImage;
             Repaint();
         }
     }
@@ -394,19 +398,19 @@ class StageEditorSubWindow : EditorWindow
         tempOffset.x = Mathf.Floor(tempOffset.x);
         tempOffset.y = Mathf.Floor(tempOffset.y);
 
-        mousePos += tempOffset * 32;
+        mousePos += tempOffset * tileSize;
 
         //補正
-        mousePos /= 32.0f;
+        mousePos /= (float)tileSize;
         int x = (int)Mathf.Floor(mousePos.x);
         int y = (int)Mathf.Floor(mousePos.y);
 
         if (mapData.Count != 0 &&
-            x - (int)editorOffset.x / 32 - tempOffset.x < mapData.Count &&
-            y - (int)editorOffset.y / 32 - tempOffset.y < mapData[0].Count)
+            x - (int)editorOffset.x / tileSize - tempOffset.x < mapData.Count &&
+            y - (int)editorOffset.y / tileSize - tempOffset.y < mapData[0].Count)
         {
             //マップから消す
-            mapData[x - (int)editorOffset.x / 32][y - (int)editorOffset.y / 32] = "";
+            mapData[x - (int)editorOffset.x / tileSize][y - (int)editorOffset.y / tileSize] = "";
             Repaint();
         }
     }
@@ -419,16 +423,16 @@ class StageEditorSubWindow : EditorWindow
 
         //線を描くのに必要な点の定義
 
-        Vector2 top_right    = parent.stageSize * 32 - tempOffset * 32;
-        top_right.x += 32;
+        Vector2 top_right    = parent.stageSize * tileSize - tempOffset * tileSize;
+        top_right.x += tileSize;
         top_right.y = editorOffset.y;
 
-        Vector2 bottom_left  = parent.stageSize * 32 - tempOffset * 32;
+        Vector2 bottom_left  = parent.stageSize * tileSize - tempOffset * tileSize;
         bottom_left.x = editorOffset.x;
         bottom_left.y += editorOffset.y;
 
-        Vector2 bottom_right = parent.stageSize * 32 - tempOffset * 32;
-        bottom_right.x += 32;
+        Vector2 bottom_right = parent.stageSize * tileSize - tempOffset * tileSize;
+        bottom_right.x += tileSize;
         bottom_right.y += editorOffset.y;
 
         //枠を描く(内側から黒・白・黒と描く)

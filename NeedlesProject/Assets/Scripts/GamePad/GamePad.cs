@@ -7,16 +7,22 @@ public static class GamePad
 {
     // 入力関係
     private static string vertical    = VERTICAL;
-    public  static string Vertical     { get { return vertical;    } }
+    public  static string Vertical     { get { return vertical;     } }
 
     private static string horizontal  = HORIZONTAL;
-    public  static string Horizontal   { get { return horizontal;  } }
+    public  static string Horizontal   { get { return horizontal;   } }
 
-    private static string vertical2   = VERTICAL + "2";
-    public  static string Vertical2    { get { return vertical2;   } }
+    private static string vertical2   = VERTICAL   + "2";
+    public  static string Vertical2    { get { return vertical2;    } }
 
     private static string horizontal2 = HORIZONTAL + "2";
-    public  static string Horizontal2  { get { return horizontal2; } }
+    public  static string Horizontal2  { get { return horizontal2;  } }
+
+    private static string submit      = "Submit";
+    public  static string Submit       { get { return submit;       } }
+
+    private static string cancel      = "Cancel";
+    public  static string Cancel       { get { return cancel;       } }
 
     private static bool   isDirectMode;
     public  static bool   IsDirectMode { get { return isDirectMode; } }
