@@ -306,6 +306,7 @@ public class NeedleArm : MonoBehaviour
 
     private void ArmBreakCheck(float len)
     {
+        if (len >= m_ArmMaxLength + 3) PlayerStan(Vector3.zero);
         if (Physics.Linecast(m_Arm.transform.position, m_Arm.transform.position + (m_Arm.up * len), m_Ignorelayer, QueryTriggerInteraction.Ignore))
         {
             m_BreakTimer += Time.deltaTime;
