@@ -72,8 +72,6 @@ public class NeedleArm : MonoBehaviour
     public float m_TorquePower = 30;
     [SerializeField, TooltipAttribute("トルクの最大回転力")]
     public float m_TorqueMaxPower = 30;
-    [SerializeField, TooltipAttribute("壁をはじいた時の力")]
-    public float m_ImpactPower = 5;
     //----------------------------------------------------------------------------
 
     float m_ArmCurrentLenght;
@@ -228,7 +226,7 @@ public class NeedleArm : MonoBehaviour
         {
             m_CurrentHitObject.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
         }
-        else { m_CurrentHitObject.GetComponent<Rigidbody>().AddTorque(transform.forward * ((m_TorquePower * angle) * m_ArmCurrentLenght), ForceMode.Force); }
+        else { m_CurrentHitObject.GetComponent<Rigidbody>().AddTorque(transform.forward * ((m_TorquePower * angle) * m_ArmCurrentLenght)); }
         hinge.autoConfigureConnectedAnchor = false;
         hinge.connectedAnchor = Vector3.up * m_ArmCurrentLenght;
 
@@ -281,12 +279,10 @@ public class NeedleArm : MonoBehaviour
         return v1.x * v2.y - v2.x * v1.y;
     }
 
-    public void PlayerAddForce()
+    public void PlayerAddForce(Vector3 force)
     {
-        if (m_Player.GetComponent<Rigidbody>().velocity.magnitude < 25)
-        {
-            m_Player.GetComponent<Rigidbody>().AddForce(-m_Arm.up * m_ImpactPower, ForceMode.Impulse);
-        }
+        m_Player.GetComponent<Rigidbody>().AddForce(force, ForceMode.Impulse);
+        m_rb.AddForce(force, ForceMode.Impulse);
     }
 
     public void PlayerStan(Vector3 velocity)
@@ -327,9 +323,9 @@ public class NeedleArm : MonoBehaviour
     public void MaxSpeed(float max)
     {
         var temp = m_rb.velocity;
-        temp.x = Mathf.Min(temp.x, max);
-        temp.y = Mathf.Min(temp.y, max);
-        temp.z = Mathf.Min(temp.z, max);
+        temp.x = Mathf.Clamp(temp.x, -max,max);
+        temp.y = Mathf.Clamp(temp.y, -max, max);
+        temp.z = Mathf.Clamp(temp.z, -max, max);
         m_rb.velocity = temp;
     }
 }

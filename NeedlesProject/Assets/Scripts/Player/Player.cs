@@ -167,9 +167,9 @@ public class Player : MonoBehaviour {
     private void MaxSpeed()
     {
         var temp = mData.mrb.velocity;
-        temp.x = Mathf.Min(temp.x, mMaxSpeed);
-        temp.y = Mathf.Min(temp.y, mMaxSpeed);
-        temp.z = Mathf.Min(temp.z, mMaxSpeed);
+        temp.x = Mathf.Clamp(temp.x, -mMaxSpeed,mMaxSpeed);
+        temp.y = Mathf.Clamp(temp.y, -mMaxSpeed, mMaxSpeed);
+        temp.z = Mathf.Clamp(temp.z, -mMaxSpeed, mMaxSpeed);
         mData.mrb.velocity = temp;
 
         mData.mLArm.MaxSpeed(mMaxSpeed);
