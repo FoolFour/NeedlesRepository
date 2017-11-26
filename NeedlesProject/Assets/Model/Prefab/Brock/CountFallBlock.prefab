@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 23141605788587254}
   - component: {fileID: 54217359913260774}
   - component: {fileID: 114221211471913060}
+  - component: {fileID: 114526046884734596}
   m_Layer: 9
   m_Name: CountFallBlock
   m_TagString: Untagged
@@ -122,3 +123,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isHitBlock: 1
+  m_fallTime: 3
+--- !u!114 &114526046884734596
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1072241577459298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee1854a109863dd48b5192b9eba928eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

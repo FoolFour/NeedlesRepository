@@ -4,9 +4,13 @@ using UnityEngine;
 
 public class HardBlock : BlockBase {
 
+    [SerializeField, TooltipAttribute("壁をはじいた時の力")]
+    public float m_impactPower = 5;
+
     public override void StickEnter(GameObject arm)
     {
-        arm.GetComponent<NeedleArm>().PlayerAddForce();
+        var force = -arm.transform.up * m_impactPower;
+        arm.GetComponent<NeedleArm>().PlayerAddForce(force);
         base.StickEnter(arm);
     }
 
