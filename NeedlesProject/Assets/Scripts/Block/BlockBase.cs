@@ -17,6 +17,15 @@ public class BlockBase : MonoBehaviour {
     }
 
     /// <summary>
+    /// 刺さっている時の処理
+    /// </summary>
+    /// <param name="arm"></param>
+    public virtual void StickStay(GameObject arm)
+    {
+
+    }
+
+    /// <summary>
     /// 抜ける時の判定
     /// </summary>
     public virtual void StickExit()
@@ -31,7 +40,8 @@ public class BlockBase : MonoBehaviour {
 
     public void StickPointOut()
     {
-        if(transform.Find("StickPoint(Clone)"))
-        transform.Find("StickPoint(Clone)").parent = null;
+        var sp = transform.Find("StickPoint(Clone)");
+        if (sp)
+        sp.parent = null;
     }
 }

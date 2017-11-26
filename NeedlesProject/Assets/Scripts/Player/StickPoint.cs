@@ -19,9 +19,9 @@ public class StickPoint : MonoBehaviour
 
     void OnJointBreak(float breakForce)
     {
-        transform.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
         m_Action();
         m_Action = () => { };
+        transform.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
     }
 
     public void BreakAction(System.Action action)
