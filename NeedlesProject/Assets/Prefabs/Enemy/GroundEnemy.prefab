@@ -52,11 +52,11 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4459440045153742}
-  - component: {fileID: 33524047555516352}
   - component: {fileID: 65814519327469510}
   - component: {fileID: 23645305557191836}
   - component: {fileID: 114047483872494688}
   - component: {fileID: 54099465596766760}
+  - component: {fileID: 114443239604936248}
   m_Layer: 9
   m_Name: GroundEnemy
   m_TagString: Untagged
@@ -191,8 +191,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1496129552359636}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 13, y: 96.16, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 15.59, y: 10.1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4756737316353222}
@@ -399,13 +399,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1683195913348774}
   m_Mesh: {fileID: 4300000, guid: 25100e105fc34164b8809fcc2352b03f, type: 3}
---- !u!33 &33524047555516352
-MeshFilter:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1496129552359636}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!33 &33990065519218396
 MeshFilter:
   m_ObjectHideFlags: 1
@@ -477,12 +470,10 @@ MonoBehaviour:
   ishit2: 0
   ishit3: 0
   ishit4: 0
-  StartAngle: 0
-  EndAngle: 0
-  Angle_Z: 0
   mask:
     serializedVersion: 2
     m_Bits: 512
+  raymater: 1
   state_: 0
 --- !u!114 &114075025834824540
 MonoBehaviour:
@@ -499,7 +490,18 @@ MonoBehaviour:
   mask:
     serializedVersion: 2
     m_Bits: 512
-  Meter: 1
+  Meter: 1.2
+--- !u!114 &114443239604936248
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1496129552359636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee1854a109863dd48b5192b9eba928eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114727756692282114
 MonoBehaviour:
   m_ObjectHideFlags: 1

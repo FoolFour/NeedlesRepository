@@ -19,12 +19,12 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4568633378052536}
-  - component: {fileID: 33801768181446150}
   - component: {fileID: 65701223419556344}
   - component: {fileID: 23044349966348280}
   - component: {fileID: 114300778572787576}
   - component: {fileID: 54616374677909060}
-  m_Layer: 0
+  - component: {fileID: 114153564884659100}
+  m_Layer: 9
   m_Name: SearchEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4771405803901908}
   - component: {fileID: 114866077950268378}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: BlockRayUnder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -56,7 +56,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4545949061196866}
   - component: {fileID: 114078487529724738}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: BlockRayUp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -83,7 +83,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1438299740743348}
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 4.1, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4545949061196866}
@@ -136,13 +136,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!33 &33801768181446150
-MeshFilter:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1438299740743348}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!54 &54616374677909060
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -186,6 +179,17 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   Meter: 1.5
+--- !u!114 &114153564884659100
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1438299740743348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee1854a109863dd48b5192b9eba928eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114300778572787576
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -198,6 +202,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isHitBlock: 0
+  E_pos: {x: 0, y: 0, z: 0}
+  StartPosition: {x: 0, y: 0, z: 0}
   P_distance: 0
   r: 10
   ray2: {fileID: 1844788493587064}
@@ -205,6 +211,7 @@ MonoBehaviour:
   ishit2: 0
   ishit3: 0
   RayMeter: 1.5
+  hit_tag: 
   LostTime: 0
   SearchlimitTime: 5
   move: 1

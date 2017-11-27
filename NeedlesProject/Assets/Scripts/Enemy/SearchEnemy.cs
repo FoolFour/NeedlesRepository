@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SearchEnemy : BlockBase
+public class SearchEnemy : BlockBase,IRespawnMessage
 {
     /*プレイヤーを追いかける敵*/
 
@@ -35,7 +35,7 @@ public class SearchEnemy : BlockBase
     public bool ishit2;
     public bool ishit3;
 
-    //
+    //感知範囲
     public float RayMeter;
 
     //
@@ -54,6 +54,12 @@ public class SearchEnemy : BlockBase
     //移動速度
     public float move;
 
+    //
+    Vector3 firstAngle;
+    
+    //スタン状態の時間
+    public float stantime;
+    
     //自身の状態
     public enum State
     {
@@ -66,7 +72,11 @@ public class SearchEnemy : BlockBase
         //帰還
         STEAT_RETURN,
         //待機状態
-        STEAT_IDLE
+        STEAT_IDLE,
+        //スタン
+        STEAT_STAN,
+        //倒された状態
+        STATE_DESTORY
     }
 
     public State state;
@@ -75,6 +85,7 @@ public class SearchEnemy : BlockBase
         state = State.STEAT_SEARCH;
         LostTime = 0;
         StartPosition = gameObject.transform.position;
+        firstAngle = gameObject.transform.eulerAngles;
     }
 
     void Update()
@@ -101,16 +112,19 @@ public class SearchEnemy : BlockBase
         ishit2 = ray2.GetComponent<ForwardRay>().ishitUnder;
         ishit3 = ray3.GetComponent<ForwardRay>().ishitUnder;
 
-        //何かに当たっているなら名前を所得
-        if (Physics.Raycast(ray, out ishit) == true)
+        if (state != State.STATE_DESTORY|| state != State.STEAT_STAN)
         {
-            hit_tag = ishit.collider.gameObject.tag;
-        }
+            //何かに当たっているなら名前を所得
+            if (Physics.Raycast(ray, out ishit) == true)
+            {
+                hit_tag = ishit.collider.gameObject.tag;
+            }
 
-        //プレイヤーを見つけたら
-        if (P_distance <= r && hit_tag == "Player")
-        {
-            state = State.STEAT_CHASE;
+            //プレイヤーを見つけたら
+            if (P_distance <= r && hit_tag == "Player")
+            {
+                state = State.STEAT_CHASE;
+            }
         }
 
         /*状態遷移*/
@@ -131,7 +145,15 @@ public class SearchEnemy : BlockBase
         {
             returnStartPosition();
         }
+        else if(state==State.STEAT_STAN)
+        {
+            Stan();
 
+        }
+        else if (state==State.STATE_DESTORY )
+        {
+            Destory();
+        }
 
         if (state == State.STEAT_CHASE || state == State.STEAT_WARNING)
         {
@@ -231,26 +253,54 @@ public class SearchEnemy : BlockBase
 
     }
 
+    void Stan()
+    {
+        stantime -= Time.deltaTime;
+
+        if (stantime <= 0)
+        {
+            state = State.STEAT_IDLE;
+        }
+    }
+
     void Idol()
     {
         LostTime = 0;
     }
 
+    void Destory()
+    {
+        GetComponent<RemoveComponent>().SwitchActive(false);
+    }
+
+    void respown()
+    {
+        gameObject.transform.position = StartPosition;
+        gameObject.transform.eulerAngles = firstAngle;
+        state = State.STEAT_IDLE;
+        GetComponent<RemoveComponent>().SwitchActive(true);
+    }
+
+    //アーム（先端）で刺すと追尾の敵がスタンして一定時間動かなくなる 
+    //プレイヤー本体に当たるとプレイヤーをスタンさせて自分は死ぬ
+    
     //--------------------------------------------------------------------
     //プレイヤーと当たった場合
     public override void StickEnter(GameObject arm)
     {
-        Debug.Log("敵に当たった");
-        Destroy(gameObject);
+        //Debug.Log("敵に当たった");
+        //Destroy(gameObject);
+        state = State.STEAT_STAN;
         base.StickEnter(arm);
     }
 
     public void OnCollisionEnter(Collision collision)
     {
-        Debug.Log(collision.gameObject.tag);
+        //Debug.Log(collision.gameObject.tag);
 
-        if (collision.gameObject.tag == "PlayerArm")
+        if (collision.gameObject.tag == "Player")
         {
+            state = State.STATE_DESTORY;
             Vector3 temp = collision.gameObject.transform.position - transform.position;
             temp.y = 1;
             if (collision.gameObject.GetComponent<Player>())
@@ -262,5 +312,10 @@ public class SearchEnemy : BlockBase
                 collision.gameObject.transform.parent.GetComponent<Player>().StanMode(temp.normalized * 10);
             }
         }
+    }
+
+    public void RespawnInit()
+    {
+        respown();
     }
 }
