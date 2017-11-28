@@ -23,13 +23,26 @@ public class FloatEnemy : BlockBase , IRespawnMessage
         RIGHT,
         UP,
         DOWN,
-        RETURN
+        RETURN,
+        DESTORY
     }
 
     public Direction direction_;
+
+    /*初期化用の数値*/
+    //初期位置
+    Vector3 FirstPos;
+    //初期角度
+    Vector3 FirstAngle;
+    //移動方向
+    Direction firstdirection;
+
     void Start()
     {
         startPosition = gameObject.transform.localPosition;
+        FirstPos = transform.position;
+        FirstAngle = transform.eulerAngles;
+        firstdirection = direction_;
     }
 
     void Update()
@@ -127,21 +140,38 @@ public class FloatEnemy : BlockBase , IRespawnMessage
                     direction_ = Direction.DOWN;
                 }
             }
-
         }
+    }
+
+    void Stop()
+    {
+       GetComponent<RemoveComponent>().SwitchActive(false);
+        direction_ = Direction.DESTORY;
+    }
+
+    void respown()
+    {
+        gameObject.transform.position = FirstPos;
+        gameObject.transform.eulerAngles = FirstAngle;
+        GetComponent<RemoveComponent>().SwitchActive(true);
+        direction_ = firstdirection;
     }
 
     public override void StickEnter(GameObject arm)
     {
-        Debug.Log("敵に当たった");
-        Destroy(gameObject);
+        //Debug.Log("敵に当たった");
+        //Destroy(gameObject);
         base.StickEnter(arm);
+        Stop();
     }
 
+    //アーム（先端）に当たると死亡する
     public void OnCollisionEnter(Collision collision)
     {
         Debug.Log(collision.gameObject.tag);
-        if (collision.gameObject.tag == "PlayerArm")
+
+        if (collision.gameObject.tag == "Player"||
+            collision.gameObject.tag == "PlayerArm")
         {
             Vector3 temp = collision.gameObject.transform.position - transform.position;
             temp.y = 1;
@@ -158,7 +188,6 @@ public class FloatEnemy : BlockBase , IRespawnMessage
 
     public void RespawnInit()
     {
-#warning 初期化処理書いたら消していいぞ
-        Debug.Log("初期化処理書けこの野郎");
+        respown();
     }
 }
