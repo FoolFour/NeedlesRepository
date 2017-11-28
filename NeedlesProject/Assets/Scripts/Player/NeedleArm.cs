@@ -239,8 +239,9 @@ public class NeedleArm : MonoBehaviour
     public void Return_Arm()
     {
         var hinge = m_CurrentHitObject.GetComponent<HingeJoint>();
-        if (hinge) hinge.breakTorque = 0;
+        if (hinge) Destroy(hinge);
         m_CurrentHitObject.transform.parent = null;
+        m_CurrentHitObject.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
         m_Hitinfo = new RaycastHit();
 
         ishit = false;

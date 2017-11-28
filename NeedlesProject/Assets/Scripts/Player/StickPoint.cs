@@ -17,6 +17,11 @@ public class StickPoint : MonoBehaviour
 
     }
 
+    public void LateUpdate()
+    {
+        transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+    }
+
     void OnJointBreak(float breakForce)
     {
         m_Action();
