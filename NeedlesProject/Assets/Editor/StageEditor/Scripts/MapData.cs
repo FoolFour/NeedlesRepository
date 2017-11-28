@@ -16,9 +16,15 @@ public class MapData
         get { return data[0].Count; }
     }
 
+    public bool IsEmpty
+    {
+        get { return data.Count == 0; }
+    }
+
     public string this [int x ,int y]
     {
-        get { return data[x][y];    }
+        get { return data[x][y];  }
+        set { data[x][y] = value; }
     }
 
     public void AddRangeX(int add_x)

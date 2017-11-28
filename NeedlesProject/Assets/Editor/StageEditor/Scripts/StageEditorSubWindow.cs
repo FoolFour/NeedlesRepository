@@ -14,7 +14,7 @@ class StageEditorSubWindow : EditorWindow
 
     private Vector2 offset = new Vector2();
 
-    private List<List<string>> mapData = new List<List<string>>();
+    private MapData mapData_ = new MapData();
 
     private Rect rect = new Rect();
 
@@ -49,23 +49,9 @@ class StageEditorSubWindow : EditorWindow
 
     private void MapFix()
     {
-        for (int x = 0; x < mapData.Count; x++)
-        {
-            for (int y = mapData[x].Count; y < (int)parent.stageSize.y; y++)
-            {
-                mapData[x].Add("");
-            }
-        }
-
-        for (int x = mapData.Count; x < (int)parent.stageSize.x; x++)
-        {
-            List<string> list = new List<string>();
-            for (int y = 0; y < (int)parent.stageSize.y; y++)
-            {
-                list.Add("");
-            }
-            mapData.Add(list);
-        }
+        int x_add = (int)parent.stageSize.x - mapData_.SizeX;
+        int y_add = (int)parent.stageSize.y - mapData_.SizeY;
+        mapData_.Resize(x_add, y_add);
     }
 
     public static StageEditorSubWindow WillAppear(StageEditorWindow p)
@@ -101,6 +87,7 @@ class StageEditorSubWindow : EditorWindow
             Generate(false);
         }
 
+        //保存関係の描画
         GUILayout.BeginHorizontal();
         {
             GUILayout.BeginVertical();
@@ -128,13 +115,13 @@ class StageEditorSubWindow : EditorWindow
         }
         GUILayout.EndHorizontal();
 
-        //offset = EditorGUILayout.BeginScrollView(offset, false, false);
+
         offset.x = GUILayout.HorizontalSlider(offset.x, 0, parent.stageSize.x);
         offset.y = GUILayout.VerticalSlider  (offset.y, 0, parent.stageSize.y);
 
-        for (int x = (int)offset.x; x < mapData.Count; x++)
+        for (int x = (int)offset.x; x < mapData_.SizeX; x++)
         {
-            for (int y = (int)offset.y; y < mapData[0].Count; y++)
+            for (int y = (int)offset.y; y < mapData_.SizeY; y++)
             {
                 if (x >= parent.stageSize.x) { continue; }
                 if (y >= parent.stageSize.y) { continue; }
@@ -144,14 +131,15 @@ class StageEditorSubWindow : EditorWindow
                 rect.width  = tileSize;
                 rect.height = tileSize;
 
-                if (mapData[x][y] != "")
+                if (!mapData_.IsEmptyMass(x, y))
                 {
-                    var tex = (Texture2D)AssetDatabase.LoadAssetAtPath(mapData[x][y], typeof(Texture2D));
+                    var tex = (Texture2D)AssetDatabase.LoadAssetAtPath(mapData_[x, y], typeof(Texture2D));
                     GUI.DrawTexture(rect, tex);
                 }
             }
         }
 
+        //マス目の描画
         Vector3 p1 = new Vector3();
         Vector3 p2 = new Vector3();
         Handles.color = Color.white;
@@ -246,7 +234,7 @@ class StageEditorSubWindow : EditorWindow
             {
                 for(int y = 0; y < parent.stageSize.y; y++)
                 {
-                    var b = parent.FindBlockObject(mapData[x][y]);
+                    var b = parent.FindBlockObject(mapData_[x, y]);
 
                     if(b == null)
                     {
@@ -289,18 +277,17 @@ class StageEditorSubWindow : EditorWindow
         parent.stageSize.y = int.Parse(size[1]);
 
 
-        mapData.Clear();
-        MapFix();
+        mapData_.Resize((int)parent.stageSize.x, (int)parent.stageSize.y);
 
-        for(int x = 0; x < mapData.Count; x++)
+        for(int x = 0; x < mapData_.SizeX; x++)
         {
             string tmp = rs.ReadLine();
             string[] stageData = tmp.Split(',');
-            for(int y = 0; y < mapData[0].Count; y++)
+            for(int y = 0; y < mapData_.SizeY; y++)
             {
                 if(stageData[y] == "") { continue; }
                 int priority = int.Parse(stageData[y]);
-                mapData[x][y] = parent.FindBlockObject(priority).imageFile;
+                mapData_[x, y] = parent.FindBlockObject(priority).imageFile;
             }
         }
 
@@ -376,12 +363,12 @@ class StageEditorSubWindow : EditorWindow
         int x = (int)Mathf.Floor(mousePos.x);
         int y = (int)Mathf.Floor(mousePos.y);
 
-        if (mapData.Count != 0 &&
-            x - (int)editorOffset.x / tileSize - (int)tempOffset.x < mapData.Count &&
-            y - (int)editorOffset.y / tileSize - (int)tempOffset.y < mapData[0].Count)
+        if (!mapData_.IsEmpty &&
+            x - (int)editorOffset.x / tileSize - (int)tempOffset.x < mapData_.SizeX &&
+            y - (int)editorOffset.y / tileSize - (int)tempOffset.y < mapData_.SizeY)
         {
             //マップに配置
-            mapData[x - (int)editorOffset.x / tileSize][y - (int)editorOffset.y / tileSize] = parent.SelectedImage;
+            mapData_[x - (int)editorOffset.x / tileSize, y - (int)editorOffset.y / tileSize] = parent.SelectedImage;
             Repaint();
         }
     }
@@ -405,12 +392,12 @@ class StageEditorSubWindow : EditorWindow
         int x = (int)Mathf.Floor(mousePos.x);
         int y = (int)Mathf.Floor(mousePos.y);
 
-        if (mapData.Count != 0 &&
-            x - (int)editorOffset.x / tileSize - tempOffset.x < mapData.Count &&
-            y - (int)editorOffset.y / tileSize - tempOffset.y < mapData[0].Count)
+        if (!mapData_.IsEmpty &&
+            x - (int)editorOffset.x / tileSize - tempOffset.x < mapData_.SizeX &&
+            y - (int)editorOffset.y / tileSize - tempOffset.y < mapData_.SizeY)
         {
             //マップから消す
-            mapData[x - (int)editorOffset.x / tileSize][y - (int)editorOffset.y / tileSize] = "";
+            mapData_[x - (int)editorOffset.x / tileSize, y - (int)editorOffset.y / tileSize] = "";
             Repaint();
         }
     }
@@ -488,9 +475,9 @@ class StageEditorSubWindow : EditorWindow
         {
             for (int y = 0; y < stageSize_y; y++)
             {
-                if (mapData[x][y] == "") { continue; }
+                if (mapData_.IsEmptyMass(x, y)) { continue; }
 
-                var obj = parent.FindBlockObject(mapData[x][y]).blockPrefab;
+                var obj = parent.FindBlockObject(mapData_[x, y]).blockPrefab;
 
                 createPosition.x = x;
                 createPosition.y = stageSize_y - y - 1;
