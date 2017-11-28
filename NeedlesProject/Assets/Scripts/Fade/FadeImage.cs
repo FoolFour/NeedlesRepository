@@ -20,63 +20,43 @@ public class FadeImage : Image
     public delegate void OnFadeCompleteHandler(FadeType type);
     public event OnFadeCompleteHandler OnFadeComplete;
 
-    //////////
-    // 変数 /
-    ////////
-
-    private bool  isFadeStart_;
-    public  bool  isFadeStart
-    {
-        get { return isFadeStart_;  }
-        set { isFadeStart_ = value; }
-    }
-
-    private float fadeSpeed_ = 1.0f;
-    public  float fadeSpeed
-    {
-        get { return fadeSpeed_;  }
-        set { fadeSpeed_ = value; }
-    }
-
 
     //////////////////
-    // 関数(public) /
+    // 関数(public)　/
     ////////////////
 
     /// <summary>アルファ値を変更します</summary>
     public void SetAlpha(float alpha)
     {
         Color col = color;
-        col.a = alpha;
-        color = col;
+        col.a     = alpha;
+        color     = col;
     }
 
     /// <summary>フェードインの開始</summary>
-    [ContextMenu("FadeIn")]
-    public Coroutine FadeInStart()
+    public Coroutine FadeInStart(float fadeSpeed = 1.0f)
     {
-        return StartCoroutine(FadeIn());
+        return StartCoroutine(FadeIn(fadeSpeed));
     }
 
     /// <summary>フェードインの開始</summary>
-    public Coroutine FadeInStart(Color c)
+    public Coroutine FadeInStart(Color c, float fadeSpeed = 1.0f)
     {
         color = c;
-        return FadeInStart();
+        return FadeInStart(fadeSpeed);
     }
 
     /// <summary>フェードアウトの開始</summary>
-    [ContextMenu("FadeOut")]
-    public Coroutine FadeOutStart()
+    public Coroutine FadeOutStart(float fadeSpeed = 1.0f)
     {
-        return StartCoroutine(FadeOut());
+        return StartCoroutine(FadeOut(fadeSpeed));
     }
 
     /// <summary>フェードアウトの開始</summary>
-    public Coroutine FadeOutStart(Color c)
+    public Coroutine FadeOutStart(Color c, float fadeSpeed = 1.0f)
     {
         color = c;
-        return FadeOutStart();
+        return FadeOutStart(fadeSpeed);
     }
 
     /// <summary>フェードの一時停止</summary>
@@ -86,28 +66,11 @@ public class FadeImage : Image
     }
 
     ///////////////////
-    // 関数(private) /
+    // 関数(private)　/
     /////////////////
 
-    protected override void Start()
-    {
-        if (isFadeStart)
-        {
-            const string Fade = "Fade";
-            float r = PlayerPrefs.GetFloat(Fade + "_R");
-            float g = PlayerPrefs.GetFloat(Fade + "_G");
-            float b = PlayerPrefs.GetFloat(Fade + "_B");
-
-            FadeOutStart(new Color(r, g, b));
-        }
-        else
-        {
-            SetAlpha(0.0f);
-        }
-    }
-
     /// <summary>フェードイン</summary>
-    private IEnumerator FadeIn()
+    private IEnumerator FadeIn(float fadeSpeed)
     {
         for(float t = 0.0f; t <= 1.0f; t += Time.deltaTime * fadeSpeed)
         {
@@ -119,7 +82,7 @@ public class FadeImage : Image
     }
 
     /// <summary>フェードアウト</summary>
-    private IEnumerator FadeOut()
+    private IEnumerator FadeOut(float fadeSpeed)
     {
         for(float t = 1.0f; t >= 0.0f; t -= Time.deltaTime * fadeSpeed)
         {

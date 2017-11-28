@@ -5,6 +5,9 @@ using System;
 
 public class Pauser : MonoBehaviour
 {
+    [SerializeField]
+    bool reverse = false;
+
     static List<Pauser> targets = new List<Pauser>();   // ポーズ対象のスクリプト
 
     // ポーズ対象のコンポーネント
@@ -25,6 +28,10 @@ public class Pauser : MonoBehaviour
     {
         // ポーズ対象に追加する
         targets.Add(this);
+        if(reverse)
+        {
+            DisableComponents();
+        }
     }
 
     // 破棄されるとき
@@ -37,47 +44,26 @@ public class Pauser : MonoBehaviour
     // ポーズされたとき
     void OnPause()
     {
-        if (pauseBehavs != null)
+        if(reverse)
         {
+            EnableComponents();
             return;
         }
-
-        // 有効なコンポーネントを取得
-        pauseBehavs = Array.FindAll(GetComponentsInChildren<Behaviour>(), (obj) => { return obj.enabled; });
-        foreach (var com in pauseBehavs)
-        {
-            com.enabled = false;
-        }
-
-        pauseParticle = Array.FindAll(GetComponentsInChildren<ParticleSystem>(), (obj) => { return obj.isPlaying; });
-        foreach (var ppa in pauseParticle)
-        {
-            ppa.Stop();
-        }
-
-        rgBodies = Array.FindAll(GetComponentsInChildren<Rigidbody>(), (obj) => { return !obj.IsSleeping(); });
-        rgBodyVels = new Vector3[rgBodies.Length];
-        rgBodyAVels = new Vector3[rgBodies.Length];
-        for (var i = 0; i < rgBodies.Length; ++i)
-        {
-            rgBodyVels[i] = rgBodies[i].velocity;
-            rgBodyAVels[i] = rgBodies[i].angularVelocity;
-            rgBodies[i].Sleep();
-        }
-
-        rg2dBodies = Array.FindAll(GetComponentsInChildren<Rigidbody2D>(), (obj) => { return !obj.IsSleeping(); });
-        rg2dBodyVels = new Vector2[rg2dBodies.Length];
-        rg2dBodyAVels = new float[rg2dBodies.Length];
-        for (var i = 0; i < rg2dBodies.Length; ++i)
-        {
-            rg2dBodyVels[i] = rg2dBodies[i].velocity;
-            rg2dBodyAVels[i] = rg2dBodies[i].angularVelocity;
-            rg2dBodies[i].Sleep();
-        }
+        DisableComponents();
     }
 
     // ポーズ解除されたとき
     void OnResume()
+    {
+        if(reverse)
+        {
+            DisableComponents();
+            return;
+        }
+        EnableComponents();
+    }
+
+    private void EnableComponents()
     {
         if (pauseBehavs == null)
         {
@@ -118,6 +104,47 @@ public class Pauser : MonoBehaviour
         rg2dBodies = null;
         rg2dBodyVels = null;
         rg2dBodyAVels = null;
+    }
+
+    private void DisableComponents()
+    {
+        if (pauseBehavs != null)
+        {
+            return;
+        }
+
+        // 有効なコンポーネントを取得
+        pauseBehavs = Array.FindAll(GetComponentsInChildren<Behaviour>(), (obj) => { return obj.enabled; });
+        foreach (var com in pauseBehavs)
+        {
+            com.enabled = false;
+        }
+
+        pauseParticle = Array.FindAll(GetComponentsInChildren<ParticleSystem>(), (obj) => { return obj.isPlaying; });
+        foreach (var ppa in pauseParticle)
+        {
+            ppa.Stop();
+        }
+
+        rgBodies = Array.FindAll(GetComponentsInChildren<Rigidbody>(), (obj) => { return !obj.IsSleeping(); });
+        rgBodyVels = new Vector3[rgBodies.Length];
+        rgBodyAVels = new Vector3[rgBodies.Length];
+        for (var i = 0; i < rgBodies.Length; ++i)
+        {
+            rgBodyVels[i] = rgBodies[i].velocity;
+            rgBodyAVels[i] = rgBodies[i].angularVelocity;
+            rgBodies[i].Sleep();
+        }
+
+        rg2dBodies = Array.FindAll(GetComponentsInChildren<Rigidbody2D>(), (obj) => { return !obj.IsSleeping(); });
+        rg2dBodyVels = new Vector2[rg2dBodies.Length];
+        rg2dBodyAVels = new float[rg2dBodies.Length];
+        for (var i = 0; i < rg2dBodies.Length; ++i)
+        {
+            rg2dBodyVels[i] = rg2dBodies[i].velocity;
+            rg2dBodyAVels[i] = rg2dBodies[i].angularVelocity;
+            rg2dBodies[i].Sleep();
+        }
     }
 
     // ポーズ
