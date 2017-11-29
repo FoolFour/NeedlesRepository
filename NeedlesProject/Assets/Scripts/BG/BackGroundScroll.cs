@@ -5,11 +5,12 @@ using UnityEngine;
 public class BackGroundScroll : MonoBehaviour {
 
     public float m_MinValue;
-    public Transform m_Player;
+    private Transform m_Player;
     public float speed = 1;
-    private float m_FirstYPosition = 0;
+    private Vector2 m_FirstPosition;
 
-    private float m_CurrentY;
+    private Vector2 m_CurrentPosition;
+
 	// Use this for initialization
 	void Start ()
     {
@@ -21,14 +22,16 @@ public class BackGroundScroll : MonoBehaviour {
         if (!m_Player)
         {
             m_Player = GameManagers.Instance.PlayerManager.GetPlayer().transform;
-            if(m_Player) m_FirstYPosition = m_Player.position.y;
+            if(m_Player) m_FirstPosition = m_Player.position;
             return;
         }
 
-        m_CurrentY = (m_FirstYPosition - m_Player.position.y) * speed;
-        m_CurrentY = Mathf.Clamp(m_CurrentY, m_MinValue, 0);
+        m_CurrentPosition.y = (m_FirstPosition.y - m_Player.position.y) * speed;
+        m_CurrentPosition.y = Mathf.Clamp(m_CurrentPosition.y, m_MinValue, 0);
 
-        GetComponent<RectTransform>().localPosition = new Vector3(0, m_CurrentY, 0);
+        m_CurrentPosition.x = (m_FirstPosition.x - m_Player.position.x) * speed;
+
+        GetComponent<RectTransform>().localPosition = m_CurrentPosition;
 
     }
 }

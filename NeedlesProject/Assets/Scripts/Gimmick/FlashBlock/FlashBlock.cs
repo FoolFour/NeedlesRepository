@@ -16,10 +16,12 @@ public class FlashBlock : MonoBehaviour,IRespawnMessage{
     private bool isdelay = true;
     private bool isActive = true;
 
+    MeshRenderer meshRenderer;
+
 	// Use this for initialization
 	void Start ()
     {
-
+        meshRenderer = GetComponent<MeshRenderer>();
 	}
 	
 	// Update is called once per frame
@@ -54,8 +56,8 @@ public class FlashBlock : MonoBehaviour,IRespawnMessage{
     {
         var boxc = GetComponent<BoxCollider>();
         boxc.enabled = !boxc.enabled;
-        var renderer = GetComponent<MeshRenderer>();
-        renderer.enabled = !renderer.enabled;
+        if(boxc.enabled) meshRenderer.material.color = new Color(1, 1, 1, 1);
+        else meshRenderer.material.color = new Color(1, 1, 1, 0.5f);
     }
 
     public void RespawnInit()
@@ -63,8 +65,7 @@ public class FlashBlock : MonoBehaviour,IRespawnMessage{
         m_timer = 0;
         var boxc = GetComponent<BoxCollider>();
         boxc.enabled = true;
-        var renderer = GetComponent<MeshRenderer>();
-        renderer.enabled = true;
+        meshRenderer.material.color = new Color(1, 1, 1, 1);
         isdelay = true;
         isActive = true;
     }
