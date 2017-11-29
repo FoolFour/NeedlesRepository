@@ -16,16 +16,16 @@ public class GameMenuManager : MonoBehaviour {
     {
         if(Input.GetKeyDown(KeyCode.P))
         {
-            if (!isPause)
-            {
-                isPause = true;
-                Pauser.Pause();
-            }
-            else
+            if (isPause)
             {
                 isPause = false;
                 Pauser.Resume();
             }
-        }	
-	}
+            else
+            {
+                isPause = true;
+                Pauser.Pause();
+            }
+        }
+    }
 }
