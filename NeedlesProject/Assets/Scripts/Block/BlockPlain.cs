@@ -7,6 +7,7 @@ public class BlockPlain : BlockBase {
 
     public override void StickEnter(GameObject arm)
     {
+        Sound.PlaySe("Pick");
         base.StickEnter(arm);
     }
 

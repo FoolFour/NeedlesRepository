@@ -11,12 +11,12 @@ public class HardBlock : BlockBase {
     {
         var force = -arm.transform.up * m_impactPower;
         arm.GetComponent<NeedleArm>().PlayerAddForce(force);
+        Sound.PlaySe("NonPickBlock");
         base.StickEnter(arm);
     }
 
     public override void StickExit()
     {
-        Debug.Assert(true);
         base.StickExit();
     }
 }

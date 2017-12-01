@@ -12,6 +12,7 @@ public class BrittleBlock : BlockBase,IRespawnMessage
 
     public override void StickEnter(GameObject arm)
     {
+        Sound.PlaySe("BlockBreak");
         GetComponent<RemoveComponent>().SwitchActive(false);
         base.StickEnter(arm);
     }

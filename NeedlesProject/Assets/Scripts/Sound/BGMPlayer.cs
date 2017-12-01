@@ -2,13 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BGMPlayer : MonoBehaviour {
+public class BGMPlayer : MonoBehaviour
+{
 
     public string m_bgmKey;
 
-	// Use this for initialization
-	void Start ()
+    // Use this for initialization
+    void Start()
     {
-        Sound.PlayBgm(m_bgmKey);	
-	}
+        Sound.PlayBgm(m_bgmKey);
+    }
+
+    public void Update()
+    {
+    }
 }
