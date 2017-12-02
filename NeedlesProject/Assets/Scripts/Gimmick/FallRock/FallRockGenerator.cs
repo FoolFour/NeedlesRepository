@@ -7,6 +7,8 @@ public class FallRockGenerator : MonoBehaviour {
     public GameObject m_RockPrefab;
     [SerializeField, Tooltip("砂埃のエフェクト")]
     public GameObject m_SandEffectPrefab;
+    [SerializeField, Tooltip("砂埃の生存時間")]
+    public float m_SandEffectLifeTime = 1.5f;
     [SerializeField, Tooltip("ランダムで落石")]
     public bool isRandom = true;
     [SerializeField, Tooltip("確率")]
@@ -32,8 +34,8 @@ public class FallRockGenerator : MonoBehaviour {
             if (Random.Range(0, 100) < m_Probability && !isInside())
             {
                 var go = Instantiate(m_SandEffectPrefab,transform);
-                Destroy(go, 1.5f);
-                StartCoroutine(DelayMethod(1.5f, () => { RockFall(); }));
+                Destroy(go, m_SandEffectLifeTime);
+                StartCoroutine(DelayMethod(m_SandEffectLifeTime, () => { RockFall(); }));
             }
             m_Timer = 0;
         }

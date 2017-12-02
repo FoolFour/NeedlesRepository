@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class FallRock : BlockBase, IRespawnMessage
 {
+    float m_timer = 0;
 
     // Use this for initialization
     void Start()
@@ -15,7 +16,8 @@ public class FallRock : BlockBase, IRespawnMessage
     // Update is called once per frame
     void Update()
     {
-
+        m_timer += Time.deltaTime;
+        if (m_timer >= 10) Destroy(gameObject);
     }
     public override void StickEnter(GameObject arm)
     {
