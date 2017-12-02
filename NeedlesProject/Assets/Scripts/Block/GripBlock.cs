@@ -9,6 +9,7 @@ public class GripBlock : BlockBase
     public override void StickEnter(GameObject arm)
     {
         m_Arm = arm;
+        Sound.PlaySe("Grip");
         base.StickEnter(arm);
     }
 

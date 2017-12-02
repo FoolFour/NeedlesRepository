@@ -11,6 +11,7 @@ public class SoundManger : MonoBehaviour
         Sound.LoadBgm("StageSelect", "StageSelectBGM");
 
         Sound.LoadSe("BlockBreak", "BlockBreak");
+        Sound.LoadSe("Grip", "Grip");
         Sound.LoadSe("NonPickBlock", "NonPickBlock");
         Sound.LoadSe("Pick", "Pick");
         Sound.LoadSe("StageClear", "StageClear");
