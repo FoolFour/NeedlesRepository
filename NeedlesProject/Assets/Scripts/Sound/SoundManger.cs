@@ -16,5 +16,7 @@ public class SoundManger : MonoBehaviour
         Sound.LoadSe("Pick", "Pick");
         Sound.LoadSe("StageClear", "StageClear");
         Sound.LoadSe("StageDecision", "StageDecision");
+        Sound.LoadSe("Extend", "Extend");
+        Sound.LoadSe("Swish", "Swish");
     }
 }

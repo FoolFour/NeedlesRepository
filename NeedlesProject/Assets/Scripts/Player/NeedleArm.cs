@@ -101,6 +101,7 @@ public class NeedleArm : MonoBehaviour
         {
             m_ArmCurrentLenght = defeated * m_ArmMaxLength;
             transform.rotation = Quaternion.LookRotation(Vector3.forward, stickdir.normalized);
+            Sound.PlaySe("Extend");
             return;
 
         }
@@ -187,6 +188,7 @@ public class NeedleArm : MonoBehaviour
         if (Mathf.Abs(defeated - m_PrevDefeated) > 0.2f || defeated == 0)
         {
             hinge.breakTorque = 0;
+            Sound.PlaySe("Swish");
             m_CurrentHitObject.GetComponent<StickPoint>().BreakAction(() =>
             {
                 {
