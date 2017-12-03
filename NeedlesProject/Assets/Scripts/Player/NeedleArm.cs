@@ -133,6 +133,8 @@ public class NeedleArm : MonoBehaviour
 
                 ishit = true;
                 m_PrevDefeated = defeated;
+
+                m_Hitinfo.collider.GetComponent<BlockBase>().StickHit(gameObject,m_CurrentHitObject);
                 return;
             }
 
@@ -230,7 +232,7 @@ public class NeedleArm : MonoBehaviour
         hinge.autoConfigureConnectedAnchor = false;
         hinge.connectedAnchor = Vector3.up * m_ArmCurrentLenght;
 
-        m_Hitinfo.collider.GetComponent<BlockBase>().StickStay(gameObject);
+        m_Hitinfo.collider.GetComponent<BlockBase>().StickStay(gameObject,m_CurrentHitObject);
     }
 
     /// <summary>
@@ -294,21 +296,23 @@ public class NeedleArm : MonoBehaviour
     //周りにブロックがあるか判定する
     private bool CircumferenceCheck(float angle, float len)
     {
+        //左右に壁があるか　
         Vector3 startpoint = m_Arm.position + (m_Arm.right * angle * 0.5f);
         Vector3 endpoint = startpoint + m_Arm.up * len;
         Debug.DrawLine(startpoint, endpoint, Color.green);
 
+        //後ろに壁があるか？
         Vector3 temp = m_CurrentHitObject.transform.position + (-transform.up * m_ArmCurrentLenght);
         Debug.DrawLine(temp, transform.position, Color.green);
 
-        return Physics.Linecast(startpoint, endpoint, m_Ignorelayer,QueryTriggerInteraction.Ignore) ||
+        return //Physics.Linecast(startpoint, endpoint, m_Ignorelayer,QueryTriggerInteraction.Ignore) ||
             Physics.Linecast(temp, transform.position, m_Ignorelayer, QueryTriggerInteraction.Ignore);
     }
 
     private void ArmBreakCheck(float len)
     {
-        if (len >= m_ArmMaxLength + 3) PlayerStan(Vector3.zero);
-        if (Physics.Linecast(m_Arm.transform.position, m_Arm.transform.position + (m_Arm.up * len), m_Ignorelayer, QueryTriggerInteraction.Ignore))
+        if (len >= m_ArmMaxLength + 6) PlayerStan(Vector3.zero);
+        if (Physics.Linecast(m_Arm.transform.position, m_Arm.transform.position + (m_Arm.up * (len - 1)), m_Ignorelayer, QueryTriggerInteraction.Ignore))
         {
             m_BreakTimer += Time.deltaTime;
             if (m_BreakTimer > m_BreakTime)

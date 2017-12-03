@@ -142,7 +142,7 @@ public class Sound
     {
         if (_poolBgm.ContainsKey(key) == false)
         {
-            Debug.Log("soundが見つからない");
+            Debug.Log(key+"は見つかりません");
             // 対応するキーがない
             return false;
         }

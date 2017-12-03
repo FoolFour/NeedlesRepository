@@ -39,7 +39,6 @@ GameObject:
   - component: {fileID: 65562052068387174}
   - component: {fileID: 23050697835887538}
   - component: {fileID: 114735250678029132}
-  - component: {fileID: 114099480016043510}
   m_Layer: 9
   m_Name: Smash
   m_TagString: Untagged
@@ -59,7 +58,6 @@ GameObject:
   - component: {fileID: 65076482705164056}
   - component: {fileID: 23351561216711432}
   - component: {fileID: 114759266379472454}
-  - component: {fileID: 114298342248755240}
   m_Layer: 9
   m_Name: Smash
   m_TagString: Untagged
@@ -104,7 +102,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1121369604365288}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.32, y: 8.94, z: 0}
+  m_LocalPosition: {x: 5.31, y: 42.09, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4242846873970528}
@@ -133,7 +131,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1943786548183160}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4, y: 0, z: 0}
+  m_LocalPosition: {x: 21.4, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 5, z: 1}
   m_Children:
   - {fileID: 4492135996861720}
@@ -268,18 +266,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &114099480016043510
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1397213850454618}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 138e0f2402532494a8d30813c52cb69e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isHitBlock: 1
 --- !u!114 &114183450334297306
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -291,19 +277,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc7ad43df1f443d4eac58f80012ce9c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Speed: 0.5
---- !u!114 &114298342248755240
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1649738324053548}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 138e0f2402532494a8d30813c52cb69e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isHitBlock: 1
+  m_Speed: 0.3
 --- !u!114 &114735250678029132
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -315,7 +289,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0413602c75fb734b93dd9badca60bf1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isHit: 0
+  isHitBlock: 1
   m_Partner: {fileID: 114759266379472454}
 --- !u!114 &114759266379472454
 MonoBehaviour:
@@ -328,5 +302,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0413602c75fb734b93dd9badca60bf1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isHit: 0
+  isHitBlock: 1
   m_Partner: {fileID: 114735250678029132}

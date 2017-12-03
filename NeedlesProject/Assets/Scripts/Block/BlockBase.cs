@@ -8,10 +8,18 @@ public class BlockBase : MonoBehaviour {
     public bool isHitBlock;
 
     /// <summary>
-    /// 刺さったときの判定
+    /// 触った時の判定
     /// </summary>
     /// <param name="arm">どちらかの腕</param>
     public virtual void StickEnter(GameObject arm)
+    {
+
+    }
+    /// <summary>
+    /// 刺さった時の判定
+    /// </summary>
+    /// <param name="arm">どちらかの腕</param>
+    public virtual void StickHit(GameObject arm, GameObject stickpoint)
     {
 
     }
@@ -20,7 +28,7 @@ public class BlockBase : MonoBehaviour {
     /// 刺さっている時の処理
     /// </summary>
     /// <param name="arm"></param>
-    public virtual void StickStay(GameObject arm)
+    public virtual void StickStay(GameObject arm,GameObject stickpoint)
     {
 
     }

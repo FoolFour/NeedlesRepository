@@ -30,10 +30,9 @@ public class CountFallBlock : BlockBase, IRespawnMessage
         base.StickExit();
     }
 
-    public override void StickStay(GameObject arm)
+    public override void StickStay(GameObject arm, GameObject stickpoint)
     {
         if (!GetComponent<BoxCollider>().enabled) arm.GetComponent<NeedleArm>().Return_Arm();
-        base.StickStay(arm);
     }
 
     private IEnumerator DelayMethod(float waitTime, System.Action action)

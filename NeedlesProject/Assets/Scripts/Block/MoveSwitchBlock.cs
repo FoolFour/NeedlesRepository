@@ -30,10 +30,9 @@ public class MoveSwitchBlock : BlockBase,IRespawnMessage
         base.StickEnter(arm);
     }
 
-    public override void StickStay(GameObject arm)
+    public override void StickStay(GameObject arm, GameObject stickpoint)
     {
         GetComponent<RemoveComponent>().SwitchActive(false);
         if (!GetComponent<BoxCollider>().enabled) arm.GetComponent<NeedleArm>().Return_Arm();
-        base.StickStay(arm);
     }
 }

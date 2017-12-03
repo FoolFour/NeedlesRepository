@@ -4,32 +4,21 @@ using UnityEngine;
 
 public class GripBlock : BlockBase
 {
-    private GameObject m_Arm;
 
     public override void StickEnter(GameObject arm)
     {
-        m_Arm = arm;
         Sound.PlaySe("Grip");
         base.StickEnter(arm);
     }
 
-    public override void StickExit()
+    public override void StickStay(GameObject arm, GameObject stickpoint)
     {
-        m_Arm = null;
-        base.StickExit();
+        stickpoint.gameObject.transform.localPosition = Vector3.zero;
+        transform.GetChild(0).up = arm.transform.up;
     }
 
-    public void Update()
+    public override void StickExit()
     {
-        if (m_Arm)
-        {
-            transform.GetChild(0).up = m_Arm.transform.up;
-            var spoint = transform.GetComponentsInChildren<StickPoint>();
-            if (spoint.Length == 0) m_Arm = null;
-            foreach (var sp in spoint)
-            {
-                sp.gameObject.transform.localPosition = Vector3.zero;
-            }
-        }
+        base.StickExit();
     }
 }

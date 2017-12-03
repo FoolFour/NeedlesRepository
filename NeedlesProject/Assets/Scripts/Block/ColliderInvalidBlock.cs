@@ -7,10 +7,9 @@ using UnityEngine;
 /// </summary>
 public class ColliderInvalidBlock : BlockBase {
 
-    public override void StickStay(GameObject arm)
+    public override void StickStay(GameObject arm, GameObject stickpoint)
     {
         if (!GetComponent<BoxCollider>().enabled) arm.GetComponent<NeedleArm>().Return_Arm();
-        base.StickStay(arm);
     }
 
 }

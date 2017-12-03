@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SoundManger : MonoBehaviour
 {
-    public void Start()
+    public void Awake()
     {
         Sound.LoadBgm("Stage1", "Stage1BGM");
         Sound.LoadBgm("Title", "TitleBGM");
