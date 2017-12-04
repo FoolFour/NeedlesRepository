@@ -23,7 +23,7 @@ public class EventSystemControl : MonoBehaviour
         module.verticalAxis   = GamePad.Vertical;
 
         eventSystem.SetSelectedGameObject(selectGameObject);
-
+        EventSystem.current = eventSystem;
         eventSystem.UpdateModules();
     }
 
