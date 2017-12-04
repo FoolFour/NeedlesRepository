@@ -11,6 +11,9 @@ public class PushButtonToScenechange : MonoBehaviour
     string  sceneName;
 
     [SerializeField]
+    GameObject obj;
+
+    [SerializeField]
     UnityEngine.SceneManagement.LoadSceneMode mode;
 
     SceneChanger sceneChanger;
@@ -24,6 +27,7 @@ public class PushButtonToScenechange : MonoBehaviour
     {
         if(Input.GetButtonDown(buttonName))
         {
+            Destroy(obj);
             sceneChanger.SceneChange(sceneName, mode);
         }
     }

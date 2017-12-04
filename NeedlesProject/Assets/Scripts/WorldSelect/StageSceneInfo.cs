@@ -47,6 +47,25 @@ public class StageSceneInfo : MonoBehaviour
         return worldList[selectWorld][selectStage];
     }
 
+    public int GetSelectWorldStageNum()
+    {
+        return worldList[selectWorld].Count;
+    }
+
+    /// <summary>次のステージを選択状態にする</summary>
+    public void SelectStageNext()
+    {
+        int tmp =  worldList[selectWorld].Count;
+        selectStage = (int)Mathf.Repeat(selectStage+1, tmp);
+    }
+
+    /// <summary>前のステージを選択状態にする</summary>
+    public void SelectStagePrev()
+    {
+        int tmp =  worldList[selectWorld].Count;
+        selectStage = (int)Mathf.Repeat(selectStage-1, tmp);
+    }
+
     private void Reset()
     {
         worldList.Clear();
@@ -56,22 +75,28 @@ public class StageSceneInfo : MonoBehaviour
 
         int childNum = tmp_obj.transform.childCount;
 
-        for(int i_world = 0; i_world < childNum; i_world++)
+        for(int i_w = 0; i_w < childNum; i_w++)
         {
-            Transform world = tmp_obj.transform.GetChild(i_world);
+            Transform world = tmp_obj.transform.GetChild(i_w);
 
             worldList.Add(new Stage());
                 
-            for(int j_stage = 0; j_stage < world.childCount; j_stage++)
+            for(int j_s = 0; j_s < world.childCount; j_s++)
             {
-                Transform stage = world.GetChild(j_stage);
+                Transform stage = world.GetChild(j_s);
                 string stageName = stage.name;
 
                 StageInfo stageInfo = new StageInfo();
                 stageInfo.stageName = stageName;
 
-                worldList[i_world].Add(stageInfo);
+                worldList[i_w].Add(stageInfo);
             }
         }
+    }
+
+    [ContextMenu("ShowSceneName")]
+    private void ShowSceneName()
+    {
+        Debug.Log(worldList[0][0].sceneName);
     }
 }

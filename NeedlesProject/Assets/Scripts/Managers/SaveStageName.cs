@@ -8,6 +8,6 @@ public class SaveStageName : MonoBehaviour
     private void Awake()
     {
         Scene activeScene = SceneManager.GetActiveScene();
-        PlayerPrefs.SetString("Scene", activeScene.name);
+        PlayerPrefs.SetString(PrefsDataName.Scene, activeScene.name);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEditor;
 using System.Collections;
 using System.Collections.Generic;
@@ -24,7 +25,6 @@ public class StageSceneInfoCustom : Editor
 
     public void ShowWorldList()
     {
-
         StageSceneInfo info = target as StageSceneInfo;
 
         var skin         = GUI.skin.box;
@@ -69,9 +69,30 @@ public class StageSceneInfoCustom : Editor
         //ステージの詳細
         var stageInfo = info.worldList[selectWorld][selectStage];
 
-        stageInfo.stageName = EditorGUILayout.TextField("ステージ名",          stageInfo.stageName);
-        stageInfo.sceneName = EditorGUILayout.TextField("ステージのシーン",     stageInfo.sceneName);
-        stageInfo.mission1  = EditorGUILayout.TextField("ミッション内容 その１", stageInfo.mission1);
-        stageInfo.mission2  = EditorGUILayout.TextField("ミッション内容 その２", stageInfo.mission2);
+        
+
+        stageInfo.stageName = EditorGUILayout.TextField ("ステージ名",            stageInfo.stageName);
+        stageInfo.sceneName =                 SceneField("ステージのシーン",      stageInfo.sceneName);
+        stageInfo.mission1  = EditorGUILayout.TextField ("ミッション内容 その１", stageInfo.mission1 );
+        stageInfo.mission2  = EditorGUILayout.TextField ("ミッション内容 その２", stageInfo.mission2 );
+    }
+
+    public string SceneField(string text, string sceneName)
+    {
+        var oldScene = AssetDatabase.LoadAssetAtPath<SceneAsset>(sceneName);
+
+        //インスペクタに変更があったかチェックできない為
+        serializedObject.Update();
+
+        EditorGUI.BeginChangeCheck();
+        var newScene = EditorGUILayout.ObjectField(text, oldScene, typeof(SceneAsset), false) as SceneAsset;
+
+        if(EditorGUI.EndChangeCheck())
+        {
+            var    newPath = AssetDatabase.GetAssetPath(newScene);
+            return newPath;
+        }
+        
+        return sceneName;
     }
 }

@@ -16,7 +16,7 @@ public class FadeControl : MonoBehaviour
     private void Awake()
     {
         fadeImage = GetComponent<FadeImage>();
-        int tmp = PlayerPrefs.GetInt("FadeStart");
+        int tmp = PlayerPrefs.GetInt(PrefsDataName.FadeStart);
         if(tmp == 1)
         {
             isFadeStart = true;
@@ -27,10 +27,9 @@ public class FadeControl : MonoBehaviour
     {
         if (isFadeStart)
         {
-            const string Fade = "Fade";
-            float r = PlayerPrefs.GetFloat(Fade + "_R");
-            float g = PlayerPrefs.GetFloat(Fade + "_G");
-            float b = PlayerPrefs.GetFloat(Fade + "_B");
+            float r = PlayerPrefs.GetFloat(PrefsDataName.Fade_R);
+            float g = PlayerPrefs.GetFloat(PrefsDataName.Fade_G);
+            float b = PlayerPrefs.GetFloat(PrefsDataName.Fade_B);
 
             fadeImage.FadeOutStart(new Color(r, g, b, 1.0f));
         }
