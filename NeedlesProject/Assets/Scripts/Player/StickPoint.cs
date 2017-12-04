@@ -19,7 +19,13 @@ public class StickPoint : MonoBehaviour
 
     public void LateUpdate()
     {
+        //スケールと回転（ｘとｙ）を動かないようにする処理
         transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+        var temp = transform.localEulerAngles;
+        temp.x = 0;
+        temp.y = 0;
+        transform.localEulerAngles = temp;
+
     }
 
     void OnJointBreak(float breakForce)

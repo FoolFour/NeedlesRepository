@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4067951461195074}
   - component: {fileID: 114183450334297306}
+  - component: {fileID: 114014663888162760}
   m_Layer: 0
   m_Name: SmashPair
   m_TagString: Untagged
@@ -39,6 +40,7 @@ GameObject:
   - component: {fileID: 65562052068387174}
   - component: {fileID: 23050697835887538}
   - component: {fileID: 114735250678029132}
+  - component: {fileID: 114561783726585046}
   m_Layer: 9
   m_Name: Smash
   m_TagString: Untagged
@@ -58,6 +60,7 @@ GameObject:
   - component: {fileID: 65076482705164056}
   - component: {fileID: 23351561216711432}
   - component: {fileID: 114759266379472454}
+  - component: {fileID: 114962409170594514}
   m_Layer: 9
   m_Name: Smash
   m_TagString: Untagged
@@ -102,7 +105,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1121369604365288}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.31, y: 42.09, z: 0}
+  m_LocalPosition: {x: 5.31, y: 60.03, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4242846873970528}
@@ -266,6 +269,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &114014663888162760
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1121369604365288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c9b47439ab81b044aea7b883ddd0b5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  reverse: 0
 --- !u!114 &114183450334297306
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -277,7 +292,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc7ad43df1f443d4eac58f80012ce9c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Speed: 0.3
+  m_Speed: 0.4
+--- !u!114 &114561783726585046
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1397213850454618}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c9b47439ab81b044aea7b883ddd0b5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  reverse: 0
 --- !u!114 &114735250678029132
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -304,3 +331,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isHitBlock: 1
   m_Partner: {fileID: 114735250678029132}
+--- !u!114 &114962409170594514
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1649738324053548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c9b47439ab81b044aea7b883ddd0b5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  reverse: 0
