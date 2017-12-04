@@ -319,6 +319,7 @@ public class NeedleArm : MonoBehaviour
             m_BreakTimer += Time.deltaTime;
             if (m_BreakTimer > m_BreakTime)
             {
+                Sound.PlaySe("");
                 PlayerStan(Vector3.zero);
             }
         }
