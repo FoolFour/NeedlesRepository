@@ -56,8 +56,24 @@ public class FlashBlock : MonoBehaviour,IRespawnMessage{
     {
         var boxc = GetComponent<BoxCollider>();
         boxc.enabled = !boxc.enabled;
-        if(boxc.enabled) meshRenderer.material.color = new Color(1, 1, 1, 1);
+        if (boxc.enabled)
+        {
+            meshRenderer.material.color = new Color(1, 1, 1, 1);
+            PlayerInside();
+        }
         else meshRenderer.material.color = new Color(1, 1, 1, 0.5f);
+    }
+
+    void PlayerInside()
+    {
+        var colliders = Physics.OverlapBox(transform.position, transform.localScale / 2, Quaternion.identity);
+        foreach(var c in colliders)
+        {
+            if(c.CompareTag("Player"))
+            {
+                GameManagers.Instance.SpawnManager.ReSpawn();
+            }
+        }
     }
 
     public void RespawnInit()
