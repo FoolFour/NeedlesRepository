@@ -8,6 +8,8 @@ namespace GameCamera
     {
 
         private Transform Player;
+        [SerializeField, TooltipAttribute("deadline")]
+        public GameObject DeadlinePrefab;
         [SerializeField, TooltipAttribute("カメラの移動限界")]
         public Vector2 minPositionLimit;
         [SerializeField, TooltipAttribute("カメラの移動限界")]
@@ -20,6 +22,7 @@ namespace GameCamera
         void Start()
         {
             camerapos = Vector3.zero;
+            Instantiate(DeadlinePrefab, transform);
         }
 
         // Update is called once per frame
