@@ -10890,7 +10890,6 @@ Transform:
   - {fileID: 1555928073}
   - {fileID: 1348565658}
   - {fileID: 740162841}
-  - {fileID: 1163935874}
   - {fileID: 61996074}
   - {fileID: 1477739137}
   - {fileID: 152834309}
@@ -11055,6 +11054,7 @@ Transform:
   - {fileID: 518969105}
   - {fileID: 1523584592}
   - {fileID: 936792454}
+  - {fileID: 1163935874}
   - {fileID: 1532635772}
   - {fileID: 444321854}
   - {fileID: 821801491}
@@ -28562,6 +28562,25 @@ Prefab:
         type: 2}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1989650438891064, guid: 559a7c1e5207d7447aa3da510f58840f, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114431238057959878, guid: 559a7c1e5207d7447aa3da510f58840f,
+        type: 2}
+      propertyPath: direction_
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114431238057959878, guid: 559a7c1e5207d7447aa3da510f58840f,
+        type: 2}
+      propertyPath: distance
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 114431238057959878, guid: 559a7c1e5207d7447aa3da510f58840f,
+        type: 2}
+      propertyPath: movespeed
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 559a7c1e5207d7447aa3da510f58840f, type: 2}
