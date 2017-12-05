@@ -20,11 +20,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4271884619958832}
   - component: {fileID: 65525482448826656}
-  - component: {fileID: 114800056612255538}
-  - component: {fileID: 114282631088395580}
   - component: {fileID: 33203338791382620}
   - component: {fileID: 23575606638529880}
   - component: {fileID: 114672552763927256}
+  - component: {fileID: 114573405862589004}
   m_Layer: 9
   m_Name: SeaBlock01
   m_TagString: Untagged
@@ -58,9 +57,9 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 9289db6362d74654395ed526bb8a9d67, type: 2}
-  - {fileID: 2100000, guid: 22cccbcc1ed717243a0c0130da5d5fda, type: 2}
-  - {fileID: 2100000, guid: 7940d55ef0741ca4a9072ea462a4c345, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -98,7 +97,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &114282631088395580
+--- !u!114 &114573405862589004
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -106,9 +105,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1099140049774122}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6334626140e70fe43adf074985526166, type: 3}
+  m_Script: {fileID: 11500000, guid: 138e0f2402532494a8d30813c52cb69e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isHitBlock: 1
 --- !u!114 &114672552763927256
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -120,18 +120,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e770840d10f57bb4cb3a426487867281, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  x: 1
-  y: 0
-  z: 2
---- !u!114 &114800056612255538
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1099140049774122}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe221e375e533494e895bcd95e12282d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isHitBlock: 0
+  front: 0
+  top: 0
+  left: 0
+  back: -1
+  bottom: -1
+  right: -1
