@@ -120,8 +120,8 @@ public class NeedleArm : MonoBehaviour
             //ブロックが刺さる場合
             if (m_Hitinfo.collider.GetComponent<BlockBase>().isHitBlock)
             {
-                m_Player.GetComponent<Rigidbody>().velocity = Vector3.zero;
-                m_rb.velocity = Vector3.zero;
+                //m_Player.GetComponent<Rigidbody>().velocity = Vector3.zero;
+                //m_rb.velocity = Vector3.zero;
 
                 m_Hitinfo.point = m_Hitinfo.point + (m_Hitinfo.normal * 0.5f);
                 m_CurrentHitObject.transform.parent = m_Hitinfo.collider.transform;
