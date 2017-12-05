@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 124543346528693406}
   - component: {fileID: 81908314095207472}
   - component: {fileID: 114522975187723906}
+  - component: {fileID: 114824240614717326}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -107,9 +108,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DeadlinePrefab: {fileID: 1930287878508062, guid: 38d45114fcc64864c82b2a49bf64e4c1,
     type: 2}
-  minPositionLimit: {x: -1000, y: 0}
-  maxPositionLimit: {x: 1000, y: 1000}
-  zPosition: 15
+  minPositionLimit: {x: -200, y: -200}
+  maxPositionLimit: {x: 300, y: 300}
+  zPosition: 20
+--- !u!114 &114824240614717326
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1972970603098080}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45907b827054f184d857705965ca055f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_MovePoint:
+  - {fileID: 0}
+  - {fileID: 0}
+  m_MoveSpeed: 0.3
+  m_playerDistance: 10
+  m_playerPanSpeed: 0.2
 --- !u!124 &124543346528693406
 Behaviour:
   m_ObjectHideFlags: 1

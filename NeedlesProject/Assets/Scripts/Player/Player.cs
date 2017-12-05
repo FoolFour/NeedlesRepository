@@ -18,8 +18,10 @@ public class Player : MonoBehaviour {
 
     int mIgnorelayer = 1 << 9; //ブロックのみ当たる
 
+    public bool isAnimation = true;
+
     // Use this for initialization
-    void Start ()
+    void Start()
     {
         mData = GetComponent<PlayerData>();
     }
@@ -35,7 +37,9 @@ public class Player : MonoBehaviour {
     // Update is called once per frame
     void FixedUpdate()
     {
-        if(mStan)
+        if (isAnimation) return;
+
+        if (mStan)
         {
             if (mWait) Flash();
             mData.mLArm.Return_Arm();
@@ -175,4 +179,28 @@ public class Player : MonoBehaviour {
         mData.mLArm.MaxSpeed(mMaxSpeed);
         mData.mRArm.MaxSpeed(mMaxSpeed);
     }
+
+    /// <summary>
+    /// ウェイトアニメションが再生されているか
+    /// </summary>
+    /// <returns></returns>
+    //private bool IsWaitAnimation()
+    //{
+    //    if (!m_animator.enabled) return false;
+
+    //    AnimatorStateInfo stateInfo = m_animator.GetCurrentAnimatorStateInfo(0);
+    //    if (stateInfo.IsName("Base.StartPlayer") || stateInfo.IsName("Base.StopPlayer"))
+    //    {
+    //        if (stateInfo.IsName("Base.StartPlayer"))
+    //        {
+    //            if (stateInfo.normalizedTime >= 1.0f)
+    //            {
+    //                m_animator.enabled = false;
+    //                return false;
+    //            }
+    //        }
+    //    }
+
+    //    return true;
+    //}
 }

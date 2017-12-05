@@ -63,7 +63,9 @@ public class StartDemoCamera : MonoBehaviour {
             distance = Vector3.Distance(Player.transform.position, transform.position);
         }
 
+        Player.GetComponent<Animator>().SetTrigger("Play");
         yield return new WaitForSeconds(3f);
+        Player.GetComponent<Player>().isAnimation = false;
 
         GetComponent<GameCamera.Camera>().enabled = true;
         Destroy(this);
