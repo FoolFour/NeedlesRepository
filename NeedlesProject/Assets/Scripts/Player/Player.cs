@@ -19,11 +19,17 @@ public class Player : MonoBehaviour {
     int mIgnorelayer = 1 << 9; //ブロックのみ当たる
 
     public bool isAnimation = true;
+    private bool isDead = false;
+
+    [SerializeField, Tooltip("プレイヤーが志望した時のパーティクル")]
+    public GameObject m_deadParticle;
+    private GameObject m_currentDeadEffect;
 
     // Use this for initialization
     void Start()
     {
         mData = GetComponent<PlayerData>();
+        m_currentDeadEffect = (GameObject)Instantiate(m_deadParticle, transform.position, Quaternion.identity);
     }
 
     void Update()
@@ -37,6 +43,7 @@ public class Player : MonoBehaviour {
     // Update is called once per frame
     void FixedUpdate()
     {
+        mData.mrb.isKinematic = isDead;
         if (isAnimation) return;
 
         if (mStan)
@@ -180,27 +187,15 @@ public class Player : MonoBehaviour {
         mData.mRArm.MaxSpeed(mMaxSpeed);
     }
 
-    /// <summary>
-    /// ウェイトアニメションが再生されているか
-    /// </summary>
-    /// <returns></returns>
-    //private bool IsWaitAnimation()
-    //{
-    //    if (!m_animator.enabled) return false;
+    public void ExplosionEffect()
+    {
+        m_currentDeadEffect.transform.position = transform.position;
+        m_currentDeadEffect.GetComponent<PLayerDead_effect>().ParticleStart();
+    }
 
-    //    AnimatorStateInfo stateInfo = m_animator.GetCurrentAnimatorStateInfo(0);
-    //    if (stateInfo.IsName("Base.StartPlayer") || stateInfo.IsName("Base.StopPlayer"))
-    //    {
-    //        if (stateInfo.IsName("Base.StartPlayer"))
-    //        {
-    //            if (stateInfo.normalizedTime >= 1.0f)
-    //            {
-    //                m_animator.enabled = false;
-    //                return false;
-    //            }
-    //        }
-    //    }
-
-    //    return true;
-    //}
+    public void SwitchColliderandRender(bool enable)
+    {
+        GetComponent<RemoveComponent>().SwitchActive(enable);
+        isDead = !enable;
+    }
 }

@@ -145,6 +145,7 @@ GameObject:
   - component: {fileID: 114914246697867784}
   - component: {fileID: 114414889688374476}
   - component: {fileID: 95026745175152972}
+  - component: {fileID: 114779111604859010}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -1277,6 +1278,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mStanTime: 3
   mMaxSpeed: 100
+  isAnimation: 1
+  m_deadParticle: {fileID: 1378515106008354, guid: 69c608a7fb994cf4d8932d2af9fbe14a,
+    type: 2}
 --- !u!114 &114083698492018486
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1370,6 +1374,17 @@ MonoBehaviour:
   m_ArmMaxLength: 5
   m_TorquePower: 130
   m_TorqueMaxPower: 130
+--- !u!114 &114779111604859010
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1378789054465186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee1854a109863dd48b5192b9eba928eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114914246697867784
 MonoBehaviour:
   m_ObjectHideFlags: 1
