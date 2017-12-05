@@ -32,18 +32,18 @@ public class PLayerDead_effect : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (debugflag == true)
-        {
-            ParticleStart();
-            if (debugflag == true)
-            {
-                debugflag = false;
-            }
-        }
-        else
-        {
-            ParticleStop();
-        }
+        //if (debugflag == true)
+        //{
+        //    ParticleStart();
+        //    if (debugflag == true)
+        //    {
+        //        debugflag = false;
+        //    }
+        //}
+        //else
+        //{
+        //    ParticleStop();
+        //}
     }
     //Particleの開始
     public void ParticleStart()
