@@ -8,8 +8,6 @@ using UnityEngine;
 public class NeedleArm : MonoBehaviour
 {
     //デバッグ用変数　後で消す
-    public Color mDebugColor;
-    public GameObject obj;
     //-------------------------
 
     //プレイヤーのトランスフォーム類----------------------------------------------
@@ -212,7 +210,9 @@ public class NeedleArm : MonoBehaviour
         m_PrevDefeated = defeated;
 
         m_Hand.position = m_CurrentHitObject.transform.position;
-        m_Hand.up = -m_Hitinfo.normal;
+        RaycastHit hit;
+        if (Physics.Raycast(m_Hand.position, m_Hand.up, out hit, 1, m_Ignorelayer, QueryTriggerInteraction.Ignore)) m_Hand.up = -hit.normal;
+        else m_Hand.up = -m_Hitinfo.normal;
         transform.rotation = Quaternion.LookRotation(Vector3.forward, (m_Hand.position - m_Arm.position).normalized);
 
         float len = Vector3.Distance(m_Hand.position, transform.position);
@@ -224,6 +224,8 @@ public class NeedleArm : MonoBehaviour
         //腕の回転処理
         float angle = Mathf.Sign(Vector2Cross(m_Arm.up, stickdir.normalized));
         m_CurrentHitObject.GetComponent<Rigidbody>().maxAngularVelocity = m_TorqueMaxPower;
+
+        Debug.DrawLine(transform.position, transform.position + stickdir.normalized * 10);
 
         //周りを判定して壁だったら止める処理
         if (CircumferenceCheck(angle, len))
