@@ -6,163 +6,166 @@ using System.Collections.Generic;
 
 using IO = System.IO;
 
-public class BlockRegister : EditorWindow
+namespace StageEditor
 {
-    /// <summary> ブロックのID(ファイル保存名) </summary>
-    private       string     blockID;
-
-    /// <summary> ブロックの名前 </summary>
-    private       string     blockName;
-
-    /// <summary> 画像のファイル </summary>
-    private       int        selectImageIndex;
-
-    /// <summary> 画像のファイル </summary>
-    private       string     selectImageFile;
-
-    /// <summary> 表示する優先度 </summary>
-    private       int        priority;
-
-    /// <summary> 表示する </summary>
-    private       GameObject prefab;
-
-    /// <summary> 画像ファイル     </summary>
-    private       string[]   imageNames;
-
-    /// <summary> 画像ディレクトリ </summary>
-    private const string     imageDirectory = @"Assets\Editor\StageEditor\Images";
-
-    /// <summary> 出力サイズを保存するディレクトリ </summary>
-    private const string     saveDirectory = @"Assets\Editor\StageEditor\StageBlockData";
-
-
-    private string loadingFile;
-
-    [MenuItem("Window/StageEditorOption/BlockRegister")]
-    static void Open()
+    public class BlockRegister : EditorWindow
     {
-        GetWindow<BlockRegister>("BlockRegister");
-    }
+        /// <summary> ブロックのID(ファイル保存名) </summary>
+        private       string     blockID;
 
-    private void OnGUI()
-    {
-        var labelOption = GUILayout.Width(160);
+        /// <summary> ブロックの名前 </summary>
+        private       string     blockName;
 
-        EditorGUILayout.Space();
-            EditorGUILayout.BeginHorizontal();
-            EditorGUILayout.LabelField("ブロックID", labelOption);
-            EditorGUILayout.LabelField(":", GUILayout.Width(10));
-            blockID = EditorGUILayout.TextField(blockID);
-        EditorGUILayout.EndHorizontal();
+        /// <summary> 画像のファイル </summary>
+        private       int        selectImageIndex;
 
-        EditorGUILayout.BeginHorizontal();
-            EditorGUILayout.LabelField("ブロックの名前", labelOption);
-            EditorGUILayout.LabelField(":", GUILayout.Width(10));
-            blockName = EditorGUILayout.TextArea(blockName);
-        EditorGUILayout.EndHorizontal();
+        /// <summary> 画像のファイル </summary>
+        private       string     selectImageFile;
 
-        imageNames = IO.Directory.GetFiles(imageDirectory, "*.png");
-        int[] value = new int[imageNames.Length];
+        /// <summary> 表示する優先度 </summary>
+        private       int        priority;
 
-        for (int i = 0; i < value.Length; i++)
+        /// <summary> 表示する </summary>
+        private       GameObject prefab;
+
+        /// <summary> 画像ファイル     </summary>
+        private       string[]   imageNames;
+
+        /// <summary> 画像ディレクトリ </summary>
+        private const string     imageDirectory = @"Assets\Editor\StageEditor\Images";
+
+        /// <summary> 出力サイズを保存するディレクトリ </summary>
+        private const string     saveDirectory = @"Assets\Editor\StageEditor\StageBlockData";
+
+
+        private string loadingFile;
+
+        [MenuItem("Window/StageEditorOption/BlockRegister")]
+        static void Open()
         {
-            value[i] = i;
+            GetWindow<BlockRegister>("BlockRegister");
         }
 
-        EditorGUILayout.BeginHorizontal();
-            EditorGUILayout.LabelField("ブロックの画像", labelOption);
-            EditorGUILayout.LabelField(":", GUILayout.Width(10));
+        private void OnGUI()
+        {
+            var labelOption = GUILayout.Width(160);
 
-            selectImageIndex = EditorGUILayout.IntPopup(selectImageIndex, imageNames, value);
-            selectImageFile  = imageNames[selectImageIndex];
-        EditorGUILayout.EndHorizontal();
+            EditorGUILayout.Space();
+                EditorGUILayout.BeginHorizontal();
+                EditorGUILayout.LabelField("ブロックID", labelOption);
+                EditorGUILayout.LabelField(":", GUILayout.Width(10));
+                blockID = EditorGUILayout.TextField(blockID);
+            EditorGUILayout.EndHorizontal();
 
-        EditorGUILayout.BeginHorizontal();
-            EditorGUILayout.LabelField("優先度", labelOption);
-            EditorGUILayout.LabelField(":", GUILayout.Width(10));
-            priority = EditorGUILayout.IntField(priority);
-        EditorGUILayout.EndHorizontal();
-
-        EditorGUILayout.BeginHorizontal();
-            EditorGUILayout.LabelField("プレハブ", labelOption);
-            EditorGUILayout.LabelField(":", GUILayout.Width(10));
-            prefab = (GameObject)EditorGUILayout.ObjectField(prefab, typeof(GameObject), false);
-        EditorGUILayout.EndHorizontal();
-
-        //ロード用(変えられるように)
-        EditorGUILayout.Space();
-
-        EditorGUILayout.LabelField("ファイルのロード");
             EditorGUILayout.BeginHorizontal();
-            EditorGUILayout.LabelField("ファイル名", labelOption);
-            EditorGUILayout.LabelField(":", GUILayout.Width(10));
-            loadingFile = EditorGUILayout.TextField(loadingFile);
-        EditorGUILayout.EndHorizontal();
+                EditorGUILayout.LabelField("ブロックの名前", labelOption);
+                EditorGUILayout.LabelField(":", GUILayout.Width(10));
+                blockName = EditorGUILayout.TextArea(blockName);
+            EditorGUILayout.EndHorizontal();
 
-        if (GUILayout.Button("Load"))
-        {
-            Debug.Log("ファイルのロードを開始します");
-            Debug.Log("ロードするファイル名" + saveDirectory + "\\" + loadingFile + ".sbdf");
+            imageNames = IO.Directory.GetFiles(imageDirectory, "*.png");
+            int[] value = new int[imageNames.Length];
 
-            var fs = new IO.FileStream(saveDirectory + "\\" + loadingFile + ".sbdf", IO.FileMode.Open);
-            var br = new IO.BinaryReader(fs);
-
-            blockName       = br.ReadString();
-            selectImageFile = br.ReadString();
-            priority = br.ReadInt32();
-
-
-            //prefab = AssetDatabase.LoadAssetAtPath<GameObject>(br.ReadString());
-
-            br.Close();
-            fs.Close();
-        }
-
-        EditorGUILayout.Space();
-
-
-        if (GUILayout.Button("Register"))
-        {
-            if(!IsUniquePriority())
+            for (int i = 0; i < value.Length; i++)
             {
-                Debug.LogError("同じ優先度のブロックがあります\n変更してください");
-                return;
+                value[i] = i;
             }
 
-            SaveBlockData();
-        }
-    }
+            EditorGUILayout.BeginHorizontal();
+                EditorGUILayout.LabelField("ブロックの画像", labelOption);
+                EditorGUILayout.LabelField(":", GUILayout.Width(10));
 
-    bool IsUniquePriority()
-    {
-        foreach (var data in BlockDataFile.LoadBlockDatas())
-        {
-            if(priority == data.priority)
+                selectImageIndex = EditorGUILayout.IntPopup(selectImageIndex, imageNames, value);
+                selectImageFile  = imageNames[selectImageIndex];
+            EditorGUILayout.EndHorizontal();
+
+            EditorGUILayout.BeginHorizontal();
+                EditorGUILayout.LabelField("優先度", labelOption);
+                EditorGUILayout.LabelField(":", GUILayout.Width(10));
+                priority = EditorGUILayout.IntField(priority);
+            EditorGUILayout.EndHorizontal();
+
+            EditorGUILayout.BeginHorizontal();
+                EditorGUILayout.LabelField("プレハブ", labelOption);
+                EditorGUILayout.LabelField(":", GUILayout.Width(10));
+                prefab = (GameObject)EditorGUILayout.ObjectField(prefab, typeof(GameObject), false);
+            EditorGUILayout.EndHorizontal();
+
+            //ロード用(変えられるように)
+            EditorGUILayout.Space();
+
+            EditorGUILayout.LabelField("ファイルのロード");
+                EditorGUILayout.BeginHorizontal();
+                EditorGUILayout.LabelField("ファイル名", labelOption);
+                EditorGUILayout.LabelField(":", GUILayout.Width(10));
+                loadingFile = EditorGUILayout.TextField(loadingFile);
+            EditorGUILayout.EndHorizontal();
+
+            if (GUILayout.Button("Load"))
             {
-                return false;
-            }
-        }
+                Debug.Log("ファイルのロードを開始します");
+                Debug.Log("ロードするファイル名" + saveDirectory + "\\" + loadingFile + ".sbdf");
 
-        return true;
-    }
+                var fs = new IO.FileStream(saveDirectory + "\\" + loadingFile + ".sbdf", IO.FileMode.Open);
+                var br = new IO.BinaryReader(fs);
 
-    void SaveBlockData()
-    {
-        var saveFile = saveDirectory + "\\" + blockID + ".sbdf";
-        using (var fs = new IO.FileStream(saveFile, IO.FileMode.Create))
-        {
-            using (var bw = new IO.BinaryWriter(fs))
-            {
-                bw.Write(blockName);
-                bw.Write(selectImageFile);
-                bw.Write(priority);
-                bw.Write(AssetDatabase.GetAssetPath(prefab));
+                blockName       = br.ReadString();
+                selectImageFile = br.ReadString();
+                priority = br.ReadInt32();
 
-                bw.Close();
+
+                //prefab = AssetDatabase.LoadAssetAtPath<GameObject>(br.ReadString());
+
+                br.Close();
                 fs.Close();
             }
+
+            EditorGUILayout.Space();
+
+
+            if (GUILayout.Button("Register"))
+            {
+                if(!IsUniquePriority())
+                {
+                    Debug.LogError("同じ優先度のブロックがあります\n変更してください");
+                    return;
+                }
+
+                SaveBlockData();
+            }
         }
 
-        Debug.Log("保存終了");
+        bool IsUniquePriority()
+        {
+            foreach (var data in BlockDataFile.LoadBlockDatas())
+            {
+                if(priority == data.priority)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        void SaveBlockData()
+        {
+            var saveFile = saveDirectory + "\\" + blockID + ".sbdf";
+            using (var fs = new IO.FileStream(saveFile, IO.FileMode.Create))
+            {
+                using (var bw = new IO.BinaryWriter(fs))
+                {
+                    bw.Write(blockName);
+                    bw.Write(selectImageFile);
+                    bw.Write(priority);
+                    bw.Write(AssetDatabase.GetAssetPath(prefab));
+
+                    bw.Close();
+                    fs.Close();
+                }
+            }
+
+            Debug.Log("保存終了");
+        }
     }
 }

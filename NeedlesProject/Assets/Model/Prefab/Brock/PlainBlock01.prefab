@@ -23,7 +23,6 @@ GameObject:
   - component: {fileID: 23051300284247036}
   - component: {fileID: 65205198382815032}
   - component: {fileID: 114533441390738390}
-  - component: {fileID: 114276469761302080}
   - component: {fileID: 114686382369329686}
   m_Layer: 9
   m_Name: PlainBlock01
@@ -58,9 +57,9 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: b692eb1ffae1b884ab0e1f0b0695e866, type: 2}
-  - {fileID: 2100000, guid: 8baac4bc71dd354418d681a0e8ab5235, type: 2}
-  - {fileID: 2100000, guid: 5234669a61bbba74bb5259d903337baf, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -98,17 +97,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &114276469761302080
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1592118749052968}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6334626140e70fe43adf074985526166, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114533441390738390
 MonoBehaviour:
   m_ObjectHideFlags: 1

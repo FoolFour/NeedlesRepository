@@ -324,7 +324,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 65
+    m_FontSize: 60
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -335,7 +335,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\u30B9\u30C6\u30FC\u30B81 - 1"
+  m_Text: "\u3042\u3044\u3046\u3048\u304A"
 --- !u!222 &187184534
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -442,6 +442,7 @@ Prefab:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114702797885994620, guid: 7f4e29f9be7d12d469261e0fe261b3eb, type: 2}
+    - {fileID: 114636810528105710, guid: 7f4e29f9be7d12d469261e0fe261b3eb, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 7f4e29f9be7d12d469261e0fe261b3eb, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &267529991
@@ -731,6 +732,25 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1410674639816706, guid: 277d1e46a0d929440b1f7730a24bd606, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114452878389491120, guid: 277d1e46a0d929440b1f7730a24bd606,
+        type: 2}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114452878389491120, guid: 277d1e46a0d929440b1f7730a24bd606,
+        type: 2}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114452878389491120, guid: 277d1e46a0d929440b1f7730a24bd606,
+        type: 2}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 277d1e46a0d929440b1f7730a24bd606, type: 2}
   m_IsPrefabParent: 0
@@ -1016,6 +1036,12 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 660157656}
+--- !u!114 &733010629 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114452878389491120, guid: 277d1e46a0d929440b1f7730a24bd606,
+    type: 2}
+  m_PrefabInternal: {fileID: 442894549}
+  m_Script: {fileID: 11500000, guid: 677b3b2c487732f4bb01403f6f680bd0, type: 3}
 --- !u!1 &749166760
 GameObject:
   m_ObjectHideFlags: 0
@@ -1140,6 +1166,24 @@ Transform:
   m_Father: {fileID: 135003690}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &952314479 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1447629354036276, guid: 7f4e29f9be7d12d469261e0fe261b3eb,
+    type: 2}
+  m_PrefabInternal: {fileID: 238241979}
+--- !u!114 &952314480
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 952314479}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c6aa2eab506f2b408bc68568052bef3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  image: {fileID: 733010629}
+  color: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &986029578
 GameObject:
   m_ObjectHideFlags: 0
@@ -2286,12 +2330,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   worldList:
   - stageList:
-    - stageName: "\u306F\u3058\u3081\u3066\u306E\u8131\u51FA"
-      sceneName: 
-      mission1: "\u30B4\u30FC\u30EB\u3059\u308B"
-      mission2: "\u64CD\u4F5C\u3092\u899A\u3048\u308B"
+    - stageName: "\u30C1\u30E5\u30FC\u30C8\u30EA\u30A2\u30EB\u3060\u3088\uFF01"
+      sceneName: Assets/Scenes/IdeaStage/1World3Stage.unity
+      mission1: "30\u79D2\u4EE5\u5185\u306B\u30B4\u30FC\u30EB"
+      mission2: "50\u79D2\u4EE5\u5185\u306B\u30B4\u30FC\u30EB"
     - stageName: stage1
-      sceneName: 
+      sceneName: Assets/Scenes/IdeaStage/alphaStage.unity
       mission1: 
       mission2: 
     - stageName: stage2
@@ -2654,7 +2698,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.45, y: 0.05}
   m_AnchorMax: {x: 0.95, y: 0.95}
-  m_AnchoredPosition: {x: 0, y: -0.000030517}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1888198766
@@ -2701,6 +2745,8 @@ GameObject:
   - component: {fileID: 1891438110}
   - component: {fileID: 1891438109}
   - component: {fileID: 1891438108}
+  - component: {fileID: 1891438111}
+  - component: {fileID: 1891438112}
   m_Layer: 5
   m_Name: StageSelectUI
   m_TagString: Untagged
@@ -2784,6 +2830,32 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &1891438111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1891438106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23997a73957980c47aa16d53baf8dc60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  info: {fileID: 1532593919}
+  selectStage: 0
+--- !u!114 &1891438112
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1891438106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f046386a4d6b3194299ac8cdfd4640af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneChange: {fileID: 952314480}
+  info: {fileID: 1532593919}
 --- !u!1 &1961897610
 GameObject:
   m_ObjectHideFlags: 0

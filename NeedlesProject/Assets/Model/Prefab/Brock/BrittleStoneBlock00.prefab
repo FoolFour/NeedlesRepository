@@ -21,7 +21,6 @@ GameObject:
   - component: {fileID: 4245027454797954}
   - component: {fileID: 65661944000323584}
   - component: {fileID: 114035569110800046}
-  - component: {fileID: 114106980459400806}
   - component: {fileID: 33075087632861644}
   - component: {fileID: 23265307377204090}
   - component: {fileID: 114698120687448210}
@@ -40,7 +39,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1089571593222042}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 10.29, y: 8.47, z: 0}
+  m_LocalPosition: {x: -1.27, y: 0.5700002, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 3}
   m_Children: []
   m_Father: {fileID: 0}
@@ -59,9 +58,9 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 35c345dd413485040902f373c128c30e, type: 2}
-  - {fileID: 2100000, guid: b31119b655febac469a658ff74d8f952, type: 2}
-  - {fileID: 2100000, guid: a43212ee7e7df3247a107df92d2d85d1, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -111,17 +110,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isHitBlock: 0
---- !u!114 &114106980459400806
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1089571593222042}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6334626140e70fe43adf074985526166, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114111803438777186
 MonoBehaviour:
   m_ObjectHideFlags: 1
