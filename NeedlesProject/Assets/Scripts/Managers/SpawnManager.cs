@@ -37,16 +37,19 @@ public class SpawnManager : MonoBehaviour
 
         StartCoroutine(DelayMethod(1.0f, () =>
          {
-             player.GetComponent<Player>().SwitchColliderandRender(true);
              Camera.main.GetComponent<GameCamera.Camera>().CameraReset(new Vector3(GetCurrentSpawnPoint().x,
                                                             GetCurrentSpawnPoint().y,
                                                             Camera.main.transform.position.z));
-             player.gameObject.GetComponent<Player>().Dead();
-             player.gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
-
              player.gameObject.transform.position = GetCurrentSpawnPoint();
-
              GameObjectAllInit();
+
+             StartCoroutine(DelayMethod(0.8f, () =>
+             {
+                 player.GetComponent<Player>().SwitchColliderandRender(true);
+                 player.gameObject.GetComponent<Player>().Dead();
+                 player.gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
+
+             }));
          }));
 
     }

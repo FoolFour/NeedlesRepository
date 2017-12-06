@@ -107,7 +107,8 @@ public class Player : MonoBehaviour {
     public bool IsGround()
     {
         Ray ray = new Ray(transform.position, Vector3.down);
-        if (Physics.Raycast(ray, 1, mIgnorelayer,QueryTriggerInteraction.Ignore))
+        int layerMask = 1 << 9 | 1 << 11;
+        if (Physics.Raycast(ray, 1, layerMask,QueryTriggerInteraction.Ignore))
         {
             return true;
         }
@@ -191,6 +192,7 @@ public class Player : MonoBehaviour {
     {
         m_currentDeadEffect.transform.position = transform.position;
         m_currentDeadEffect.GetComponent<PLayerDead_effect>().ParticleStart();
+        Sound.PlaySe("Explosion");
     }
 
     public void SwitchColliderandRender(bool enable)

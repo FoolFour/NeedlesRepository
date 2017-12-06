@@ -19,5 +19,6 @@ public class SoundManger : MonoBehaviour
         Sound.LoadSe("Extend", "Extend");
         Sound.LoadSe("Swish", "Swish");
         Sound.LoadSe("ArmBreak", "ArmBreak");
+        Sound.LoadSe("Explosion", "Explosion");
     }
 }

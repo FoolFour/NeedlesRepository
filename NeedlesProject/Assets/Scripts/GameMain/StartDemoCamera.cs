@@ -64,7 +64,7 @@ public class StartDemoCamera : MonoBehaviour {
         }
 
         Player.GetComponent<Animator>().SetTrigger("Play");
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(1.5f);
         Player.GetComponent<Player>().isAnimation = false;
 
         GetComponent<GameCamera.Camera>().enabled = true;
