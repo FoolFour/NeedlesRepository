@@ -13,6 +13,8 @@ public class StartDemoCamera : MonoBehaviour {
     private int p1 = 0;
     private int p2 = 1;
 
+    [SerializeField, Tooltip("デバッグモード")]
+    public bool isDebug = true;
     [SerializeField, Tooltip("どれくらい近づくか？")]
     public float m_playerDistance;
     [SerializeField, Tooltip("何秒で近付くか")]
@@ -23,6 +25,17 @@ public class StartDemoCamera : MonoBehaviour {
 
     void Start ()
     {
+        if (isDebug)
+        {
+            Player = GameManagers.Instance.PlayerManager.GetPlayer().transform;
+            Player.GetComponent<Animator>().SetTrigger("Play");
+            Player.GetComponent<Player>().isAnimation = false;
+
+            GetComponent<GameCamera.Camera>().enabled = true;
+            Destroy(this);
+            return;
+        }
+
         Assert.IsFalse(m_MovePoint.Length <= 1, "少な過ぎる!");
         transform.position = m_MovePoint[0].position;
         GetComponent<GameCamera.Camera>().enabled = false;
