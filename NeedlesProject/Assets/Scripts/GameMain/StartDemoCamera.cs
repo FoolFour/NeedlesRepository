@@ -27,12 +27,7 @@ public class StartDemoCamera : MonoBehaviour {
     {
         if (isDebug)
         {
-            Player = GameManagers.Instance.PlayerManager.GetPlayer().transform;
-            Player.GetComponent<Animator>().SetTrigger("Play");
-            Player.GetComponent<Player>().isAnimation = false;
-
-            GetComponent<GameCamera.Camera>().enabled = true;
-            Destroy(this);
+            StartCoroutine(DebugMode());
             return;
         }
 
@@ -43,6 +38,7 @@ public class StartDemoCamera : MonoBehaviour {
 	
 	void Update ()
     {
+        if (isDebug) return;
         //プレイヤを探す
         if (!Player)
         {
@@ -80,6 +76,23 @@ public class StartDemoCamera : MonoBehaviour {
         yield return new WaitForSeconds(1.5f);
         Player.GetComponent<Player>().isAnimation = false;
 
+        GetComponent<GameCamera.Camera>().enabled = true;
+        Destroy(this);
+    }
+
+    IEnumerator DebugMode()
+    {
+        while(!Player)
+        {
+            if (GameManagers.Instance.PlayerManager)
+            {
+                if(GameManagers.Instance.PlayerManager.GetPlayer()) Player = GameManagers.Instance.PlayerManager.GetPlayer().transform;
+            }
+            yield return new WaitForEndOfFrame();
+        }
+
+        Player.GetComponent<Animator>().SetTrigger("Play");
+        Player.GetComponent<Player>().isAnimation = false;
         GetComponent<GameCamera.Camera>().enabled = true;
         Destroy(this);
     }
