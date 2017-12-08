@@ -11,9 +11,19 @@ public class BackGroundScroll : MonoBehaviour {
 
     private Vector2 m_CurrentPosition;
 
-	// Use this for initialization
-	void Start ()
+    private Transform m_leftImage;
+    private Transform m_rightImage;
+
+    private float m_plusPosition = 300;
+    private float m_minusPosition = -300;
+
+    // Use this for initialization
+    void Start ()
     {
+        m_rightImage = transform.GetChild(0);
+        m_rightImage.localPosition = new Vector3(600, 0, 0);
+        m_leftImage = transform.GetChild(1);
+        m_leftImage.localPosition = new Vector3(-600, 0, 0);
 	}
 
     // Update is called once per frame
@@ -29,7 +39,7 @@ public class BackGroundScroll : MonoBehaviour {
         m_CurrentPosition.y = (m_FirstPosition.y - m_Player.position.y) * speed;
         m_CurrentPosition.y = Mathf.Clamp(m_CurrentPosition.y, m_MinValue, 0);
 
-        m_CurrentPosition.x = (m_FirstPosition.x - m_Player.position.x) * speed;
+        m_CurrentPosition.x = (m_FirstPosition.x - m_Player.position.x);
 
         GetComponent<RectTransform>().localPosition = m_CurrentPosition;
 
