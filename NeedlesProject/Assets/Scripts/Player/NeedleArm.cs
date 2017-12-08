@@ -266,6 +266,7 @@ public class NeedleArm : MonoBehaviour
 
     public void Goal()
     {
+        if (m_Hitinfo.collider == null) return;
         if(m_Hitinfo.collider.tag != "Finish")
         {
             Return_Arm();
