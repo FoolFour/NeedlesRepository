@@ -11,23 +11,23 @@ public class PushButtonToScenechange : MonoBehaviour
     string  sceneName;
 
     [SerializeField]
-    GameObject obj;
+    GameObject eraseObj;
 
     [SerializeField]
     UnityEngine.SceneManagement.LoadSceneMode mode;
 
-    SceneChanger sceneChanger;
+    SceneChangeTimer sceneChanger;
 
     private void Awake()
     {
-        sceneChanger = GetComponent<SceneChanger>();
+        sceneChanger = GetComponent<SceneChangeTimer>();
     }
 
     private void Update()
     {
         if(Input.GetButtonDown(buttonName))
         {
-            Destroy(obj);
+            Destroy(eraseObj);
             sceneChanger.SceneChange(sceneName, mode);
         }
     }

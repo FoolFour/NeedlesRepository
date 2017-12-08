@@ -24,6 +24,11 @@ public class CameraControl : MonoBehaviour
     public delegate void OnChangeCompleteHandler(int newControlPoint);
     public event OnChangeCompleteHandler OnChangeComplete;
 
+    public int Current
+    {
+        get { return current; }
+    }
+
     //////////////////
     // 関数(public)　/
     ////////////////

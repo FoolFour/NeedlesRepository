@@ -6,8 +6,31 @@ public class PrefsDataName
     // ----- ----- ----- -----
     public const string StageName = "StageName";
     public const string Scene     = "Scene";
-    public const string Mission1  = "Mission1";
-    public const string Mission2  = "Mission2";
+    public const string Border1   = "Border1";
+    public const string Border2   = "Border2";
+    public const string Time      = "Time";
+
+    public static string StageTime(string stageName)
+    {
+        return stageName + "_" + Time;
+    }
+
+    public static string StageClearFrag(string stageName)
+    {
+        return stageName + "_" + "ClearFrag";
+    }
+
+    public static string Border1ClearFrag(string stageName)
+    {
+        return stageName + "_" + "B1ClearFrag";
+    }
+
+    public static string Border2ClearFrag(string stageName)
+    {
+        return stageName + "_" + "B2ClearFrag";
+    }
+
+    public const string isInit    = "isInit";
 
     // ----- ----- ----- -----
     // フェード関係

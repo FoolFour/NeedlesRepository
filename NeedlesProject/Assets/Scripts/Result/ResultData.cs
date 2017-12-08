@@ -18,8 +18,8 @@ namespace Result
         private CoinCounting counting;
 
         private string       stage;
-        private string       missionInfo1;
-        private string       missionInfo2;
+        private float        border1;
+        private float        border2;
 
         ////////////////////////
         // プロパティ(public) /
@@ -39,18 +39,18 @@ namespace Result
             get { return stage; }
         }
 
-        public string mission1
+        public float  Border1
         {
-            get { return missionInfo1; }
+            get { return border1; }
         }
 
-        public string mission2
+        public float  Border2
         {
-            get { return missionInfo2; }
+            get { return border2; }
         }
 
         ///////////////////
-        // 関数(private) /
+        // 関数(private)　/
         /////////////////
 
         private void Awake()
@@ -62,12 +62,18 @@ namespace Result
             timer    = FindSceneObjectOfType<GameTimer>(sceneName);
             time     = timer.gameTimeNoPauseTime;
 
-            counting = FindSceneObjectOfType<CoinCounting>(sceneName);
-            coin     = counting.playerGetCoinNum;
+
+            //counting = FindSceneObjectOfType<CoinCounting>(sceneName);
+            //coin     = counting.playerGetCoinNum;
             
-            stage        = PlayerPrefs.GetString(PrefsDataName.StageName);
-            missionInfo1 = PlayerPrefs.GetString(PrefsDataName.Mission1);
-            missionInfo2 = PlayerPrefs.GetString(PrefsDataName.Mission2);
+            stage   = PlayerPrefs.GetString(PrefsDataName.StageName);
+            border1 = PlayerPrefs.GetFloat(PrefsDataName.Border1);
+            border2 = PlayerPrefs.GetFloat(PrefsDataName.Border2);
+
+            SubmitBestTIme(stageName, time);
+            SubmitStageClear(stageName);
+
+            PlayerPrefs.Save();
         }
 
         private T FindSceneObjectOfType<T>(string sceneName)
@@ -85,6 +91,24 @@ namespace Result
             }
 
             return default(T);
+        }
+
+        private void SubmitBestTIme(string stageName, float new_time)
+        {
+            var   tmp_prefsName = PrefsDataName.StageTime(stageName);
+            float old_time      = PlayerPrefs.GetFloat(tmp_prefsName);
+
+            if(new_time < old_time)
+            {
+                //最速クリア更新!
+                PlayerPrefs.SetFloat(tmp_prefsName, new_time);
+            }
+        }
+
+        private void SubmitStageClear(string stageName)
+        {
+            //ステージクリアにする
+            PlayerPrefs.SetString(PrefsDataName.StageClearFrag(stageName), bool.TrueString);
         }
     }
 }

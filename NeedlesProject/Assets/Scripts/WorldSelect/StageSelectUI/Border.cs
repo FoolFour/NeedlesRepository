@@ -6,18 +6,18 @@ using System.Collections.Generic;
 namespace StageInfo
 {
     [RequireComponent(typeof(Text))]
-    public class Mission : MonoBehaviour
+    public class Border : MonoBehaviour
     {
         [SerializeField]
         private StageSceneInfo info;
 
-        private enum ShowMission
+        private enum ShowBorder
         {
-            Mission1,
-            Mission2
+            Border1,
+            Border2
         }
         [SerializeField]
-        ShowMission showInfo;
+        ShowBorder showInfo;
 
         private Text text;
 
@@ -34,13 +34,18 @@ namespace StageInfo
 
         private void Update()
         {
-            if(showInfo == ShowMission.Mission1)
+            const string showText = "秒以内でゴール";
+            if(showInfo == ShowBorder.Border1)
             {
-                text.text = info.GetSelectStageInfo().mission1;
+                float tmp = info.GetSelectStageInfo().border1;
+                
+                text.text = tmp + showText;
             }
             else
             {
-                text.text = info.GetSelectStageInfo().mission2;
+                float tmp = info.GetSelectStageInfo().border2;
+
+                text.text = tmp + showText;
             }
         }
     }

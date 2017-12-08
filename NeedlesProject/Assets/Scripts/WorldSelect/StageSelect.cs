@@ -7,13 +7,17 @@ public class StageSelect : MonoBehaviour
     [SerializeField]
     StageSceneInfo info;
 
-    public int selectStage;
+    [SerializeField]
+    CameraControl  control;
 
-    private bool selectFlag;
+    public  int    selectStage;
+
+    private bool   selectFlag;
 
     private void Reset()
     {
-        info = FindObjectOfType<StageSceneInfo>();
+        info    = FindObjectOfType<StageSceneInfo>();
+        control = FindObjectOfType<CameraControl>();
     }
 
     private void Awake()
@@ -24,6 +28,7 @@ public class StageSelect : MonoBehaviour
     private void OnEnable()
     {
         selectStage      = 0;
+        info.selectWorld = control.Current-1;
         info.selectStage = selectStage;
     }
 
@@ -36,6 +41,7 @@ public class StageSelect : MonoBehaviour
     {
         const float noticeStickValue = 0.6f;
 
+        //一気にスクロールするのでselectFlagで制限をかける
         if(Input.GetAxis(GamePad.Horizontal) > noticeStickValue)
         {
             //→に入力
@@ -53,8 +59,7 @@ public class StageSelect : MonoBehaviour
             selectFlag = true;
             return;
         }
-
-        //それ以外の場合
+        
         selectFlag = false;
     }
 }

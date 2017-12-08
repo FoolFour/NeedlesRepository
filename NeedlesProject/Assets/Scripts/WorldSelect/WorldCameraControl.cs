@@ -9,14 +9,14 @@ public class WorldCameraControl : MonoBehaviour
     ////////////////////////
 
     [SerializeField]
-    WorldSelect   worldSelect;
+    WorldSelect    worldSelect;
 
     [SerializeField]
-    CameraControl cameraControl;
+    CameraControl  cameraControl;
 
     [SerializeField]
     [Header("カメラが移動するスピード")]
-    float         pointChangeSpeed = 1.0f;
+    float          pointChangeSpeed = 1.0f;
 
 
     [SerializeField]
@@ -36,9 +36,6 @@ public class WorldCameraControl : MonoBehaviour
         StageToStart
     }
     private State state;
-
-    
-
 
     private void Reset()
     {
@@ -91,8 +88,7 @@ public class WorldCameraControl : MonoBehaviour
     {
         if(Input.GetButtonDown(GamePad.Submit))
         {
-            //state = State.StageToStart;
-            
+            state = State.StageToStart;
         }
 
         if(Input.GetButtonDown(GamePad.Cancel))

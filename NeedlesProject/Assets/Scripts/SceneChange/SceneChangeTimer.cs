@@ -10,8 +10,9 @@ public class SceneChangeTimer : SceneChanger
 
     private WaitForSeconds wait;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         wait = new WaitForSeconds(changeTimer);
     }
 

@@ -15,7 +15,10 @@ public class GoalSpawner : MonoBehaviour
     private Vector2      spawnPosition;
 
     [SerializeField]
-    private SceneChanger sceneChanger;
+    private SceneChangeTimer sceneChanger;
+
+    [SerializeField]
+    private Player       playerObj;
 
 #if UNITY_EDITOR
     [Header("デバッグ用")]
@@ -31,16 +34,27 @@ public class GoalSpawner : MonoBehaviour
 
     private void Reset()
     {
-        sceneChanger = FindObjectOfType<SceneChanger>();
+        sceneChanger = GameObject.Find("GameManager").GetComponent<SceneChangeTimer>();
+        playerObj    = FindObjectOfType<Player>();
     }
 
     private void Awake()
     {
+        
+    }
+
+    private IEnumerator Start()
+    {
+        yield return null;
+
+        playerObj = FindObjectOfType<Player>();
+
         Vector3 create_pos = transform.position + (Vector3)spawnPosition;
         GameObject instance = Instantiate(rocketPrefab, create_pos, Quaternion.identity);
         var goal = instance.GetComponent<Goal>();
 
         goal.sceneChanger = sceneChanger;
+        goal.player       = playerObj;
 
         Destroy(gameObject);
     }
