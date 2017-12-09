@@ -34,6 +34,9 @@ public class NeedleArm : MonoBehaviour
     public GameObject m_HitObjectPrefab;
     //↑の実体を保存する変数
     private GameObject m_CurrentHitObject;
+    [SerializeField, TooltipAttribute("火花のプレハブを入れる")]   //火花系の管理はここではないと思うがとりあえず
+    public GameObject m_SparkEffectPrefab;
+    private GameObject m_SparkEffect;
     //----------------------------------------------------------------------------
 
     //壁に刺さった時の判定系------------------------------------------------------
@@ -84,6 +87,8 @@ public class NeedleArm : MonoBehaviour
     public void Start()
     {
         m_CurrentHitObject = (GameObject)Instantiate(m_HitObjectPrefab, Vector3.zero, Quaternion.identity);
+        m_SparkEffect = (GameObject)Instantiate(m_SparkEffectPrefab, Vector3.zero, Quaternion.identity);
+        m_SparkEffect.GetComponent<SparkEffect>().ActiveChange(false);
     }
 
     /// <summary>
@@ -108,11 +113,22 @@ public class NeedleArm : MonoBehaviour
         if (m_ArmCurrentLenght == 0) { m_Arm.GetComponent<CapsuleCollider>().enabled = false; }
         else { m_Arm.GetComponent<CapsuleCollider>().enabled = true; }
 
+        //m_SparkEffect.GetComponent<SparkEffect>().ActiveChange(false);
         if (BlockHitCheck(defeated))
         {
 
             //ブロックに当たった時
             m_Hitinfo.collider.GetComponent<BlockBase>().StickEnter(gameObject);
+            if(m_Hitinfo.collider.GetComponent<HardBlock>())
+            {
+                //火花系の管理はここではないと思うがとりあえず
+                m_SparkEffect.transform.position = m_Hitinfo.point;
+                m_SparkEffect.GetComponent<SparkEffect>().ActiveChange(true);
+            }
+            else
+            {
+                m_SparkEffect.GetComponent<SparkEffect>().ActiveChange(false);
+            }
             m_ArmCurrentLenght = Vector3.Distance(m_Hitinfo.point + (m_Hitinfo.normal * 0.5f), transform.position);
 
             //ブロックが刺さる場合
@@ -137,6 +153,11 @@ public class NeedleArm : MonoBehaviour
                 return;
             }
 
+        }
+        else
+        {
+            //ブロックから離れたらスパークを切る
+            m_SparkEffect.GetComponent<SparkEffect>().ActiveChange(false);
         }
 
         m_Arm.localScale = new Vector3(3f, m_ArmCurrentLenght, 1.5f);

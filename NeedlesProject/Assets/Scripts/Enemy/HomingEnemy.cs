@@ -16,6 +16,8 @@ public class HomingEnemy : MonoBehaviour, IRespawnMessage
 
     public float m_moveSpeed = 1;
     public float m_radius = 5;
+    [Tooltip("見失う距離")]
+    public float m_lostDistance = 10;
 
     public State m_state = State.Search;
     Rigidbody m_rb;
@@ -80,7 +82,7 @@ public class HomingEnemy : MonoBehaviour, IRespawnMessage
         transform.LookAt(m_target);
         m_rb.velocity = transform.forward * m_moveSpeed;
         var dis = Vector3.Distance(transform.position, m_target.position);
-        if(dis > 20)
+        if(dis > m_lostDistance)
         {
             m_state = State.BackHome;
         }
@@ -94,6 +96,18 @@ public class HomingEnemy : MonoBehaviour, IRespawnMessage
         if (dis < 0.1f)
         {
             m_state = State.Search;
+        }
+
+        int layer = 1 << 8;
+        var cols = Physics.OverlapSphere(transform.position, m_radius, layer);
+        foreach (var col in cols)
+        {
+            if (col.CompareTag("Player"))
+            {
+                m_target = col.transform;
+                m_state = State.Homing;
+                return;
+            }
         }
 
     }
@@ -133,6 +147,9 @@ public class HomingEnemy : MonoBehaviour, IRespawnMessage
         GetComponent<RemoveComponent>().SwitchActive(true);
         m_target = null;
         m_state = State.Wait;
+
+        m_rb.velocity = Vector3.zero;
+        m_rb.angularVelocity = Vector3.zero;
     }
 
     private IEnumerator DelayMethod(float waitTime, System.Action action)
