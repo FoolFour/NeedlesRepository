@@ -6,19 +6,20 @@ public class SpwnPoint : MonoBehaviour
 {
 
     private SpawnManager m_Spawn;
-    private Animator m_animator;
+    private Animator[] m_animator;
 
     public void Start()
     {
         m_Spawn = GameObject.Find("GameManager").GetComponent<SpawnManager>();
-        m_animator = GetComponentInChildren<Animator>();
+        m_animator = GetComponentsInChildren<Animator>();
     }
 
     public void OnTriggerStay(Collider other)
     {
         if (other.tag.Contains("Player"))
         {
-            m_animator.SetTrigger("Trigger");
+            m_animator[0].SetTrigger("Trigger");
+            m_animator[1].SetTrigger("Trigger");
             m_Spawn.CurrentSpawnChange(transform.position);
             Destroy(gameObject.GetComponent<BoxCollider>());
         }
