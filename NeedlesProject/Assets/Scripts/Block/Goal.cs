@@ -19,6 +19,7 @@ public class Goal : BlockBase
 
     public override void StickHit(GameObject arm, GameObject stickpoint)
     {
+        stickpoint.transform.position = transform.position + new Vector3(0, -0.5f, 0);
         player.Goal();
         sceneChanger.SceneChange("Result", LoadSceneMode.Additive);
     }
