@@ -17,13 +17,10 @@ public class Goal : BlockBase
         player       = FindObjectOfType<Player>();
     }
 
-    public override void StickEnter(GameObject arm)
+    public override void StickHit(GameObject arm, GameObject stickpoint)
     {
         player.Goal();
-
         sceneChanger.SceneChange("Result", LoadSceneMode.Additive);
-        //StickPointOut();
-        //Destroy(GetComponent<BoxCollider>());
     }
 
     public override void StickExit()
