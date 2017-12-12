@@ -86,7 +86,7 @@ public class WorldSelect : MonoBehaviour
         //ステージの数を越えるか
         if (selectWorldNum >= spline.PathNum-1) { yield break; }
 
-        Sound.PlaySe("");
+        Sound.PlaySe("CursorMove");
         float amount = 0;
         while (amount < 1)
         {
@@ -108,6 +108,7 @@ public class WorldSelect : MonoBehaviour
         //ステージ0以下は存在しない
         if (selectWorldNum <= 0) { yield break; }
 
+        Sound.PlaySe("CursorMove");
         float amount = 0;
         while (amount < 1)
         {
