@@ -1,8 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BackGroundScroll : MonoBehaviour {
+public class BackGroundScroll : MonoBehaviour,IRespawnMessage {
 
     public float m_MinValue;
     private Transform m_Player;
@@ -100,5 +101,10 @@ public class BackGroundScroll : MonoBehaviour {
         }
         Debug.Log(endmost.name);
         return endmost;
+    }
+
+    public void RespawnInit()
+    {
+        m_playerPrevx = m_Player.position.x;
     }
 }
