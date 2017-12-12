@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using TimeSpan = System.TimeSpan;
 
 public class StageSceneInfo : MonoBehaviour
 {
@@ -32,11 +33,16 @@ public class StageSceneInfo : MonoBehaviour
     public class StageInfo
     {
         public string stageName;
+        public bool   stageClearFlag;
         public string sceneName;
-        public string mission1;
-        public string mission2;
+        public float  border1;
+        public bool   border1ClearFlag;
+        public float  border2;
+        public bool   border2ClearFlag;
+        public float  time;
     }
     
+    [SerializeField]
     public List<Stage> worldList;
 
     public int selectWorld;
@@ -94,9 +100,96 @@ public class StageSceneInfo : MonoBehaviour
         }
     }
 
-    [ContextMenu("ShowSceneName")]
-    private void ShowSceneName()
+    private void Awake()
     {
-        Debug.Log(worldList[0][0].sceneName);
+        //初期化
+        bool isInit = PlayerPrefs.HasKey(PrefsDataName.isInit);
+        
+        if(isInit)
+        { 
+            LoadTime();
+        }
+        else
+        {
+            InitTime();
+        }
+    }
+
+    private void LoadTime()
+    {
+        for(int i_w = 0; i_w < worldList.Count; i_w++)
+        {
+            for(int j_s = 0; j_s < worldList[i_w].Count; j_s++)
+            {
+                var info = worldList[i_w][j_s];
+                string stageName = info.stageName;
+                
+                float  time      = PlayerPrefs.GetFloat(PrefsDataName.StageTime(stageName));
+                info.time = time;
+
+                //クリアしているかどうかの情報
+                info.  stageClearFlag = GetClearFlag(PrefsDataName.  StageClearFrag(stageName));
+                info.border1ClearFlag = GetClearFlag(PrefsDataName.Border1ClearFrag(stageName));
+                info.border2ClearFlag = GetClearFlag(PrefsDataName.Border2ClearFrag(stageName));
+            }
+        }
+    }
+
+    private bool GetClearFlag(string prefsData)
+    {
+        string tmp = PlayerPrefs.GetString(prefsData);
+
+        bool result;
+        if(bool.TryParse(tmp, out result))
+        {
+            return result;
+        }
+
+        //初期値を入れる
+        PlayerPrefs.SetString(prefsData, bool.FalseString);
+        return false;
+    }
+
+    private void InitTime()
+    {
+        TimeSpan timeSpan = new TimeSpan(
+            days:           0, 
+            hours:          0, 
+            minutes:       59, 
+            seconds:       59, 
+            milliseconds: 999
+        );
+
+        for(int i_w = 0; i_w < worldList.Count; i_w++)
+        {
+            for(int j_s = 0; j_s < worldList[i_w].Count; j_s++)
+            {
+                string stageName = worldList[i_w][j_s].stageName;
+
+                float time = (float)timeSpan.TotalSeconds;
+                var info = worldList[i_w][j_s];
+
+                info.time = time;
+                PlayerPrefs.SetFloat(PrefsDataName.StageTime(stageName), time);
+
+                info.stageClearFlag = false;
+                PlayerPrefs.SetString(PrefsDataName.StageClearFrag(stageName),   bool.FalseString);
+
+                info.border1ClearFlag = false;
+                PlayerPrefs.SetString(PrefsDataName.Border1ClearFrag(stageName), bool.FalseString);
+
+                info.border2ClearFlag = false;
+                PlayerPrefs.SetString(PrefsDataName.Border2ClearFrag(stageName), bool.FalseString);
+            }
+        }
+        PlayerPrefs.SetString(PrefsDataName.isInit, "true");
+
+        PlayerPrefs.Save();
+    }
+
+    [ContextMenu("Initialize data")]
+    private void InitializeData()
+    {
+        PlayerPrefs.DeleteAll();
     }
 }

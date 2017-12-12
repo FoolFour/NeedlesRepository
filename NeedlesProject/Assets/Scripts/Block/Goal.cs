@@ -8,16 +8,19 @@ public class Goal : BlockBase
     [SerializeField]
     public SceneChanger sceneChanger;
 
+    [SerializeField]
+    public Player       player;
+
     private void Reset()
     {
         sceneChanger = FindObjectOfType<SceneChanger>();
+        player       = FindObjectOfType<Player>();
     }
 
-    public override void StickEnter(GameObject arm)
+    public override void StickHit(GameObject arm, GameObject stickpoint)
     {
+        player.Goal();
         sceneChanger.SceneChange("Result", LoadSceneMode.Additive);
-        StickPointOut();
-        Destroy(GetComponent<BoxCollider>());
     }
 
     public override void StickExit()

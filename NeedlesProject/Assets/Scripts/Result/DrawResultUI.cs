@@ -14,8 +14,8 @@ namespace Result
             StageName,
             Coin,
             Time,
-            Mission1,
-            Mission2
+            Border1,
+            Border2
         }
 
         //////////////////////////
@@ -69,8 +69,8 @@ namespace Result
             if (p == DrawParameter.StageName) { return data.stageName; }
             if (p == DrawParameter.Coin     ) { return GetCoin();      }
             if (p == DrawParameter.Time     ) { return GetTime();      }
-            if (p == DrawParameter.Mission1 ) { return data.mission1;  }
-            if (p == DrawParameter.Mission2 ) { return data.mission2;  }
+            if (p == DrawParameter.Border1  ) { return GetBorder(1);   }
+            if (p == DrawParameter.Border2  ) { return GetBorder(2);   }
 
             throw null;
         }
@@ -90,6 +90,13 @@ namespace Result
 
             var timeSpan = new System.TimeSpan(0, 0, 0, sec, milliSec);
             return new System.DateTime(0).Add(timeSpan).ToString("mm:ss.ff");
+        }
+        
+        private string GetBorder(int num)
+        {
+            if(num == 1) { return data.Border1.ToString() + "秒以内でゴール"; }
+            if(num == 2) { return data.Border2.ToString() + "秒以内でゴール"; }
+            throw null;
         }
     }
 }

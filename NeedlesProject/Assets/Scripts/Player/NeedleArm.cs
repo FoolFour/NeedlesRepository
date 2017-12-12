@@ -8,8 +8,6 @@ using UnityEngine;
 public class NeedleArm : MonoBehaviour
 {
     //デバッグ用変数　後で消す
-    public Color mDebugColor;
-    public GameObject obj;
     //-------------------------
 
     //プレイヤーのトランスフォーム類----------------------------------------------
@@ -36,6 +34,9 @@ public class NeedleArm : MonoBehaviour
     public GameObject m_HitObjectPrefab;
     //↑の実体を保存する変数
     private GameObject m_CurrentHitObject;
+    [SerializeField, TooltipAttribute("火花のプレハブを入れる")]   //火花系の管理はここではないと思うがとりあえず
+    public GameObject m_SparkEffectPrefab;
+    private GameObject m_SparkEffect;
     //----------------------------------------------------------------------------
 
     //壁に刺さった時の判定系------------------------------------------------------
@@ -86,6 +87,8 @@ public class NeedleArm : MonoBehaviour
     public void Start()
     {
         m_CurrentHitObject = (GameObject)Instantiate(m_HitObjectPrefab, Vector3.zero, Quaternion.identity);
+        m_SparkEffect = (GameObject)Instantiate(m_SparkEffectPrefab, Vector3.zero, Quaternion.identity);
+        m_SparkEffect.GetComponent<SparkEffect>().ActiveChange(false);
     }
 
     /// <summary>
@@ -110,11 +113,22 @@ public class NeedleArm : MonoBehaviour
         if (m_ArmCurrentLenght == 0) { m_Arm.GetComponent<CapsuleCollider>().enabled = false; }
         else { m_Arm.GetComponent<CapsuleCollider>().enabled = true; }
 
+        //m_SparkEffect.GetComponent<SparkEffect>().ActiveChange(false);
         if (BlockHitCheck(defeated))
         {
 
             //ブロックに当たった時
             m_Hitinfo.collider.GetComponent<BlockBase>().StickEnter(gameObject);
+            if(m_Hitinfo.collider.GetComponent<HardBlock>())
+            {
+                //火花系の管理はここではないと思うがとりあえず
+                m_SparkEffect.transform.position = m_Hitinfo.point;
+                m_SparkEffect.GetComponent<SparkEffect>().ActiveChange(true);
+            }
+            else
+            {
+                m_SparkEffect.GetComponent<SparkEffect>().ActiveChange(false);
+            }
             m_ArmCurrentLenght = Vector3.Distance(m_Hitinfo.point + (m_Hitinfo.normal * 0.5f), transform.position);
 
             //ブロックが刺さる場合
@@ -139,6 +153,11 @@ public class NeedleArm : MonoBehaviour
                 return;
             }
 
+        }
+        else
+        {
+            //ブロックから離れたらスパークを切る
+            m_SparkEffect.GetComponent<SparkEffect>().ActiveChange(false);
         }
 
         m_Arm.localScale = new Vector3(3f, m_ArmCurrentLenght, 1.5f);
@@ -212,7 +231,9 @@ public class NeedleArm : MonoBehaviour
         m_PrevDefeated = defeated;
 
         m_Hand.position = m_CurrentHitObject.transform.position;
-        m_Hand.up = -m_Hitinfo.normal;
+        RaycastHit hit;
+        if (Physics.Raycast(m_Hand.position, m_Hand.up, out hit, 1, m_Ignorelayer, QueryTriggerInteraction.Ignore)) m_Hand.up = -hit.normal;
+        else m_Hand.up = -m_Hitinfo.normal;
         transform.rotation = Quaternion.LookRotation(Vector3.forward, (m_Hand.position - m_Arm.position).normalized);
 
         float len = Vector3.Distance(m_Hand.position, transform.position);
@@ -224,6 +245,8 @@ public class NeedleArm : MonoBehaviour
         //腕の回転処理
         float angle = Mathf.Sign(Vector2Cross(m_Arm.up, stickdir.normalized));
         m_CurrentHitObject.GetComponent<Rigidbody>().maxAngularVelocity = m_TorqueMaxPower;
+
+        Debug.DrawLine(transform.position, transform.position + stickdir.normalized * 10);
 
         //周りを判定して壁だったら止める処理
         if (CircumferenceCheck(angle, len))
@@ -264,6 +287,7 @@ public class NeedleArm : MonoBehaviour
 
     public void Goal()
     {
+        if (m_Hitinfo.collider == null) return;
         if(m_Hitinfo.collider.tag != "Finish")
         {
             Return_Arm();

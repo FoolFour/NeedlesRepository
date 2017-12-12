@@ -37,7 +37,7 @@ public class SceneChanger : MonoBehaviour
     // 関数(private) /
     /////////////////
 
-    private void Awake()
+    protected virtual void Awake()
     {
         taskLock = GetComponent<TaskLock>();
         if(taskLock == null)

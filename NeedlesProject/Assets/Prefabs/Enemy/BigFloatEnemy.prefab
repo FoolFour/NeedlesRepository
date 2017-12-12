@@ -67,7 +67,7 @@ GameObject:
   - component: {fileID: 33582454184158706}
   - component: {fileID: 23961705675140580}
   m_Layer: 0
-  m_Name: default (1)
+  m_Name: ' leftEye'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -151,7 +151,7 @@ GameObject:
   - component: {fileID: 114131191507356646}
   - component: {fileID: 114214249796281108}
   - component: {fileID: 114971514189045920}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: BigFloatEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -227,13 +227,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1219924272378194}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalRotation: {x: 0.001473964, y: 0.999999, z: -0, w: 0}
   m_LocalPosition: {x: -0.452, y: -0.107, z: 0}
   m_LocalScale: {x: 0.99999994, y: 0.99999994, z: 0.99999994}
   m_Children: []
   m_Father: {fileID: 4733035439793610}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180.00002, z: 0.16900001}
 --- !u!4 &4270945870236776
 Transform:
   m_ObjectHideFlags: 1
@@ -255,8 +255,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1739554224260160}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 10, y: 10, z: 10}
+  m_LocalPosition: {x: -2.1, y: 26, z: 0}
+  m_LocalScale: {x: 13.454321, y: 13.454325, z: 13.454325}
   m_Children:
   - {fileID: 4834491094946988}
   m_Father: {fileID: 0}
@@ -576,7 +576,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1739554224260160}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1.1824902, y: 1.315326, z: 1}
@@ -623,8 +623,8 @@ MonoBehaviour:
   m_MovePoint:
   - {fileID: 0}
   - {fileID: 0}
-  m_MoveSpeed: 0.1
-  isSwitchType: 0
+  m_MoveSpeed: 0.02
+  isSwitchType: 1
   isLoop: 0
 --- !u!114 &114600547445025680
 MonoBehaviour:

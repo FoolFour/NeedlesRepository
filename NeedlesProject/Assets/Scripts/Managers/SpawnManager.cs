@@ -32,14 +32,25 @@ public class SpawnManager : MonoBehaviour
     public void ReSpawn()
     {
         var player = GameManagers.Instance.PlayerManager.GetPlayer();
-        Camera.main.GetComponent<GameCamera.Camera>().CameraReset(new Vector3(GetCurrentSpawnPoint().x,
+        player.GetComponent<Player>().ExplosionEffect();
+        player.GetComponent<Player>().SwitchColliderandRender(false);
+
+        StartCoroutine(DelayMethod(1.0f, () =>
+         {
+             Camera.main.GetComponent<GameCamera.Camera>().CameraReset(new Vector3(GetCurrentSpawnPoint().x,
                                                             GetCurrentSpawnPoint().y,
                                                             Camera.main.transform.position.z));
-        player.gameObject.GetComponent<Player>().Dead();
-        player.gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
-        player.gameObject.transform.position = GetCurrentSpawnPoint();
+             player.gameObject.transform.position = GetCurrentSpawnPoint();
+             GameObjectAllInit();
 
-        GameObjectAllInit();
+             StartCoroutine(DelayMethod(0.8f, () =>
+             {
+                 player.GetComponent<Player>().SwitchColliderandRender(true);
+                 player.gameObject.GetComponent<Player>().Dead();
+                 player.gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
+
+             }));
+         }));
 
     }
     /// <summary>
@@ -47,12 +58,17 @@ public class SpawnManager : MonoBehaviour
     /// </summary>
     void GameObjectAllInit()
     {
-#warning クソ遅いらしいので注意
         var components = GameObject.FindObjectsOfType<Component>();
         foreach (var com in components)
         {
             var respawnobj = com as IRespawnMessage;
             if (respawnobj != null) respawnobj.RespawnInit();
         }
+    }
+
+    private IEnumerator DelayMethod(float waitTime, System.Action action)
+    {
+        yield return new WaitForSeconds(waitTime);
+        action();
     }
 }
