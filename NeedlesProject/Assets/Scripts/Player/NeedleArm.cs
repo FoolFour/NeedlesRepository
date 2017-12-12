@@ -149,7 +149,7 @@ public class NeedleArm : MonoBehaviour
                 ishit = true;
                 m_PrevDefeated = defeated;
 
-                m_Hitinfo.collider.GetComponent<BlockBase>().StickHit(gameObject,m_CurrentHitObject);
+                m_Hitinfo.collider.GetComponent<BlockBase>().StickHit(gameObject,m_CurrentHitObject,m_Hitinfo);
                 return;
             }
 

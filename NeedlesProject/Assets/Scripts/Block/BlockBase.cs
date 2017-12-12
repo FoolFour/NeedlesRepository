@@ -19,7 +19,7 @@ public class BlockBase : MonoBehaviour {
     /// 刺さった時の判定
     /// </summary>
     /// <param name="arm">どちらかの腕</param>
-    public virtual void StickHit(GameObject arm, GameObject stickpoint)
+    public virtual void StickHit(GameObject arm, GameObject stickpoint, RaycastHit hitdata)
     {
 
     }

@@ -1280,8 +1280,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mStanTime: 3
   mMaxSpeed: 100
-  isAnimation: 1
   m_deadParticle: {fileID: 1378515106008354, guid: 69c608a7fb994cf4d8932d2af9fbe14a,
+    type: 2}
+  m_DamageParticle: {fileID: 1918487201912718, guid: 2b2049f564415174085f14fd4cc700de,
     type: 2}
 --- !u!114 &114083698492018486
 MonoBehaviour:
@@ -1300,6 +1301,8 @@ MonoBehaviour:
   m_HitObjectPrefab: {fileID: 1786725584866122, guid: 37855bfe3ead9e843b22557a0f214ef5,
     type: 2}
   m_SparkEffectPrefab: {fileID: 1827699034552276, guid: 71a8ed2ab10c98c419832652fd4cf5c1,
+    type: 2}
+  m_SmokeEffectPrefab: {fileID: 1836567734511422, guid: 9db73152cdfd40645bbadcfd8db8bb46,
     type: 2}
   m_BreakTime: 3
   m_ArmMaxLength: 5
@@ -1395,6 +1398,8 @@ MonoBehaviour:
   m_HitObjectPrefab: {fileID: 1786725584866122, guid: 37855bfe3ead9e843b22557a0f214ef5,
     type: 2}
   m_SparkEffectPrefab: {fileID: 1827699034552276, guid: 71a8ed2ab10c98c419832652fd4cf5c1,
+    type: 2}
+  m_SmokeEffectPrefab: {fileID: 1836567734511422, guid: 9db73152cdfd40645bbadcfd8db8bb46,
     type: 2}
   m_BreakTime: 3
   m_ArmMaxLength: 5

@@ -22,12 +22,17 @@ public class Player : MonoBehaviour {
     [SerializeField, Tooltip("プレイヤーが志望した時のパーティクル")]
     public GameObject m_deadParticle;
     private GameObject m_currentDeadEffect;
+    [SerializeField, Tooltip("プレイヤーがダメージ時のパーティクル")]
+    public GameObject m_DamageParticle;
+
+    private bool isPrveGround = false;
 
     // Use this for initialization
     void Start()
     {
         mData = GetComponent<PlayerData>();
         m_currentDeadEffect = (GameObject)Instantiate(m_deadParticle, transform.position, Quaternion.identity);
+        isPrveGround = IsGround();
     }
 
     void Update()
@@ -36,6 +41,11 @@ public class Player : MonoBehaviour {
         {
             mStanTimer += Time.deltaTime;
         }
+        if(isPrveGround != IsGround())
+        {
+
+        }
+        isPrveGround = IsGround();
     }
 
     // Update is called once per frame
@@ -83,7 +93,8 @@ public class Player : MonoBehaviour {
     /// <param name="velocity"></param>
     public void StanMode(Vector3 velocity)
     {
-        Debug.Log("Stan");
+        var temp = (GameObject)Instantiate(m_DamageParticle, transform.position, Quaternion.identity);
+        Destroy(temp, 2.0f);
         mStan = true;
         mData.mrb.velocity = Vector3.zero;
         mData.mrb.AddForce(velocity, ForceMode.VelocityChange);
