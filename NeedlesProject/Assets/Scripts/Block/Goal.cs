@@ -22,6 +22,7 @@ public class Goal : BlockBase
         stickpoint.transform.position = transform.position + new Vector3(0, -0.5f, 0);
         player.Goal();
         sceneChanger.SceneChange("Result", LoadSceneMode.Additive);
+        GetComponent<BoxCollider>().isTrigger = true;
     }
 
     public override void StickExit()
