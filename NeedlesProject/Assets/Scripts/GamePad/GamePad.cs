@@ -24,6 +24,9 @@ public static class GamePad
     private static string cancel      = "Cancel";
     public  static string Cancel       { get { return cancel;       } }
 
+    private static string pause       = "Pause";
+    public  static string Pause        { get { return pause;        } }
+
     private static bool   isDirectMode;
     public  static bool   IsDirectMode { get { return isDirectMode; } }
 
@@ -34,7 +37,6 @@ public static class GamePad
     const string HORIZONTAL   = "Horizontal";
     const string X_VERTICAL   = "x" + VERTICAL;
     const string X_HORIZONTAL = "x" + HORIZONTAL; 
-
 
     // ダイレクトモードで設定
     public static void SetDirectMode()
