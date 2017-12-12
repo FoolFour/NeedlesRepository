@@ -18,15 +18,14 @@ public class GameStateManager : MonoBehaviour {
     {
         m_gameState = GameState.Ready;
 	}
-	
-	// Update is called once per frame
-	void Update ()
-    {
 
-	}
+    public GameState GetCurrentGameState()
+    {
+        return m_gameState;
+    }
 
     public void StateChange(GameState state)
     {
-
+        m_gameState = state;
     }
 }

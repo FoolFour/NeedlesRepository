@@ -14,7 +14,8 @@ public class GameMenuManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        if(Input.GetButtonDown(GamePad.Pause))
+        if (!IsGamePlay()) return;
+        if (Input.GetButtonDown(GamePad.Pause))
         {
             if (isPause)
             {
@@ -27,5 +28,10 @@ public class GameMenuManager : MonoBehaviour {
                 Pauser.Pause();
             }
         }
+    }
+
+    bool IsGamePlay()
+    {
+        return GameManagers.Instance.GameStateManager.GetCurrentGameState() == GameState.Play;
     }
 }

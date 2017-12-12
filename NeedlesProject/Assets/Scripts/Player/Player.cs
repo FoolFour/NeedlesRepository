@@ -17,8 +17,6 @@ public class Player : MonoBehaviour {
     private bool mWait = false;
 
     int mIgnorelayer = 1 << 9; //ブロックのみ当たる
-
-    public bool isAnimation = true;
     private bool isDead = false;
 
     [SerializeField, Tooltip("プレイヤーが志望した時のパーティクル")]
@@ -44,7 +42,7 @@ public class Player : MonoBehaviour {
     void FixedUpdate()
     {
         mData.mrb.isKinematic = isDead;
-        if (isAnimation) return;
+        if (GameManagers.Instance.GameStateManager.GetCurrentGameState() != GameState.Play) return;
 
         if (mStan)
         {

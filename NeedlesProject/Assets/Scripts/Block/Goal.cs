@@ -23,6 +23,7 @@ public class Goal : BlockBase
         player.Goal();
         sceneChanger.SceneChange("Result", LoadSceneMode.Additive);
         GetComponent<BoxCollider>().isTrigger = true;
+        GameManagers.Instance.GameStateManager.StateChange(GameState.End);
     }
 
     public override void StickExit()

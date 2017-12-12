@@ -16,13 +16,17 @@ namespace GameCamera
         public Vector2 maxPositionLimit;
         [SerializeField, TooltipAttribute("正の数字をいれてください")]
         public float zPosition = 20;
+        [SerializeField, TooltipAttribute("DeadLineをカメラからどれくらい↓にするか（正の数）")]
+        public float DeadLinePositionY = 15;
+
         Vector3 camerapos;
 
         // Use this for initialization
         void Start()
         {
             camerapos = Vector3.zero;
-            Instantiate(DeadlinePrefab, transform);
+            var temp = (GameObject)Instantiate(DeadlinePrefab, transform);
+            temp.transform.localPosition = new Vector3(0, -DeadLinePositionY, 0);
         }
 
         // Update is called once per frame

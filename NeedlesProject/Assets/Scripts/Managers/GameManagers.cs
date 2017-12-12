@@ -22,6 +22,7 @@ public class GameManagers : MonoBehaviour
     public SpawnManager SpawnManager;
     public PlayerManager PlayerManager;
     public StageManager StageManager;
+    public GameStateManager GameStateManager;
 
     /// <summary>
     /// コンポーネントが増えたら追加する必要がある
@@ -31,5 +32,6 @@ public class GameManagers : MonoBehaviour
         SpawnManager = GetComponent<SpawnManager>();
         PlayerManager = GetComponent<PlayerManager>();
         StageManager = GetComponent<StageManager>();
+        GameStateManager = GetComponent<GameStateManager>();
     }
 }
