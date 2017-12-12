@@ -83,6 +83,11 @@ public class GameTimer : Pauser
         pauseTime = 0.0f;
     }
 
+    protected override void Start()
+    {
+        AddTargets();
+    }
+
     private void Update()
     {
         gameTime  += Time.deltaTime;

@@ -34,7 +34,7 @@ public class Pauser : MonoBehaviour
             SceneManager.sceneLoaded += OnSceneLoaded;
         }
         // ポーズ対象に追加する
-        targets.Add(this);
+        AddTargets();
         if(reverse)
         {
             DisableComponents();
@@ -43,7 +43,7 @@ public class Pauser : MonoBehaviour
 
     private static void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if(mode != LoadSceneMode.Additive)
+        if(mode == LoadSceneMode.Single)
         {
             targets.Clear();
         }
@@ -53,6 +53,16 @@ public class Pauser : MonoBehaviour
     protected virtual void OnDestory()
     {
         // ポーズ対象から除外する
+        RemoveTargets();
+    }
+
+    protected void AddTargets()
+    {
+        targets.Add(this);
+    }
+
+    protected void RemoveTargets()
+    {
         targets.Remove(this);
     }
 
