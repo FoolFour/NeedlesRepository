@@ -2,35 +2,50 @@
 using System.Collections;
 using System.Collections.Generic;
 using System;
+using UnityEngine.SceneManagement;
 
 public class Pauser : MonoBehaviour
 {
     [SerializeField]
     bool reverse = false;
 
-    static List<Pauser> targets = new List<Pauser>();   // ポーズ対象のスクリプト
+    static bool         onEventAdded = false;
+    static List<Pauser> targets      = new List<Pauser>();   // ポーズ対象のスクリプト
 
     // ポーズ対象のコンポーネント
-    Behaviour[] pauseBehavs = null;
+    Behaviour[] pauseBehavs        = null;
 
     ParticleSystem[] pauseParticle = null;
 
-    Rigidbody[] rgBodies = null;
-    Vector3[] rgBodyVels = null;
-    Vector3[] rgBodyAVels = null;
+    Rigidbody[]   rgBodies         = null;
+    Vector3[]     rgBodyVels       = null;
+    Vector3[]     rgBodyAVels      = null;
 
-    Rigidbody2D[] rg2dBodies = null;
-    Vector2[] rg2dBodyVels = null;
-    float[] rg2dBodyAVels = null;
+    Rigidbody2D[] rg2dBodies       = null;
+    Vector2[]     rg2dBodyVels     = null;
+    float[]       rg2dBodyAVels    = null;
 
     // 初期化
     protected virtual void Start()
     {
+        if(onEventAdded == false)
+        {
+            onEventAdded = true;
+            SceneManager.sceneLoaded += OnSceneLoaded;
+        }
         // ポーズ対象に追加する
         targets.Add(this);
         if(reverse)
         {
             DisableComponents();
+        }
+    }
+
+    private static void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if(mode != LoadSceneMode.Additive)
+        {
+            targets.Clear();
         }
     }
 
