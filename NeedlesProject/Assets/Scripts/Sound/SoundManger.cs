@@ -26,5 +26,9 @@ public class SoundManger : MonoBehaviour
         Sound.LoadSe("MenuOpen",      "MenuOpen");
         Sound.LoadSe("StageSelect",   "StageSelect");
         Sound.LoadSe("TitleDecision", "TitleDecision");
+
+        Sound.LoadSe("Stan", "Stan");
+        Sound.LoadSe("CheckPoint", "CheckPoint");
+        Sound.LoadSe("Landing", "Landing");
     }
 }

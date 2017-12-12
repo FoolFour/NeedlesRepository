@@ -43,7 +43,7 @@ public class Player : MonoBehaviour {
         }
         if(isPrveGround != IsGround())
         {
-
+            if(isPrveGround == false) Sound.PlaySe("Landing");
         }
         isPrveGround = IsGround();
     }
@@ -93,6 +93,7 @@ public class Player : MonoBehaviour {
     /// <param name="velocity"></param>
     public void StanMode(Vector3 velocity)
     {
+        Sound.PlaySe("Stan");
         var temp = (GameObject)Instantiate(m_DamageParticle, transform.position, Quaternion.identity);
         Destroy(temp, 2.0f);
         mStan = true;

@@ -18,6 +18,7 @@ public class SpwnPoint : MonoBehaviour
     {
         if (other.tag.Contains("Player"))
         {
+            Sound.PlaySe("CheckPoint");
             m_animator[0].SetTrigger("Trigger");
             m_animator[1].SetTrigger("Trigger");
             m_Spawn.CurrentSpawnChange(transform.position);
