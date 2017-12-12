@@ -42,6 +42,7 @@ public class StageSceneInfo : MonoBehaviour
         public float  time;
     }
     
+    [SerializeField]
     public List<Stage> worldList;
 
     public int selectWorld;
@@ -127,17 +128,26 @@ public class StageSceneInfo : MonoBehaviour
                 info.time = time;
 
                 //クリアしているかどうかの情報
-                string tmp;
-                tmp = PlayerPrefs.GetString(PrefsDataName.StageClearFrag(stageName));
-                info.stageClearFlag    = bool.Parse(tmp);
-
-                tmp = PlayerPrefs.GetString(PrefsDataName.Border1ClearFrag(stageName));
-                info.border1ClearFlag = bool.Parse(tmp);
-
-                tmp = PlayerPrefs.GetString(PrefsDataName.Border2ClearFrag(stageName));
-                info.border2ClearFlag = bool.Parse(tmp);
+                info.  stageClearFlag = GetClearFlag(PrefsDataName.  StageClearFrag(stageName));
+                info.border1ClearFlag = GetClearFlag(PrefsDataName.Border1ClearFrag(stageName));
+                info.border2ClearFlag = GetClearFlag(PrefsDataName.Border2ClearFrag(stageName));
             }
         }
+    }
+
+    private bool GetClearFlag(string prefsData)
+    {
+        string tmp = PlayerPrefs.GetString(prefsData);
+
+        bool result;
+        if(bool.TryParse(tmp, out result))
+        {
+            return result;
+        }
+
+        //初期値を入れる
+        PlayerPrefs.SetString(prefsData, bool.FalseString);
+        return false;
     }
 
     private void InitTime()
@@ -163,7 +173,7 @@ public class StageSceneInfo : MonoBehaviour
                 PlayerPrefs.SetFloat(PrefsDataName.StageTime(stageName), time);
 
                 info.stageClearFlag = false;
-                PlayerPrefs.SetString(PrefsDataName.StageClearFrag(stageName),    bool.FalseString);
+                PlayerPrefs.SetString(PrefsDataName.StageClearFrag(stageName),   bool.FalseString);
 
                 info.border1ClearFlag = false;
                 PlayerPrefs.SetString(PrefsDataName.Border1ClearFrag(stageName), bool.FalseString);
@@ -173,6 +183,8 @@ public class StageSceneInfo : MonoBehaviour
             }
         }
         PlayerPrefs.SetString(PrefsDataName.isInit, "true");
+
+        PlayerPrefs.Save();
     }
 
     [ContextMenu("Initialize data")]

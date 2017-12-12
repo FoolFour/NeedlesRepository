@@ -69,12 +69,14 @@ public class StageSceneInfoCustom : Editor
         //ステージの詳細
         var stageInfo = info.worldList[selectWorld][selectStage];
 
-        
+        serializedObject.Update();
 
         stageInfo.stageName = EditorGUILayout.TextField ("ステージ名",       stageInfo.stageName);
         stageInfo.sceneName =                 SceneField("ステージのシーン",  stageInfo.sceneName);
         stageInfo.border1   = EditorGUILayout.FloatField("目標タイム その１", stageInfo.border1  );
         stageInfo.border2   = EditorGUILayout.FloatField("目標タイム その２", stageInfo.border2  );
+        
+        serializedObject.ApplyModifiedProperties();
     }
 
     public string SceneField(string text, string sceneName)

@@ -40,7 +40,12 @@ public class GoalSpawner : MonoBehaviour
 
     private void Awake()
     {
-        
+        if(sceneChanger == null)
+        {
+            sceneChanger = GameObject.Find("GameManager").GetComponent<SceneChangeTimer>();
+
+            //ここでインスペクターの値を動的に変えたい
+        }
     }
 
     private IEnumerator Start()

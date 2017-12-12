@@ -751,6 +751,11 @@ Prefab:
       propertyPath: m_Color.b
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114652871660829920, guid: 277d1e46a0d929440b1f7730a24bd606,
+        type: 2}
+      propertyPath: isFadeStart
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 277d1e46a0d929440b1f7730a24bd606, type: 2}
   m_IsPrefabParent: 0
@@ -1193,6 +1198,53 @@ Transform:
   m_Father: {fileID: 135003690}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &918506382
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4528662881789108, guid: 36dae7e697a89764aaa69a6ce0ffcdc6, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 16.74234
+      objectReference: {fileID: 0}
+    - target: {fileID: 4528662881789108, guid: 36dae7e697a89764aaa69a6ce0ffcdc6, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 9.4559
+      objectReference: {fileID: 0}
+    - target: {fileID: 4528662881789108, guid: 36dae7e697a89764aaa69a6ce0ffcdc6, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 1.4865532
+      objectReference: {fileID: 0}
+    - target: {fileID: 4528662881789108, guid: 36dae7e697a89764aaa69a6ce0ffcdc6, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4528662881789108, guid: 36dae7e697a89764aaa69a6ce0ffcdc6, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4528662881789108, guid: 36dae7e697a89764aaa69a6ce0ffcdc6, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4528662881789108, guid: 36dae7e697a89764aaa69a6ce0ffcdc6, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4528662881789108, guid: 36dae7e697a89764aaa69a6ce0ffcdc6, type: 2}
+      propertyPath: m_RootOrder
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 114676030137403656, guid: 36dae7e697a89764aaa69a6ce0ffcdc6,
+        type: 2}
+      propertyPath: m_bgmKey
+      value: StageSelect
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 36dae7e697a89764aaa69a6ce0ffcdc6, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &952314479 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1447629354036276, guid: 7f4e29f9be7d12d469261e0fe261b3eb,
@@ -2318,25 +2370,25 @@ MonoBehaviour:
       border2: 120
       border2ClearFlag: 0
       time: 0
-    - stageName: stage1
+    - stageName: "\u767B\u308C\u767B\u308C"
       stageClearFlag: 0
-      sceneName: Assets/Scenes/IdeaStage/alphaStage.unity
+      sceneName: Assets/Scenes/Blueman Stage/stage02 climb_climb.unity
       border1: 0
       border1ClearFlag: 0
       border2: 0
       border2ClearFlag: 0
       time: 0
-    - stageName: stage2
+    - stageName: "\u30A2\u30F3\u30C0\u30FC\u30B5\u30A4\u30C9"
       stageClearFlag: 0
-      sceneName: 
+      sceneName: Assets/Scenes/Blueman Stage/stage03 underSide.unity
       border1: 0
       border1ClearFlag: 0
       border2: 0
       border2ClearFlag: 0
       time: 0
-    - stageName: "\u30E2\u30EA\u30EA\u30F3 - \u30B9\u30C6\u30FC\u30B8\uFF13"
+    - stageName: "\u6D41\u308C"
       stageClearFlag: 0
-      sceneName: 1World3Stage
+      sceneName: Assets/Scenes/Blueman Stage/stage04 flash.unity
       border1: 0
       border1ClearFlag: 0
       border2: 0

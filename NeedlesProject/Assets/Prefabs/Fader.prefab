@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 222918467410585822}
   - component: {fileID: 114452878389491120}
   - component: {fileID: 114652871660829920}
-  m_Layer: 5
+  m_Layer: 12
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   - component: {fileID: 223790434287394648}
   - component: {fileID: 114083366283372450}
   - component: {fileID: 114883849649978258}
-  m_Layer: 5
+  m_Layer: 12
   m_Name: Fader
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -56,7 +56,7 @@ GameObject:
   m_Component:
   - component: {fileID: 224019891498451304}
   - component: {fileID: 222807969606223624}
-  m_Layer: 5
+  m_Layer: 12
   m_Name: Frame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -122,8 +122,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9aa6684ac5bbab143b7f09f5eb0efe63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isFadeStart: 0
-  fadeSpeed: 1
+  isFadeStart: 1
+  fadeSpeed: 0.5
 --- !u!114 &114883849649978258
 MonoBehaviour:
   m_ObjectHideFlags: 1

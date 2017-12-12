@@ -29,6 +29,7 @@ public class PushButtonToScenechange : MonoBehaviour
         {
             Destroy(eraseObj);
             sceneChanger.SceneChange(sceneName, mode);
+            Sound.PlaySe("TitleDecision");
         }
     }
 }
