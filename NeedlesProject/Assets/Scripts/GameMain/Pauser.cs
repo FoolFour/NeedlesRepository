@@ -24,7 +24,7 @@ public class Pauser : MonoBehaviour
     float[] rg2dBodyAVels = null;
 
     // 初期化
-    void Start()
+    protected virtual void Start()
     {
         // ポーズ対象に追加する
         targets.Add(this);
@@ -35,14 +35,14 @@ public class Pauser : MonoBehaviour
     }
 
     // 破棄されるとき
-    void OnDestory()
+    protected virtual void OnDestory()
     {
         // ポーズ対象から除外する
         targets.Remove(this);
     }
 
     // ポーズされたとき
-    void OnPause()
+    protected virtual void OnPause()
     {
         if(reverse)
         {
@@ -53,7 +53,7 @@ public class Pauser : MonoBehaviour
     }
 
     // ポーズ解除されたとき
-    void OnResume()
+    protected virtual void OnResume()
     {
         if(reverse)
         {

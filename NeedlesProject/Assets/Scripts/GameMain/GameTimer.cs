@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.Events;
 
-public class GameTimer : MonoBehaviour
+public class GameTimer : Pauser
 {
     ///////////////////
     // 変数(private) /
@@ -47,7 +47,7 @@ public class GameTimer : MonoBehaviour
     }
 
     //////////////////
-    // 関数(public) /
+    // 関数(public)　/
     ////////////////
 
     public IEnumerator SetAlarm(float currentTime, UnityAction action)
@@ -59,8 +59,22 @@ public class GameTimer : MonoBehaviour
         action();
     }
 
+    /////////////////////
+    // 関数(protected)　/
     ///////////////////
-    // 関数(private) /
+
+    protected override void OnPause()
+    {
+        isPause = true;
+    }
+
+    protected override void OnResume()
+    {
+        isPause = false;
+    }
+
+    ///////////////////
+    // 関数(private)　/
     /////////////////
 
     private void Awake()
