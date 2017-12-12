@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4804141333561076}
   - component: {fileID: 54451304629515252}
   - component: {fileID: 114979550242468862}
+  - component: {fileID: 114266779700076412}
   m_Layer: 8
   m_Name: StickPoint
   m_TagString: Untagged
@@ -56,6 +57,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 62
   m_CollisionDetection: 2
+--- !u!114 &114266779700076412
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1786725584866122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c9b47439ab81b044aea7b883ddd0b5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  reverse: 0
 --- !u!114 &114979550242468862
 MonoBehaviour:
   m_ObjectHideFlags: 1

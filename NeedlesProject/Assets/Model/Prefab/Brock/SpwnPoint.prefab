@@ -402,6 +402,7 @@ GameObject:
   - component: {fileID: 4041650526599586}
   - component: {fileID: 65825188219538060}
   - component: {fileID: 114394252646158018}
+  - component: {fileID: 114136073819465350}
   m_Layer: 0
   m_Name: SpwnPoint
   m_TagString: Untagged
@@ -433,7 +434,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1943527730893444}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 13.64, y: 3.63, z: 0.19}
+  m_LocalPosition: {x: 19, y: 32, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4574221330776778}
@@ -1691,6 +1692,18 @@ TextMesh:
   m_Color:
     serializedVersion: 2
     rgba: 4278190080
+--- !u!114 &114136073819465350
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1943527730893444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c9b47439ab81b044aea7b883ddd0b5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  reverse: 0
 --- !u!114 &114394252646158018
 MonoBehaviour:
   m_ObjectHideFlags: 1

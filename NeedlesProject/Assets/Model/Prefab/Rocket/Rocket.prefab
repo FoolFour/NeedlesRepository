@@ -53,6 +53,7 @@ GameObject:
   - component: {fileID: 4850335276447158}
   - component: {fileID: 65739245642762766}
   - component: {fileID: 114111711540092428}
+  - component: {fileID: 114982535916563284}
   m_Layer: 9
   m_Name: Rocket
   m_TagString: Finish
@@ -296,6 +297,18 @@ MonoBehaviour:
   isHitBlock: 1
   sceneChanger: {fileID: 0}
   player: {fileID: 0}
+--- !u!114 &114982535916563284
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1185097171814616}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c9b47439ab81b044aea7b883ddd0b5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  reverse: 0
 --- !u!198 &198290766174080500
 ParticleSystem:
   m_ObjectHideFlags: 1

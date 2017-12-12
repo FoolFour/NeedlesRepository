@@ -151,6 +151,7 @@ GameObject:
   - component: {fileID: 114131191507356646}
   - component: {fileID: 114214249796281108}
   - component: {fileID: 114971514189045920}
+  - component: {fileID: 114584286225002430}
   m_Layer: 0
   m_Name: BigFloatEnemy
   m_TagString: Untagged
@@ -623,9 +624,21 @@ MonoBehaviour:
   m_MovePoint:
   - {fileID: 0}
   - {fileID: 0}
-  m_MoveSpeed: 0.02
+  m_MoveSpeed: 0.01
   isSwitchType: 1
   isLoop: 0
+--- !u!114 &114584286225002430
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1739554224260160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c9b47439ab81b044aea7b883ddd0b5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  reverse: 0
 --- !u!114 &114600547445025680
 MonoBehaviour:
   m_ObjectHideFlags: 1

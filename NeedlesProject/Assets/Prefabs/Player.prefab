@@ -103,6 +103,7 @@ GameObject:
   - component: {fileID: 54352358616705364}
   - component: {fileID: 114752104781262962}
   - component: {fileID: 114542934558613530}
+  - component: {fileID: 114470243431913466}
   m_Layer: 8
   m_Name: ShoulderLeft
   m_TagString: PlayerArm
@@ -121,6 +122,7 @@ GameObject:
   - component: {fileID: 54411648681700530}
   - component: {fileID: 114083698492018486}
   - component: {fileID: 114665201343028870}
+  - component: {fileID: 114496217815549888}
   m_Layer: 8
   m_Name: ShoulderRight
   m_TagString: PlayerArm
@@ -1328,6 +1330,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_stanEffect: {fileID: 1207523675109854, guid: 420062ac7fd40af46b0c56f642d64616,
     type: 2}
+--- !u!114 &114470243431913466
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1265551622803418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c9b47439ab81b044aea7b883ddd0b5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  reverse: 0
+--- !u!114 &114496217815549888
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1322746834274938}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c9b47439ab81b044aea7b883ddd0b5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  reverse: 0
 --- !u!114 &114542934558613530
 MonoBehaviour:
   m_ObjectHideFlags: 1
