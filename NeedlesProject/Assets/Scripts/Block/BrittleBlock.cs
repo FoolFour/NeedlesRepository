@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BrittleBlock : BlockBase,IRespawnMessage
+public class BrittleBlock : BlockBase, IRespawnMessage
 {
     public GameObject m_breakParticlePrefab;
 
@@ -24,5 +24,16 @@ public class BrittleBlock : BlockBase,IRespawnMessage
     public override void StickExit()
     {
         base.StickExit();
+    }
+
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("BigEnemy"))
+        {
+            Sound.PlaySe("BlockBreak");
+            var go = Instantiate(m_breakParticlePrefab, transform.position, Quaternion.identity);
+            Destroy(go, 1f);
+            GetComponent<RemoveComponent>().SwitchActive(false);
+        }
     }
 }

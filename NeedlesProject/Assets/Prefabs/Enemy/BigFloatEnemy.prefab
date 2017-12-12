@@ -152,9 +152,10 @@ GameObject:
   - component: {fileID: 114214249796281108}
   - component: {fileID: 114971514189045920}
   - component: {fileID: 114584286225002430}
+  - component: {fileID: 54659855639611000}
   m_Layer: 0
   m_Name: BigFloatEnemy
-  m_TagString: Untagged
+  m_TagString: BigEnemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -570,6 +571,21 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1250207649152732}
   m_Mesh: {fileID: 4300000, guid: 70db34b2e40cc554f8caf13850104a01, type: 3}
+--- !u!54 &54659855639611000
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1739554224260160}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!65 &65820452891940398
 BoxCollider:
   m_ObjectHideFlags: 1
