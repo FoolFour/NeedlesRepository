@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
 
-public class StartDemoCamera : MonoBehaviour {
+public class StartDemoCamera : MonoBehaviour
+{
 
     [SerializeField, Tooltip("軌道")]
     public Transform[] m_MovePoint;
@@ -23,7 +24,12 @@ public class StartDemoCamera : MonoBehaviour {
 
     private bool CoroutineNow = false;
 
-    void Start ()
+    public void Awake()
+    {
+        if (!isDebug) { GetComponent<GameCamera.Camera>().enabled = false; }
+    }
+
+    void Start()
     {
         if (isDebug)
         {
@@ -35,8 +41,8 @@ public class StartDemoCamera : MonoBehaviour {
         transform.position = m_MovePoint[0].position;
         GetComponent<GameCamera.Camera>().enabled = false;
     }
-	
-	void Update ()
+
+    void Update()
     {
         if (isDebug) return;
         //プレイヤを探す
@@ -82,11 +88,11 @@ public class StartDemoCamera : MonoBehaviour {
 
     IEnumerator DebugMode()
     {
-        while(!Player)
+        while (!Player)
         {
             if (GameManagers.Instance.PlayerManager)
             {
-                if(GameManagers.Instance.PlayerManager.GetPlayer()) Player = GameManagers.Instance.PlayerManager.GetPlayer().transform;
+                if (GameManagers.Instance.PlayerManager.GetPlayer()) Player = GameManagers.Instance.PlayerManager.GetPlayer().transform;
             }
             yield return new WaitForEndOfFrame();
         }
