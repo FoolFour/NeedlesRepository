@@ -46,6 +46,7 @@ public class StageSelect : MonoBehaviour
         {
             //→に入力
             if(selectFlag) { return; }
+            Sound.PlaySe("CursorMove");
             info.SelectStageNext();
             selectFlag = true;
             return;
@@ -55,6 +56,7 @@ public class StageSelect : MonoBehaviour
         {
             //←に入力
             if(selectFlag) { return; }
+            Sound.PlaySe("CursorMove");
             info.SelectStagePrev();
             selectFlag = true;
             return;

@@ -86,6 +86,7 @@ public class WorldSelect : MonoBehaviour
         //ステージの数を越えるか
         if (selectWorldNum >= spline.PathNum-1) { yield break; }
 
+        Sound.PlaySe("");
         float amount = 0;
         while (amount < 1)
         {
