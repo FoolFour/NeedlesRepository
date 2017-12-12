@@ -43,6 +43,7 @@ public class BackGroundScroll : MonoBehaviour {
         {
             var temp = GetComponent<RectTransform>().localPosition;
             temp.x += move * m_xScrollSpeed;
+            temp.y = m_CurrentPosition.y;
             GetComponent<RectTransform>().localPosition = temp;
         }
 
