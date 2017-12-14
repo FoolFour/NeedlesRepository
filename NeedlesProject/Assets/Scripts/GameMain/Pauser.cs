@@ -34,11 +34,11 @@ public class Pauser : MonoBehaviour
     // 初期化
     protected virtual void Start()
     {
+        pause = false;
         if(initialized == false)
         {
             initialized = true;
             SceneManager.sceneLoaded += OnSceneLoaded;
-            pause = false;
         }
         // ポーズ対象に追加する
         AddTargets();
