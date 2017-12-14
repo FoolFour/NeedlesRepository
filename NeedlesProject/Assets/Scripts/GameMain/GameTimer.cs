@@ -85,11 +85,13 @@ public class GameTimer : Pauser
 
     protected override void Start()
     {
+        //これをしないとポーズ機能が使えない
         AddTargets();
     }
 
     private void Update()
     {
+        //ゲームの経過時間とポーズのみの経過時間を記録
         gameTime  += Time.deltaTime;
 
         if (isPause)

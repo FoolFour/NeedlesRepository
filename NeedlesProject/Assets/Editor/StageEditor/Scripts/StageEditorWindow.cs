@@ -9,7 +9,7 @@ namespace StageEditor
     public class StageEditorWindow : EditorWindow
     {
         //////////
-        // 変数 /
+        // 変数　/
         ////////
 
         public  string stageName;
@@ -18,7 +18,7 @@ namespace StageEditor
         public  string SaveDirectory  { get { return saveDirectory;    } }
 
 
-        public Vector2 stageSize = new Vector2(5, 5);
+        public  Vector2   stageSize = new Vector2(5, 5);
 
         private BlockData selectedBlock;
 
@@ -40,6 +40,7 @@ namespace StageEditor
         //ステージの情報を保存するディレクトリ
         private       string stageDirectory;
 
+        //ブロックのデータ
         List<BlockData> blockData = new List<BlockData>();
 
         ///<summary>マップエディタ</summary>
@@ -141,15 +142,6 @@ namespace StageEditor
             DrawPallet();
 
             DrawEditStageButton();
-
-            GUILayout.Space(20);
-
-            GUIStyle style = new GUIStyle();
-            style.richText = true;
-            GUILayout.Label("<size=20><b>ス テ ー ジ エ デ ィ タ Ver0.91</b></size>", style);
-            GUILayout.Label("更新履歴");
-            GUILayout.Label("0.91 - スクロールができるように");
-            GUILayout.Label("0.90 - とりあえず公開");
         }
 
         /// <summary>パラメータの名前部分の描画</summary>
@@ -236,20 +228,7 @@ namespace StageEditor
                     toolState = ToolState.Erase;
                 }
 
-                switch (toolState)
-                {
-                    case ToolState.Moving:
-                        EditorGUILayout.LabelField("描画ツール");
-                        break;
-
-                    case ToolState.Erase:
-                        EditorGUILayout.LabelField("消しゴムツール");
-                        break;
-
-                    default:
-                        Debug.LogError("不正な値");
-                        break;
-                }
+                EditorGUILayout.LabelField(GetStateName());
             }
             EditorGUILayout.EndHorizontal();
         }
@@ -326,6 +305,18 @@ namespace StageEditor
                 }
             }
             EditorGUILayout.EndVertical();
+        }
+
+        private string GetStateName()
+        {
+            switch (toolState)
+            {
+                case ToolState.Moving: return "描画ツール";
+                case ToolState.Erase:  return "消しゴムツール";
+            }
+
+            Debug.LogError("不正な値です");
+            throw null;
         }
 
     #endregion

@@ -71,11 +71,13 @@ public class StageSceneInfoCustom : Editor
 
         serializedObject.Update();
 
+        Undo.RecordObject(info, "Stage change info");
+
         stageInfo.stageName = EditorGUILayout.TextField ("ステージ名",       stageInfo.stageName);
         stageInfo.sceneName =                 SceneField("ステージのシーン",  stageInfo.sceneName);
         stageInfo.border1   = EditorGUILayout.FloatField("目標タイム その１", stageInfo.border1  );
         stageInfo.border2   = EditorGUILayout.FloatField("目標タイム その２", stageInfo.border2  );
-        
+
         serializedObject.ApplyModifiedProperties();
     }
 
