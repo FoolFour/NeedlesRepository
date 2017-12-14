@@ -139,7 +139,15 @@ public class Pauser : MonoBehaviour
         }
 
         // 有効なコンポーネントを取得
-        pauseBehavs = Array.FindAll(GetComponentsInChildren<Behaviour>(), (obj) => { return obj.enabled; });
+        pauseBehavs = Array.FindAll(GetComponentsInChildren<Behaviour>(), (obj) => { return obj; });
+
+        Debug.Log("取得したコンポ―ネント一覧");
+        foreach (var item in pauseBehavs)
+        {
+            Debug.Log(item);
+        }
+        Debug.Log("取得したコンポーネント一覧終了");
+
         foreach (var com in pauseBehavs)
         {
             com.enabled = false;
