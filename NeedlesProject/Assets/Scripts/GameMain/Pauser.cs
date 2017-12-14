@@ -9,7 +9,13 @@ public class Pauser : MonoBehaviour
     [SerializeField]
     bool reverse = false;
 
-    static bool         onEventAdded = false;
+    static bool        pause;
+    public static bool isPause
+    {
+        get { return pause; }
+    }
+
+    static bool         initialized = false;
     static List<Pauser> targets      = new List<Pauser>();   // ポーズ対象のスクリプト
 
     // ポーズ対象のコンポーネント
@@ -28,10 +34,11 @@ public class Pauser : MonoBehaviour
     // 初期化
     protected virtual void Start()
     {
-        if(onEventAdded == false)
+        if(initialized == false)
         {
-            onEventAdded = true;
+            initialized = true;
             SceneManager.sceneLoaded += OnSceneLoaded;
+            pause = false;
         }
         // ポーズ対象に追加する
         AddTargets();
@@ -183,6 +190,7 @@ public class Pauser : MonoBehaviour
     // ポーズ
     public static void Pause()
     {
+        pause = true;
         foreach (var obj in targets)
         {
             obj.OnPause();
@@ -192,6 +200,7 @@ public class Pauser : MonoBehaviour
     // ポーズ解除
     public static void Resume()
     {
+        pause = false;
         foreach (var obj in targets)
         {
             obj.OnResume();
