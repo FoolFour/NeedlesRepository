@@ -21,9 +21,9 @@ namespace Result
         private float        border1;
         private float        border2;
 
-        ////////////////////////
-        // プロパティ(public) /
-        //////////////////////
+        ///////////////////////
+        // プロパティ(public)　/
+        /////////////////////
         public float  clearTime
         {
             get { return timer.gameTimeNoPauseTime; }
@@ -36,7 +36,7 @@ namespace Result
 
         public string stageName
         {
-            get { return stage; }
+            get { return stage;   }
         }
 
         public float  Border1
@@ -102,6 +102,21 @@ namespace Result
             {
                 //最速クリア更新!
                 PlayerPrefs.SetFloat(tmp_prefsName, new_time);
+            }
+
+            //提示された時間内にクリアできているか
+            if(new_time < PlayerPrefs.GetFloat(PrefsDataName.Border1))
+            {
+                string stage_name = PlayerPrefs.GetString(PrefsDataName.StageName);
+                string clear_frag = PrefsDataName.Border1ClearFrag(stage_name);
+                PlayerPrefs.SetString(clear_frag, bool.TrueString);
+            }
+
+            if(new_time < PlayerPrefs.GetFloat(PrefsDataName.Border2))
+            {
+                string stage_name = PlayerPrefs.GetString(PrefsDataName.StageName);
+                string clear_frag = PrefsDataName.Border2ClearFrag(stage_name);
+                PlayerPrefs.SetString(clear_frag, bool.TrueString);
             }
         }
 
