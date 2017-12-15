@@ -9,7 +9,13 @@ public class Pauser : MonoBehaviour
     [SerializeField]
     bool reverse = false;
 
-    static bool         onEventAdded = false;
+    static bool        pause;
+    public static bool isPause
+    {
+        get { return pause; }
+    }
+
+    static bool         initialized = false;
     static List<Pauser> targets      = new List<Pauser>();   // ポーズ対象のスクリプト
 
     // ポーズ対象のコンポーネント
@@ -28,9 +34,10 @@ public class Pauser : MonoBehaviour
     // 初期化
     protected virtual void Start()
     {
-        if(onEventAdded == false)
+        pause = false;
+        if(initialized == false)
         {
-            onEventAdded = true;
+            initialized = true;
             SceneManager.sceneLoaded += OnSceneLoaded;
         }
         // ポーズ対象に追加する
@@ -139,7 +146,15 @@ public class Pauser : MonoBehaviour
         }
 
         // 有効なコンポーネントを取得
-        pauseBehavs = Array.FindAll(GetComponentsInChildren<Behaviour>(), (obj) => { return obj.enabled; });
+        pauseBehavs = Array.FindAll(GetComponentsInChildren<Behaviour>(), (obj) => { return obj; });
+
+        //Debug.Log("取得したコンポ―ネント一覧");
+        //foreach (var item in pauseBehavs)
+        //{
+        //    Debug.Log(item);
+        //}
+        //Debug.Log("取得したコンポーネント一覧終了");
+
         foreach (var com in pauseBehavs)
         {
             com.enabled = false;
@@ -175,6 +190,7 @@ public class Pauser : MonoBehaviour
     // ポーズ
     public static void Pause()
     {
+        pause = true;
         foreach (var obj in targets)
         {
             obj.OnPause();
@@ -184,6 +200,7 @@ public class Pauser : MonoBehaviour
     // ポーズ解除
     public static void Resume()
     {
+        pause = false;
         foreach (var obj in targets)
         {
             obj.OnResume();

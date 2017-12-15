@@ -2,10 +2,13 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class PauseUI : MonoBehaviour
+public class PauseUI : Pauser
 {
     SceneChangeFade  changeFade;
     SceneChangeRetry changeRetry;
+
+    public string pauseSE;
+    public string disableSE;
 
     //////////////////
     // 関数(public)　/
@@ -14,7 +17,7 @@ public class PauseUI : MonoBehaviour
     public void OnClickReturnGameButton()
     {
         //ポーズを解除する処理
-        Pauser.Resume();
+        Resume();
     }
 
     public void OnClickRetryButton()
@@ -39,13 +42,15 @@ public class PauseUI : MonoBehaviour
         changeRetry = FindObjectOfType<SceneChangeRetry>();
     }
 
-    private void Start()
+    protected override void OnPause()
     {
-
+        Sound.PlaySe(pauseSE);
+        base.OnPause();
     }
 
-    private void Update()
+    protected override void OnResume()
     {
-
+        Sound.PlaySe(disableSE);
+        base.OnResume();
     }
 }

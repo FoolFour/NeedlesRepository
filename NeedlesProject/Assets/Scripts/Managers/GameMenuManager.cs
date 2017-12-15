@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class GameMenuManager : MonoBehaviour {
 
-    bool isPause = false;
 
 	// Use this for initialization
 	void Start () {
@@ -17,14 +16,12 @@ public class GameMenuManager : MonoBehaviour {
         if (!IsGamePlay()) return;
         if (Input.GetButtonDown(GamePad.Pause))
         {
-            if (isPause)
+            if (Pauser.isPause)
             {
-                isPause = false;
                 Pauser.Resume();
             }
             else
             {
-                isPause = true;
                 Pauser.Pause();
             }
         }
