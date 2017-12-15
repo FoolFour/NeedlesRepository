@@ -1296,6 +1296,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 11
       objectReference: {fileID: 0}
+    - target: {fileID: 114578837386185600, guid: 121aeb77353d18a4a87aea283e6bf74d,
+        type: 2}
+      propertyPath: gameTimer
+      value: 
+      objectReference: {fileID: 1411564449}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 121aeb77353d18a4a87aea283e6bf74d, type: 2}
   m_IsPrefabParent: 0
@@ -6164,6 +6169,12 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 85557157b896727489f2dc35761c5a08, type: 2}
   m_IsPrefabParent: 0
+--- !u!114 &1411564449 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114502871485774814, guid: e14d28296d8eb7248b3b1195d32c0a87,
+    type: 2}
+  m_PrefabInternal: {fileID: 1593963425}
+  m_Script: {fileID: 11500000, guid: 59ab18dcef6371047a1109a2a1f38a82, type: 3}
 --- !u!1001 &1411845703
 Prefab:
   m_ObjectHideFlags: 0
