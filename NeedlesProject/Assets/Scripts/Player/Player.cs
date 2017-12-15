@@ -43,7 +43,10 @@ public class Player : MonoBehaviour {
         }
         if(isPrveGround != IsGround())
         {
-            if(isPrveGround == false) Sound.PlaySe("Landing");
+            if (isPrveGround == false)
+            {
+                if(GameManagers.Instance.GameStateManager.GetCurrentGameState() == GameState.Play) Sound.PlaySe("Landing");
+            }
         }
         isPrveGround = IsGround();
     }
@@ -69,7 +72,7 @@ public class Player : MonoBehaviour {
             }
             return;
         }
-
+        if (isDead) return; //死亡していたら判定しない
         //左スティック
         float x = Input.GetAxis(GamePad.Horizontal);
         float y = Input.GetAxis(GamePad.Vertical);

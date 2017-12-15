@@ -17,7 +17,7 @@ public class Goal : BlockBase
         player       = FindObjectOfType<Player>();
     }
 
-    public override void StickHit(GameObject arm, GameObject stickpoint,RaycastHit hitdata)
+    public override void StickStay(GameObject arm, GameObject stickpoint)
     {
         stickpoint.transform.position = transform.position + new Vector3(0, -0.5f, 0);
         player.Goal();

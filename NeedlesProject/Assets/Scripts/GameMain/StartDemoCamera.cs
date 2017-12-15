@@ -52,6 +52,15 @@ public class StartDemoCamera : MonoBehaviour
             return;
         }
         if (CoroutineNow) return;
+
+        if (Input.anyKeyDown) //演出スキップ
+        {
+            transform.position = m_MovePoint[m_MovePoint.Length - 1].position;
+            StartCoroutine(CameraPan());
+            CoroutineNow = true;
+            return;
+        }
+
         m_Timer += m_MoveSpeed * Time.deltaTime;
         transform.position = Vector3.Lerp(m_MovePoint[p1].position, m_MovePoint[p2].position, m_Timer);
         if (m_Timer >= 1)
