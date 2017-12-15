@@ -43,7 +43,10 @@ public class Player : MonoBehaviour {
         }
         if(isPrveGround != IsGround())
         {
-            if(isPrveGround == false) Sound.PlaySe("Landing");
+            if (isPrveGround == false)
+            {
+                if(GameManagers.Instance.GameStateManager.GetCurrentGameState() == GameState.Play) Sound.PlaySe("Landing");
+            }
         }
         isPrveGround = IsGround();
     }

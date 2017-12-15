@@ -276,6 +276,7 @@ public class NeedleArm : MonoBehaviour
         m_Arm.localScale = new Vector3(3f, m_ArmCurrentLenght, 1.5f);
         m_Hand.position = transform.position + (m_Arm.up * (m_ArmCurrentLenght));
         m_Hand.up = m_Arm.up;
+        m_SparkEffect.GetComponent<SparkEffect>().ActiveChange(false);
     }
 
     public void Dead()
