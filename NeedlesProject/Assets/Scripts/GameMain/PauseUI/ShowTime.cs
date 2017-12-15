@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
-using System.Collections.Generic;
 
 namespace Pause
 {
@@ -41,6 +40,12 @@ namespace Pause
 
         private void OnEnable()
         {
+            StartCoroutine(ApplyData());
+        }
+
+        private IEnumerator ApplyData()
+        {
+            yield return null;
             text.text = GetData();
         }
 
@@ -58,13 +63,13 @@ namespace Pause
 
         private string GetNowData()
         {
-            float time = data.gameTime;
-            float tmp  = Mathf.Repeat(time, 1.0f); 
+            float time     = data.gameTime;
+            float tmp      = Mathf.Repeat(time, 1.0f); 
 
-            int sec      = Mathf.FloorToInt(time);
-            int milliSec = Mathf.FloorToInt(tmp * 1000);
+            int   sec      = Mathf.FloorToInt(time);
+            int   milliSec = Mathf.FloorToInt(tmp * 1000);
 
-            var timeSpan = new System.TimeSpan(0, 0, 0, sec, milliSec);
+            var   timeSpan = new System.TimeSpan(0, 0, 0, sec, milliSec);
             return new System.DateTime(0).Add(timeSpan).ToString("mm:ss.ff");
         }
 

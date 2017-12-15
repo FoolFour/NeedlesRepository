@@ -6,6 +6,7 @@ public class PrefsDataName
     // ----- ----- ----- -----
     public const string StageName = "StageName";
     public const string Scene     = "Scene";
+    public const string NextSene  = "NextScene";
     public const string Border1   = "Border1";
     public const string Border2   = "Border2";
     public const string Time      = "Time";
