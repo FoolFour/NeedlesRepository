@@ -18,6 +18,7 @@ public class HomingEnemy : MonoBehaviour, IRespawnMessage
     public float m_radius = 5;
     [Tooltip("見失う距離")]
     public float m_lostDistance = 10;
+    public GameObject m_deadEffectPrefab;
 
     public State m_state = State.Search;
     Rigidbody m_rb;
@@ -126,6 +127,8 @@ public class HomingEnemy : MonoBehaviour, IRespawnMessage
             power = power.normalized * 10;
             power.y = 3;
             collision.gameObject.GetComponent<Player>().StanMode(power);
+            var go = (GameObject)Instantiate(m_deadEffectPrefab, transform.position, Quaternion.identity);
+            Destroy(go, 1.0f);
             GetComponent<RemoveComponent>().SwitchActive(false);
             m_state = State.Dead;
         }
@@ -135,6 +138,8 @@ public class HomingEnemy : MonoBehaviour, IRespawnMessage
             power = power.normalized * 10;
             power.y = 3;
             collision.gameObject.GetComponent<NeedleArm>().PlayerStan(power);
+            var go = (GameObject)Instantiate(m_deadEffectPrefab, transform.position, Quaternion.identity);
+            Destroy(go, 1.0f);
             GetComponent<RemoveComponent>().SwitchActive(false);
             m_state = State.Dead;
         }
