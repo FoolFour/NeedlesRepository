@@ -38,7 +38,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1432800344564134}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 10.137538, y: 6.7929883, z: 0}
   m_LocalScale: {x: 5, y: 1, z: 3}
   m_Children: []
   m_Father: {fileID: 0}
@@ -109,7 +109,12 @@ MonoBehaviour:
   m_MovePoint:
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
   m_MoveSpeed: 0.3
+  m_MoveSpeeds: []
+  isSwitchType: 0
+  m_moveMode: 1
+  isLoop: 1
 --- !u!114 &114686918410633728
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -122,3 +127,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isHitBlock: 1
+  m_SmokePrefab: {fileID: 0}

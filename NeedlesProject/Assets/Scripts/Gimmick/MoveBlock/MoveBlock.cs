@@ -14,7 +14,10 @@ public class MoveBlock : MonoBehaviour,IRespawnMessage {
 
     [SerializeField,Tooltip("軌道")]
     public Transform[] m_MovePoint;
+    [SerializeField, Tooltip("基本スピード")]
     public float m_MoveSpeed;
+    [SerializeField, Tooltip("途中でスピードを変える場合入力")]
+    public float[] m_MoveSpeeds;
     [SerializeField, Tooltip("スイッチ使って起動するタイプか？")]
     public bool isSwitchType = false;
     [SerializeField, Tooltip("移動タイプ")]
@@ -24,6 +27,7 @@ public class MoveBlock : MonoBehaviour,IRespawnMessage {
     private float m_Timer = 0.0f;
     private int p1 = 0;
     private int p2 = 1;
+    private int speedIndex = 0;
     private bool isSwitchMode;
 
     // Use this for initialization
@@ -32,6 +36,7 @@ public class MoveBlock : MonoBehaviour,IRespawnMessage {
         Assert.IsFalse(m_MovePoint.Length <= 1, "少な過ぎる!");
         transform.position = m_MovePoint[0].position;
         isSwitchMode = isSwitchType;
+        if (m_MoveSpeeds.Length > 0) m_MoveSpeed = m_MoveSpeeds[speedIndex];
     }
 	
 	// Update is called once per frame
@@ -55,6 +60,11 @@ public class MoveBlock : MonoBehaviour,IRespawnMessage {
             m_Timer = 0;
             p1 = (p1 + 1) % m_MovePoint.Length;
             p2 = (p2 + 1) % m_MovePoint.Length;
+            if (m_MoveSpeeds.Length > 0)
+            {
+                speedIndex = (speedIndex + 1) % m_MoveSpeeds.Length;
+                m_MoveSpeed = m_MoveSpeeds[speedIndex];
+            }
         }
     }
 
@@ -67,6 +77,11 @@ public class MoveBlock : MonoBehaviour,IRespawnMessage {
             if (!isLoop && p2 == m_MovePoint.Length - 1) return;
             transform.position = m_MovePoint[p2].position;
             p2 = (p2 + 1) % m_MovePoint.Length;
+            if (m_MoveSpeeds.Length > 0)
+            {
+                speedIndex = (speedIndex + 1) % m_MoveSpeeds.Length;
+                m_MoveSpeed = m_MoveSpeeds[speedIndex];
+            }
             return;
         }
         transform.position += velocity;
@@ -82,5 +97,8 @@ public class MoveBlock : MonoBehaviour,IRespawnMessage {
         transform.position = m_MovePoint[0].position;
         isSwitchMode = isSwitchType;
         m_Timer = 0;
+        p1 = 0;
+        p2 = 1;
+        if (m_MoveSpeeds.Length > 0) m_MoveSpeed = m_MoveSpeeds[0];
     }
 }
