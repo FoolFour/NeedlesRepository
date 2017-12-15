@@ -21,6 +21,11 @@ namespace Result
         private float        border1;
         private float        border2;
 
+        //時間関連
+        private bool isNewRecord;
+        private bool isBorder1Clear;
+        private bool isBorder2Clear;
+
         ///////////////////////
         // プロパティ(public)　/
         /////////////////////
@@ -47,6 +52,21 @@ namespace Result
         public float  Border2
         {
             get { return border2; }
+        }
+
+        public bool newRecord
+        {
+            get { return isNewRecord; }
+        }
+
+        public bool border1ClearFlag
+        {
+            get { return isBorder1Clear; }
+        }
+
+        public bool border2ClearFlag
+        {
+            get { return isBorder2Clear; }
         }
 
         ///////////////////
@@ -102,6 +122,11 @@ namespace Result
             {
                 //最速クリア更新!
                 PlayerPrefs.SetFloat(tmp_prefsName, new_time);
+                isNewRecord = true;
+            }
+            else
+            {
+                isNewRecord = false;
             }
 
             //提示された時間内にクリアできているか
@@ -110,6 +135,11 @@ namespace Result
                 string stage_name = PlayerPrefs.GetString(PrefsDataName.StageName);
                 string clear_frag = PrefsDataName.Border1ClearFrag(stage_name);
                 PlayerPrefs.SetString(clear_frag, bool.TrueString);
+                isBorder1Clear = true;
+            }
+            else
+            {
+                isBorder1Clear = false;
             }
 
             if(new_time < PlayerPrefs.GetFloat(PrefsDataName.Border2))
@@ -117,6 +147,11 @@ namespace Result
                 string stage_name = PlayerPrefs.GetString(PrefsDataName.StageName);
                 string clear_frag = PrefsDataName.Border2ClearFrag(stage_name);
                 PlayerPrefs.SetString(clear_frag, bool.TrueString);
+                isBorder2Clear = true;
+            }
+            else
+            {
+                isBorder2Clear = false;
             }
         }
 
