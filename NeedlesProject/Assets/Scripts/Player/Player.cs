@@ -72,7 +72,7 @@ public class Player : MonoBehaviour {
             }
             return;
         }
-
+        if (isDead) return; //死亡していたら判定しない
         //左スティック
         float x = Input.GetAxis(GamePad.Horizontal);
         float y = Input.GetAxis(GamePad.Vertical);
