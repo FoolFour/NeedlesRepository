@@ -48,6 +48,11 @@ public class HomingEnemy : MonoBehaviour, IRespawnMessage
                 case State.Dead: Dead(); break;
             }
         }
+        else
+        {
+            m_rb.velocity = Vector3.zero;
+            m_rb.angularVelocity = Vector3.zero;
+        }
     }
 
     public void Wait()
