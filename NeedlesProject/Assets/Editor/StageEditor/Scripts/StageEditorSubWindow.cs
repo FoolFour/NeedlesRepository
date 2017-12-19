@@ -441,11 +441,15 @@ namespace StageEditor
             int s_offset_x = Mathf.FloorToInt(scrollOffset.x);
             int s_offset_y = Mathf.FloorToInt(scrollOffset.y);
 
+            Vector2 tempOffset = scrollOffset;
+            tempOffset.x = s_offset_x;
+            tempOffset.y = s_offset_y;
+
             int e_offset_x = Mathf.FloorToInt(editorOffset.x / tileSize);
             int e_offset_y = Mathf.FloorToInt(editorOffset.y / tileSize);
 
             //補正
-            mousePosition = (mousePosition / tileSize) + scrollOffset;
+            mousePosition = (mousePosition / tileSize) + tempOffset;
             int mouse_x = Mathf.FloorToInt(mousePosition.x);
             int mouse_y = Mathf.FloorToInt(mousePosition.y);
 
