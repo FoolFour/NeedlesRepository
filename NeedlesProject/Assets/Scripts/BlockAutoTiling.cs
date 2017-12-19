@@ -24,9 +24,9 @@ public class BlockAutoTiling : MonoBehaviour {
     void Start ()
     {
         renderer = GetComponent<MeshRenderer>();
-        renderer.materials[left].mainTextureScale = new Vector2(transform.localScale.z, transform.localScale.y);
-        renderer.materials[top].mainTextureScale = new Vector2(transform.localScale.x, transform.localScale.z);
-        renderer.materials[front].mainTextureScale = new Vector2(transform.localScale.x, transform.localScale.y);
+        if (left != -1) renderer.materials[left].mainTextureScale = new Vector2(transform.localScale.z, transform.localScale.y);
+        if (top != -1) renderer.materials[top].mainTextureScale = new Vector2(transform.localScale.x, transform.localScale.z);
+        if (front != -1) renderer.materials[front].mainTextureScale = new Vector2(transform.localScale.x, transform.localScale.y);
 
         if (back != -1) renderer.materials[back].mainTextureScale = new Vector2(transform.localScale.z, transform.localScale.y);
         if (bottom != -1) renderer.materials[bottom].mainTextureScale = new Vector2(transform.localScale.x, transform.localScale.z);
