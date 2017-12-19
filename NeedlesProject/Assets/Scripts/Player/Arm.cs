@@ -20,6 +20,7 @@ public class Arm : MonoBehaviour {
     {
         if(Vector3.Distance(m_FirstPosition, transform.localPosition) > m_BreakValue)
         {
+            Debug.Log("腕が外れました");
             m_Arm.PlayerStan(Vector3.zero);
             m_Arm.transform.localPosition = m_FirstPosition;
         }

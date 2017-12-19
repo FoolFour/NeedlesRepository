@@ -13,7 +13,7 @@ public class TransportBlock : BlockBase,IRespawnMessage
     public float m_speed = 0.3f;
 
     float m_timer = 0;
-    public bool isStickHit = false;
+    bool isStickHit = false;
 
     public void RespawnInit()
     {
