@@ -37,13 +37,16 @@ public class HomingEnemy : MonoBehaviour, IRespawnMessage
 
     public void FixedUpdate()
     {
-        switch (m_state)
+        if (GameManagers.Instance.GameStateManager.GetCurrentGameState() != GameState.Play)
         {
-            case State.Wait: Wait(); break;
-            case State.Search: Searching(); break;
-            case State.Homing: Homing(); break;
-            case State.BackHome: BackHome(); break;
-            case State.Dead: Dead(); break;
+            switch (m_state)
+            {
+                case State.Wait: Wait(); break;
+                case State.Search: Searching(); break;
+                case State.Homing: Homing(); break;
+                case State.BackHome: BackHome(); break;
+                case State.Dead: Dead(); break;
+            }
         }
     }
 
