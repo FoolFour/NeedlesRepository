@@ -376,28 +376,23 @@ namespace StageEditor
 
             const int WHEEL_CLICK = 2;
 
-            if (e.type == EventType.MouseDown)
+            if(e.button == WHEEL_CLICK)
             {
-                if(e.button == WHEEL_CLICK)
+                if (e.type == EventType.MouseDown)
                 {
                     prevMousePos = e.mousePosition;
                 }
-            }
 
-            if (e.type == EventType.MouseDrag)
-            {
-                if(e.button == WHEEL_CLICK)
+                if (e.type == EventType.MouseDrag)
                 {
                     Vector2 delta = e.mousePosition - prevMousePos;
                     MoveOffset(-delta / 16.0f);
                     prevMousePos = e.mousePosition;
                 }
             }
-        
-            if (e.type == EventType.MouseDown ||
-                e.type == EventType.MouseDrag)
+            else if (e.type == EventType.MouseDown ||
+                     e.type == EventType.MouseDrag)
             {
-
                 if (parent.State == StageEditorWindow.ToolState.Moving)
                 {
                     PutBlock(e);
@@ -424,60 +419,50 @@ namespace StageEditor
 
         private void PutBlock(Event e)
         {
-            if(e.button == 2) { return; }
+            const int WHEEL_BUTTON = 2;
+            if(e.button == WHEEL_BUTTON) { return; }
 
-            Vector2 mousePos = e.mousePosition;
-
-            if (mousePos.x < editorOffset.x || mousePos.y < editorOffset.y) { return; }
-
-            Vector2 tempOffset = scrollOffset;
-            tempOffset.x = Mathf.Floor(tempOffset.x);
-            tempOffset.y = Mathf.Floor(tempOffset.y);
-
-            mousePos += tempOffset * tileSize;
-
-            //補正
-            mousePos /= (float)tileSize;
-            int x = (int)Mathf.Floor(mousePos.x);
-            int y = (int)Mathf.Floor(mousePos.y);
-
-            if (mapData.SizeX != 0 &&
-                x - (int)editorOffset.x / tileSize - (int)tempOffset.x < mapData.SizeX &&
-                y - (int)editorOffset.y / tileSize - (int)tempOffset.y < mapData.SizeY)
-            {
-                //マップに配置
-                mapData[x - (int)editorOffset.x / tileSize, y - (int)editorOffset.y / tileSize] = parent.SelectedImage;
-                Repaint();
-            }
+            UpdateBlockData(e.mousePosition, parent.SelectedImage);
         }
 
         private void EraseBlock(Event e)
         {
-            if(e.button == 2) { return; }
+            const int WHEEL_BUTTON = 2;
+            if(e.button == WHEEL_BUTTON) { return; }
 
-            Vector2 mousePos = e.mousePosition;
+            UpdateBlockData(e.mousePosition, "");
+        }
 
-            if (mousePos.x < editorOffset.x || mousePos.y < editorOffset.y) { return; }
+        private void UpdateBlockData(Vector2 mousePosition, string blockData)
+        {
+            if (!IsInsideMapArea(mousePosition)) { return; }
+            if (mapData.IsEmpty)                 { return; }
+            
+            int s_offset_x = Mathf.FloorToInt(scrollOffset.x);
+            int s_offset_y = Mathf.FloorToInt(scrollOffset.y);
 
-            Vector2 tempOffset = scrollOffset;
-            tempOffset.x = Mathf.Floor(tempOffset.x);
-            tempOffset.y = Mathf.Floor(tempOffset.y);
-
-            mousePos += tempOffset * tileSize;
+            int e_offset_x = Mathf.FloorToInt(editorOffset.x / tileSize);
+            int e_offset_y = Mathf.FloorToInt(editorOffset.y / tileSize);
 
             //補正
-            mousePos /= (float)tileSize;
-            int x = (int)Mathf.Floor(mousePos.x);
-            int y = (int)Mathf.Floor(mousePos.y);
+            mousePosition = (mousePosition / tileSize) + scrollOffset;
+            int mouse_x = Mathf.FloorToInt(mousePosition.x);
+            int mouse_y = Mathf.FloorToInt(mousePosition.y);
 
-            if (!mapData.IsEmpty &&
-                x - (int)editorOffset.x / tileSize - tempOffset.x < mapData.SizeX &&
-                y - (int)editorOffset.y / tileSize - tempOffset.y < mapData.SizeY)
+            if (mouse_x - (e_offset_x + s_offset_x) < mapData.SizeX &&
+                mouse_y - (e_offset_y + s_offset_y) < mapData.SizeY)
             {
                 //マップから消す
-                mapData[x - (int)editorOffset.x / tileSize, y - (int)editorOffset.y / tileSize] = "";
+                mapData[mouse_x-e_offset_x, mouse_y-e_offset_y] = blockData;
                 Repaint();
             }
+        }
+
+        private bool IsInsideMapArea(Vector2 mousePosition)
+        {
+            if(mousePosition.x < editorOffset.x) { return false; }
+            if(mousePosition.y < editorOffset.y) { return false; }
+            return true;
         }
 
         private void Generate(bool newScene)
