@@ -31,11 +31,6 @@ namespace StageEditor
         //マップデータ
         private MapData mapData = new MapData();
 
-        private Rect    rect = new Rect();
-    
-        //1つ前のマウス位置
-        private Vector2 prevMousePos = new Vector2();
-
         //マウスをクリックした座標
         private Vector2 mouseClickPos = new Vector2();
 
@@ -157,6 +152,8 @@ namespace StageEditor
         {
             scroll_x = (int)GUILayout.HorizontalSlider(scroll_x, 0, parent.stageSize.x);
             scroll_y = (int)GUILayout.  VerticalSlider(scroll_y, 0, parent.stageSize.y);
+
+            Rect rect = new Rect();
 
             for (int x = scroll_x; x < mapData.SizeX; x++)
             {
@@ -473,14 +470,14 @@ namespace StageEditor
             if (mapData.IsEmpty)                 { return; }
 
             //補正
-            int mouse_x = (int)mousePosition.x / TILE_SIZE + scroll_x;
-            int mouse_y = (int)mousePosition.y / TILE_SIZE + scroll_y;
+            int mouse_x = ((int)mousePosition.x - MAP_VIEW_POS_X) / TILE_SIZE + scroll_x;
+            int mouse_y = ((int)mousePosition.y - MAP_VIEW_POS_Y) / TILE_SIZE + scroll_y;
 
-            if (mouse_x - MAP_VIEW_TILE_POS_X < mapData.SizeX &&
-                mouse_y - MAP_VIEW_TILE_POS_Y < mapData.SizeY)
+            if (mouse_x < mapData.SizeX &&
+                mouse_y < mapData.SizeY)
             {
                 //マップから消す
-                mapData[mouse_x-MAP_VIEW_TILE_POS_X, mouse_y-MAP_VIEW_TILE_POS_Y] = blockData;
+                mapData[mouse_x, mouse_y] = blockData;
                 Repaint();
             }
         }
