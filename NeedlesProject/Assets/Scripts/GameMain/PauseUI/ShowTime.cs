@@ -75,16 +75,18 @@ namespace Pause
 
         private string GetBorderTime1()
         {
-            string output = data.borderTime1.ToString();
-            output += "秒以内にゴール";
-            return output;
+            int time = (int)data.borderTime1;
+
+            var timeSpan = new System.TimeSpan(0, 0, time);
+            return new System.DateTime(0).Add(timeSpan).ToString("mm:ss.ff");
         }
 
         private string GetBorderTime2()
         {
-            string output = data.borderTime2.ToString();
-            output += "秒以内にゴール";
-            return output;
+            int time = (int)data.borderTime2;
+
+            var timeSpan = new System.TimeSpan(0, 0, time);
+            return new System.DateTime(0).Add(timeSpan).ToString("mm:ss.ff");
         }
     }
 }
