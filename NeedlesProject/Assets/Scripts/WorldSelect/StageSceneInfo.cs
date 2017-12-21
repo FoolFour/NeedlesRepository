@@ -7,6 +7,7 @@ public class StageSceneInfo : MonoBehaviour
     [System.Serializable]
     public class Stage
     {
+        public string worldName;
         public List<StageInfo> stageList;
 
         public Stage()
@@ -76,21 +77,13 @@ public class StageSceneInfo : MonoBehaviour
     {
         worldList.Clear();
 
-        var tmp_obj = GameObject.Find("WorldObject");
-        if(tmp_obj == null) { return; }
-
-        int childNum = tmp_obj.transform.childCount;
-
-        for(int i_w = 0; i_w < childNum; i_w++)
+        for(int i_w = 0; i_w < 3; i_w++)
         {
-            Transform world = tmp_obj.transform.GetChild(i_w);
-
             worldList.Add(new Stage());
                 
-            for(int j_s = 0; j_s < world.childCount; j_s++)
+            for(int j_s = 0; j_s < 3; j_s++)
             {
-                Transform stage = world.GetChild(j_s);
-                string stageName = stage.name;
+                string stageName = "World " + j_s;
 
                 StageInfo stageInfo = new StageInfo();
                 stageInfo.stageName = stageName;
@@ -191,5 +184,23 @@ public class StageSceneInfo : MonoBehaviour
     private void InitializeData()
     {
         PlayerPrefs.DeleteAll();
+    }
+
+    [ContextMenu("AddFrontList")]
+    private void AddFront()
+    {
+        Stage newStage = new Stage();
+        for(int i = 0; i < 3; i++)
+        {
+            StageInfo info = new StageInfo();
+            info.stageName = "Stage" + (i+1);
+            newStage.Add(info);
+        }
+
+        var tempList = new List<Stage>();
+        tempList.Add(newStage);
+        tempList.AddRange(worldList);
+
+        worldList = new List<Stage>(tempList);
     }
 }

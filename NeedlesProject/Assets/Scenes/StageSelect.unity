@@ -2639,7 +2639,34 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   worldList:
-  - stageList:
+  - worldName: "\u30C1\u30E5\u30FC\u30C8\u30EA\u30A2\u30EB"
+    stageList:
+    - stageName: 0-1
+      stageClearFlag: 0
+      sceneName: 
+      border1: 0
+      border1ClearFlag: 0
+      border2: 0
+      border2ClearFlag: 0
+      time: 0
+    - stageName: 0-2
+      stageClearFlag: 0
+      sceneName: 
+      border1: 0
+      border1ClearFlag: 0
+      border2: 0
+      border2ClearFlag: 0
+      time: 0
+    - stageName: 0-3
+      stageClearFlag: 0
+      sceneName: 
+      border1: 0
+      border1ClearFlag: 0
+      border2: 0
+      border2ClearFlag: 0
+      time: 0
+  - worldName: World1
+    stageList:
     - stageName: 1-1
       stageClearFlag: 0
       sceneName: Assets/Scenes/PlayStage/T1-1.unity
@@ -2696,7 +2723,8 @@ MonoBehaviour:
       border2: 0
       border2ClearFlag: 0
       time: 0
-  - stageList:
+  - worldName: World2
+    stageList:
     - stageName: stage1
       stageClearFlag: 0
       sceneName: 
@@ -2721,7 +2749,8 @@ MonoBehaviour:
       border2: 0
       border2ClearFlag: 0
       time: 0
-  - stageList:
+  - worldName: World3
+    stageList:
     - stageName: stage1
       stageClearFlag: 0
       sceneName: 

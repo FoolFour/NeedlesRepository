@@ -37,7 +37,7 @@ public class StageSceneInfoCustom : Editor
             string[] showText = new string[info.worldList.Count];
             for (int i = 0; i < info.worldList.Count; i++)
             {
-                showText[i] = "World " + (i+1);
+                showText[i] = info.worldList[i].worldName;
             }
 
             selectWorld = GUILayout.SelectionGrid(selectWorld, showText, 1, gridStyle);
