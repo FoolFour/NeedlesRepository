@@ -118,7 +118,12 @@ public class NeedleArm : MonoBehaviour
         {
 
             //ブロックに当たった時
-            m_Hitinfo.collider.GetComponent<BlockBase>().StickEnter(gameObject);
+            BlockBase[] blockbases = m_Hitinfo.collider.GetComponents<BlockBase>();
+            foreach (BlockBase bb in blockbases)
+            {
+                bb.StickEnter(gameObject);
+            }
+
             if(m_Hitinfo.collider.GetComponent<HardBlock>())
             {
                 //火花系の管理はここではないと思うがとりあえず
@@ -148,8 +153,10 @@ public class NeedleArm : MonoBehaviour
 
                 ishit = true;
                 m_PrevDefeated = defeated;
-
-                m_Hitinfo.collider.GetComponent<BlockBase>().StickHit(gameObject,m_CurrentHitObject,m_Hitinfo);
+                foreach (BlockBase bb in blockbases)
+                {
+                    bb.StickHit(gameObject, m_CurrentHitObject, m_Hitinfo);
+                }
                 return;
             }
 
@@ -202,6 +209,7 @@ public class NeedleArm : MonoBehaviour
         //m_ArmCurrentLenght = defeated * m_ArmMaxLength;
         m_ArmCurrentLenght = Mathf.Lerp(m_ArmCurrentLenght, defeated * m_ArmMaxLength, 0.8f);
         var hinge = m_CurrentHitObject.GetComponent<HingeJoint>();
+        BlockBase[] blockbases = m_Hitinfo.collider.GetComponents<BlockBase>();
 
         //傾きの差異を見て針を外す
         if (Mathf.Abs(defeated - m_PrevDefeated) > 0.2f || defeated == 0)
@@ -223,7 +231,11 @@ public class NeedleArm : MonoBehaviour
             ishit = false;
             m_Arm.localRotation = Quaternion.identity;
 
-            m_Hitinfo.collider.GetComponent<BlockBase>().StickExit();
+
+            foreach(BlockBase bb in blockbases)
+            {
+                bb.StickExit();
+            }
             m_Hitinfo = new RaycastHit();
             return;
         }
@@ -257,7 +269,10 @@ public class NeedleArm : MonoBehaviour
         hinge.autoConfigureConnectedAnchor = false;
         hinge.connectedAnchor = Vector3.up * m_ArmCurrentLenght;
 
-        m_Hitinfo.collider.GetComponent<BlockBase>().StickStay(gameObject,m_CurrentHitObject);
+        foreach (BlockBase bb in blockbases)
+        {
+            bb.StickStay(gameObject, m_CurrentHitObject);
+        }
     }
 
     /// <summary>
