@@ -34,19 +34,19 @@ namespace StageInfo
 
         private void Update()
         {
-            const string showText = "秒以内でゴール";
+            int time = 0;
+            
             if(showInfo == ShowBorder.Border1)
             {
-                float tmp = info.GetSelectStageInfo().border1;
-                
-                text.text = tmp + showText;
+                time = (int)info.GetSelectStageInfo().border1;
             }
             else
             {
-                float tmp = info.GetSelectStageInfo().border2;
-
-                text.text = tmp + showText;
+                time = (int)info.GetSelectStageInfo().border2;
             }
+
+            var timeSpan = new System.TimeSpan(0, 0, time);
+            text.text = new System.DateTime(0).Add(timeSpan).ToString("mm:ss.ff");
         }
     }
 }

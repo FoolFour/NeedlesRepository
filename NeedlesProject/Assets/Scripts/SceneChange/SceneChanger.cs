@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
 
-public class SceneChanger : MonoBehaviour
+public abstract class SceneChanger : MonoBehaviour
 {
     /////////////////////////////
     // 変数(NonSerializeField) /
@@ -52,8 +52,5 @@ public class SceneChanger : MonoBehaviour
         SceneManager.LoadScene(sceneName, sceneMode);
     }
 
-    protected virtual IEnumerator SceneChangePerformance()
-    {
-        yield return null;
-    }
+    protected abstract IEnumerator SceneChangePerformance();
 }
