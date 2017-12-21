@@ -39,19 +39,17 @@ public class HomingEnemy : MonoBehaviour, IRespawnMessage
     {
         if (GameManagers.Instance.GameStateManager.GetCurrentGameState() != GameState.Play)
         {
-            switch (m_state)
-            {
-                case State.Wait: Wait(); break;
-                case State.Search: Searching(); break;
-                case State.Homing: Homing(); break;
-                case State.BackHome: BackHome(); break;
-                case State.Dead: Dead(); break;
-            }
-        }
-        else
-        {
             m_rb.velocity = Vector3.zero;
             m_rb.angularVelocity = Vector3.zero;
+            return;
+        }
+        switch (m_state)
+        {
+            case State.Wait: Wait(); break;
+            case State.Search: Searching(); break;
+            case State.Homing: Homing(); break;
+            case State.BackHome: BackHome(); break;
+            case State.Dead: Dead(); break;
         }
     }
 
