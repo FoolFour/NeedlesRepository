@@ -59,6 +59,11 @@ public class StageSceneInfo : MonoBehaviour
         return worldList[selectWorld].Count;
     }
 
+    public string GetSelectWorldName()
+    {
+        return worldList[selectWorld].worldName;
+    }
+
     /// <summary>次のステージを選択状態にする</summary>
     public void SelectStageNext()
     {
