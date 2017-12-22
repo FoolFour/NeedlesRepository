@@ -23,6 +23,7 @@ public class StageDataFileLoader : MonoBehaviour
             LoadFile();
         }
         
+        PlayerPrefs.SetString(PrefsDataName.NextSene, nextStageScene);
     }
 
     private void LoadDefault()
@@ -60,7 +61,5 @@ public class StageDataFileLoader : MonoBehaviour
                 fs.Close();
             }
         }
-        
-        PlayerPrefs.SetString(PrefsDataName.NextSene, nextStageScene);
     }
 }
