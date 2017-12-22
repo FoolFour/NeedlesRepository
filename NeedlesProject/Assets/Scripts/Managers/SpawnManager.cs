@@ -32,6 +32,7 @@ public class SpawnManager : MonoBehaviour
     public void ReSpawn()
     {
         var player = GameManagers.Instance.PlayerManager.GetPlayer();
+        if (!player.GetComponent<Collider>().enabled) return; //プレイヤーが志望してたら無効
         player.GetComponent<Player>().ExplosionEffect();
         player.GetComponent<Player>().SwitchColliderandRender(false);
 

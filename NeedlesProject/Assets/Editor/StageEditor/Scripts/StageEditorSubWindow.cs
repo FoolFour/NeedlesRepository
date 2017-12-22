@@ -25,23 +25,31 @@ namespace StageEditor
         public StageEditorWindow parent;
 
         //ステージエディタのスクロール値
-        private Vector2 scrollOffset = new Vector2();
+        private int scroll_x;
+        private int scroll_y;
 
         //マップデータ
         private MapData mapData = new MapData();
 
-        private Rect    rect = new Rect();
-    
-        private Vector2 editorOffset = new Vector2(32, 128);
+        //マウスをクリックした座標
+        private Vector2 mouseClickPos = new Vector2();
 
-        //1つ前のマウス位置
-        private Vector2 prevMousePos = new Vector2();
+        private int     clickScrollOffset_y;
+        private int     clickScrollOffset_x;
 
         private Diagnostics.Stopwatch stopwatch = new Diagnostics.Stopwatch();
 
         private string fileName;
 
-        private const int tileSize = 32;
+        //定数
+        private const int TILE_SIZE = 32;
+
+        private const int MAP_VIEW_POS_X      =  32;
+        private const int MAP_VIEW_POS_Y      = 128;
+
+        private const int MAP_VIEW_TILE_POS_X = MAP_VIEW_POS_X / TILE_SIZE;
+        private const int MAP_VIEW_TILE_POS_Y = MAP_VIEW_POS_Y / TILE_SIZE;
+
 
         private void OnFocus()
         {
@@ -66,7 +74,7 @@ namespace StageEditor
 
         private void MapFix()
         {
-            mapData.AddRange((int)parent.stageSize.x, (int)parent.stageSize.y);
+            mapData.AddRange(parent.stageSize.x, parent.stageSize.y);
         }
 
         public static StageEditorSubWindow WillAppear(StageEditorWindow p)
@@ -142,20 +150,22 @@ namespace StageEditor
 
         private void DrawMap()
         {
-            scrollOffset.x = GUILayout.HorizontalSlider(scrollOffset.x, 0, parent.stageSize.x);
-            scrollOffset.y = GUILayout.VerticalSlider  (scrollOffset.y, 0, parent.stageSize.y);
+            scroll_x = (int)GUILayout.HorizontalSlider(scroll_x, 0, parent.stageSize.x);
+            scroll_y = (int)GUILayout.  VerticalSlider(scroll_y, 0, parent.stageSize.y);
 
-            for (int x = (int)scrollOffset.x; x < mapData.SizeX; x++)
+            Rect rect = new Rect();
+
+            for (int x = scroll_x; x < mapData.SizeX; x++)
             {
-                for (int y = (int)scrollOffset.y; y < mapData.SizeY; y++)
+                for (int y = scroll_y; y < mapData.SizeY; y++)
                 {
                     if (x >= parent.stageSize.x) { continue; }
                     if (y >= parent.stageSize.y) { continue; }
 
-                    rect.x = (x - (int)scrollOffset.x) * tileSize + editorOffset.x;
-                    rect.y = (y - (int)scrollOffset.y) * tileSize + editorOffset.y;
-                    rect.width  = tileSize;
-                    rect.height = tileSize;
+                    rect.x = (x - scroll_x) * TILE_SIZE + MAP_VIEW_POS_X;
+                    rect.y = (y - scroll_y) * TILE_SIZE + MAP_VIEW_POS_Y;
+                    rect.width  = TILE_SIZE;
+                    rect.height = TILE_SIZE;
 
                     if (!mapData.IsEmptyMass(x, y))
                     {
@@ -171,44 +181,46 @@ namespace StageEditor
             Vector3 p1 = new Vector3();
             Vector3 p2 = new Vector3();
             Handles.color = Color.white;
-            p1.y = editorOffset.y;
-            p2.y = parent.stageSize.y * tileSize + editorOffset.y - (int)scrollOffset.y * tileSize;
-            for (int x = (int)scrollOffset.x + 1; x < parent.stageSize.x; x++)
+            p1.y = MAP_VIEW_POS_Y;
+            p2.y = (parent.stageSize.y - scroll_y) * TILE_SIZE + MAP_VIEW_POS_Y;
+            for (int x = scroll_x + 1; x < parent.stageSize.x; x++)
             {
-                p1.x = x * tileSize + editorOffset.x - (int)scrollOffset.x * tileSize;
-                p2.x = x * tileSize + editorOffset.x - (int)scrollOffset.x * tileSize;
+                p1.x = (x - scroll_x) * TILE_SIZE + MAP_VIEW_POS_X;
+                p2.x = (x - scroll_x) * TILE_SIZE + MAP_VIEW_POS_X;
                 Handles.DrawLine(p1, p2);
             }
 
-            p1.x = editorOffset.x;
-            p2.x = parent.stageSize.x * tileSize + editorOffset.x - (int)scrollOffset.x * tileSize;
-            for (int y = (int)scrollOffset.y + 1; y < parent.stageSize.y; y++)
+            p1.x = MAP_VIEW_POS_X;
+            p2.x = (parent.stageSize.x - scroll_x) * TILE_SIZE + MAP_VIEW_POS_X ;
+            for (int y = scroll_y + 1; y < parent.stageSize.y; y++)
             {
-                p1.y = y * tileSize + editorOffset.y - (int)scrollOffset.y * tileSize;
-                p2.y = y * tileSize + editorOffset.y - (int)scrollOffset.y * tileSize;
+                p1.y = (y - scroll_y) * TILE_SIZE + MAP_VIEW_POS_Y;
+                p2.y = (y - scroll_y) * TILE_SIZE + MAP_VIEW_POS_Y;
                 Handles.DrawLine(p1, p2);
             }
         }
 
         private void DrawFrame()
         {
-            Vector2 tempOffset = scrollOffset;
-            tempOffset.x = Mathf.Floor(tempOffset.x);
-            tempOffset.y = Mathf.Floor(tempOffset.y);
-
             //線を描くのに必要な点の定義
 
-            Vector2 top_right    = parent.stageSize * tileSize - tempOffset * tileSize;
-            top_right.x += tileSize;
-            top_right.y = editorOffset.y;
+            Vector2 top_right = new Vector2
+            {
+                x = (parent.stageSize.x - scroll_x + 1) * TILE_SIZE,
+                y = MAP_VIEW_POS_Y
+            };
 
-            Vector2 bottom_left  = parent.stageSize * tileSize - tempOffset * tileSize;
-            bottom_left.x = editorOffset.x;
-            bottom_left.y += editorOffset.y;
+            Vector2 bottom_left = new Vector2
+            {
+                x = MAP_VIEW_POS_X,
+                y = (parent.stageSize.y - scroll_y) * TILE_SIZE + MAP_VIEW_POS_Y
+            };
 
-            Vector2 bottom_right = parent.stageSize * tileSize - tempOffset * tileSize;
-            bottom_right.x += tileSize;
-            bottom_right.y += editorOffset.y;
+            Vector2 bottom_right = new Vector2
+            {
+                x = top_right  .x,
+                y = bottom_left.y
+            };
 
             //枠を描く(内側から黒・白・黒と描く)
             Handles.color = Color.black;
@@ -297,7 +309,6 @@ namespace StageEditor
         {
             using (var ws = new IO.StreamWriter(path))
             {
-
                 ws.WriteLine(parent.stageName);
                 ws.WriteLine(parent.stageSize.x + "," + parent.stageSize.y + ",");
                 ws.Flush();
@@ -380,14 +391,17 @@ namespace StageEditor
             {
                 if (e.type == EventType.MouseDown)
                 {
-                    prevMousePos = e.mousePosition;
+                    mouseClickPos = e.mousePosition;
+                    clickScrollOffset_x = scroll_x;
+                    clickScrollOffset_y = scroll_y;
                 }
 
                 if (e.type == EventType.MouseDrag)
                 {
-                    Vector2 delta = e.mousePosition - prevMousePos;
-                    MoveOffset(-delta / 16.0f);
-                    prevMousePos = e.mousePosition;
+                    Vector2 delta = e.mousePosition - mouseClickPos;
+                    int x = (int)-delta.x / 16 + clickScrollOffset_x;
+                    int y = (int)-delta.y / 16 + clickScrollOffset_y;
+                    SetOffset(x, y);
                 }
             }
             else if (e.type == EventType.MouseDown ||
@@ -404,16 +418,33 @@ namespace StageEditor
             }
             else if(e.type == EventType.ScrollWheel)
             {
-                MoveOffset(e.delta);
+                //微妙な誤差が入っている可能性があるため
+                int delta_x = 0;
+                if(e.delta.x < -0.01f || 0.01f < e.delta.x)
+                {
+                    delta_x = (int)Mathf.Sign(e.delta.x);
+                }
+
+                int delta_y = 0;
+                if(e.delta.y < -0.01f || 0.01f < e.delta.y)
+                {
+                    delta_y = (int)Mathf.Sign(e.delta.y);
+                }
+                MoveOffset(delta_x, delta_y);
             }
         }
 
-        private void MoveOffset(Vector2 delta)
+        private void MoveOffset(int x, int y)
         {
-            scrollOffset += delta;
+            scroll_x = Mathf.Clamp(scroll_x + x, 0, parent.stageSize.x);
+            scroll_y = Mathf.Clamp(scroll_y + y, 0, parent.stageSize.y);
+            Repaint();
+        }
 
-            scrollOffset.x = Mathf.Clamp(scrollOffset.x, 0.0f, parent.stageSize.x);
-            scrollOffset.y = Mathf.Clamp(scrollOffset.y, 0.0f, parent.stageSize.y);
+        private void SetOffset(int x, int y)
+        {
+            scroll_x = Mathf.Clamp(x, 0, parent.stageSize.x);
+            scroll_y = Mathf.Clamp(y, 0, parent.stageSize.y);
             Repaint();
         }
 
@@ -437,31 +468,24 @@ namespace StageEditor
         {
             if (!IsInsideMapArea(mousePosition)) { return; }
             if (mapData.IsEmpty)                 { return; }
-            
-            int s_offset_x = Mathf.FloorToInt(scrollOffset.x);
-            int s_offset_y = Mathf.FloorToInt(scrollOffset.y);
-
-            int e_offset_x = Mathf.FloorToInt(editorOffset.x / tileSize);
-            int e_offset_y = Mathf.FloorToInt(editorOffset.y / tileSize);
 
             //補正
-            mousePosition = (mousePosition / tileSize) + scrollOffset;
-            int mouse_x = Mathf.FloorToInt(mousePosition.x);
-            int mouse_y = Mathf.FloorToInt(mousePosition.y);
+            int mouse_x = ((int)mousePosition.x - MAP_VIEW_POS_X) / TILE_SIZE + scroll_x;
+            int mouse_y = ((int)mousePosition.y - MAP_VIEW_POS_Y) / TILE_SIZE + scroll_y;
 
-            if (mouse_x - (e_offset_x + s_offset_x) < mapData.SizeX &&
-                mouse_y - (e_offset_y + s_offset_y) < mapData.SizeY)
+            if (mouse_x < mapData.SizeX &&
+                mouse_y < mapData.SizeY)
             {
                 //マップから消す
-                mapData[mouse_x-e_offset_x, mouse_y-e_offset_y] = blockData;
+                mapData[mouse_x, mouse_y] = blockData;
                 Repaint();
             }
         }
 
         private bool IsInsideMapArea(Vector2 mousePosition)
         {
-            if(mousePosition.x < editorOffset.x) { return false; }
-            if(mousePosition.y < editorOffset.y) { return false; }
+            if(mousePosition.x < MAP_VIEW_POS_X) { return false; }
+            if(mousePosition.y < MAP_VIEW_POS_Y) { return false; }
             return true;
         }
 
@@ -471,8 +495,8 @@ namespace StageEditor
 
             Vector3 createPosition = new Vector3();
 
-            float stageSize_x = parent.stageSize.x;
-            float stageSize_y = parent.stageSize.y;
+            int stageSize_x = parent.stageSize.x;
+            int stageSize_y = parent.stageSize.y;
 
             //シーンを作成
             UnityEngine.SceneManagement.Scene saveScene;

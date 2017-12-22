@@ -8,15 +8,19 @@ using UnityEngine.UI;
 public class WorldUI : MonoBehaviour
 {
     [SerializeField]
-    WorldSelect worldSelect;
+    WorldSelect    worldSelect;
 
-    Text        text;
+    [SerializeField]
+    StageSceneInfo stageSceneInfo;
 
-    float       alpha;
+    Text           text;
+
+    float          alpha;
 
     private void Reset()
     {
-        worldSelect = FindObjectOfType<WorldSelect>();
+        worldSelect    = FindObjectOfType<WorldSelect>();
+        stageSceneInfo = FindObjectOfType<StageSceneInfo>();
     }
 
     private void Awake()
@@ -33,7 +37,7 @@ public class WorldUI : MonoBehaviour
         else
         {
             alpha += Time.deltaTime;
-            text.text  = "World " + worldSelect.SelectWorld;
+            text.text = stageSceneInfo.worldList[worldSelect.SelectWorld-1].worldName;
         }
         Color col = text.color;
         col.a = alpha;

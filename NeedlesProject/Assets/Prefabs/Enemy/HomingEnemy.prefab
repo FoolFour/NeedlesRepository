@@ -106,7 +106,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1144059631479786}
   m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 11.709425, y: -7.8972397, z: -0.0625}
+  m_LocalPosition: {x: -5.9590015, y: -23.04926, z: -0.0625}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4826119185222138}
@@ -343,6 +343,8 @@ MonoBehaviour:
   m_moveSpeed: 2
   m_radius: 5
   m_lostDistance: 10
+  m_deadEffectPrefab: {fileID: 1185239833418526, guid: 8d0f8cb3211c3124ba7461936612d334,
+    type: 2}
   m_state: 1
 --- !u!114 &114666108499456134
 MonoBehaviour:
@@ -356,6 +358,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isHitBlock: 0
+  m_deadEffectPrefab: {fileID: 1185239833418526, guid: 8d0f8cb3211c3124ba7461936612d334,
+    type: 2}
 --- !u!114 &114894518940711012
 MonoBehaviour:
   m_ObjectHideFlags: 1

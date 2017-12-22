@@ -37,6 +37,12 @@ public class HomingEnemy : MonoBehaviour, IRespawnMessage
 
     public void FixedUpdate()
     {
+        if (GameManagers.Instance.GameStateManager.GetCurrentGameState() != GameState.Play)
+        {
+            m_rb.velocity = Vector3.zero;
+            m_rb.angularVelocity = Vector3.zero;
+            return;
+        }
         switch (m_state)
         {
             case State.Wait: Wait(); break;

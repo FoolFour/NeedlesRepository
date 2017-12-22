@@ -18,7 +18,7 @@ namespace StageEditor
         public  string SaveDirectory  { get { return saveDirectory;    } }
 
 
-        public  Vector2   stageSize = new Vector2(5, 5);
+        public  Point2   stageSize = new Point2(5, 5);
 
         private BlockData selectedBlock;
 
@@ -179,10 +179,10 @@ namespace StageEditor
             {
                 DrawParamTitle("ステージサイズ");
                 EditorGUILayout.LabelField("X:", GUILayout.Width(15));
-                stageSize.x = EditorGUILayout.IntField((int)stageSize.x, GUILayout.Width(50));
+                stageSize.x = EditorGUILayout.IntField(stageSize.x, GUILayout.Width(50));
 
                 EditorGUILayout.LabelField("Y:", GUILayout.Width(15));
-                stageSize.y = EditorGUILayout.IntField((int)stageSize.y, GUILayout.Width(50));
+                stageSize.y = EditorGUILayout.IntField(stageSize.y, GUILayout.Width(50));
             }
             EditorGUILayout.EndHorizontal();
 

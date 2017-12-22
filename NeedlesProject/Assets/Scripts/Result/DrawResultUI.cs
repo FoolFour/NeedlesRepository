@@ -66,11 +66,11 @@ namespace Result
         private string GetDrawText()
         {
             var p =  drawParameter;
-            if (p == DrawParameter.StageName) { return data.stageName; }
-            if (p == DrawParameter.Coin     ) { return GetCoin();      }
-            if (p == DrawParameter.Time     ) { return GetTime();      }
-            if (p == DrawParameter.Border1  ) { return GetBorder(1);   }
-            if (p == DrawParameter.Border2  ) { return GetBorder(2);   }
+            if (p == DrawParameter.StageName) { return data.stageName;   }
+            if (p == DrawParameter.Coin     ) { return GetCoin();        }
+            if (p == DrawParameter.Time     ) { return GetTime();        }
+            if (p == DrawParameter.Border1  ) { return GetBorderTime1(); }
+            if (p == DrawParameter.Border2  ) { return GetBorderTime2(); }
 
             throw null;
         }
@@ -92,11 +92,20 @@ namespace Result
             return new System.DateTime(0).Add(timeSpan).ToString("mm:ss.ff");
         }
         
-        private string GetBorder(int num)
+        private string GetBorderTime1()
         {
-            if(num == 1) { return data.Border1.ToString() + "秒以内でゴール"; }
-            if(num == 2) { return data.Border2.ToString() + "秒以内でゴール"; }
-            throw null;
+            int time = (int)data.Border1;
+
+            var timeSpan = new System.TimeSpan(0, 0, time);
+            return new System.DateTime(0).Add(timeSpan).ToString("mm:ss.ff");
+        }
+
+        private string GetBorderTime2()
+        {
+            int time = (int)data.Border2;
+
+            var timeSpan = new System.TimeSpan(0, 0, time);
+            return new System.DateTime(0).Add(timeSpan).ToString("mm:ss.ff");
         }
     }
 }
