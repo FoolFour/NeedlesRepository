@@ -357,13 +357,17 @@ public class NeedleArm : MonoBehaviour
 
     private void ArmBreakCheck(float len)
     {
+        if(len >= m_ArmMaxLength + 3)
+        {
+            Sound.PlaySeOne("Creak");
+        }
         if (len >= m_ArmMaxLength + 6) PlayerStan(Vector3.zero);
         if (Physics.Linecast(m_Arm.transform.position, m_Arm.transform.position + (m_Arm.up * (len - 1)), m_Ignorelayer, QueryTriggerInteraction.Ignore))
         {
             m_BreakTimer += Time.deltaTime;
             if (m_BreakTimer > m_BreakTime)
             {
-                Sound.PlaySe("");
+                Sound.PlaySe("ArmBreak");
                 PlayerStan(Vector3.zero);
             }
         }
