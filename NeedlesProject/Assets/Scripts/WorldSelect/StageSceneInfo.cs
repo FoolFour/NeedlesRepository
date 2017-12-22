@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using TimeSpan = System.TimeSpan;
+using IO = System.IO;
 
 public class StageSceneInfo : MonoBehaviour
 {
@@ -8,25 +10,27 @@ public class StageSceneInfo : MonoBehaviour
     public class Stage
     {
         public string worldName;
-        public List<StageInfo> stageList;
+        public StageInfo[] stageList;
 
         public Stage()
         {
-            stageList = new List<StageInfo>();
+            stageList = new StageInfo[] { };
         }
 
-        public int Count
+        public Stage(int i)
         {
-            get { return stageList.Count; }
+            stageList = new StageInfo[i];
         }
 
-        public void Add(StageInfo stageInfo)
+        public int Length
         {
-            stageList.Add(stageInfo);
+            get { return stageList.Length; }
         }
+
         public StageInfo this [int i]
         {
             get { return stageList[i]; }
+            set { stageList[i] = value; }
         }
     }
 
@@ -44,7 +48,7 @@ public class StageSceneInfo : MonoBehaviour
     }
     
     [SerializeField]
-    public List<Stage> worldList;
+    public Stage[] worldList;
 
     public int selectWorld;
     public int selectStage;
@@ -56,7 +60,7 @@ public class StageSceneInfo : MonoBehaviour
 
     public int GetSelectWorldStageNum()
     {
-        return worldList[selectWorld].Count;
+        return worldList[selectWorld].Length;
     }
 
     public string GetSelectWorldName()
@@ -67,24 +71,24 @@ public class StageSceneInfo : MonoBehaviour
     /// <summary>次のステージを選択状態にする</summary>
     public void SelectStageNext()
     {
-        int tmp =  worldList[selectWorld].Count;
+        int tmp =  worldList[selectWorld].Length;
         selectStage = (int)Mathf.Repeat(selectStage+1, tmp);
     }
 
     /// <summary>前のステージを選択状態にする</summary>
     public void SelectStagePrev()
     {
-        int tmp =  worldList[selectWorld].Count;
+        int tmp =  worldList[selectWorld].Length;
         selectStage = (int)Mathf.Repeat(selectStage-1, tmp);
     }
 
     private void Reset()
     {
-        worldList.Clear();
+        worldList = new Stage[3];
 
         for(int i_w = 0; i_w < 3; i_w++)
         {
-            worldList.Add(new Stage());
+            worldList[i_w] = new Stage(3);
                 
             for(int j_s = 0; j_s < 3; j_s++)
             {
@@ -93,7 +97,7 @@ public class StageSceneInfo : MonoBehaviour
                 StageInfo stageInfo = new StageInfo();
                 stageInfo.stageName = stageName;
 
-                worldList[i_w].Add(stageInfo);
+                worldList[i_w][j_s] = stageInfo;
             }
         }
     }
@@ -115,9 +119,9 @@ public class StageSceneInfo : MonoBehaviour
 
     private void LoadTime()
     {
-        for(int i_w = 0; i_w < worldList.Count; i_w++)
+        for(int i_w = 0; i_w < worldList.Length; i_w++)
         {
-            for(int j_s = 0; j_s < worldList[i_w].Count; j_s++)
+            for(int j_s = 0; j_s < worldList[i_w].Length; j_s++)
             {
                 var info = worldList[i_w][j_s];
                 string stageName = info.stageName;
@@ -158,9 +162,9 @@ public class StageSceneInfo : MonoBehaviour
             milliseconds: 999
         );
 
-        for(int i_w = 0; i_w < worldList.Count; i_w++)
+        for(int i_w = 0; i_w < worldList.Length; i_w++)
         {
-            for(int j_s = 0; j_s < worldList[i_w].Count; j_s++)
+            for(int j_s = 0; j_s < worldList[i_w].Length; j_s++)
             {
                 string stageName = worldList[i_w][j_s].stageName;
 
@@ -194,18 +198,66 @@ public class StageSceneInfo : MonoBehaviour
     [ContextMenu("AddFrontList")]
     private void AddFront()
     {
-        Stage newStage = new Stage();
+        Stage newStage = new Stage(3);
         for(int i = 0; i < 3; i++)
         {
             StageInfo info = new StageInfo();
             info.stageName = "Stage" + (i+1);
-            newStage.Add(info);
+            newStage[i] = info;
         }
 
         var tempList = new List<Stage>();
         tempList.Add(newStage);
         tempList.AddRange(worldList);
 
-        worldList = new List<Stage>(tempList);
+        worldList = tempList.ToArray();
+    }
+
+    [ContextMenu("Generate File")]
+    private void GenerateFile()
+    {
+        var directory = Application.streamingAssetsPath + "/Stages";
+
+        //初期化
+        if(IO.Directory.Exists(directory))
+        {
+            IO.Directory.Delete(directory, true);
+        }
+
+        IO.Directory.CreateDirectory(directory);
+
+        for(int i_w = 0; i_w < worldList.Length; i_w++)
+        {
+            for(int j_s = 0; j_s < worldList[i_w].Length; j_s++)
+            {
+                var s = new System.Text.StringBuilder();
+
+                s.Append(directory);
+                s.Append("/");
+                s.Append(worldList[i_w].worldName);
+
+                if (!IO.Directory.Exists(s.ToString()))
+                {
+                    IO.Directory.CreateDirectory(s.ToString());
+                }
+                
+                s.Append("/");
+                s.Append(worldList[i_w][j_s].stageName);
+                s.Append(".sdf");
+                using (var fs = new IO.FileStream(s.ToString(), IO.FileMode.Create))
+                {
+                    using (var bw = new IO.BinaryWriter(fs))
+                    {
+                        var info = worldList[i_w][j_s];
+                        bw.Write(info.stageName);
+                        bw.Write(info.border1);
+                        bw.Write(info.border2);
+
+                        bw.Close();
+                        fs.Close();
+                    }
+                }
+            }
+        }
     }
 }

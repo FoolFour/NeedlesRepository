@@ -34,8 +34,8 @@ public class StageSceneInfoCustom : Editor
         //ワールド選択
         worldSelectScroll = EditorGUILayout.BeginScrollView(worldSelectScroll, skin, scrollOption);
         {
-            string[] showText = new string[info.worldList.Count];
-            for (int i = 0; i < info.worldList.Count; i++)
+            string[] showText = new string[info.worldList.Length];
+            for (int i = 0; i < info.worldList.Length; i++)
             {
                 showText[i] = info.worldList[i].worldName;
             }
@@ -53,7 +53,7 @@ public class StageSceneInfoCustom : Editor
         //ステージ選択
         stageSelectScroll = EditorGUILayout.BeginScrollView(stageSelectScroll, skin, scrollOption);
         {
-            var stageNum = info.worldList[selectWorld].Count;
+            var stageNum = info.worldList[selectWorld].Length;
             string[] showText = new string[stageNum];
             for (int i_s = 0; i_s < stageNum; i_s++)
             {

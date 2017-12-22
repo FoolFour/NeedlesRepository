@@ -1875,7 +1875,7 @@ Prefab:
     - target: {fileID: 114021544595206500, guid: 931fae2db285e724c8ed0c10aded1082,
         type: 2}
       propertyPath: m_radius
-      value: 15
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 114021544595206500, guid: 931fae2db285e724c8ed0c10aded1082,
         type: 2}
@@ -7124,6 +7124,16 @@ Prefab:
     - target: {fileID: 114533676724177184, guid: e14d28296d8eb7248b3b1195d32c0a87,
         type: 2}
       propertyPath: nextStage
+      value: Assets/Scenes/PlayStage/T1-6.unity
+      objectReference: {fileID: 0}
+    - target: {fileID: 114533676724177184, guid: e14d28296d8eb7248b3b1195d32c0a87,
+        type: 2}
+      propertyPath: nowStageData
+      value: Assets/StreamingAssets/Stages/World1/1-5.sdf
+      objectReference: {fileID: 0}
+    - target: {fileID: 114533676724177184, guid: e14d28296d8eb7248b3b1195d32c0a87,
+        type: 2}
+      propertyPath: nextStageScene
       value: Assets/Scenes/PlayStage/T1-6.unity
       objectReference: {fileID: 0}
     m_RemovedComponents: []

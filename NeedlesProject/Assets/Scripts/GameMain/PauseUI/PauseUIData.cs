@@ -34,7 +34,7 @@ public class PauseUIData : MonoBehaviour
         gameTimer = FindObjectOfType<GameTimer>();
     }
     
-    private void Awake()
+    private void Start()
     {
         if(gameTimer == null)
         {
