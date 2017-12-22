@@ -11,6 +11,35 @@ public class StageDataFileLoader : MonoBehaviour
 
     private void Awake()
     {
+        if(nowStageData == "")
+        {
+            //ファイル指定無し
+            Debug.LogError("ファイルが指定されていません デフォルトの設定を適用します");
+        }
+        else
+        {
+            //ファイル指定有り
+            LoadFile();
+        }
+        
+    }
+
+    private void LoadDefault()
+    {
+        const string stage_name = "無名ステージ";
+        const float  border1    = 100;
+        const float  border2    =  50;
+
+        string scene_name = SceneManager.GetActiveScene().name;
+
+        PlayerPrefs.SetString(PrefsDataName.StageName, stage_name);
+        PlayerPrefs.SetString(PrefsDataName.Scene,     scene_name);
+        PlayerPrefs.SetFloat (PrefsDataName.Border1,   border1);
+        PlayerPrefs.SetFloat (PrefsDataName.Border2,   border2);
+    }
+
+    private void LoadFile()
+    {
         using (var fs = new IO.FileStream(nowStageData, IO.FileMode.Open))
         {
             using (var br = new IO.BinaryReader(fs))
