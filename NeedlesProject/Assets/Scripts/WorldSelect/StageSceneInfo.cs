@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using TimeSpan = System.TimeSpan;
-using System.Xml.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
 using IO = System.IO;
 
 public class StageSceneInfo : MonoBehaviour
@@ -251,7 +250,6 @@ public class StageSceneInfo : MonoBehaviour
                     {
                         var info = worldList[i_w][j_s];
                         bw.Write(info.stageName);
-                        bw.Write(info.sceneName);
                         bw.Write(info.border1);
                         bw.Write(info.border2);
 

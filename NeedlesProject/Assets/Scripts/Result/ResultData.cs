@@ -98,7 +98,7 @@ namespace Result
 
         private T FindSceneObjectOfType<T>(string sceneName)
         {
-            Scene stageScene = SceneManager.GetSceneByPath(sceneName);
+            Scene stageScene = SceneManager.GetSceneByName(sceneName);
             GameObject[] obj = stageScene.GetRootGameObjects();
 
             foreach (var item in obj)

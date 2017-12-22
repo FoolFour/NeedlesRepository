@@ -25,13 +25,14 @@ public class StageDataFileLoaderCustom : Editor
         Object nowStageData = AssetDatabase.LoadAssetAtPath<Object>(stageDataFile.nowStageData);
         nowStageData  = EditorGUILayout.ObjectField("現在のステージのデータ ", nowStageData, typeof(Object), false);
         
-        if(EditorGUI.EndChangeCheck() && nowStageData != null)
+        if(EditorGUI.EndChangeCheck())
         {
             string path = AssetDatabase.GetAssetPath(nowStageData);
             string extension = IO.Path.GetExtension(path);
 
-            if(extension == STAGE_DATA_EXT)
+            if(extension == STAGE_DATA_EXT || path == "")
             {
+                //ファイルが指定されていない場合も代入
                 stageDataFile.nowStageData = path;
             }
             else
