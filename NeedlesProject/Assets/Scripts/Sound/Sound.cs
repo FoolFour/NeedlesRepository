@@ -10,7 +10,7 @@ public class Sound
 {
 
     /// SEチャンネル数
-    const int SE_CHANNEL = 4;
+    const int SE_CHANNEL = 5;
 
     /// サウンド種別
     enum eType
@@ -179,6 +179,12 @@ public class Sound
     {
         return GetInstance()._PlaySe(key, channel);
     }
+    //再生中は重ねられない方式
+    public static bool PlaySeOne(string key)
+    {
+        return GetInstance()._PlaySeOne(key);
+    }
+
     bool _PlaySe(string key, int channel = -1)
     {
         if (_poolSe.ContainsKey(key) == false)
@@ -203,6 +209,25 @@ public class Sound
             var source = _GetAudioSource(eType.Se);
             source.PlayOneShot(_data.Clip);
         }
+
+        return true;
+    }
+
+    bool _PlaySeOne(string key)
+    {
+        if (_poolSe.ContainsKey(key) == false)
+        {
+            // 対応するキーがない
+            return false;
+        }
+
+        // リソースの取得
+        var _data = _poolSe[key];
+        // チャンネル指定
+        var source = _GetAudioSource(eType.Se, 5);
+        source.clip = _data.Clip;
+        if (source.isPlaying) return false;
+        source.Play();
 
         return true;
     }
