@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TransportBlock : BlockBase,IRespawnMessage
+public class TransportBlock : BlockBase, IRespawnMessage
 {
     [Tooltip("最初の地点")]
     public Transform m_from;
@@ -14,6 +14,8 @@ public class TransportBlock : BlockBase,IRespawnMessage
 
     float m_timer = 0;
     bool isStickHit = false;
+
+
 
     public void RespawnInit()
     {
@@ -39,14 +41,20 @@ public class TransportBlock : BlockBase,IRespawnMessage
         m_timer = 0;
         transform.position = m_from.position;
         isStickHit = false;
+
+        var line = GetComponentInChildren<LineSetting>();
+        line.SetVertex(2);
+        line.AddPoint(m_from.position);
+        line.AddPoint(m_to.position);
+        line.Loop(false);
     }
 
     // Update is called once per frame
     void Update()
     {
         transform.position = Vector3.Lerp(m_from.position, m_to.position, m_timer);
-        if (isStickHit) {m_timer += Time.deltaTime * m_speed;}
-        else {m_timer -= Time.deltaTime * m_speed;}
+        if (isStickHit) { m_timer += Time.deltaTime * m_speed; }
+        else { m_timer -= Time.deltaTime * m_speed; }
         m_timer = Mathf.Clamp(m_timer, 0, 1);
     }
 }
