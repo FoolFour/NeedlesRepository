@@ -30,7 +30,7 @@ namespace GameCamera
         }
 
         // Update is called once per frame
-        void LateUpdate()
+        void FixedUpdate()
         {
             if (!Player)
             {
