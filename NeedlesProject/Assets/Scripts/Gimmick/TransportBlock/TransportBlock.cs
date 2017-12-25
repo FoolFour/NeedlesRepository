@@ -42,6 +42,7 @@ public class TransportBlock : BlockBase, IRespawnMessage
         transform.position = m_from.position;
         isStickHit = false;
 
+        if (!GetComponentInChildren<LineSetting>()) { Debug.LogError("Asset/prefab/illumination/lineを子にしてください"); }
         var line = GetComponentInChildren<LineSetting>();
         line.SetVertex(2);
         line.AddPoint(m_from.position);
