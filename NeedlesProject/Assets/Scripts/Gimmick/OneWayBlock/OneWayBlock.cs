@@ -5,6 +5,7 @@ using UnityEngine;
 public class OneWayBlock : MonoBehaviour
 {
     GameObject m_parent = null;
+    public Animator m_animator;
 
     // Use this for initialization
     void Start()
@@ -17,6 +18,7 @@ public class OneWayBlock : MonoBehaviour
         if (other.tag == "Player")
         {
             m_parent.GetComponent<BoxCollider>().enabled = false;
+            m_animator.SetBool("Open", true);
         }
     }
 
@@ -25,6 +27,7 @@ public class OneWayBlock : MonoBehaviour
         if (other.tag == "Player")
         {
             m_parent.GetComponent<BoxCollider>().enabled = true;
+            m_animator.SetBool("Open",false);
         }
     }
 }
