@@ -41,11 +41,7 @@ public class SceneChangeNext : MonoBehaviour
     private IEnumerator SceneChangePerformance()
     {
         yield return image.FadeInStart(color);
-        
-        PlayerPrefs.SetFloat(PrefsDataName.Fade_R, color.r);
-        PlayerPrefs.SetFloat(PrefsDataName.Fade_G, color.g);
-        PlayerPrefs.SetFloat(PrefsDataName.Fade_B, color.b);
 
-        PlayerPrefs.SetInt(PrefsDataName.FadeStart, 1);
+        PlayerPrefs.SetString(PrefsDataName.FadeStart, bool.TrueString);
     }
 }

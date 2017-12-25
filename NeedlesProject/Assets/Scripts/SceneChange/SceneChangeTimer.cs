@@ -19,6 +19,6 @@ public class SceneChangeTimer : SceneChanger
     protected override IEnumerator SceneChangePerformance()
     {
         yield return wait;
-        PlayerPrefs.SetInt(PrefsDataName.FadeStart, 0);
+        PlayerPrefs.SetString(PrefsDataName.FadeStart, bool.FalseString);
     }
 }
