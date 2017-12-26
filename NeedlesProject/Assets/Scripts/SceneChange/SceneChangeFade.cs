@@ -8,19 +8,16 @@ public class SceneChangeFade : SceneChanger
     // 変数(SerializeField) /
     ////////////////////////
     [SerializeField]
-    private FadeImage image;
-
-    [SerializeField]
-    private Color     color;
+    private BlockTiling tiling;
 
     private void Reset()
     {
-        image = FindObjectOfType<FadeImage>();
+        tiling = FindObjectOfType<BlockTiling>();
     }
 
     protected override IEnumerator SceneChangePerformance()
     {
-        yield return image.FadeInStart(color);
+        yield return tiling.FadeInStart();
 
         PlayerPrefs.SetString(PrefsDataName.FadeStart, bool.TrueString);
     }
