@@ -37,6 +37,15 @@ public class MoveBlock : MonoBehaviour,IRespawnMessage {
         transform.position = m_MovePoint[0].position;
         isSwitchMode = isSwitchType;
         if (m_MoveSpeeds.Length > 0) m_MoveSpeed = m_MoveSpeeds[speedIndex];
+
+        if (!GetComponentInChildren<LineSetting>()) { Debug.LogError("Asset/prefab/illumination/lineを子にしてください"); }
+        var line = GetComponentInChildren<LineSetting>();
+        line.SetVertex(m_MovePoint.Length);
+        foreach(var point in m_MovePoint)
+        {
+            line.AddPoint(point.position);
+        }
+        line.Loop(isLoop);
     }
 	
 	// Update is called once per frame
