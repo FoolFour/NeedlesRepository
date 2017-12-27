@@ -20,8 +20,8 @@ GameObject:
   m_Component:
   - component: {fileID: 224128039762233076}
   - component: {fileID: 222918467410585822}
-  - component: {fileID: 114452878389491120}
-  - component: {fileID: 114652871660829920}
+  - component: {fileID: 114312327640664340}
+  - component: {fileID: 114363688918988680}
   m_Layer: 12
   m_Name: Image
   m_TagString: Untagged
@@ -84,7 +84,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
---- !u!114 &114452878389491120
+--- !u!114 &114312327640664340
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -92,11 +92,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1187394057190048}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 677b3b2c487732f4bb01403f6f680bd0, type: 3}
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Material: {fileID: 2100000, guid: 0a244257e00333441927fc226efc9df0, type: 2}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -111,7 +111,7 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114652871660829920
+--- !u!114 &114363688918988680
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -119,11 +119,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1187394057190048}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9aa6684ac5bbab143b7f09f5eb0efe63, type: 3}
+  m_Script: {fileID: 11500000, guid: 681e9453acabc6a44abd006f20a73251, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isFadeStart: 1
-  fadeSpeed: 0.5
+  fadeStart: 0
 --- !u!114 &114883849649978258
 MonoBehaviour:
   m_ObjectHideFlags: 1

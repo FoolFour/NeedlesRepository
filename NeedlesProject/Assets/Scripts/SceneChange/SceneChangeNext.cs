@@ -8,10 +8,7 @@ public class SceneChangeNext : MonoBehaviour
     private TaskLock  taskLock;
 
     [SerializeField]
-    private FadeImage image;
-
-    [SerializeField]
-    private Color     color;
+    private BlockTiling tiling;
 
     public void SceneChange()
     {
@@ -20,7 +17,7 @@ public class SceneChangeNext : MonoBehaviour
 
     private void Reset()
     {
-        image = FindObjectOfType<FadeImage>();
+        tiling = FindObjectOfType<BlockTiling>();
     }
 
     private void Awake()
@@ -40,7 +37,7 @@ public class SceneChangeNext : MonoBehaviour
 
     private IEnumerator SceneChangePerformance()
     {
-        yield return image.FadeInStart(color);
+        yield return tiling.FadeInStart();
 
         PlayerPrefs.SetString(PrefsDataName.FadeStart, bool.TrueString);
     }
