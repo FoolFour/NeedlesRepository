@@ -22,9 +22,5 @@ public class GameTimerCustom : Editor
             EditorGUILayout.LabelField("ポーズの総経過時間");
             EditorGUILayout.LabelField(timer.pauseTime.ToString("F2"));
         EditorGUILayout.EndHorizontal();
-
-        EditorGUILayout.Space();
-
-        timer.isPause = EditorGUILayout.Toggle("Pause", timer.isPause);
     }
 }

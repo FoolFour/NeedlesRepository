@@ -12,9 +12,6 @@ public class GameTimer : Pauser
     private float gameTime_;
     private float pauseTime_;
 
-    [SerializeField]
-    private bool isPause_;
-
     ////////////////////////
     // プロパティ(public) /
     //////////////////////
@@ -39,13 +36,6 @@ public class GameTimer : Pauser
         private set { pauseTime_ = value; }
     }
 
-    /// <summary>ポーズするか</summary>
-    public bool isPause
-    {
-        get         { return isPause_;  }
-        set         { isPause_ = value; }
-    }
-
     //////////////////
     // 関数(public)　/
     ////////////////
@@ -63,15 +53,8 @@ public class GameTimer : Pauser
     // 関数(protected)　/
     ///////////////////
 
-    protected override void OnPause()
-    {
-        isPause = true;
-    }
-
-    protected override void OnResume()
-    {
-        isPause = false;
-    }
+    protected override void OnPause () { }
+    protected override void OnResume() { }
 
     ///////////////////
     // 関数(private)　/
