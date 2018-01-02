@@ -18,19 +18,18 @@ public abstract class SceneChanger : MonoBehaviour
     ////////////////
 
     /// <summary>シーンを切り替えます</summary>
-    public void SceneChange(string name)
-    {
-        sceneName = name;
-        sceneMode = LoadSceneMode.Single;
-        taskLock.Run(Change);
-    }
-
-    /// <summary>シーンを切り替えます</summary>
-    public void SceneChange(string name, LoadSceneMode mode)
+    public void SceneChange(string name, LoadSceneMode mode = LoadSceneMode.Single)
     {
         sceneName = name;
         sceneMode = mode;
         taskLock.Run(Change);
+    }
+
+    public void SceneChangeAsync(string name, LoadSceneMode mode = LoadSceneMode.Single)
+    {
+        sceneName = name;
+        sceneMode = mode;
+        taskLock.Run(ChangeAsync);
     }
 
     ///////////////////
@@ -50,6 +49,12 @@ public abstract class SceneChanger : MonoBehaviour
     {
         yield return StartCoroutine(SceneChangePerformance());
         SceneManager.LoadScene(sceneName, sceneMode);
+    }
+
+    private IEnumerator ChangeAsync()
+    {
+        yield return StartCoroutine(SceneChangePerformance());
+        SceneManager.LoadSceneAsync(sceneName, sceneMode);
     }
 
     protected abstract IEnumerator SceneChangePerformance();
