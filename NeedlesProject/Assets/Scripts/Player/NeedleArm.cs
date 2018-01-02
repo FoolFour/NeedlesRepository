@@ -307,11 +307,14 @@ public class NeedleArm : MonoBehaviour
         if(m_Hitinfo.collider.tag != "Finish")
         {
             Return_Arm();
+            m_rb.constraints = RigidbodyConstraints.None;
             return;
         }
 
         float len = Vector3.Distance(m_Hand.position, transform.position);
         m_Arm.localScale = new Vector3(3f, len, 1.5f);
+        m_rb.constraints = RigidbodyConstraints.None;
+
     }
 
     /// <summary>

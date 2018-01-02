@@ -151,6 +151,7 @@ public class Player : MonoBehaviour {
         mData.mRArm.Goal();
         mStan = false;
         mStanTimer = 0;
+        mData.mrb.constraints = RigidbodyConstraints.None;
         this.enabled = false;
     }
 

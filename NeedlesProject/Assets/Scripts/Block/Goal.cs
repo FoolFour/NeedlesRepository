@@ -21,6 +21,7 @@ public class Goal : BlockBase
     {
         stickpoint.transform.position = transform.position + new Vector3(0, -0.5f, 0);
         player.Goal();
+        //GetComponent<TEST_GoalMove>().StartEvent(); //デバッグ用
         sceneChanger.SceneChange("Result", LoadSceneMode.Additive);
         GetComponent<BoxCollider>().isTrigger = true;
         GameManagers.Instance.GameStateManager.StateChange(GameState.End);
