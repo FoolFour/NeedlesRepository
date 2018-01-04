@@ -1,8 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SmashBlock : BlockBase
+public class SmashBlock : BlockBase,IRespawnMessage
 {
 
     bool isHit = false;
@@ -42,5 +43,10 @@ public class SmashBlock : BlockBase
         {
             isHit = false;
         }
+    }
+
+    public void RespawnInit()
+    {
+        isHit = false;
     }
 }
