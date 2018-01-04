@@ -284,6 +284,16 @@ public class NeedleArm : MonoBehaviour
         if (hinge) Destroy(hinge);
         m_CurrentHitObject.transform.parent = null;
         m_CurrentHitObject.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+
+        if (m_Hitinfo.collider)
+        {
+            BlockBase[] blockbases = m_Hitinfo.collider.GetComponents<BlockBase>();
+            foreach (BlockBase bb in blockbases)
+            {
+                bb.StickExit();
+            }
+        }
+
         m_Hitinfo = new RaycastHit();
 
         ishit = false;

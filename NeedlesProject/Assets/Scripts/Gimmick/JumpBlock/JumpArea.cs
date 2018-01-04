@@ -10,7 +10,7 @@ public class JumpArea : MonoBehaviour
     {
         if(other.CompareTag("Player"))
         {
-            other.GetComponent<Rigidbody>().AddForce(transform.up * m_Power, ForceMode.Impulse);
+            other.GetComponent<Rigidbody>().AddForce(transform.up * m_Power, ForceMode.VelocityChange);
         }
     }
 }
