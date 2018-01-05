@@ -29,6 +29,8 @@ public class SoundManger : MonoBehaviour
         Sound.LoadSe("Stan", "Stan");
         Sound.LoadSe("CheckPoint", "CheckPoint");
         Sound.LoadSe("Landing", "Landing");
+        Sound.LoadSe("TitleOnButton1", "TitleOnButton1");
+        Sound.LoadSe("ScreenUp", "ScreenUp");
 
         Sound.LoadSe("Creak", "Creak");
     }
