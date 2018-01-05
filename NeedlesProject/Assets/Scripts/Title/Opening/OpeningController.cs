@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Video;
 
 public class OpeningController : MonoBehaviour
 {
@@ -11,11 +12,11 @@ public class OpeningController : MonoBehaviour
     public Transform m_ufo;
     public Image m_gameLogo;
     public GameObject m_pressImage;
-    public GameObject m_sceneChanger;
     public AudioSource m_RoketAudio;
+    public VideoStarter m_VideoStarte;
 
     Coroutine eventCoroutine;
-    bool Eventing = false;
+    bool Eventing = true;
 
     public void Start()
     {
@@ -55,8 +56,8 @@ public class OpeningController : MonoBehaviour
                 }
 
                 m_pressImage.SetActive(true);
-                m_sceneChanger.SetActive(true);
                 Eventing = false;
+                m_VideoStarte.enabled = true;
             }
         }
     }
@@ -138,7 +139,7 @@ public class OpeningController : MonoBehaviour
         }
 
         m_pressImage.SetActive(true);
-        m_sceneChanger.SetActive(true);
+        m_VideoStarte.enabled = true;
         Eventing = false;
     }
 }
