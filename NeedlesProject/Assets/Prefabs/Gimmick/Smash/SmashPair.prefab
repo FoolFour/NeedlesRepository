@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4067951461195074}
   - component: {fileID: 114183450334297306}
   - component: {fileID: 114014663888162760}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: SmashPair
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -56,7 +56,7 @@ GameObject:
   - component: {fileID: 65550470507079226}
   - component: {fileID: 114630572623777914}
   - component: {fileID: 114274892263358982}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: SmashPairModer (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -76,7 +76,7 @@ GameObject:
   - component: {fileID: 65746003117937588}
   - component: {fileID: 114607876532988442}
   - component: {fileID: 114128022075057586}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: SmashPairModer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -105,14 +105,14 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1121369604365288}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 8.62, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 5.163354, y: 5.56, z: 0}
+  m_LocalScale: {x: 1, y: 2, z: 1}
   m_Children:
   - {fileID: 4358765046086134}
   - {fileID: 4111295992011136}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!4 &4111295992011136
 Transform:
   m_ObjectHideFlags: 1
@@ -120,7 +120,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1156441353337232}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 9.05, y: 1.2, z: 0}
+  m_LocalPosition: {x: 12.23, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4741943067708624}
@@ -134,7 +134,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1919895281209498}
   m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
-  m_LocalPosition: {x: -0.71, y: 0, z: 0}
+  m_LocalPosition: {x: -3.5, y: 3.04, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4710306604738774}
@@ -180,7 +180,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: bfa300b232395734fa8f61dce721eff8, type: 2}
+  - {fileID: 2100000, guid: 8bdc2495d3eda394994b1e2508f202ad, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -212,7 +212,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: bfa300b232395734fa8f61dce721eff8, type: 2}
+  - {fileID: 2100000, guid: 8bdc2495d3eda394994b1e2508f202ad, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -329,7 +329,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isHitBlock: 1
-  m_Partner: {fileID: 0}
+  m_Partner: {fileID: 114630572623777914}
 --- !u!114 &114630572623777914
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -342,4 +342,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isHitBlock: 1
-  m_Partner: {fileID: 0}
+  m_Partner: {fileID: 114607876532988442}
