@@ -158,7 +158,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4796699986745514}
   - component: {fileID: 114896737628474866}
-  - component: {fileID: 114133201974383726}
+  - component: {fileID: 114630144654221120}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -781,24 +781,6 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "\u30EA\u30C8\u30E9\u30A4"
---- !u!114 &114133201974383726
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1321809051290230}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 1077351063, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_HorizontalAxis: Horizontal
-  m_VerticalAxis: Vertical
-  m_SubmitButton: Submit
-  m_CancelButton: Cancel
-  m_InputActionsPerSecond: 10
-  m_RepeatDelay: 0.5
-  m_ForceModuleActive: 0
 --- !u!114 &114143000036679368
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1293,6 +1275,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeStart: 0
+--- !u!114 &114630144654221120
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1321809051290230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48910c5b829792b4986e49823d8af513, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalAxis: Horizontal
+  m_VerticalAxis: Vertical
+  m_SubmitButton: Submit
+  m_CancelButton: Cancel
+  m_InputActionsPerSecond: 10
+  m_RepeatDelay: 0.5
+  m_ForceModuleActive: 0
 --- !u!114 &114684621529456792
 MonoBehaviour:
   m_ObjectHideFlags: 1
