@@ -81,6 +81,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boolName: JoinCamera
   condition: 1
+--- !u!114 &114166836580194860
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b759fa33ac032bf479cfe006bf3c63d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114184150668957720
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -576,6 +587,7 @@ AnimatorState:
   - {fileID: 1101446218103459996}
   m_StateMachineBehaviours:
   - {fileID: 114858482129644202}
+  - {fileID: 114166836580194860}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
