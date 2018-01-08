@@ -15,6 +15,8 @@ public class GoalAnimation : MonoBehaviour
 
     public void StartAnimation()
     {
+        if(animator != null) { return; }
+
         //プレイヤー追跡用のカメラを削除
         GameCamera.Camera camera = Camera.main.GetComponent<GameCamera.Camera>();
         DestroyImmediate(camera);
@@ -24,8 +26,7 @@ public class GoalAnimation : MonoBehaviour
         animator = GetComponent<Animator>();
         animator.SetBool("Goal", true);
 
-        GameObject background = GameObject.FindWithTag("BackGroundCanvas");
-        imageSyncHider = background.GetComponent<ImageSyncHider>();
+        imageSyncHider = FindObjectOfType<ImageSyncHider>();
     }
 
     //Animationからの呼び出し
@@ -38,6 +39,8 @@ public class GoalAnimation : MonoBehaviour
 
     private IEnumerator Hide()
     {
+        Debug.Log(imageSyncHider);
+
         for(int i = 1; i <= hideBackgroundFrame; i++)
         {
             imageSyncHider.ApplyImageFillAmount(1.0f - ((float)i / hideBackgroundFrame));

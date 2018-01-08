@@ -17,8 +17,13 @@ public abstract class SceneChanger : MonoBehaviour
     // 関数(public) /
     ////////////////
 
+    public void SceneChange(string name)
+    {
+        SceneChange(name, LoadSceneMode.Single);
+    }
+
     /// <summary>シーンを切り替えます</summary>
-    public void SceneChange(string name, LoadSceneMode mode = LoadSceneMode.Single)
+    public void SceneChange(string name, LoadSceneMode mode)
     {
         sceneName = name;
         sceneMode = mode;

@@ -20,15 +20,13 @@ public class ImageSyncHider : MonoBehaviour
     private void Awake()
     {
         int num = transform.childCount;
-        backGrounds = new List<Image>(num * 3);
+        backGrounds = new List<Image>(transform.GetComponentsInChildren<Image>());
 
-        foreach (Transform child in transform)
+        backGrounds.ForEach((item)=>
         {
-            foreach(Transform imageObj in child)
-            {
-                Image image = imageObj.GetComponent<Image>();
-                backGrounds.Add(image);
-            }
-        }
+            item.type = Image.Type.Filled;
+            item.fillMethod = Image.FillMethod.Vertical;
+            item.fillOrigin = 1; // top
+        });
     }
 }
