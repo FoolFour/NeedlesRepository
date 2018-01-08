@@ -4,19 +4,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.EventSystems;
 
-public class NewRecordDrawer : ParametersDrawer
+public class NewRecordDrawer : ParametersDrawerBase
 {
-	private bool        showFlag;
 	private UIBehaviour image;
-
-	private void Reset()
-	{
-		data = FindObjectOfType<StageData>();
-	}
 
 	private void Start()
 	{
 		image = GetComponent<UIBehaviour>();
-		image.enabled = data.isNewRecord;
 	}
+
+    private void Update()
+    {
+        image.enabled = data.isNewRecord;
+    }
 }

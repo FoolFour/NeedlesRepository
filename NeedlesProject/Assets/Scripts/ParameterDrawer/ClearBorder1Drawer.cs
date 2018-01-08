@@ -4,19 +4,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.EventSystems;
 
-public class ClearBorder1Drawer : ParametersDrawer
+public class ClearBorder1Drawer : ParametersDrawerBase
 {
-	private bool        showFlag;
 	private UIBehaviour image;
 
-	private void Reset()
-	{
-		data = FindObjectOfType<StageData>();
-	}
-
-	private void Start()
+	private void OnEnable()
 	{
 		image = GetComponent<UIBehaviour>();
-		image.enabled = data.isBorder1Clear;
 	}
+
+    private void Update()
+    {
+        image.enabled = data.isBorder1Clear;
+    }
 }

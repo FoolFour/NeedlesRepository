@@ -33,10 +33,10 @@ public static class GamePad
     private static bool   isFlipAnalog;
     public  static bool   IsFlipAnalog { get { return isFlipAnalog; } }
 
-    static readonly string VERTICAL     = "Vertical";
-    static readonly string HORIZONTAL   = "Horizontal";
-    static readonly string X_VERTICAL   = "x" + VERTICAL;
-    static readonly string X_HORIZONTAL = "x" + HORIZONTAL; 
+    const string VERTICAL     = "Vertical";
+    const string HORIZONTAL   = "Horizontal";
+    const string X_VERTICAL   = "x" + VERTICAL;
+    const string X_HORIZONTAL = "x" + HORIZONTAL; 
 
     // ダイレクトモードで設定
     public static void SetDirectMode()

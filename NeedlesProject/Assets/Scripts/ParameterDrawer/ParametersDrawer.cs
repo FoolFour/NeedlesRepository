@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class ParametersDrawer : MonoBehaviour
+public class ParametersDrawerBase : MonoBehaviour
 {
 	[SerializeField]
 	protected StageData data;
@@ -29,6 +29,4 @@ public class ParametersDrawer : MonoBehaviour
 		var   timeSpan = new System.TimeSpan(0, 0, 0, sec, milliSec);
         return new System.DateTime(0).Add(timeSpan).ToString("mm:ss.ff");
 	}
-
-
 }

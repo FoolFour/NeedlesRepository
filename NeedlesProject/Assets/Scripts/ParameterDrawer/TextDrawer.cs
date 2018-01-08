@@ -3,17 +3,19 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
-public class Border1Drawer : ParametersDrawerBase
+public class TextDrawer : MonoBehaviour
 {
     Text text;
+    string defaultText;
 
-    private void Start()
+    private void Awake()
     {
         text = GetComponent<Text>();
+        defaultText = text.text;
     }
 
     private void Update()
     {
-        text.text = ConvertTime(data.border1);
+        text.text = defaultText;
     }
 }

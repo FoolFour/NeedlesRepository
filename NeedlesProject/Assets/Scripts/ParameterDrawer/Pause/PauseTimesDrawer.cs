@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 
-public abstract class PauseTimesDrawer : ParametersDrawer
+public abstract class PauseTimesDrawer : ParametersDrawerBase
 {
 	Text      text;
 

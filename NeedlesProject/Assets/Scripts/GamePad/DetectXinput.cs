@@ -22,7 +22,7 @@ public class DetectXinput : MonoBehaviour
 
     //様々な可能性を考慮
 
-    readonly string[] detectList = new []
+    static readonly string[] detectList = new []
     {
         "Xinput",  "X input",  "X-input",  "X_input",
         "Xbox360", "Xbox 360", "Xbox-360", "Xbox_360",
@@ -73,11 +73,11 @@ public class DetectXinput : MonoBehaviour
 
     private void Update()
     {
-        var  joysticks  = Input.GetJoystickNames();
         bool isDetected = false;
 
-        foreach (string name in joysticks)
+        for(int i = 0; i < Input.GetJoystickNames().Length; i++)
         {
+            string name = Input.GetJoystickNames()[i];
             if (name == "") { continue; }
 
             isDetected = true;
@@ -116,8 +116,9 @@ public class DetectXinput : MonoBehaviour
         //大文字と小文字を無視して判定するようにする
         var option = System.StringComparison.OrdinalIgnoreCase;
 
-        foreach(string controllerName in detectList)
+        for(int i = 0; i < detectList.Length; i++)
         {
+            string controllerName = detectList[i];
             int result = joystickName.IndexOf(controllerName, option);
             if (result != -1) { return true; }
         }

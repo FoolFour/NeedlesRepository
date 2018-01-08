@@ -244,8 +244,8 @@ GameObject:
   - component: {fileID: 114172668415303124}
   - component: {fileID: 114701522932969292}
   m_Layer: 5
-  m_Name: Canvas
-  m_TagString: Untagged
+  m_Name: BackGroundCanvas
+  m_TagString: BackGroundCanvas
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -299,7 +299,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1658183842328244
 GameObject:
   m_ObjectHideFlags: 1
@@ -521,7 +521,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_MinValue: -1000
-  speed: 3
+  speed: 0
   m_xScrollSpeed: 10
 --- !u!114 &114050542538966622
 MonoBehaviour:
@@ -698,7 +698,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_MinValue: -1000
-  speed: 3
+  speed: 0
   m_xScrollSpeed: 10
 --- !u!114 &114172668415303124
 MonoBehaviour:
@@ -733,7 +733,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_MinValue: -1000
-  speed: 0.5
+  speed: 0
   m_xScrollSpeed: 10
 --- !u!114 &114175961080702672
 MonoBehaviour:
@@ -815,7 +815,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_MinValue: -1000
-  speed: 2
+  speed: 0
   m_xScrollSpeed: 10
 --- !u!114 &114272119320035104
 MonoBehaviour:
@@ -856,7 +856,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_MinValue: -1000
-  speed: 2
+  speed: 0
   m_xScrollSpeed: 10
 --- !u!114 &114319365274356346
 MonoBehaviour:
@@ -911,7 +911,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_MinValue: -1000
-  speed: 3
+  speed: 0
   m_xScrollSpeed: 10
 --- !u!114 &114491163063312296
 MonoBehaviour:
@@ -966,7 +966,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_MinValue: -1000
-  speed: 2
+  speed: 0
   m_xScrollSpeed: 10
 --- !u!114 &114619774173726646
 MonoBehaviour:
@@ -1185,7 +1185,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_MinValue: -1000
-  speed: 0.7
+  speed: 0
   m_xScrollSpeed: 8
 --- !u!114 &114866745881645918
 MonoBehaviour:
@@ -1199,7 +1199,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_MinValue: -1000
-  speed: 0.7
+  speed: 0
   m_xScrollSpeed: 8
 --- !u!114 &114877109176344900
 MonoBehaviour:
@@ -1227,7 +1227,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_MinValue: -1000
-  speed: 0.5
+  speed: 0
   m_xScrollSpeed: 10
 --- !u!114 &114904213040192866
 MonoBehaviour:
@@ -1349,7 +1349,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_MinValue: -1000
-  speed: 0.5
+  speed: 0
   m_xScrollSpeed: 10
 --- !u!114 &114990478885761746
 MonoBehaviour:
@@ -1363,7 +1363,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_MinValue: -1000
-  speed: 0.7
+  speed: 0
   m_xScrollSpeed: 8
 --- !u!222 &222013667450606152
 CanvasRenderer:

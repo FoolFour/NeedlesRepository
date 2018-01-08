@@ -7,9 +7,6 @@ using System.Collections.Generic;
 public class EventSystemControl : MonoBehaviour
 {
     [SerializeField]
-    private GameObject selectGameObject;
-
-    [SerializeField]
     private Button retryButton;
     [SerializeField]
     private Button nextStageButton;
@@ -25,18 +22,22 @@ public class EventSystemControl : MonoBehaviour
         eventSystem = GetComponent<EventSystem>();
     }
 
-    private void Start()
+    public void ConfigureEventSystem()
     {
+        Debug.Log("EventSystemの設定");
         module.horizontalAxis = GamePad.Horizontal;
         module.verticalAxis   = GamePad.Vertical;
 
-        eventSystem.SetSelectedGameObject(selectGameObject);
         EventSystem.current = eventSystem;
-        eventSystem.UpdateModules();
+        EventSystem.current.currentInputModule.ActivateModule();
 
-        if(!nextStageButton.interactable)
+        if(nextStageButton.interactable)
         {
-            eventSystem.SetSelectedGameObject(worldSelectButton.gameObject);
+            EventSystem.current.SetSelectedGameObject(nextStageButton.gameObject);
+        }
+        else
+        {
+            EventSystem.current.SetSelectedGameObject(worldSelectButton.gameObject);
 
             Navigation navigation;
 
@@ -48,10 +49,5 @@ public class EventSystemControl : MonoBehaviour
             navigation.selectOnRight     = retryButton;
             worldSelectButton.navigation = navigation;
         }
-    }
-
-    private void Update()
-    {
-
     }
 }

@@ -4,12 +4,12 @@ public class PrefsDataName
     // ----- ----- ----- -----
     // ステージの情報
     // ----- ----- ----- -----
-    public const string StageName = "StageName";
-    public const string Scene     = "Scene";
-    public const string NextSene  = "NextScene";
-    public const string Border1   = "Border1";
-    public const string Border2   = "Border2";
-    public const string Time      = "Time";
+    public static readonly string StageName = "StageName";
+    public static readonly string Scene     = "Scene";
+    public static readonly string NextSene  = "NextScene";
+    public static readonly string Border1   = "Border1";
+    public static readonly string Border2   = "Border2";
+    public static readonly string Time      = "Time";
 
     public static string StageTime(string stageName)
     {
@@ -31,10 +31,10 @@ public class PrefsDataName
         return stageName + "_" + "B2ClearFrag";
     }
 
-    public const string isInit    = "isInit";
+    public static readonly string isInit    = "isInit";
 
     // ----- ----- ----- -----
     // フェード関係
     // ----- ----- ----- -----
-    public const string FadeStart = "FadeStart";
+    public static readonly string FadeStart = "FadeStart";
 }

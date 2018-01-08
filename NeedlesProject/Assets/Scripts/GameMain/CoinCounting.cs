@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class CoinCounting : MonoBehaviour
 {
-    public const int defaultCoinNum = 20;
+    public static readonly int defaultCoinNum = 20;
 
     int startCoinNum;
 

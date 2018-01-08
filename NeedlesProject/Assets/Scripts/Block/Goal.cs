@@ -6,14 +6,12 @@ using LoadSceneMode = UnityEngine.SceneManagement.LoadSceneMode;
 public class Goal : BlockBase
 {
     [SerializeField]
-    public SceneChanger sceneChanger;
-
-    [SerializeField]
     public Player       player;
+
+    public SceneChanger sceneChanger;
 
     private void Reset()
     {
-        sceneChanger = FindObjectOfType<SceneChanger>();
         player       = FindObjectOfType<Player>();
     }
 
@@ -22,7 +20,8 @@ public class Goal : BlockBase
         stickpoint.transform.position = transform.position + new Vector3(0, -0.5f, 0);
         player.Goal();
         //GetComponent<TEST_GoalMove>().StartEvent(); //デバッグ用
-        sceneChanger.SceneChange("Result", LoadSceneMode.Additive);
+        gameObject.GetComponent<GoalAnimation>().StartAnimation();
+
         GetComponent<BoxCollider>().isTrigger = true;
         GameManagers.Instance.GameStateManager.StateChange(GameState.End);
     }
@@ -30,5 +29,10 @@ public class Goal : BlockBase
     public override void StickExit()
     {
         base.StickExit();
+    }
+
+    public void SceneChange()
+    {
+        sceneChanger.SceneChangeAsync("Result", LoadSceneMode.Additive);
     }
 }
