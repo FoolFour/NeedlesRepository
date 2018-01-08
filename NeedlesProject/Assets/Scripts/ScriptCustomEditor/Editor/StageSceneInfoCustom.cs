@@ -79,25 +79,11 @@ public class StageSceneInfoCustom : Editor
         stageInfo.border2   = EditorGUILayout   .FloatField("目標タイム その２", stageInfo.border2  );
 
         serializedObject.ApplyModifiedProperties();
-    }
 
-    [System.Obsolete("EditorGUIExtend.SceneFieldを使用してください")]
-    public string SceneField(string text, string sceneName)
-    {
-        var oldScene = AssetDatabase.LoadAssetAtPath<SceneAsset>(sceneName);
-
-        //インスペクタに変更があったかチェックできない為
-        serializedObject.Update();
-
-        EditorGUI.BeginChangeCheck();
-        var newScene = EditorGUILayout.ObjectField(text, oldScene, typeof(SceneAsset), false) as SceneAsset;
-
-        if(EditorGUI.EndChangeCheck())
+        EditorGUILayout.Space();
+        if(GUILayout.Button("ファイルの作成"))
         {
-            var    newPath = AssetDatabase.GetAssetPath(newScene);
-            return newPath;
+            info.GenerateFile();
         }
-        
-        return sceneName;
     }
 }

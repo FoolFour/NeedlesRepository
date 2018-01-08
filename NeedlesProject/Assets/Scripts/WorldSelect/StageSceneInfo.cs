@@ -214,7 +214,7 @@ public class StageSceneInfo : MonoBehaviour
     }
 
     [ContextMenu("Generate File")]
-    private void GenerateFile()
+    public void GenerateFile()
     {
         var directory = Application.streamingAssetsPath + "/Stages";
 
