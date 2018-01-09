@@ -42,7 +42,8 @@ public class StageDataFileLoader : MonoBehaviour
 
     private void LoadFile()
     {
-        using (var fs = new IO.FileStream(nowStageData, IO.FileMode.Open))
+        string path = Application.streamingAssetsPath + "/" + nowStageData;
+        using (var fs = new IO.FileStream(path, IO.FileMode.Open))
         {
             using (var br = new IO.BinaryReader(fs))
             {
