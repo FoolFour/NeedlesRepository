@@ -8,7 +8,11 @@ public class DisablePlayer : StateMachineBehaviour {
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         GameObject obj = GameManagers.Instance.PlayerManager.GetPlayer();
-        obj.GetComponentInChildren<Renderer>().enabled = false;
+        var components = obj.GetComponentsInChildren<Renderer>();
+        foreach(var item in components)
+        {
+            item.enabled = false;
+        }
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
