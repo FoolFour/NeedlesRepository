@@ -19,6 +19,7 @@ public class JumpArea : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             m_Animator.SetTrigger("JumpTr");
+            Sound.PlaySe("Spring");
             other.GetComponent<Rigidbody>().AddForce(transform.up * m_Power, ForceMode.VelocityChange);
 
         }

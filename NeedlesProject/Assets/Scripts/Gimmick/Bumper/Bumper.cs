@@ -18,6 +18,7 @@ public class Bumper : MonoBehaviour
         if (collision.collider.CompareTag("Player"))
         {
             m_Animator.SetTrigger("BumperOnTr");
+            Sound.PlaySe("Spring");
             var dir = collision.transform.position - transform.position;
             collision.gameObject.GetComponent<Rigidbody>().AddForce(dir.normalized * m_Power, ForceMode.VelocityChange);
         }
