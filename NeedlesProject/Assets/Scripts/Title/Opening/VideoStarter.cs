@@ -65,5 +65,13 @@ public class VideoStarter : MonoBehaviour
         yield return new WaitForSeconds(1.0f);
 
         m_sceneChanger.SetActive(true);
+
+        while (m_VideoPlayer.isPlaying)
+        {
+            yield return new WaitForEndOfFrame();
+        }
+
+        m_sceneChanger.GetComponent<PushButtonToScenechange>().SceneChange();
+
     }
 }
