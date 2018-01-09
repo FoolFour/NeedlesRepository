@@ -43,7 +43,7 @@ public class VideoStarter : MonoBehaviour
             var to = Quaternion.AngleAxis(-180, Vector3.up);
             while (t < 1)
             {
-                Camera.main.transform.rotation = Quaternion.Slerp(from, to, t);
+                Camera.main.transform.rotation = Quaternion.Slerp(from, to, Mathf.SmoothStep(0, 1, t));
                 t += 0.01f;
                 yield return new WaitForEndOfFrame();
             }
