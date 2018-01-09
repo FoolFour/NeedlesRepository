@@ -49,6 +49,11 @@ public class GameTimer : Pauser
         action();
     }
 
+    public void RecordTime()
+    {
+
+    }
+
     /////////////////////
     // 関数(protected)　/
     ///////////////////
