@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -9,6 +10,12 @@ public class StageSelect : MonoBehaviour
 
     [SerializeField]
     CameraControl  control;
+
+    [SerializeField]
+    Sprite[] worldSprites;
+
+    [SerializeField]
+    Image backgroundImage;
 
     public  int    selectStage;
 
@@ -30,6 +37,8 @@ public class StageSelect : MonoBehaviour
         selectStage      = 0;
         info.selectWorld = control.Current-1;
         info.selectStage = selectStage;
+
+        backgroundImage.sprite = worldSprites[info.selectWorld];
     }
 
     private void Start()
