@@ -9,8 +9,9 @@ public class StageDataFileLoaderCustom : Editor
 {
     Object nextStageData;
 
-    const string STAGE_DATA_EXT = ".sdf";
-
+    static readonly string STAGE_DATA_EXT = ".sdf";
+    static readonly string PATH = "Assets/StreamingAssets/";
+    
     public override void OnInspectorGUI()
     {
         StageDataFileLoader stageDataFile = target as StageDataFileLoader;
@@ -22,17 +23,26 @@ public class StageDataFileLoaderCustom : Editor
         serializedObject.Update();
 
         EditorGUI.BeginChangeCheck();
-        Object nowStageData = AssetDatabase.LoadAssetAtPath<Object>(stageDataFile.nowStageData);
-        nowStageData  = EditorGUILayout.ObjectField("現在のステージのデータ ", nowStageData, typeof(Object), false);
-        
+        Object nowStageData = null;
+        if(stageDataFile.nowStageData != "")
+        {
+            nowStageData = AssetDatabase.LoadAssetAtPath<Object>(PATH + stageDataFile.nowStageData);
+        }
+
+        nowStageData = EditorGUILayout.ObjectField("現在のステージのデータ ", nowStageData, typeof(Object), false);
         if(EditorGUI.EndChangeCheck())
         {
             string path = AssetDatabase.GetAssetPath(nowStageData);
             string extension = IO.Path.GetExtension(path);
 
-            if(extension == STAGE_DATA_EXT || path == "")
+            if(extension == STAGE_DATA_EXT)
             {
-                //ファイルが指定されていない場合も代入
+                path = path.Replace(PATH, "");
+                Debug.Log("データ:" + path);
+                stageDataFile.nowStageData = path;
+            }
+            else if(path == "")
+            {
                 stageDataFile.nowStageData = path;
             }
             else
