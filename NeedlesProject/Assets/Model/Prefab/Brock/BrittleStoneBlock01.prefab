@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: 23798398436432074}
   - component: {fileID: 114052316630133008}
   - component: {fileID: 114772416921584124}
+  - component: {fileID: 114586330664068700}
   m_Layer: 9
   m_Name: BrittleStoneBlock01
   m_TagString: Untagged
@@ -127,8 +128,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isHitBlock: 0
-  m_breakParticlePrefab: {fileID: 1639642124817106, guid: ffa928a83a9c5fe4591172bec11a02e5,
+  m_breakParticlePrefab: {fileID: 1639642124817106, guid: ac68db9ef3413c4419d165492ef7dda9,
     type: 2}
+--- !u!114 &114586330664068700
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1150438769391204}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c9b47439ab81b044aea7b883ddd0b5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  reverse: 0
 --- !u!114 &114772416921584124
 MonoBehaviour:
   m_ObjectHideFlags: 1
