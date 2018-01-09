@@ -31,6 +31,7 @@ public class SoundManger : MonoBehaviour
         Sound.LoadSe("Landing", "Landing");
         Sound.LoadSe("TitleOnButton1", "TitleOnButton1");
         Sound.LoadSe("ScreenUp", "ScreenUp");
+        Sound.LoadSe("Spring", "Spring");
 
         Sound.LoadSe("Creak", "Creak");
     }
