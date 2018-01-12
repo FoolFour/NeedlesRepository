@@ -25,8 +25,8 @@ public class ResultDataCollector : MonoBehaviour
         stageData.ApplyBorder1  (PlayerPrefs.GetFloat(PrefsDataName.Border1));
         stageData.ApplyBorder2  (PlayerPrefs.GetFloat(PrefsDataName.Border2));
 
-        SubmitBestTIme(stageData.sceneName, stageData.time);
-        SubmitStageClear(stageData.sceneName);
+        SubmitBestTIme(stageData.stageName, stageData.time);
+        SubmitStageClear(stageData.stageName);
 
         PlayerPrefs.DeleteKey(PrefsDataName.Scene);
         PlayerPrefs.DeleteKey(PrefsDataName.Time);
