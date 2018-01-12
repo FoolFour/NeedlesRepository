@@ -6,7 +6,11 @@ public class SoundManger : MonoBehaviour
 {
     public void Awake()
     {
+        Sound.LoadBgm("Tutorial", "Tutorial_BGM");
         Sound.LoadBgm("Stage1",      "Stage1BGM");
+        Sound.LoadBgm("Stage2", "Stage2BGM");
+        Sound.LoadBgm("Stage3", "W3_BGM");
+
         Sound.LoadBgm("Title",       "TitleBGM");
         Sound.LoadBgm("StageSelect", "StageSelectBGM");
 
