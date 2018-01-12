@@ -19,37 +19,22 @@ public class ResultDataCollector : MonoBehaviour
         stageData = GetComponent<StageData>();
 
         stageData.ApplySceneName(PlayerPrefs.GetString(PrefsDataName.Scene));
-
-        //FindSceneObjectOfTypeは現在のクラスの関数
-
-        //var timer = FindSceneObjectOfType<GameTimer>(stageData.sceneName);
-        //stageData.ApplyTime(timer.gameTimeNoPauseTime);
-
+        
+        stageData.ApplyTime     (PlayerPrefs.GetFloat(PrefsDataName.Time));
         stageData.ApplyStageName(PlayerPrefs.GetString(PrefsDataName.StageName));
-        stageData.ApplyBorder1(PlayerPrefs.GetFloat(PrefsDataName.Border1));
-        stageData.ApplyBorder2(PlayerPrefs.GetFloat(PrefsDataName.Border2));
+        stageData.ApplyBorder1  (PlayerPrefs.GetFloat(PrefsDataName.Border1));
+        stageData.ApplyBorder2  (PlayerPrefs.GetFloat(PrefsDataName.Border2));
 
         SubmitBestTIme(stageData.sceneName, stageData.time);
         SubmitStageClear(stageData.sceneName);
 
+        PlayerPrefs.DeleteKey(PrefsDataName.Scene);
+        PlayerPrefs.DeleteKey(PrefsDataName.Time);
+        PlayerPrefs.DeleteKey(PrefsDataName.StageName);
+        PlayerPrefs.DeleteKey(PrefsDataName.Border1);
+        PlayerPrefs.DeleteKey(PrefsDataName.Border2);
+
         PlayerPrefs.Save();
-    }
-
-    private T FindSceneObjectOfType<T>(string sceneName)
-    {
-        Scene stageScene = SceneManager.GetSceneByName(sceneName);
-        GameObject[] obj = stageScene.GetRootGameObjects();
-
-        foreach (var item in obj)
-        {
-            var component = item.GetComponent<T>();
-            if (component != null)
-            {
-                return component;
-            }
-        }
-
-        return default(T);
     }
 
     private void SubmitBestTIme(string stageName, float new_time)

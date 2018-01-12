@@ -29,7 +29,7 @@ public class EventSystemControl : MonoBehaviour
         module.verticalAxis   = GamePad.Vertical;
 
         EventSystem.current = eventSystem;
-        EventSystem.current.currentInputModule.ActivateModule();
+        EventSystem.current.UpdateModules();
 
         if(nextStageButton.interactable)
         {

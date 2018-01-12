@@ -49,6 +49,11 @@ public class GameTimer : Pauser
         action();
     }
 
+    public void RecordClearTime()
+    {
+        PlayerPrefs.SetFloat(PrefsDataName.Time, gameTimeNoPauseTime);
+    }
+
     /////////////////////
     // 関数(protected)　/
     ///////////////////

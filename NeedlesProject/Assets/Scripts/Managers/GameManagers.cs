@@ -19,19 +19,21 @@ public class GameManagers : MonoBehaviour
         }
     }
 
-    public SpawnManager SpawnManager;
-    public PlayerManager PlayerManager;
-    public StageManager StageManager;
+    public SpawnManager     SpawnManager;
+    public PlayerManager    PlayerManager;
+    public StageManager     StageManager;
     public GameStateManager GameStateManager;
+    public GameTimer        GameTimer;
 
     /// <summary>
     /// コンポーネントが増えたら追加する必要がある
     /// </summary>
     public void Awake()
     {
-        SpawnManager = GetComponent<SpawnManager>();
-        PlayerManager = GetComponent<PlayerManager>();
-        StageManager = GetComponent<StageManager>();
+        SpawnManager     = GetComponent<SpawnManager>();
+        PlayerManager    = GetComponent<PlayerManager>();
+        StageManager     = GetComponent<StageManager>();
         GameStateManager = GetComponent<GameStateManager>();
+        GameTimer        = GetComponent<GameTimer>();
     }
 }

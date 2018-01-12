@@ -20,8 +20,6 @@ public class StageSubmitToSceneChange : MonoBehaviour
     {
         if(Input.GetButton(GamePad.Submit))
         {
-            Debug.Log("ステージに渡す情報");
-
             //情報を送る
             var stage_info = info.GetSelectStageInfo();
 

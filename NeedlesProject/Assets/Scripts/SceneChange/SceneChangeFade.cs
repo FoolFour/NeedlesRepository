@@ -15,6 +15,14 @@ public class SceneChangeFade : SceneChanger
         tiling = FindObjectOfType<BlockTiling>();
     }
 
+    private void Start()
+    {
+        if(tiling == null)
+        {
+            tiling = FindObjectOfType<BlockTiling>();
+        }
+    }
+
     protected override IEnumerator SceneChangePerformance()
     {
         yield return tiling.FadeInStart();

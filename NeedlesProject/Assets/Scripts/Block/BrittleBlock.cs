@@ -14,7 +14,7 @@ public class BrittleBlock : BlockBase, IRespawnMessage
 
     public override void StickEnter(GameObject arm)
     {
-        Sound.PlaySe("BlockBreak");
+        Sound.PlaySe("BlockBreak",1);
         var go = Instantiate(m_breakParticlePrefab, transform.position, Quaternion.identity);
         Destroy(go, 1f);
         GetComponent<RemoveComponent>().SwitchActive(false);
