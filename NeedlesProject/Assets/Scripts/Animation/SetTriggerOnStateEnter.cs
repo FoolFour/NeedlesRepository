@@ -1,16 +1,13 @@
 ﻿using UnityEngine;
 
-public class SetBoolOnStateEnter : StateMachineBehaviour
+public class SetTriggerOnStateEnter : StateMachineBehaviour
 {
     [SerializeField]
-    string boolName;
-
-    [SerializeField]
-    bool   condition;
+    string triggerName;
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        animator.SetBool(boolName, condition);
+        animator.SetTrigger(triggerName);
     }
 }

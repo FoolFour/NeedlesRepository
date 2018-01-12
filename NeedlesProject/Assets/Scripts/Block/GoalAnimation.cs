@@ -39,6 +39,7 @@ public class GoalAnimation : MonoBehaviour
 
     private IEnumerator Hide()
     {
+        if(imageSyncHider == null) { yield break; }
         Debug.Log(imageSyncHider);
 
         for(int i = 1; i <= hideBackgroundFrame; i++)
