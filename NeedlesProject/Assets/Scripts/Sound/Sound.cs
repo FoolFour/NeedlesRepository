@@ -213,6 +213,16 @@ public class Sound
         return true;
     }
 
+    public static bool CheckBGMSame(string key)
+    {
+        return GetInstance()._CheckBGMSame(key);
+    }
+
+    bool _CheckBGMSame(string key)
+    {
+        return _GetAudioSource(eType.Bgm).clip == _poolBgm[key].Clip;
+    }
+
     bool _PlaySeOne(string key)
     {
         if (_poolSe.ContainsKey(key) == false)
