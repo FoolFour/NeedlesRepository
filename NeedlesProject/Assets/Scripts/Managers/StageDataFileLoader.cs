@@ -33,6 +33,7 @@ public class StageDataFileLoader : MonoBehaviour
         const float  border2    =  50;
 
         string scene_name = SceneManager.GetActiveScene().name;
+        Debug.Log(scene_name);
 
         PlayerPrefs.SetString(PrefsDataName.StageName, stage_name);
         PlayerPrefs.SetString(PrefsDataName.Scene,     scene_name);
@@ -52,6 +53,7 @@ public class StageDataFileLoader : MonoBehaviour
                 float  border2    = br.ReadSingle();
 
                 string scene_name = SceneManager.GetActiveScene().name;
+                Debug.Log(scene_name);
 
                 PlayerPrefs.SetString(PrefsDataName.StageName, stage_name);
                 PlayerPrefs.SetString(PrefsDataName.Scene,     scene_name);

@@ -1,5 +1,5 @@
 ﻿/// <summary>PlayerPrefsで受け渡すデータの名前</summary>
-public class PrefsDataName
+public sealed class PrefsDataName
 {
     // ----- ----- ----- -----
     // ステージの情報

@@ -31,6 +31,7 @@ public class SceneChangeRetry : MonoBehaviour
 
     private IEnumerator Change()
     {
+        Debug.Log(PlayerPrefs.GetString(PrefsDataName.Scene));
         yield return StartCoroutine(SceneChangePerformance());
         SceneManager.LoadScene(PlayerPrefs.GetString(PrefsDataName.Scene));
     }

@@ -28,7 +28,6 @@ public class ResultDataCollector : MonoBehaviour
         SubmitBestTIme(stageData.stageName, stageData.time);
         SubmitStageClear(stageData.stageName);
 
-        PlayerPrefs.DeleteKey(PrefsDataName.Scene);
         PlayerPrefs.DeleteKey(PrefsDataName.Time);
         PlayerPrefs.DeleteKey(PrefsDataName.StageName);
         PlayerPrefs.DeleteKey(PrefsDataName.Border1);
