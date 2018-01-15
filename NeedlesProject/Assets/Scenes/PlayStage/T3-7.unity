@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657868, g: 0.49641263, b: 0.57481706, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -26053,6 +26053,11 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 589be2163c4e09642bd545be711990ce, type: 2}
   m_IsPrefabParent: 0
+--- !u!20 &1604434307 stripped
+Camera:
+  m_PrefabParentObject: {fileID: 20334009784494900, guid: 589be2163c4e09642bd545be711990ce,
+    type: 2}
+  m_PrefabInternal: {fileID: 1604434306}
 --- !u!1001 &1605347011
 Prefab:
   m_ObjectHideFlags: 0
@@ -32557,7 +32562,7 @@ Prefab:
         type: 2}
       propertyPath: m_Camera
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1604434307}
     - target: {fileID: 1448647042604266, guid: e6b95f9c985a9874e8cc591992d52e29, type: 2}
       propertyPath: m_IsActive
       value: 1
