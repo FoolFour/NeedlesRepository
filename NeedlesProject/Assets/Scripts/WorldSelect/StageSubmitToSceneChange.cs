@@ -8,20 +8,22 @@ public class StageSubmitToSceneChange : MonoBehaviour
     private SceneChangeFade sceneChange;
 
     [SerializeField]
-    private StageSceneInfo info;
+    private StageBasicInfoManager info;
 
     private void Reset()
     {
         sceneChange = FindObjectOfType<SceneChangeFade>();
-        info        = FindObjectOfType<StageSceneInfo >();
+        info        = FindObjectOfType<StageBasicInfoManager>();
     }
 
     private void Update()
     {
         if(Input.GetButton(GamePad.Submit))
         {
+            
+
             //情報を送る
-            var stage_info = info.GetSelectStageInfo();
+            var stage_info = info.NowStageSelectInfo;
 
             var scene_name = stage_info.sceneName;
             sceneChange.SceneChange(scene_name);

@@ -11,7 +11,7 @@ public class WorldUI : MonoBehaviour
     WorldSelect    worldSelect;
 
     [SerializeField]
-    StageSceneInfo stageSceneInfo;
+    StageBasicInfoManager stageSceneInfo;
 
     Text           text;
 
@@ -20,7 +20,7 @@ public class WorldUI : MonoBehaviour
     private void Reset()
     {
         worldSelect    = FindObjectOfType<WorldSelect>();
-        stageSceneInfo = FindObjectOfType<StageSceneInfo>();
+        stageSceneInfo = FindObjectOfType<StageBasicInfoManager>();
     }
 
     private void Awake()
@@ -37,7 +37,7 @@ public class WorldUI : MonoBehaviour
         else
         {
             alpha += Time.deltaTime;
-            text.text = stageSceneInfo.worldList[worldSelect.SelectWorld-1].worldName;
+            text.text = stageSceneInfo.NowSelectedWorldName;
         }
         Color col = text.color;
         col.a = alpha;

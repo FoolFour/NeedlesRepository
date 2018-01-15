@@ -9,7 +9,7 @@ namespace StageInfo
     public class Border : MonoBehaviour
     {
         [SerializeField]
-        private StageSceneInfo info;
+        private StageBasicInfoManager info;
 
         private enum ShowBorder
         {
@@ -23,7 +23,7 @@ namespace StageInfo
 
         private void Reset()
         {
-            info = FindObjectOfType<StageSceneInfo>();
+            info = FindObjectOfType<StageBasicInfoManager>();
         }
 
         private void Awake()
@@ -38,11 +38,11 @@ namespace StageInfo
             
             if(showInfo == ShowBorder.Border1)
             {
-                time = (int)info.GetSelectStageInfo().border1;
+                time = (int)info.NowStageSelectInfo.border1;
             }
             else
             {
-                time = (int)info.GetSelectStageInfo().border2;
+                time = (int)info.NowStageSelectInfo.border2;
             }
 
             var timeSpan = new System.TimeSpan(0, 0, time);

@@ -11,7 +11,7 @@ namespace StageInfo
     public class ShowBestTime : MonoBehaviour
     {
         [SerializeField]
-        StageSceneInfo info;
+        StageBasicInfoManager info;
 
         Text text;
         
@@ -19,7 +19,7 @@ namespace StageInfo
 
         private void Reset()
         {
-            info = FindObjectOfType<StageSceneInfo>();
+            info = FindObjectOfType<StageBasicInfoManager>();
         }
 
         private void Awake()
@@ -30,7 +30,7 @@ namespace StageInfo
 
         private void Update()
         {
-            float tmp = info.GetSelectStageInfo().time;
+            float tmp = info.NowStageSelectInfo.time;
             
             int sec  = Mathf.FloorToInt(tmp);
             int mili = (int)(Mathf.Repeat(tmp, 1.0f) * 1000.0f);

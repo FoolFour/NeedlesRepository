@@ -20,6 +20,9 @@ public class WorldSelect : MonoBehaviour
     [SerializeField, Tooltip("現在のパスの座標からみた移動量")]
     Vector3          offset;
 
+    [SerializeField]
+    StageBasicInfoManager info;
+
 
     /////////////////////////////
     // 変数(NonserializeField) /
@@ -32,7 +35,7 @@ public class WorldSelect : MonoBehaviour
     TaskLock         task;
 
     /// <summary>現在選んでいるワールド</summary>
-    int              selectWorldNum;
+    //int              selectWorldNum;
 
     /////////////////////////
     /// プロパティ(public) /
@@ -40,7 +43,7 @@ public class WorldSelect : MonoBehaviour
 
     public int SelectWorld
     {
-        get { return selectWorldNum + 1; }
+        get { return info.selectWorld + 1; }
     }
 
     public bool IsChangeAnimation
@@ -61,17 +64,17 @@ public class WorldSelect : MonoBehaviour
     // 関数(private) /
     /////////////////
 
-    private void Awake()
+    private void Start()
     {
-        selectWorldNum = 0;
-
-        spline = new CatmullRomSpline();
         task = gameObject.AddComponent<TaskLock>();
 
+        spline = new CatmullRomSpline();
         foreach (Transform child in pathObj)
         {
             spline.AddPath(child.position);
         }
+
+        transform.position = FetchPosition(info.selectWorld);
     }
 
     private void Update()
@@ -84,7 +87,7 @@ public class WorldSelect : MonoBehaviour
     private IEnumerator NextSelect()
     {
         //ステージの数を越えるか
-        if (selectWorldNum >= spline.PathNum-1) { yield break; }
+        if (info.IsMaxWorld) { yield break; }
 
         Sound.PlaySe("CursorMove");
         float amount = 0;
@@ -93,20 +96,20 @@ public class WorldSelect : MonoBehaviour
             float hoge = pathAnimation.Evaluate(amount);
             hoge = Mathf.Clamp01(hoge);
 
-            transform.position = FetchPosition(selectWorldNum + hoge);
+            transform.position = FetchPosition(info.selectWorld + hoge);
 
             amount += Time.deltaTime * pathSpeed;
             yield return null;
         }
 
-        selectWorldNum++;
-        transform.position = FetchPosition(selectWorldNum);
+        info.WorldSelectNext();
+        transform.position = FetchPosition(info.selectWorld);
     }
 
     private IEnumerator PrevSelect()
     {
         //ステージ0以下は存在しない
-        if (selectWorldNum <= 0) { yield break; }
+        if (info.IsMinWorld) { yield break; }
 
         Sound.PlaySe("CursorMove");
         float amount = 0;
@@ -115,14 +118,14 @@ public class WorldSelect : MonoBehaviour
             float hoge = pathAnimation.Evaluate(amount);
             hoge = Mathf.Clamp01(hoge);
 
-            transform.position = FetchPosition(selectWorldNum - hoge);
+            transform.position = FetchPosition(info.selectWorld - hoge);
 
             amount += Time.deltaTime * pathSpeed;
             yield return null;
         }
 
-        selectWorldNum--;
-        transform.position = FetchPosition(selectWorldNum);
+        info.WorldSelectPrev();
+        transform.position = FetchPosition(info.selectWorld);
     }
 
     private Vector3 FetchPosition(float amount)

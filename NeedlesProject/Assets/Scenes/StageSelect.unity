@@ -3811,7 +3811,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f66253cd58bd8e04da42f54adeaff264, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  info: {fileID: 1532593919}
+  info: {fileID: 1532593921}
 --- !u!114 &187184536
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4006,6 +4006,7 @@ MonoBehaviour:
     m_RotationOrder: 0
   pathSpeed: 1.2
   offset: {x: 0, y: 0, z: -10}
+  info: {fileID: 1532593921}
 --- !u!4 &285978201
 Transform:
   m_ObjectHideFlags: 0
@@ -4143,7 +4144,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   worldSelect: {fileID: 267529993}
-  stageSceneInfo: {fileID: 1532593919}
+  stageSceneInfo: {fileID: 1532593921}
 --- !u!114 &314722323
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14615,7 +14616,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   getClearFlag: 2
-  info: {fileID: 1532593919}
+  info: {fileID: 1532593921}
 --- !u!1 &749166760
 GameObject:
   m_ObjectHideFlags: 0
@@ -14725,7 +14726,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   getClearFlag: 1
-  info: {fileID: 1532593919}
+  info: {fileID: 1532593921}
 --- !u!4 &795158794 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4430000469550280, guid: ffd9989180f174f4a8fef1fe5486ac15,
@@ -21651,7 +21652,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   getClearFlag: 0
-  info: {fileID: 1532593919}
+  info: {fileID: 1532593921}
 --- !u!1 &1009413950
 GameObject:
   m_ObjectHideFlags: 0
@@ -21739,7 +21740,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e698e6e57a9cd304f83e74f3a5ff7d3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  info: {fileID: 1532593919}
+  info: {fileID: 1532593921}
   showInfo: 1
 --- !u!114 &1009413955
 MonoBehaviour:
@@ -22504,7 +22505,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a7b444549767b14b829d86ec3d2051e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  info: {fileID: 1532593919}
+  info: {fileID: 1532593921}
 --- !u!114 &1378764891
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26151,8 +26152,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1532593920}
   - component: {fileID: 1532593919}
+  - component: {fileID: 1532593921}
   m_Layer: 0
-  m_Name: StageSceneInfo
+  m_Name: StageBasicInfo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26370,8 +26372,6 @@ MonoBehaviour:
       border2: 0
       border2ClearFlag: 0
       time: 0
-  selectWorld: 0
-  selectStage: 0
 --- !u!4 &1532593920
 Transform:
   m_ObjectHideFlags: 0
@@ -26385,6 +26385,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1532593921
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1532593918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a018d4857b2178e468ac819cd698bcde, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1580242372
 GameObject:
   m_ObjectHideFlags: 0
@@ -27035,7 +27046,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e698e6e57a9cd304f83e74f3a5ff7d3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  info: {fileID: 1532593919}
+  info: {fileID: 1532593921}
   showInfo: 0
 --- !u!114 &1879830757
 MonoBehaviour:
@@ -27229,7 +27240,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23997a73957980c47aa16d53baf8dc60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  info: {fileID: 1532593919}
+  info: {fileID: 1532593921}
   control: {fileID: 1059833787}
   worldSprites:
   - {fileID: 21300000, guid: c650b7ba55ac203468f712b010e32f45, type: 3}
@@ -27250,7 +27261,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneChange: {fileID: 952314480}
-  info: {fileID: 1532593919}
+  info: {fileID: 1532593921}
 --- !u!1 &1961897610
 GameObject:
   m_ObjectHideFlags: 0
@@ -27559,7 +27570,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   smoothness: 20
-  lineMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  lineMaterial: {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
   lineStartWidth: 0.1
   lineEndWidth: 0.1
   lineGradient:

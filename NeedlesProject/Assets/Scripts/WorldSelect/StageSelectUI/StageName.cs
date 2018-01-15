@@ -9,13 +9,13 @@ namespace StageInfo
     public class StageName : MonoBehaviour
     {
         [SerializeField]
-        StageSceneInfo info;
+        StageBasicInfoManager info;
 
         Text text;
 
         private void Reset()
         {
-            info = FindObjectOfType<StageSceneInfo>();
+            info = FindObjectOfType<StageBasicInfoManager>();
         }
 
         private void Awake()
@@ -26,7 +26,7 @@ namespace StageInfo
 
         private void Update()
         {
-            text.text = info.GetSelectStageInfo().stageName;
+            text.text = info.NowStageSelectInfo.stageName;
         }
     }
 }

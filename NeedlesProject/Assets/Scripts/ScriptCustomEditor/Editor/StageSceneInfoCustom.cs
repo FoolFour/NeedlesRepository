@@ -4,7 +4,7 @@ using UnityEditor;
 using System.Collections;
 using System.Collections.Generic;
 
-[CustomEditor(typeof(StageSceneInfo))]
+[CustomEditor(typeof(StageBasicInfo))]
 public class StageSceneInfoCustom : Editor
 {
     //GameObject worldObject;
@@ -25,7 +25,7 @@ public class StageSceneInfoCustom : Editor
 
     public void ShowWorldList()
     {
-        StageSceneInfo info = target as StageSceneInfo;
+        StageBasicInfo info = target as StageBasicInfo;
 
         var skin         = GUI.skin.box;
         var scrollOption = GUILayout.Height(64);

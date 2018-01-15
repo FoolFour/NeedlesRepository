@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 using TimeSpan = System.TimeSpan;
 using IO = System.IO;
 
-public class StageSceneInfo : MonoBehaviour
+public class StageBasicInfo : MonoBehaviour
 {
     [System.Serializable]
     public class Stage
@@ -12,15 +12,8 @@ public class StageSceneInfo : MonoBehaviour
         public string worldName;
         public StageInfo[] stageList;
 
-        public Stage()
-        {
-            stageList = new StageInfo[] { };
-        }
-
-        public Stage(int i)
-        {
-            stageList = new StageInfo[i];
-        }
+        public Stage()      { stageList = new StageInfo[ ] { }; }
+        public Stage(int i) { stageList = new StageInfo[i];     }
 
         public int Length
         {
@@ -50,36 +43,14 @@ public class StageSceneInfo : MonoBehaviour
     [SerializeField]
     public Stage[] worldList;
 
-    public int selectWorld;
-    public int selectStage;
-
-    public StageInfo GetSelectStageInfo()
+    public int WorldCount
     {
-        return worldList[selectWorld][selectStage];
+        get { return worldList.Length; }
     }
 
-    public int GetSelectWorldStageNum()
+    public int StageCount(int world)
     {
-        return worldList[selectWorld].Length;
-    }
-
-    public string GetSelectWorldName()
-    {
-        return worldList[selectWorld].worldName;
-    }
-
-    /// <summary>次のステージを選択状態にする</summary>
-    public void SelectStageNext()
-    {
-        int tmp =  worldList[selectWorld].Length;
-        selectStage = (int)Mathf.Repeat(selectStage+1, tmp);
-    }
-
-    /// <summary>前のステージを選択状態にする</summary>
-    public void SelectStagePrev()
-    {
-        int tmp =  worldList[selectWorld].Length;
-        selectStage = (int)Mathf.Repeat(selectStage-1, tmp);
+        return worldList[world].Length;
     }
 
     private void Reset()

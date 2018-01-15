@@ -6,7 +6,7 @@ using System.Collections.Generic;
 public class StageSelect : MonoBehaviour
 {
     [SerializeField]
-    StageSceneInfo info;
+    StageBasicInfoManager info;
 
     [SerializeField]
     CameraControl  control;
@@ -23,7 +23,7 @@ public class StageSelect : MonoBehaviour
 
     private void Reset()
     {
-        info    = FindObjectOfType<StageSceneInfo>();
+        info    = FindObjectOfType<StageBasicInfoManager>();
         control = FindObjectOfType<CameraControl>();
     }
 
@@ -34,6 +34,7 @@ public class StageSelect : MonoBehaviour
 
     private void OnEnable()
     {
+#warning info
         selectStage      = 0;
         info.selectWorld = control.Current-1;
         info.selectStage = selectStage;
@@ -56,7 +57,7 @@ public class StageSelect : MonoBehaviour
             //→に入力
             if(selectFlag) { return; }
             Sound.PlaySe("CursorMove");
-            info.SelectStageNext();
+            info.StageSelectNext();
             selectFlag = true;
             return;
         }
@@ -66,7 +67,7 @@ public class StageSelect : MonoBehaviour
             //←に入力
             if(selectFlag) { return; }
             Sound.PlaySe("CursorMove");
-            info.SelectStagePrev();
+            info.StageSelectPrev();
             selectFlag = true;
             return;
         }

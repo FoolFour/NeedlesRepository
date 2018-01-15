@@ -4,12 +4,13 @@ public sealed class PrefsDataName
     // ----- ----- ----- -----
     // ステージの情報
     // ----- ----- ----- -----
-    public static readonly string StageName = "StageName";
-    public static readonly string Scene     = "Scene";
-    public static readonly string NextSene  = "NextScene";
-    public static readonly string Border1   = "Border1";
-    public static readonly string Border2   = "Border2";
-    public static readonly string Time      = "Time";
+    public static readonly string StageName     = "StageName";
+    public static readonly string Scene         = "Scene";
+    public static readonly string NextSene      = "NextScene";
+    public static readonly string Border1       = "Border1";
+    public static readonly string Border2       = "Border2";
+    public static readonly string Time          = "Time";
+    public static readonly string SelectedWorld = "SelectedWorld";
 
     public static string StageTime(string stageName)
     {

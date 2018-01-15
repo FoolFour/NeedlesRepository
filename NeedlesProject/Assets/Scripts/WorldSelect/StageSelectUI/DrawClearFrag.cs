@@ -16,14 +16,14 @@ public class DrawClearFrag : MonoBehaviour
     [SerializeField]
     ClearFlag getClearFlag;
     [SerializeField]
-    StageSceneInfo info;
+    StageBasicInfoManager info;
 
 
     Image image;
 
     private void Reset()
     {
-        info = FindObjectOfType<StageSceneInfo>();
+        info = FindObjectOfType<StageBasicInfoManager>();
     }
 
     private void Awake()
@@ -43,7 +43,7 @@ public class DrawClearFrag : MonoBehaviour
 
     private bool GetClearFrag()
     {
-        var tmp = info.GetSelectStageInfo();
+        var tmp = info.NowStageSelectInfo;
         if(getClearFlag == ClearFlag.StageClear   ) { return tmp.stageClearFlag;    }
         if(getClearFlag == ClearFlag.Border1Clear) { return tmp.border1ClearFlag; }
         if(getClearFlag == ClearFlag.Border2Clear) { return tmp.border2ClearFlag; }
