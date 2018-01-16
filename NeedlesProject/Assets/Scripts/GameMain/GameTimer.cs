@@ -79,6 +79,11 @@ public class GameTimer : Pauser
 
     private void Update()
     {
+        if(GameManagers.Instance.GameStateManager.m_gameState == GameState.Ready)
+        {
+            return;
+        }
+
         //ゲームの経過時間とポーズのみの経過時間を記録
         gameTime  += Time.deltaTime;
 
