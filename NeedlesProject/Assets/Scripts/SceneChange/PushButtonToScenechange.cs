@@ -16,11 +16,11 @@ public class PushButtonToScenechange : MonoBehaviour
     [SerializeField]
     UnityEngine.SceneManagement.LoadSceneMode mode;
 
-    SceneChangeTimer sceneChanger;
+    SceneChangeFade sceneChanger;
 
     private void Awake()
     {
-        sceneChanger = GetComponent<SceneChangeTimer>();
+        sceneChanger = GetComponent<SceneChangeFade>();
     }
 
     private void Update()
@@ -30,6 +30,7 @@ public class PushButtonToScenechange : MonoBehaviour
             Destroy(eraseObj);
             sceneChanger.SceneChange(sceneName, mode);
             Sound.PlaySe("TitleDecision");
+            PlayerPrefs.SetInt(PrefsDataName.SelectedWorld, 0);
         }
     }
 
