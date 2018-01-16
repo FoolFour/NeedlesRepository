@@ -14,19 +14,15 @@ public class EventSystemControl : MonoBehaviour
     private Button worldSelectButton;
     
     private EventSystem eventSystem;
-    private StandaloneInputModule module;
     
     private void Awake()
     {
-        module = GetComponent<StandaloneInputModule>();
         eventSystem = GetComponent<EventSystem>();
     }
 
     public void Start()
     {
         Debug.Log("EventSystemの設定");
-        module.horizontalAxis = GamePad.Horizontal;
-        module.verticalAxis   = GamePad.Vertical;
 
         EventSystem.current = eventSystem;
         EventSystem.current.UpdateModules();
