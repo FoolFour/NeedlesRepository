@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12912509, g: 0.19819787, b: 0.27209985, a: 1}
+  m_IndirectSpecularColor: {r: 0.12914786, g: 0.19823042, b: 0.27217528, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -744,7 +744,7 @@ VideoPlayer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1123014124}
   m_Enabled: 1
-  m_VideoClip: {fileID: 32900000, guid: 2d2ff5f8ebc94454486f07c02f8e0d40, type: 3}
+  m_VideoClip: {fileID: 32900000, guid: 0356ebb83405ff442b019716eca1fb06, type: 3}
   m_TargetCameraAlpha: 1
   m_TargetCamera: {fileID: 0}
   m_TargetTexture: {fileID: 0}
@@ -756,14 +756,12 @@ VideoPlayer:
   m_DataSource: 0
   m_PlaybackSpeed: 1
   m_AudioOutputMode: 1
-  m_TargetAudioSources:
-  - {fileID: 0}
-  m_DirectAudioVolumes:
-  - 1
+  m_TargetAudioSources: []
+  m_DirectAudioVolumes: []
   m_Url: 
-  m_EnabledAudioTracks: 01
-  m_DirectAudioMutes: 00
-  m_ControlledAudioTrackCount: 1
+  m_EnabledAudioTracks: 
+  m_DirectAudioMutes: 
+  m_ControlledAudioTrackCount: 0
   m_PlayOnAwake: 0
   m_SkipOnDrop: 1
   m_Looping: 0
@@ -1436,7 +1434,7 @@ RectTransform:
   m_GameObject: {fileID: 1888919160}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.3749574, y: 1.3749573, z: 1.3749573}
   m_Children: []
   m_Father: {fileID: 1741270198}
   m_RootOrder: 2
@@ -1465,7 +1463,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 00173dbc583e1fc4e994a5f087f5ab1a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: de6005be677a3d04fa8a63d487cc9949, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
