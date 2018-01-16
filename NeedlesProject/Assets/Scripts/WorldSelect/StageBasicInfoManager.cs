@@ -54,7 +54,7 @@ public class StageBasicInfoManager : MonoBehaviour
     public void StageSelectPrev()
     {
         selectStage--;
-        selectStage = (int)Mathf.Repeat(selectWorld, StageCountAtNowWorld);
+        selectStage = (int)Mathf.Repeat(selectStage, StageCountAtNowWorld);
     }
 
     public bool IsMaxWorld
