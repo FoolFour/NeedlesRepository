@@ -22,7 +22,7 @@ public class EventSystemControl : MonoBehaviour
         eventSystem = GetComponent<EventSystem>();
     }
 
-    public void ConfigureEventSystem()
+    public void Start()
     {
         Debug.Log("EventSystemの設定");
         module.horizontalAxis = GamePad.Horizontal;
