@@ -13418,11 +13418,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4502385489564536, guid: 0cbb2efd62855a04a8566e2ed03ff06a, type: 2}
       propertyPath: m_LocalScale.y
-      value: 29.614279
+      value: 72.92516
       objectReference: {fileID: 0}
     - target: {fileID: 4502385489564536, guid: 0cbb2efd62855a04a8566e2ed03ff06a, type: 2}
       propertyPath: m_LocalScale.x
-      value: 51.692142
+      value: 117.59918
       objectReference: {fileID: 0}
     - target: {fileID: 114008766827453770, guid: 0cbb2efd62855a04a8566e2ed03ff06a,
         type: 2}
@@ -13431,11 +13431,32 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1549388576833384, guid: 0cbb2efd62855a04a8566e2ed03ff06a, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0cbb2efd62855a04a8566e2ed03ff06a, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1892109370 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1549388576833384, guid: 0cbb2efd62855a04a8566e2ed03ff06a,
+    type: 2}
+  m_PrefabInternal: {fileID: 1892109369}
+--- !u!114 &1892109371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1892109370}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29a5a0928067ef54baf594f06f415c8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SE_Waterdrop: {fileID: 8300000, guid: ccaf1708e6130ad4086cf09881852d36, type: 3}
+  Splashes_Effect: {fileID: 198065875363222906, guid: abd68933ef23a3f45ab524b8b72235d4,
+    type: 2}
+  Splashes_obj: {fileID: 1625085366436990, guid: 5453688c46500584094be48007a6df42,
+    type: 2}
 --- !u!1001 &1892645278
 Prefab:
   m_ObjectHideFlags: 0
