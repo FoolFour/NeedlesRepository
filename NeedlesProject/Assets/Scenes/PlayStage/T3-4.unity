@@ -3477,7 +3477,7 @@ Prefab:
     - target: {fileID: 198669159369799656, guid: 552d791c2cec48941b257b794861ae43,
         type: 2}
       propertyPath: InitialModule.startLifetime.scalar
-      value: 20
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 198669159369799656, guid: 552d791c2cec48941b257b794861ae43,
         type: 2}
@@ -3496,6 +3496,21 @@ Prefab:
     - target: {fileID: 4896447752208278, guid: 552d791c2cec48941b257b794861ae43, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198669159369799656, guid: 552d791c2cec48941b257b794861ae43,
+        type: 2}
+      propertyPath: InitialModule.startRotation.scalar
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198669159369799656, guid: 552d791c2cec48941b257b794861ae43,
+        type: 2}
+      propertyPath: TrailModule.enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198669159369799656, guid: 552d791c2cec48941b257b794861ae43,
+        type: 2}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 552d791c2cec48941b257b794861ae43, type: 2}
