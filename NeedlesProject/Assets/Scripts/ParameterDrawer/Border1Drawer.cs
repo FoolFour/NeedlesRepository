@@ -10,10 +10,6 @@ public class Border1Drawer : ParametersDrawerBase
     private void Start()
     {
         text = GetComponent<Text>();
-    }
-
-    private void Update()
-    {
         text.text = ConvertTime(data.border1);
     }
 }
