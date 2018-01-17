@@ -9,8 +9,14 @@ public class StageBasicInfoManager : MonoBehaviour
 {
     StageBasicInfo info;
 
-    public int selectWorld{ get; set; }
-    public int selectStage{ get; set; }
+    public int selectWorld{ get; private set; }
+    public int selectStage{ get; private set; }
+
+    public delegate void SelectWorldChanged(int world);
+    public event SelectWorldChanged OnSelectWorldChanged;
+
+    public delegate void SelectStageChanged(int stage);
+    public event SelectStageChanged OnSelectStageChanged;
 
     public int WorldCount
     {
@@ -25,36 +31,6 @@ public class StageBasicInfoManager : MonoBehaviour
     public string NowSelectedWorldName
     {
         get { return info.worldList[selectWorld].worldName; }
-    }
-
-    public void WorldSelectNext()
-    {
-        selectWorld++;
-
-        //配列の範囲外に出ないように
-        selectStage = 0;
-        selectWorld = Mathf.Min(selectWorld, WorldCount-1);
-    }
-
-    public void WorldSelectPrev()
-    {
-        selectWorld--;
-
-        //配列の範囲外に出ないように
-        selectStage = 0;
-        selectWorld = Mathf.Max(selectWorld, 0);
-    }
-
-    public void StageSelectNext()
-    {
-        selectStage++;
-        selectStage = (int)Mathf.Repeat(selectStage, StageCountAtNowWorld);
-    }
-
-    public void StageSelectPrev()
-    {
-        selectStage--;
-        selectStage = (int)Mathf.Repeat(selectStage, StageCountAtNowWorld);
     }
 
     public bool IsMaxWorld
@@ -82,6 +58,44 @@ public class StageBasicInfoManager : MonoBehaviour
         get { return info.worldList[selectWorld][selectStage]; }
     }
 
+    public void WorldSelectNext()
+    {
+        selectWorld++;
+
+        //配列の範囲外に出ないように
+        selectStage = 0;
+        selectWorld = Mathf.Min(selectWorld, WorldCount-1);
+
+        SendOnSelectWorldChangedEvent();
+    }
+
+    public void WorldSelectPrev()
+    {
+        selectWorld--;
+
+        //配列の範囲外に出ないように
+        selectStage = 0;
+        selectWorld = Mathf.Max(selectWorld, 0);
+
+        SendOnSelectWorldChangedEvent();
+    }
+
+    public void StageSelectNext()
+    {
+        selectStage++;
+        selectStage = (int)Mathf.Repeat(selectStage, StageCountAtNowWorld);
+
+        SendOnSelectStageChangedEvent();
+    }
+
+    public void StageSelectPrev()
+    {
+        selectStage--;
+        selectStage = (int)Mathf.Repeat(selectStage, StageCountAtNowWorld);
+
+        SendOnSelectStageChangedEvent();
+    }
+
     private void Awake()
     {
         info = GetComponent<StageBasicInfo>();
@@ -98,5 +112,21 @@ public class StageBasicInfoManager : MonoBehaviour
     private void ActiveSceneChanged(Scene arg0, Scene arg1)
     {
         PlayerPrefs.SetInt(PrefsDataName.SelectedWorld, selectWorld);
+    }
+
+    private void SendOnSelectWorldChangedEvent()
+    {
+        if(OnSelectWorldChanged != null)
+        {
+            OnSelectWorldChanged(selectWorld);
+        }
+    }
+
+    private void SendOnSelectStageChangedEvent()
+    {
+        if(OnSelectStageChanged != null)
+        {
+            OnSelectStageChanged(selectStage);
+        }
     }
 }

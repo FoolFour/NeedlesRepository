@@ -25,6 +25,10 @@ namespace StageInfo
         private void Awake()
         {
             text = GetComponent<Text>();
+        }
+
+        private void OnEnable()
+        {
             text.text = "";
         }
 

@@ -34,10 +34,7 @@ public class StageSelect : MonoBehaviour
 
     private void OnEnable()
     {
-#warning info
         selectStage      = 0;
-        info.selectWorld = control.Current-1;
-        info.selectStage = selectStage;
 
         backgroundImage.sprite = worldSprites[info.selectWorld];
     }

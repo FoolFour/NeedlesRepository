@@ -30,6 +30,11 @@ public class DrawClearFrag : MonoBehaviour
         image = GetComponent<Image>();
     }
 
+    private void OnEnable()
+    {
+        image.enabled = false;
+    }
+
     private void Update()
     {
         bool flag = GetClearFlag();
