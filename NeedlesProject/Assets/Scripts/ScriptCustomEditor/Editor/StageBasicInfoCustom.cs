@@ -5,7 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 [CustomEditor(typeof(StageBasicInfo))]
-public class StageSceneInfoCustom : Editor
+public class StageBasicInfoCustom : Editor
 {
     //GameObject worldObject;
 
@@ -31,6 +31,10 @@ public class StageSceneInfoCustom : Editor
         var scrollOption = GUILayout.Height(64);
         const string gridStyle = "PreferencesKeysElement";
 
+        serializedObject.Update();
+
+        Undo.RecordObject(info, "Stage info changed");
+
         //ワールド選択
         worldSelectScroll = EditorGUILayout.BeginScrollView(worldSelectScroll, skin, scrollOption);
         {
@@ -48,6 +52,11 @@ public class StageSceneInfoCustom : Editor
             }
         }
         EditorGUILayout.EndScrollView();
+
+        info.worldList[selectWorld].worldName = 
+            EditorGUILayout.TextField("ワールド名", info.worldList[selectWorld].worldName);
+
+        EditorGUILayout.Space();
 
 
         //ステージ選択
@@ -68,10 +77,6 @@ public class StageSceneInfoCustom : Editor
 
         //ステージの詳細
         var stageInfo = info.worldList[selectWorld][selectStage];
-
-        serializedObject.Update();
-
-        Undo.RecordObject(info, "Stage change info");
 
         stageInfo.stageName = EditorGUILayout   .TextField ("ステージ名",       stageInfo.stageName);
         stageInfo.sceneName = EditorGUIExtension.SceneField("ステージのシーン",  stageInfo.sceneName, serializedObject);

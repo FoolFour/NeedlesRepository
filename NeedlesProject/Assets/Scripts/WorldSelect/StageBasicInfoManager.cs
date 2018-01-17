@@ -9,8 +9,8 @@ public class StageBasicInfoManager : MonoBehaviour
 {
     StageBasicInfo info;
 
-    public int selectWorld { get; set; }
-    public int selectStage { get; set; }
+    public int selectWorld{ get; set; }
+    public int selectStage{ get; set; }
 
     public int WorldCount
     {
@@ -84,12 +84,15 @@ public class StageBasicInfoManager : MonoBehaviour
 
     private void Awake()
     {
+        info = GetComponent<StageBasicInfo>();
         DontDestroyOnLoad(gameObject);
         SceneManager.activeSceneChanged += ActiveSceneChanged;
+    }
 
+    private void Start()
+    {
         selectWorld = PlayerPrefs.GetInt(PrefsDataName.SelectedWorld);
-
-        info = GetComponent<StageBasicInfo>();
+        Mathf.Clamp(selectWorld, 0, WorldCount-1);
     }
 
     private void ActiveSceneChanged(Scene arg0, Scene arg1)

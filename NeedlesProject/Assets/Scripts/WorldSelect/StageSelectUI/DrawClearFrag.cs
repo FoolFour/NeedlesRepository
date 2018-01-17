@@ -17,8 +17,7 @@ public class DrawClearFrag : MonoBehaviour
     ClearFlag getClearFlag;
     [SerializeField]
     StageBasicInfoManager info;
-
-
+    
     Image image;
 
     private void Reset()
@@ -31,20 +30,21 @@ public class DrawClearFrag : MonoBehaviour
         image = GetComponent<Image>();
     }
 
-    private void Start()
-    {
-
-    }
-
     private void Update()
     {
-        image.enabled = GetClearFrag();
+        bool flag = GetClearFlag();
+        image.enabled = flag;
+
+        foreach (Transform child in transform)
+        {
+            child.gameObject.SetActive(flag);
+        }
     }
 
-    private bool GetClearFrag()
+    private bool GetClearFlag()
     {
         var tmp = info.NowStageSelectInfo;
-        if(getClearFlag == ClearFlag.StageClear   ) { return tmp.stageClearFlag;    }
+        if(getClearFlag == ClearFlag.StageClear  ) { return tmp.stageClearFlag;   }
         if(getClearFlag == ClearFlag.Border1Clear) { return tmp.border1ClearFlag; }
         if(getClearFlag == ClearFlag.Border2Clear) { return tmp.border2ClearFlag; }
 

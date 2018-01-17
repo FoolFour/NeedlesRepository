@@ -79,16 +79,24 @@ public class WorldSelect : MonoBehaviour
 
     private void Update()
     {
-        if (GamePad.IsStickRightInclined(0.5f)) { task.Run(NextSelect); }
-        if (GamePad.IsStickLeftInclined (0.5f)) { task.Run(PrevSelect); }
+        if (GamePad.IsStickRightInclined(0.5f)) 
+        { 
+            //ステージの数を越えるか
+            if (info.IsMaxWorld) { return; }
+            task.Run(NextSelect); 
+        }
+
+        if (GamePad.IsStickLeftInclined (0.5f)) 
+        { 
+            //ステージ0以下は存在しない
+            if (info.IsMinWorld) { return; }
+            task.Run(PrevSelect); 
+        }
     }
 
     /// <summary>次のワールドを選択</summary>
     private IEnumerator NextSelect()
     {
-        //ステージの数を越えるか
-        if (info.IsMaxWorld) { yield break; }
-
         Sound.PlaySe("CursorMove");
         float amount = 0;
         while (amount < 1)
@@ -108,9 +116,6 @@ public class WorldSelect : MonoBehaviour
 
     private IEnumerator PrevSelect()
     {
-        //ステージ0以下は存在しない
-        if (info.IsMinWorld) { yield break; }
-
         Sound.PlaySe("CursorMove");
         float amount = 0;
         while (amount < 1)
