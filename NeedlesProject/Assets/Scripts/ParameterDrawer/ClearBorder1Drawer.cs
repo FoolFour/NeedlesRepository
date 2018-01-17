@@ -6,15 +6,15 @@ using UnityEngine.EventSystems;
 
 public class ClearBorder1Drawer : ParametersDrawerBase
 {
-	private UIBehaviour image;
+    private UIBehaviour image;
 
-	private void OnEnable()
-	{
-		image = GetComponent<UIBehaviour>();
-	}
-
-    private void Update()
+    private void OnEnable()
     {
+        image = GetComponent<UIBehaviour>();
         image.enabled = data.isBorder1Clear;
+        foreach (Transform child in transform)
+        {
+            child.gameObject.SetActive(data.isBorder1Clear);
+        }
     }
 }

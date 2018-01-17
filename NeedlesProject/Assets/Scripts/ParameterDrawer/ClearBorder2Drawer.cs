@@ -8,13 +8,13 @@ public class ClearBorder2Drawer : ParametersDrawerBase
 {
 	private UIBehaviour image;
 
-	private void Start()
+	private void OnEnable()
 	{
 		image = GetComponent<UIBehaviour>();
-	}
-
-    private void Update()
-    {
         image.enabled = data.isBorder2Clear;
-    }
+        foreach (Transform child in transform)
+        {
+            child.gameObject.SetActive(data.isBorder2Clear);
+        }
+	}
 }
