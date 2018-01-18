@@ -4,12 +4,14 @@ using System.Collections.Generic;
 
 public class MedalUI : MonoBehaviour
 {
-    Animator       animator;
+    [SerializeField]
+    StageBasicInfoManager info;
+    Animator              animator;
 
     private void Awake()
     {
-        FindObjectOfType<StageBasicInfoManager>().OnSelectStageChanged
-            += OnSelectStageChanged;
+        info.OnSelectStageChanged += OnSelectStageChanged;
+
         animator = GetComponent<Animator>();
     }
 

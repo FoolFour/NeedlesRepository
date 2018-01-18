@@ -18,46 +18,59 @@ public class StageBasicInfoManager : MonoBehaviour
     public delegate void SelectStageChanged(int stage);
     public event SelectStageChanged OnSelectStageChanged;
 
+    ////////////////////////
+    // プロパティ(public)  /
+    /////////////////////
+
+    /// <summary>ワールド数</summary>
     public int WorldCount
     {
         get { return info.WorldCount; }
     }
 
+    /// <summary>現在選択されているワールドのステージ数</summary>
     public int StageCountAtNowWorld
     {
         get { return info.StageCount(selectWorld); }
     }
 
+    /// <summary>現在選択されているワールドの名前</summary>
     public string NowSelectedWorldName
     {
         get { return info.worldList[selectWorld].worldName; }
     }
 
-    public bool IsMaxWorld
+    /// <summary>現在選択されているワールドが最後のワールドか</summary>
+    public bool IsLastWorld
     {
         get { return selectWorld >= WorldCount-1; }
     }
 
-    public bool IsMinWorld
+    /// <summary>現在選択されているワールドが最初のワールドか</summary>
+    public bool IsFirstWorld
     {
         get { return selectWorld <= 0; }
     }
 
-    public bool IsMaxStageAtNowWorld
+    /// <summary>現在選択されているステージが現在のワールドの最後のステージか</summary>
+    public bool IsLastStageAtNowWorld
     {
         get { return selectStage >= StageCountAtNowWorld; }
     }
 
-    public bool IsMinStageAtNowWorld
+    /// <summary>現在選択されているステージが現在のワールドの最初のステージか</summary>
+    public bool IsFirstStageAtNowWorld
     {
         get { return selectStage <  0; }
     }
 
+    /// <summary>現在選択されているステージの情報</summary>
     public StageBasicInfo.StageInfo NowStageSelectInfo
     {
         get { return info.worldList[selectWorld][selectStage]; }
     }
 
+    /// <summary>次のワールドに進む</summary>
     public void WorldSelectNext()
     {
         selectWorld++;
@@ -69,6 +82,7 @@ public class StageBasicInfoManager : MonoBehaviour
         SendOnSelectWorldChangedEvent();
     }
 
+    /// <summary>前のワールドに進む</summary>
     public void WorldSelectPrev()
     {
         selectWorld--;
@@ -80,6 +94,7 @@ public class StageBasicInfoManager : MonoBehaviour
         SendOnSelectWorldChangedEvent();
     }
 
+    /// <summary>次のステージに進む</summary>
     public void StageSelectNext()
     {
         selectStage++;
@@ -88,6 +103,7 @@ public class StageBasicInfoManager : MonoBehaviour
         SendOnSelectStageChangedEvent();
     }
 
+    /// <summary>前のステージに進む</summary>
     public void StageSelectPrev()
     {
         selectStage--;
@@ -98,22 +114,28 @@ public class StageBasicInfoManager : MonoBehaviour
 
     private void Awake()
     {
-        info = GetComponent<StageBasicInfo>();
+        info        = GetComponent<StageBasicInfo>();
+        selectWorld = PlayerPrefs.GetInt(PrefsDataName.SelectedWorld);
+        Debug.Log(selectWorld);
+        Mathf.Clamp(selectWorld, 0, WorldCount-1);
         DontDestroyOnLoad(gameObject);
-        SceneManager.activeSceneChanged += ActiveSceneChanged;
     }
 
     private void Start()
     {
-        selectWorld = PlayerPrefs.GetInt(PrefsDataName.SelectedWorld);
-        Mathf.Clamp(selectWorld, 0, WorldCount-1);
+        SceneManager.activeSceneChanged += ActiveSceneChanged;
     }
 
+    /// <summary>シーンが切り替わった時のイベント</summary>
     private void ActiveSceneChanged(Scene arg0, Scene arg1)
     {
+        Debug.Log(selectWorld);
         PlayerPrefs.SetInt(PrefsDataName.SelectedWorld, selectWorld);
+        SceneManager.activeSceneChanged -= ActiveSceneChanged;
+        Destroy(gameObject);
     }
 
+    /// <summary>ワールドが切り替わった時に送るイベント</summary>
     private void SendOnSelectWorldChangedEvent()
     {
         if(OnSelectWorldChanged != null)
@@ -122,6 +144,7 @@ public class StageBasicInfoManager : MonoBehaviour
         }
     }
 
+    /// <summary>ステージが切り替わった時に送るイベント</summary>
     private void SendOnSelectStageChangedEvent()
     {
         if(OnSelectStageChanged != null)

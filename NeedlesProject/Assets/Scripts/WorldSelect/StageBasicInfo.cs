@@ -7,13 +7,13 @@ using IO = System.IO;
 public class StageBasicInfo : MonoBehaviour
 {
     [System.Serializable]
-    public class Stage
+    public class World
     {
         public string worldName;
         public StageInfo[] stageList;
 
-        public Stage()      { stageList = new StageInfo[ ] { }; }
-        public Stage(int i) { stageList = new StageInfo[i];     }
+        public World()      { stageList = new StageInfo[ ] { }; }
+        public World(int i) { stageList = new StageInfo[i];     }
 
         public int Length
         {
@@ -41,13 +41,15 @@ public class StageBasicInfo : MonoBehaviour
     }
     
     [SerializeField]
-    public Stage[] worldList;
+    public World[] worldList;
 
+    /// <summary>ワールド数</summary>
     public int WorldCount
     {
         get { return worldList.Length; }
     }
 
+    /// <summary>ステージ数</summary>
     public int StageCount(int world)
     {
         return worldList[world].Length;
@@ -55,11 +57,11 @@ public class StageBasicInfo : MonoBehaviour
 
     private void Reset()
     {
-        worldList = new Stage[3];
+        worldList = new World[3];
 
         for(int i_w = 0; i_w < 3; i_w++)
         {
-            worldList[i_w] = new Stage(3);
+            worldList[i_w] = new World(3);
                 
             for(int j_s = 0; j_s < 3; j_s++)
             {
@@ -75,12 +77,12 @@ public class StageBasicInfo : MonoBehaviour
 
     private void Awake()
     {
-        //初期化
+        //初期化したか
         bool isInit = PlayerPrefs.HasKey(PrefsDataName.isInit);
         
         if(isInit)
         { 
-            LoadTime();
+            LoadData();
         }
         else
         {
@@ -88,7 +90,7 @@ public class StageBasicInfo : MonoBehaviour
         }
     }
 
-    private void LoadTime()
+    private void LoadData()
     {
         for(int i_w = 0; i_w < worldList.Length; i_w++)
         {
@@ -125,6 +127,7 @@ public class StageBasicInfo : MonoBehaviour
 
     private void InitTime()
     {
+        //59:59.99を初期値とする
         TimeSpan timeSpan = new TimeSpan(
             days:           0, 
             hours:          0, 
@@ -133,19 +136,19 @@ public class StageBasicInfo : MonoBehaviour
             milliseconds: 999
         );
 
-        for(int i_w = 0; i_w < worldList.Length; i_w++)
+        for(int i_w = 0; i_w < WorldCount; i_w++)
         {
-            for(int j_s = 0; j_s < worldList[i_w].Length; j_s++)
+            for(int j_s = 0; j_s < StageCount(i_w); j_s++)
             {
                 string stageName = worldList[i_w][j_s].stageName;
 
                 float time = (float)timeSpan.TotalSeconds;
-                var info = worldList[i_w][j_s];
+                StageInfo info = worldList[i_w][j_s];
 
                 info.time = time;
-                PlayerPrefs.SetFloat(PrefsDataName.StageTime(stageName), time);
+                PlayerPrefs.SetFloat (PrefsDataName.StageTime(stageName), time);
 
-                info.stageClearFlag = false;
+                info.stageClearFlag   = false;
                 PlayerPrefs.SetString(PrefsDataName.StageClearFrag(stageName),   bool.FalseString);
 
                 info.border1ClearFlag = false;
@@ -155,7 +158,7 @@ public class StageBasicInfo : MonoBehaviour
                 PlayerPrefs.SetString(PrefsDataName.Border2ClearFrag(stageName), bool.FalseString);
             }
         }
-        PlayerPrefs.SetString(PrefsDataName.isInit, "true");
+        PlayerPrefs.SetString(PrefsDataName.isInit, bool.TrueString);
 
         PlayerPrefs.Save();
     }
@@ -169,15 +172,15 @@ public class StageBasicInfo : MonoBehaviour
     [ContextMenu("AddFrontList")]
     private void AddFront()
     {
-        Stage newStage = new Stage(3);
+        World newStage = new World(3);
         for(int i = 0; i < 3; i++)
         {
             StageInfo info = new StageInfo();
-            info.stageName = "Stage" + (i+1);
+            info.stageName = "Stage " + (i+1); 
             newStage[i] = info;
         }
 
-        var tempList = new List<Stage>();
+        var tempList = new List<World>();
         tempList.Add(newStage);
         tempList.AddRange(worldList);
 
@@ -197,9 +200,9 @@ public class StageBasicInfo : MonoBehaviour
 
         IO.Directory.CreateDirectory(directory);
 
-        for(int i_w = 0; i_w < worldList.Length; i_w++)
+        for(int i_w = 0; i_w < WorldCount; i_w++)
         {
-            for(int j_s = 0; j_s < worldList[i_w].Length; j_s++)
+            for(int j_s = 0; j_s < StageCount(i_w); j_s++)
             {
                 var s = new System.Text.StringBuilder();
 
@@ -215,19 +218,17 @@ public class StageBasicInfo : MonoBehaviour
                 s.Append("/");
                 s.Append(worldList[i_w][j_s].stageName);
                 s.Append(".sdf");
-                using (var fs = new IO.FileStream(s.ToString(), IO.FileMode.Create))
-                {
-                    using (var bw = new IO.BinaryWriter(fs))
-                    {
-                        var info = worldList[i_w][j_s];
-                        bw.Write(info.stageName);
-                        bw.Write(info.border1);
-                        bw.Write(info.border2);
+                using (var fs = new IO.FileStream(s.ToString(), IO.FileMode.Create)) {
+                using (var bw = new IO.BinaryWriter(fs)) {
 
-                        bw.Close();
-                        fs.Close();
-                    }
-                }
+                    StageInfo info = worldList[i_w][j_s];
+                    bw.Write(info.stageName);
+                    bw.Write(info.border1);
+                    bw.Write(info.border2);
+
+                    bw.Close();
+                    fs.Close();
+                } }
             }
         }
     }

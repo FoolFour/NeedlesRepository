@@ -82,14 +82,14 @@ public class WorldSelect : MonoBehaviour
         if (GamePad.IsStickRightInclined(0.5f)) 
         { 
             //ステージの数を越えるか
-            if (info.IsMaxWorld) { return; }
+            if (info.IsLastWorld) { return; }
             task.Run(NextSelect); 
         }
 
         if (GamePad.IsStickLeftInclined (0.5f)) 
         { 
             //ステージ0以下は存在しない
-            if (info.IsMinWorld) { return; }
+            if (info.IsFirstWorld) { return; }
             task.Run(PrevSelect); 
         }
     }
