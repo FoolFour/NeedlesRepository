@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657868, g: 0.49641263, b: 0.57481706, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -5117,7 +5117,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 921679821}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 8.4, y: 6.9, z: 0}
+  m_LocalPosition: {x: 8.4, y: 6.05, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1771935865}
@@ -8483,6 +8483,21 @@ Prefab:
         type: 2}
       propertyPath: nowStageData
       value: Stages/World2/2-1.sdf
+      objectReference: {fileID: 0}
+    - target: {fileID: 114869261759408282, guid: e14d28296d8eb7248b3b1195d32c0a87,
+        type: 2}
+      propertyPath: m_PantsColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114869261759408282, guid: e14d28296d8eb7248b3b1195d32c0a87,
+        type: 2}
+      propertyPath: m_PantsColor.g
+      value: 0.08965492
+      objectReference: {fileID: 0}
+    - target: {fileID: 114869261759408282, guid: e14d28296d8eb7248b3b1195d32c0a87,
+        type: 2}
+      propertyPath: m_PantsColor.b
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e14d28296d8eb7248b3b1195d32c0a87, type: 2}
