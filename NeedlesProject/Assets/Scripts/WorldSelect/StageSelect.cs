@@ -18,9 +18,10 @@ public class StageSelect : MonoBehaviour
     Image backgroundImage;
 
     public  int    selectStage;
-
+    public  bool   isSelect;
+    
     private bool   selectFlag;
-
+    
     private void Reset()
     {
         info    = FindObjectOfType<StageBasicInfoManager>();
@@ -30,6 +31,7 @@ public class StageSelect : MonoBehaviour
     private void Awake()
     {
         selectFlag = false;
+        isSelect   = true;
     }
 
     private void OnEnable()
@@ -47,6 +49,8 @@ public class StageSelect : MonoBehaviour
     private void Update()
     {
         const float noticeStickValue = 0.6f;
+
+        if(!isSelect) { return; }
 
         //一気にスクロールするのでselectFlagで制限をかける
         if(Input.GetAxis(GamePad.Horizontal) > noticeStickValue)
