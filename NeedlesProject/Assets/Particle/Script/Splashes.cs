@@ -13,6 +13,8 @@ public class Splashes : MonoBehaviour
     public ParticleSystem Splashes_Effect;
     //ゲームオブジェ
     public GameObject Splashes_obj;
+    //
+    public bool p_respawn_flag;    
 
     // Use this for initialization
     void Start()
@@ -23,20 +25,23 @@ public class Splashes : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update() { }
+    void Update() {
+        p_respawn_flag =GameObject.Find("Player(Clone)").GetComponent<Player>().respawn;
+    }
 
     public void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Player")
-        {
-            //SE再生
-            GetComponent<AudioSource>().PlayOneShot(SE_Waterdrop);            
-            //位置所得
-            Transform hitPos = other.gameObject.transform;
-            //particle生成
-            GameObject splashes = Instantiate(Splashes_obj, hitPos) as GameObject;
-            //再生終わったら消す
-            Destroy(splashes, 5f);
+            //リスポーンしてるなら音を出さない
+            if (p_respawn_flag == false&& other.gameObject.tag == "Player") {
+                Debug.Log(other.gameObject.tag);
+                //SE再生
+                GetComponent<AudioSource>().PlayOneShot(SE_Waterdrop);
+                //位置所得
+                Transform hitPos = other.gameObject.transform;
+                //particle生成
+                GameObject splashes = Instantiate(Splashes_obj, hitPos) as GameObject;
+                //再生終わったら消す
+                Destroy(splashes, 5f);            
         }
     }
 
