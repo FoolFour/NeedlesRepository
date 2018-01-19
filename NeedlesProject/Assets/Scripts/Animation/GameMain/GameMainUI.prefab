@@ -57,6 +57,7 @@ GameObject:
   - component: {fileID: 222645903485504626}
   - component: {fileID: 114485714120631526}
   - component: {fileID: 114020409117316338}
+  - component: {fileID: 114473109853521748}
   m_Layer: 5
   m_Name: RetryButton
   m_TagString: Untagged
@@ -332,6 +333,7 @@ GameObject:
   - component: {fileID: 222651332670339900}
   - component: {fileID: 114405367166693708}
   - component: {fileID: 114174112457950322}
+  - component: {fileID: 114842934516264540}
   m_Layer: 5
   m_Name: StageSelectButton
   m_TagString: Untagged
@@ -1120,6 +1122,17 @@ MonoBehaviour:
   m_Text: '00:00
 
 '
+--- !u!114 &114473109853521748
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1083096487038352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3e79067353968b4e8d1f2257edb2b98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114485714120631526
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1369,6 +1382,17 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "\u30B2\u30FC\u30E0\u306B\u623B\u308B"
+--- !u!114 &114842934516264540
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1627214989506934}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3e79067353968b4e8d1f2257edb2b98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114851731752608496
 MonoBehaviour:
   m_ObjectHideFlags: 1
