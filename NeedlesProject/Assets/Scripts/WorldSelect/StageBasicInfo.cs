@@ -205,18 +205,11 @@ public class StageBasicInfo : MonoBehaviour
             for(int j_s = 0; j_s < StageCount(i_w); j_s++)
             {
                 var s = new System.Text.StringBuilder();
+                string sceneName = IO.Path.GetFileNameWithoutExtension(worldList[i_w][j_s].sceneName);
 
                 s.Append(directory);
                 s.Append("/");
-                s.Append(worldList[i_w].worldName);
-
-                if (!IO.Directory.Exists(s.ToString()))
-                {
-                    IO.Directory.CreateDirectory(s.ToString());
-                }
-                
-                s.Append("/");
-                s.Append(worldList[i_w][j_s].stageName);
+                s.Append(sceneName);
                 s.Append(".sdf");
                 using (var fs = new IO.FileStream(s.ToString(), IO.FileMode.Create)) {
                 using (var bw = new IO.BinaryWriter(fs)) {
@@ -225,6 +218,15 @@ public class StageBasicInfo : MonoBehaviour
                     bw.Write(info.stageName);
                     bw.Write(info.border1);
                     bw.Write(info.border2);
+                    
+                    if(j_s < StageCount(i_w)-1)
+                    {
+                        bw.Write(worldList[i_w][j_s+1].sceneName);
+                    }
+                    else
+                    {
+                        bw.Write("");
+                    }
 
                     bw.Close();
                     fs.Close();
