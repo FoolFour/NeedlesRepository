@@ -57,7 +57,7 @@ public class Player : MonoBehaviour {
     void FixedUpdate()
     {
         mData.mrb.isKinematic = isDead;
-        respawn = true; //
+        
         if (GameManagers.Instance.GameStateManager.GetCurrentGameState() != GameState.Play) return;
 
         if (mStan)
@@ -208,6 +208,7 @@ public class Player : MonoBehaviour {
 
     public void ExplosionEffect()
     {
+        respawn = true;//
         m_currentDeadEffect.transform.position = transform.position;
         m_currentDeadEffect.GetComponent<PLayerDead_effect>().ParticleStart();
         Sound.PlaySe("Explosion");
