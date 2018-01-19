@@ -502,6 +502,7 @@ namespace StageEditor
             UnityEngine.SceneManagement.Scene saveScene;
             if(newScene)
             {
+                EditorSceneManager.SaveScene(EditorSceneManager.GetActiveScene());
                 saveScene = EditorSceneManager.NewScene(NewSceneSetup.DefaultGameObjects, NewSceneMode.Single);
             }
             else
@@ -535,7 +536,7 @@ namespace StageEditor
             {
                 saveDirectory += "\\";
             }
-
+            
             EditorSceneManager.SaveScene(saveScene, "./Assets/" + saveDirectory + parent.stageName + ".unity");
             Debug.Log("保存が終了しました");
         }
