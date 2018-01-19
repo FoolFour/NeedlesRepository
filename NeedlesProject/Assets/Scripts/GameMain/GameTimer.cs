@@ -12,6 +12,9 @@ public class GameTimer : Pauser
     private float gameTime_;
     private float pauseTime_;
 
+    //59:59.99になるように
+    static readonly float maxTime = 60*59 + 59 + 0.999f;
+
     ////////////////////////
     // プロパティ(public) /
     //////////////////////
@@ -51,7 +54,9 @@ public class GameTimer : Pauser
 
     public void RecordClearTime()
     {
-        PlayerPrefs.SetFloat(PrefsDataName.Time, gameTimeNoPauseTime);
+        float time = gameTimeNoPauseTime;
+        time = Mathf.Min(time, maxTime);
+        PlayerPrefs.SetFloat(PrefsDataName.Time, time);
     }
 
     /////////////////////
