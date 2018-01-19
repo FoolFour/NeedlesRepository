@@ -26,6 +26,8 @@ public class Player : MonoBehaviour {
     public GameObject m_DamageParticle;
 
     private bool isPrveGround = false;
+    //リスポーンしているか
+    public bool respawn=false;
 
     // Use this for initialization
     void Start()
@@ -55,6 +57,7 @@ public class Player : MonoBehaviour {
     void FixedUpdate()
     {
         mData.mrb.isKinematic = isDead;
+        respawn = true; //
         if (GameManagers.Instance.GameStateManager.GetCurrentGameState() != GameState.Play) return;
 
         if (mStan)
@@ -129,7 +132,7 @@ public class Player : MonoBehaviour {
     }
 
     /// <summary>
-    /// 志望時の処理
+    /// 死亡時の処理
     /// </summary>
     public void Dead()
     {
@@ -138,7 +141,7 @@ public class Player : MonoBehaviour {
         mData.mrb.velocity = Vector3.zero;
         mStan = true;
         mWait = true;
-        mStanTimer = 1;
+        mStanTimer = 1;       
     }
 
     /// <summary>
@@ -176,6 +179,7 @@ public class Player : MonoBehaviour {
         {
             mr.enabled = true;
         }
+        respawn = false;    //
     }
     /// <summary>
     /// スタンしているか
