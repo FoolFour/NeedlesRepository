@@ -160,6 +160,7 @@ GameObject:
   - component: {fileID: 4796699986745514}
   - component: {fileID: 114896737628474866}
   - component: {fileID: 114630144654221120}
+  - component: {fileID: 114026498689633512}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -635,6 +636,18 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &114026498689633512
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1321809051290230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7738fd6417418be4f88fa32ddf0253fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventSystem: {fileID: 114896737628474866}
 --- !u!114 &114029664942005098
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -16,7 +16,12 @@ public abstract class PauseTimesDrawer : ParametersDrawerBase
 		StartCoroutine(ApplyData());
 	}
 
-	private IEnumerator ApplyData()
+    private void OnDisable()
+    {
+        text.text = "";
+    }
+
+    private IEnumerator ApplyData()
 	{
 		//Pauserの影響でポーズ出現時にtextがenableではない場合があるため
 		yield return null;
