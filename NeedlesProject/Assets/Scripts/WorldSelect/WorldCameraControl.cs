@@ -82,6 +82,11 @@ public class WorldCameraControl : MonoBehaviour
         {
             ChangeStageSelect();
         }
+
+        if(Input.GetButtonDown(GamePad.Cancel))
+        {
+
+        }
     }
 
     private void OnStageSelect()
