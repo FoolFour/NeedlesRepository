@@ -6,6 +6,10 @@ public abstract class TransitionBase : MonoBehaviour
 {
     [SerializeField]
     private bool  fadeStart;
+
+    [SerializeField]
+    private bool  fadeNoStart = false;
+
     private float amount;
 
 	public enum FadeType
@@ -52,7 +56,7 @@ public abstract class TransitionBase : MonoBehaviour
 
     protected virtual void Start()
     {
-        if (fadeStart)
+        if (fadeStart && !fadeNoStart)
         {
             FadeOutStart();
         }

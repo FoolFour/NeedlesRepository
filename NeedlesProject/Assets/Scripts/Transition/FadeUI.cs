@@ -16,8 +16,8 @@ public class FadeUI : TransitionBase
 
     protected override void ChangeValue(float amount)
     {
-        Color col = graphic.color;
-        col.a = amount;
+        Color col     = graphic.color;
+        col.a         = amount;
         graphic.color = col;
     }
 }

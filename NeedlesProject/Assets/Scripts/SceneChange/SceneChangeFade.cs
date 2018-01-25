@@ -8,18 +8,19 @@ public class SceneChangeFade : SceneChanger
     // 変数(SerializeField) /
     ////////////////////////
     [SerializeField]
-    private BlockTiling tiling;
+    private TransitionBase tiling;
+
 
     private void Reset()
     {
-        tiling = FindObjectOfType<BlockTiling>();
+        tiling = FindObjectOfType<TransitionBase>();
     }
 
     private void Start()
     {
         if(tiling == null)
         {
-            tiling = FindObjectOfType<BlockTiling>();
+            tiling = FindObjectOfType<TransitionBase>();
         }
     }
 

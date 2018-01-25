@@ -27,8 +27,12 @@ public class WorldCameraControl : MonoBehaviour
     [Header("ステージセレクト時にアクティブにするオブジェクト")]
     private List<GameObject> stageSelectActive;
 
+    [SerializeField]
+    private SceneChangeFade sceneChangeFade;
+
     enum State
     {
+        WorldToTitle,
         WorldSelect,
         WorldToStage,
         StageSelect,
@@ -85,7 +89,8 @@ public class WorldCameraControl : MonoBehaviour
 
         if(Input.GetButtonDown(GamePad.Cancel))
         {
-
+            sceneChangeFade.SceneChange("title");
+            state = State.WorldToTitle;
         }
     }
 
