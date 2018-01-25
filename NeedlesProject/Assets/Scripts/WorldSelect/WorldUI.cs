@@ -17,13 +17,10 @@ public class WorldUI : MonoBehaviour
     int spaceSize = 100;
 
     string space = "";
-    Text           text;
-
-    float          alpha;
+    Text   text;
 
     private void Reset()
     {
-        worldSelect    = FindObjectOfType<WorldSelect>();
         stageBasicInfo = FindObjectOfType<StageBasicInfoManager>();
     }
 
@@ -39,23 +36,14 @@ public class WorldUI : MonoBehaviour
 
     private void Update()
     {
-        if (worldSelect.IsChangeAnimation)
+        if (!worldSelect.IsChangeAnimation)
         {
-            alpha = 0.0f;
-        }
-        else
-        {
-            if(alpha == 0.0f)
+            if(text.color.a == 0.0f)
             {
                 string worldName = stageBasicInfo.NowSelectedWorldName;
                 worldName = worldName.Replace(" ", space);
                 text.text = worldName;
             }
-            alpha += Time.deltaTime;
         }
-
-        Color col = text.color;
-        col.a = alpha;
-        text.color = col;
     }
 }
