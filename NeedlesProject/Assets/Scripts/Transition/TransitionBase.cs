@@ -62,7 +62,8 @@ public abstract class TransitionBase : MonoBehaviour
         }
         else
         {
-            Amount = 0.0f;
+            amount = 0.0f;
+            ChangeValue(amount);
         }
     }
 
