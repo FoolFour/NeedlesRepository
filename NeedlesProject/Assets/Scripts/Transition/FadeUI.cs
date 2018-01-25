@@ -1,25 +1,23 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class FadeUI : TransitionBase
 {
-    Graphics graphics;
+    Graphic graphic;
 
     protected override void Awake()
     {
         base.Awake();
 
-        graphics = GetComponent<Graphics>();
-    }
-
-    private void Update()
-    {
-
+        graphic = GetComponent<Graphic>();
     }
 
     protected override void ChangeValue(float amount)
     {
-        throw new System.NotImplementedException();
+        Color col = graphic.color;
+        col.a = amount;
+        graphic.color = col;
     }
 }
