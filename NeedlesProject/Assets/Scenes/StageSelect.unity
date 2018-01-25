@@ -3545,7 +3545,7 @@ RectTransform:
   m_GameObject: {fileID: 23745592}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_LocalScale: {x: 4, y: 4, z: 3}
   m_Children: []
   m_Father: {fileID: 1603654735}
   m_RootOrder: 0
@@ -3553,7 +3553,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -30, y: -30}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 66.7, y: 55.3}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &23745594
 MonoBehaviour:
@@ -4294,18 +4294,18 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: c7a1f5d3b9f1bbd439f1917def861857, type: 3}
-    m_FontSize: 116
+    m_FontSize: 90
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
-    m_MaxSize: 211
+    m_MinSize: 1
+    m_MaxSize: 300
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: World 1
+  m_Text: World<size=40> </size>1
 --- !u!222 &314722321
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4324,7 +4324,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   worldSelect: {fileID: 267529993}
-  stageSceneInfo: {fileID: 1532593921}
+  stageBasicInfo: {fileID: 1532593921}
+  spaceSize: 30
 --- !u!114 &314722323
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11110,7 +11111,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   planet: {fileID: 1804264486}
-  offset: {x: 2, y: 0, z: -4}
+  offset: {x: 4, y: 0, z: -7.75}
 --- !u!1001 &442894549
 Prefab:
   m_ObjectHideFlags: 0
@@ -22634,7 +22635,7 @@ RectTransform:
   m_GameObject: {fileID: 1368024202}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 1}
+  m_LocalScale: {x: 2.5, y: 2.5, z: 1}
   m_Children: []
   m_Father: {fileID: 45082315}
   m_RootOrder: 0
@@ -22642,7 +22643,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 10, y: 10}
-  m_SizeDelta: {x: 121.4, y: 67.9}
+  m_SizeDelta: {x: 135.5, y: 65.6}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &1368024204
 MonoBehaviour:
@@ -22663,7 +22664,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 9f1b2c1be9ff4854d91d5d58e40b4eb4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ab1353c6dcd09f0419691f65e966e51e, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -26618,7 +26619,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   worldList:
-  - worldName: Tutorial
+  - worldName: "\u30C1\u30E5\u30FC\u30C8\u30EA\u30A2\u30EB"
     stageList:
     - stageName: Tutorial1
       stageClearFlag: 0
@@ -26644,7 +26645,7 @@ MonoBehaviour:
       border2: 60
       border2ClearFlag: 0
       time: 0
-  - worldName: World 1
+  - worldName: "\u30EF\u30FC\u30EB\u30C9 1"
     stageList:
     - stageName: 1-1
       stageClearFlag: 0
@@ -26702,7 +26703,7 @@ MonoBehaviour:
       border2: 180
       border2ClearFlag: 0
       time: 0
-  - worldName: World 2
+  - worldName: "\u30EF\u30FC\u30EB\u30C9 2"
     stageList:
     - stageName: 2-1
       stageClearFlag: 0
@@ -26760,7 +26761,7 @@ MonoBehaviour:
       border2: 240
       border2ClearFlag: 0
       time: 0
-  - worldName: World 3
+  - worldName: "\u30EF\u30FC\u30EB\u30C9 3"
     stageList:
     - stageName: 3-1
       stageClearFlag: 0
@@ -27740,7 +27741,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1891438107
 RectTransform:
   m_ObjectHideFlags: 0
@@ -27830,8 +27831,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   info: {fileID: 1532593921}
   control: {fileID: 1059833787}
-  worldSprites:
-  - {fileID: 21300000, guid: c650b7ba55ac203468f712b010e32f45, type: 3}
+  sprite:
   - {fileID: 21300000, guid: c650b7ba55ac203468f712b010e32f45, type: 3}
   - {fileID: 21300000, guid: 9d16a29f7a88e4d49923c43385455c86, type: 3}
   - {fileID: 21300000, guid: e9c638e43cd8335458e5a2d25b4542c6, type: 3}
@@ -27942,7 +27942,7 @@ Canvas:
   m_GameObject: {fileID: 2025706022}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 1
+  m_RenderMode: 0
   m_Camera: {fileID: 1484928500}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -27952,7 +27952,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 100
+  m_SortingOrder: 10
   m_TargetDisplay: 0
 --- !u!224 &2025706026
 RectTransform:

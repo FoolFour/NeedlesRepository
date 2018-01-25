@@ -12,7 +12,7 @@ public class StageSelect : MonoBehaviour
     CameraControl  control;
 
     [SerializeField]
-    Sprite[] worldSprites;
+    public Sprite[] sprite;
 
     [SerializeField]
     Image backgroundImage;
@@ -38,7 +38,7 @@ public class StageSelect : MonoBehaviour
     {
         selectStage      = 0;
 
-        backgroundImage.sprite = worldSprites[info.selectWorld];
+        backgroundImage.sprite = sprite[info.selectWorld];
     }
 
     private void Start()

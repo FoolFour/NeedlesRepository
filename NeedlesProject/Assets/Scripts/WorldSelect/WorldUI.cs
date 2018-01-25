@@ -11,8 +11,12 @@ public class WorldUI : MonoBehaviour
     WorldSelect    worldSelect;
 
     [SerializeField]
-    StageBasicInfoManager stageSceneInfo;
+    StageBasicInfoManager stageBasicInfo;
 
+    [SerializeField]
+    int spaceSize = 100;
+
+    string space = "";
     Text           text;
 
     float          alpha;
@@ -20,12 +24,17 @@ public class WorldUI : MonoBehaviour
     private void Reset()
     {
         worldSelect    = FindObjectOfType<WorldSelect>();
-        stageSceneInfo = FindObjectOfType<StageBasicInfoManager>();
+        stageBasicInfo = FindObjectOfType<StageBasicInfoManager>();
     }
 
     private void Awake()
     {
         text = GetComponent<Text>();
+    }
+
+    private void Start()
+    {
+        space = "<size=" + spaceSize + "> </size>";
     }
 
     private void Update()
@@ -36,9 +45,15 @@ public class WorldUI : MonoBehaviour
         }
         else
         {
+            if(alpha == 0.0f)
+            {
+                string worldName = stageBasicInfo.NowSelectedWorldName;
+                worldName = worldName.Replace(" ", space);
+                text.text = worldName;
+            }
             alpha += Time.deltaTime;
-            text.text = stageSceneInfo.NowSelectedWorldName;
         }
+
         Color col = text.color;
         col.a = alpha;
         text.color = col;

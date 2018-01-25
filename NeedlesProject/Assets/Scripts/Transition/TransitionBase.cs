@@ -23,7 +23,7 @@ public abstract class TransitionBase : MonoBehaviour
         set { amount = value; }
     }
 
-         /// <summary>フェードインの開始</summary>
+    /// <summary>フェードインの開始</summary>
     public Coroutine FadeInStart(float fadeSpeed = 1.0f)
     {
         return StartCoroutine(FadeIn(fadeSpeed));
