@@ -41,12 +41,9 @@ public class WorldUI : MonoBehaviour
     {
         if (!worldSelect.IsChangeAnimation)
         {
-            if(text.color.a == 0.0f)
-            {
-                string worldName = stageBasicInfo.NowSelectedWorldName;
-                worldName = worldName.Replace(" ", space);
-                text.text = worldName;
-            }
+            string worldName = stageBasicInfo.NowSelectedWorldName;
+            worldName = worldName.Replace(" ", space);
+            text.text = worldName;
         }
     }
 }
