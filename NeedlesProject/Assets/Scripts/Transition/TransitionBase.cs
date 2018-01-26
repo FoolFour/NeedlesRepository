@@ -67,6 +67,7 @@ public abstract class TransitionBase : MonoBehaviour
         else
         {
             amount = 0.0f;
+            FadeState = FadeType.Out;
             ChangeValue(amount);
         }
     }
