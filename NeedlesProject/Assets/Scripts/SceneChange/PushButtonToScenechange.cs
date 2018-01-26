@@ -5,9 +5,6 @@ using System.Collections.Generic;
 public class PushButtonToScenechange : MonoBehaviour
 {
     [SerializeField]
-    string buttonName;
-
-    [SerializeField]
     string  sceneName;
 
     [SerializeField]
@@ -25,7 +22,7 @@ public class PushButtonToScenechange : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetButtonDown(buttonName))
+        if(Input.anyKeyDown)
         {
             Destroy(eraseObj);
             sceneChanger.SceneChange(sceneName, mode);

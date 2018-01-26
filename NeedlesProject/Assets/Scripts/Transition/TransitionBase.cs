@@ -12,11 +12,10 @@ public abstract class TransitionBase : MonoBehaviour
 
     private float amount;
 
-    public float FadeSpeed { get; private set; }
-
 	public enum FadeType
 	{
-        None,
+        In,
+        Out,
 		FadeIn,
 		FadeOut,
 	}
@@ -35,14 +34,12 @@ public abstract class TransitionBase : MonoBehaviour
     /// <summary>フェードインの開始</summary>
     public Coroutine FadeInStart(float fadeSpeed = 1.0f)
     {
-        FadeSpeed = fadeSpeed;
         return StartCoroutine(FadeIn(fadeSpeed));
     }
 
     /// <summary>フェードアウトの開始</summary>
     public Coroutine FadeOutStart(float fadeSpeed = 1.0f)
     {
-        FadeSpeed = fadeSpeed;
         return StartCoroutine(FadeOut(fadeSpeed));
     }
 
@@ -50,7 +47,6 @@ public abstract class TransitionBase : MonoBehaviour
     public void FadeStop()
     {
         StopAllCoroutines();
-        FadeState = FadeType.None;
     }
 
     protected virtual void Awake()
@@ -87,7 +83,7 @@ public abstract class TransitionBase : MonoBehaviour
         }
         amount = 1.0f;
         SendFadeComplete(FadeType.FadeIn);
-        FadeState = FadeType.None;
+        FadeState = FadeType.In;
     }
 
     /// <summary>フェードアウト</summary>
@@ -102,7 +98,7 @@ public abstract class TransitionBase : MonoBehaviour
         }
         amount = 0.0f;
         SendFadeComplete(FadeType.FadeOut);
-        FadeState = FadeType.None;
+        FadeState = FadeType.Out;
 
     }
 
