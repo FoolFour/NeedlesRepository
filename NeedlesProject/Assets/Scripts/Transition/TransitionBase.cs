@@ -83,6 +83,7 @@ public abstract class TransitionBase : MonoBehaviour
             yield return null;
         }
         amount = 1.0f;
+        ChangeValue(amount);
         SendFadeComplete(FadeType.FadeIn);
         FadeState = FadeType.In;
     }
@@ -98,9 +99,9 @@ public abstract class TransitionBase : MonoBehaviour
             yield return null;
         }
         amount = 0.0f;
+        ChangeValue(amount);
         SendFadeComplete(FadeType.FadeOut);
         FadeState = FadeType.Out;
-
     }
 
     protected abstract void ChangeValue(float amount);
