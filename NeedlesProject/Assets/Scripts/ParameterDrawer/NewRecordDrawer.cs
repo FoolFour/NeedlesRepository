@@ -6,12 +6,12 @@ using UnityEngine.EventSystems;
 
 public class NewRecordDrawer : ParametersDrawerBase
 {
-	private UIBehaviour image;
+    private UIBehaviour image;
 
-	private void Start()
-	{
-		image = GetComponent<UIBehaviour>();
-	}
+    private void Start()
+    {
+        image = GetComponent<UIBehaviour>();
+    }
 
     private void Update()
     {
