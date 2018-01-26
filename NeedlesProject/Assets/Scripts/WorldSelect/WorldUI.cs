@@ -32,6 +32,9 @@ public class WorldUI : MonoBehaviour
     private void Start()
     {
         space = "<size=" + spaceSize + "> </size>";
+        string worldName = stageBasicInfo.NowSelectedWorldName;
+        worldName = worldName.Replace(" ", space);
+        text.text = worldName;
     }
 
     private void Update()

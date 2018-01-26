@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.04173719, g: 0.076003306, b: 0.11633038, a: 1}
+  m_IndirectSpecularColor: {r: 0.044699177, g: 0.07942612, b: 0.12103575, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -642,13 +642,14 @@ GameObject:
   - component: {fileID: 863121104}
   - component: {fileID: 863121103}
   - component: {fileID: 863121102}
+  - component: {fileID: 863121105}
   m_Layer: 12
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &863121101
 RectTransform:
   m_ObjectHideFlags: 0
@@ -746,6 +747,18 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 863121100}
+--- !u!114 &863121105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 863121100}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f89d56e2f79e3547a7ca19e610c33c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transition: {fileID: 1177393105}
 --- !u!1 &1020631390
 GameObject:
   m_ObjectHideFlags: 0
@@ -1664,7 +1677,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: press start button
+  m_Text: press any button
 --- !u!222 &2044566432
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -12,6 +12,8 @@ public abstract class TransitionBase : MonoBehaviour
 
     private float amount;
 
+    public float FadeSpeed { get; private set; }
+
 	public enum FadeType
 	{
         None,
@@ -33,12 +35,14 @@ public abstract class TransitionBase : MonoBehaviour
     /// <summary>フェードインの開始</summary>
     public Coroutine FadeInStart(float fadeSpeed = 1.0f)
     {
+        FadeSpeed = fadeSpeed;
         return StartCoroutine(FadeIn(fadeSpeed));
     }
 
     /// <summary>フェードアウトの開始</summary>
     public Coroutine FadeOutStart(float fadeSpeed = 1.0f)
     {
+        FadeSpeed = fadeSpeed;
         return StartCoroutine(FadeOut(fadeSpeed));
     }
 

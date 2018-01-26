@@ -2147,7 +2147,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Stage Clear
+  m_Text: "\u30B9\u30C6\u30FC\u30B8\u30AF\u30EA\u30A2"
 --- !u!222 &1166475354
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2685,7 +2685,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.8, y: 0.7}
   m_AnchorMax: {x: 0.8, y: 0.7}
-  m_AnchoredPosition: {x: 20.8, y: 0}
+  m_AnchoredPosition: {x: 20.800003, y: 0}
   m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1779400342
@@ -3218,8 +3218,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.4, y: 0.38}
   m_AnchorMax: {x: 0.9, y: 0.48}
-  m_AnchoredPosition: {x: -85, y: -66.99999}
-  m_SizeDelta: {x: 9.2, y: 35.3}
+  m_AnchoredPosition: {x: 15.699997, y: -66.19999}
+  m_SizeDelta: {x: 122.2, y: 36.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2097012784
 MonoBehaviour:
@@ -3265,7 +3265,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: New Record
+  m_Text: "\u30CB\u30E5\u30FC\u30EC\u30B3\u30FC\u30C9"
 --- !u!222 &2097012786
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3381,37 +3381,6 @@ Prefab:
     - target: {fileID: 224125358342687784, guid: 277d1e46a0d929440b1f7730a24bd606,
         type: 2}
       propertyPath: m_Pivot.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114452878389491120, guid: 277d1e46a0d929440b1f7730a24bd606,
-        type: 2}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 114452878389491120, guid: 277d1e46a0d929440b1f7730a24bd606,
-        type: 2}
-      propertyPath: m_RaycastTarget
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1410674639816706, guid: 277d1e46a0d929440b1f7730a24bd606, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1187394057190048, guid: 277d1e46a0d929440b1f7730a24bd606, type: 2}
-      propertyPath: m_Layer
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 1662600215671652, guid: 277d1e46a0d929440b1f7730a24bd606, type: 2}
-      propertyPath: m_Layer
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 1410674639816706, guid: 277d1e46a0d929440b1f7730a24bd606, type: 2}
-      propertyPath: m_Layer
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 114652871660829920, guid: 277d1e46a0d929440b1f7730a24bd606,
-        type: 2}
-      propertyPath: isFadeStart
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

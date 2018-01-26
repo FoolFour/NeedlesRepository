@@ -16,5 +16,7 @@ public class NewRecordDrawer : ParametersDrawerBase
     private void Update()
     {
         image.enabled = data.isNewRecord;
+
+        Text text = GetComponent<Text>();
     }
 }
