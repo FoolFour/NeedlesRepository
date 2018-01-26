@@ -57,7 +57,11 @@
 
 				fixed4 rule_col = tex2D(_RuleTex, i.uv);
 				float len = rule_col.r;
-				if(len > _Amount)
+                if (_Amount == 0.0)
+                {
+                    col.a = 0.0;
+                }
+                else if(len > _Amount)
 				{
 					float res = max(_Amount + _Range - len, 0) * _Hardness;
 					return fixed4(col.rgb, res);
