@@ -82,12 +82,12 @@ public class WorldCameraControl : MonoBehaviour
     {
         if(worldSelect.IsChangeAnimation) { return; }
 
-        if(Input.GetButtonDown(GamePad.Submit))
+        if(Input.GetButtonUp(GamePad.Submit))
         {
             ChangeStageSelect();
         }
 
-        if(Input.GetButtonDown(GamePad.Cancel))
+        if(Input.GetButtonUp(GamePad.Cancel))
         {
             sceneChangeFade.SceneChange("title");
             state = State.WorldToTitle;
@@ -96,12 +96,12 @@ public class WorldCameraControl : MonoBehaviour
 
     private void OnStageSelect()
     {
-        if(Input.GetButtonDown(GamePad.Submit))
+        if(Input.GetButtonUp(GamePad.Submit))
         {
             state = State.StageToStart;
         }
 
-        if(Input.GetButtonDown(GamePad.Cancel))
+        if(Input.GetButtonUp(GamePad.Cancel))
         {
             ChangeWorldSelect();
         }
