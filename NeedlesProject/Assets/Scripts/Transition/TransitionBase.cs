@@ -75,6 +75,7 @@ public abstract class TransitionBase : MonoBehaviour
     /// <summary>フェードイン</summary>
     private IEnumerator FadeIn(float fadeSpeed)
     {
+        GamePad.isButtonLock = true;
         FadeState = FadeType.FadeIn;
         for (float t = 0.0f; t <= 1.0f; t += Time.deltaTime * fadeSpeed)
         {
@@ -86,11 +87,13 @@ public abstract class TransitionBase : MonoBehaviour
         ChangeValue(amount);
         SendFadeComplete(FadeType.FadeIn);
         FadeState = FadeType.In;
+        GamePad.isButtonLock = false;
     }
 
     /// <summary>フェードアウト</summary>
     private IEnumerator FadeOut(float fadeSpeed)
     {
+        GamePad.isButtonLock = true;
         FadeState = FadeType.FadeOut;
         for (float t = 1.0f; t >= 0.0f; t -= Time.deltaTime * fadeSpeed)
         {
@@ -102,6 +105,7 @@ public abstract class TransitionBase : MonoBehaviour
         ChangeValue(amount);
         SendFadeComplete(FadeType.FadeOut);
         FadeState = FadeType.Out;
+        GamePad.isButtonLock = false;
     }
 
     protected abstract void ChangeValue(float amount);

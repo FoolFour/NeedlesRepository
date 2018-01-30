@@ -53,7 +53,7 @@ public class StartDemoCamera : MonoBehaviour
         }
         if (CoroutineNow) return;
 
-        if (Input.anyKeyDown) //演出スキップ
+        if (GamePad.AnyKeyDown) //演出スキップ
         {
             transform.position = m_MovePoint[m_MovePoint.Length - 1].position;
             StartCoroutine(CameraPan());

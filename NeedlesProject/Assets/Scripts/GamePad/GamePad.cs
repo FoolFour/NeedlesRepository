@@ -6,37 +6,46 @@ using System.Collections.Generic;
 public static class GamePad
 {
     // 入力関係
-    private static string vertical    = VERTICAL;
-    public  static string Vertical     { get { return vertical;     } }
+    private static string vertical     = VERTICAL;
+    public  static string Vertical     { get { return GetButton(vertical);    } }
 
     private static string horizontal  = HORIZONTAL;
-    public  static string Horizontal   { get { return horizontal;   } }
+    public  static string Horizontal   { get { return GetButton(horizontal);  } }
 
     private static string vertical2   = VERTICAL   + "2";
-    public  static string Vertical2    { get { return vertical2;    } }
+    public  static string Vertical2    { get { return GetButton(vertical2);   } }
 
     private static string horizontal2 = HORIZONTAL + "2";
-    public  static string Horizontal2  { get { return horizontal2;  } }
+    public  static string Horizontal2  { get { return GetButton(horizontal2); } }
 
     private static string submit      = "Submit";
-    public  static string Submit       { get { return submit;       } }
+    public  static string Submit       { get { return GetButton(submit);      } }
 
     private static string cancel      = "Cancel";
-    public  static string Cancel       { get { return cancel;       } }
+    public  static string Cancel       { get { return GetButton(cancel);      } }
 
     private static string pause       = "Pause";
-    public  static string Pause        { get { return pause;        } }
+    public  static string Pause        { get { return GetButton(pause);       } }
+
+    public  static bool   AnyKeyDown   
+    { 
+        get { return !isButtonLock && Input.anyKeyDown; } 
+    }
 
     private static bool   isDirectMode;
-    public  static bool   IsDirectMode { get { return isDirectMode; } }
-
-    private static bool   isFlipAnalog;
-    public  static bool   IsFlipAnalog { get { return isFlipAnalog; } }
+    public  static bool   IsDirectMode { get { return isDirectMode;           } }
+                                                                              
+    private static bool   isFlipAnalog;                                       
+    public  static bool   IsFlipAnalog { get { return isFlipAnalog;           } }
 
     const string VERTICAL     = "Vertical";
     const string HORIZONTAL   = "Horizontal";
     const string X_VERTICAL   = "x" + VERTICAL;
     const string X_HORIZONTAL = "x" + HORIZONTAL; 
+    const string DUMMY        = "Dummy";
+
+    //ボタンのロック
+    public static bool isButtonLock = false;
 
     // ダイレクトモードで設定
     public static void SetDirectMode()
@@ -120,5 +129,10 @@ public static class GamePad
     {
         limit = Mathf.Abs(limit);
         return Input.GetAxis(vertical)   >=  limit;
+    }
+
+    private static string GetButton(string button)
+    {
+        return (isButtonLock) ? DUMMY : button;
     }
 }
