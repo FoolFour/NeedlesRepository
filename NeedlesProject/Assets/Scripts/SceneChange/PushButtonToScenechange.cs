@@ -25,10 +25,7 @@ public class PushButtonToScenechange : MonoBehaviour
         //謝ってスキップされないようにする
         if(Input.GetButtonDown(GamePad.Submit))
         {
-            Destroy(eraseObj);
-            sceneChanger.SceneChange(sceneName, mode);
-            Sound.PlaySe("TitleDecision");
-            PlayerPrefs.SetInt(PrefsDataName.SelectedWorld, 0);
+            SceneChange();
         }
     }
 
@@ -37,5 +34,6 @@ public class PushButtonToScenechange : MonoBehaviour
         Destroy(eraseObj);
         sceneChanger.SceneChange(sceneName, mode);
         Sound.PlaySe("TitleDecision");
+        PlayerPrefs.SetInt(PrefsDataName.SelectedWorld, 0);
     }
 }

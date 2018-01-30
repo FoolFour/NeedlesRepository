@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class BGMPlayer : MonoBehaviour
 {
-
     public string m_bgmKey;
 
     // Use this for initialization
@@ -13,6 +12,20 @@ public class BGMPlayer : MonoBehaviour
         if (!Sound.CheckBGMSame(m_bgmKey))
         {
             Sound.PlayBgm(m_bgmKey);
+        }
+    }
+
+    public void FadeOut(float speed = 1.01f)
+    {
+        StartCoroutine(FadeOutBgm(speed));
+    }
+
+    IEnumerator FadeOutBgm(float speed)
+    {
+        for(float t = 1.0f; t >= 0.0f; t -= Time.deltaTime * speed)
+        {
+            Sound.ChangeBgmVolume(t);
+            yield return null;
         }
     }
 }

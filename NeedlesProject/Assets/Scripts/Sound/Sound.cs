@@ -157,6 +157,7 @@ public class Sound
         var source = _GetAudioSource(eType.Bgm);
         source.loop = true;
         source.clip = _data.Clip;
+        source.volume = 1.0f;
         source.Play();
 
         return true;
@@ -172,6 +173,18 @@ public class Sound
 
         return true;
     }
+
+    public static void ChangeBgmVolume(float volume)
+    {
+        GetInstance()._ChangeBgmVolume(volume);
+    }
+
+    void _ChangeBgmVolume(float volume)
+    {
+        var source = _GetAudioSource(eType.Bgm);
+        source.volume = volume;
+    }
+
 
     /// SEの再生
     /// ※事前にLoadSeでロードしておくこと

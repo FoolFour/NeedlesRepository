@@ -1,6 +1,11 @@
-﻿public class PauseBorder2Drawer : PauseTimesDrawer
+﻿public class PauseBorder2Drawer : PauseDataDrawer
 {
-	protected override float GetData()
+    private void Start()
+    {
+        parameterType = ParameterType.Time;
+    }
+
+    protected override object GetData()
 	{
 		return data.border2;
 	}

@@ -33,6 +33,8 @@ public class PauseDataCollector : MonoBehaviour
 
         stageData.ApplyBorder1(PlayerPrefs.GetFloat(PrefsDataName.Border1));
         stageData.ApplyBorder2(PlayerPrefs.GetFloat(PrefsDataName.Border2));
+
+        stageData.ApplyStageName(PlayerPrefs.GetString(PrefsDataName.StageName));
     }
 
 	private void Update()

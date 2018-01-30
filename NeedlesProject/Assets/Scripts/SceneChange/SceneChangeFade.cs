@@ -10,6 +10,8 @@ public class SceneChangeFade : SceneChanger
     [SerializeField]
     private TransitionBase tiling;
 
+    [SerializeField]
+    private BGMPlayer bgmPlayer;
 
     private void Reset()
     {
@@ -20,12 +22,18 @@ public class SceneChangeFade : SceneChanger
     {
         if(tiling == null)
         {
-            tiling = FindObjectOfType<TransitionBase>();
+            tiling    = FindObjectOfType<TransitionBase>();
+        }
+
+        if(bgmPlayer == null)
+        {
+            bgmPlayer = FindObjectOfType<BGMPlayer>();
         }
     }
 
     protected override IEnumerator SceneChangePerformance()
     {
+        bgmPlayer.FadeOut();
         yield return tiling.FadeInStart();
 
         PlayerPrefs.SetString(PrefsDataName.FadeStart, bool.TrueString);

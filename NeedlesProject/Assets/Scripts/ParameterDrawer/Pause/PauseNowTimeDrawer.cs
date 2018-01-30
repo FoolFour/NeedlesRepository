@@ -1,7 +1,12 @@
-﻿public class PauseNowTimeDrawer : PauseTimesDrawer
+﻿public class PauseNowTimeDrawer : PauseDataDrawer
 {
-	protected override float GetData()
-	{
-		return data.time;
-	}
+    private void Start()
+    {
+        parameterType = ParameterType.Time;
+    }
+
+    protected override object GetData()
+    {
+        return data.time;
+    }
 }
