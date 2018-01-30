@@ -60,6 +60,7 @@ public class StageSelect : MonoBehaviour
             Sound.PlaySe("CursorMove");
             info.StageSelectNext();
             selectFlag = true;
+            StartCoroutine(AutoRightInput());
             return;
         }
 
@@ -70,9 +71,37 @@ public class StageSelect : MonoBehaviour
             Sound.PlaySe("CursorMove");
             info.StageSelectPrev();
             selectFlag = true;
+            StartCoroutine(AutoLeftInput());
             return;
         }
         
         selectFlag = false;
+        StopAllCoroutines();
+    }
+
+    private IEnumerator AutoLeftInput()
+    {
+        yield return new WaitForSeconds(0.6f);
+
+        var wait = new WaitForSeconds(0.1f);
+        while(true)
+        {
+            Sound.PlaySe("CursorMove");
+            info.StageSelectPrev();
+            yield return wait;
+        }
+    }
+
+    private IEnumerator AutoRightInput()
+    {
+        yield return new WaitForSeconds(0.6f);
+
+        var wait = new WaitForSeconds(0.1f);
+        while(true)
+        {
+            Sound.PlaySe("CursorMove");
+            info.StageSelectNext();
+            yield return wait;
+        }
     }
 }
