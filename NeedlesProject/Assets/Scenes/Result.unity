@@ -3196,6 +3196,7 @@ GameObject:
   - component: {fileID: 2097012785}
   - component: {fileID: 2097012784}
   - component: {fileID: 2097012787}
+  - component: {fileID: 2097012788}
   m_Layer: 15
   m_Name: NewRecord
   m_TagString: Untagged
@@ -3218,7 +3219,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.4, y: 0.38}
   m_AnchorMax: {x: 0.9, y: 0.48}
-  m_AnchoredPosition: {x: -84.47999, y: -66.19999}
+  m_AnchoredPosition: {x: -84.47999, y: -66.2}
   m_SizeDelta: {x: 322.56, y: 36.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2097012784
@@ -3286,6 +3287,18 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
   m_EffectDistance: {x: 3, y: -3}
   m_UseGraphicAlpha: 1
+--- !u!114 &2097012788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2097012782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef5729ee4fb224740a4b1d8731a9d42d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 1
 --- !u!1001 &2108600898
 Prefab:
   m_ObjectHideFlags: 0

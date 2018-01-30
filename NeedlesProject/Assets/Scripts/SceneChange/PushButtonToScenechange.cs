@@ -22,7 +22,8 @@ public class PushButtonToScenechange : MonoBehaviour
 
     private void Update()
     {
-        if(Input.anyKeyDown)
+        //謝ってスキップされないようにする
+        if(Input.GetButtonDown(GamePad.Submit))
         {
             Destroy(eraseObj);
             sceneChanger.SceneChange(sceneName, mode);
