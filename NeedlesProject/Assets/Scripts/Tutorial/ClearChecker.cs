@@ -27,6 +27,7 @@ public class ClearChecker : MonoBehaviour {
     {
         if(m_Conditions.IsClear())
         {
+#warning シーンChange入れて
             Debug.Log("シーンChange");
         }	
 	}
