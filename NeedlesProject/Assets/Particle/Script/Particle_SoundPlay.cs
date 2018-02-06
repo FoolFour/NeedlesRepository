@@ -9,17 +9,15 @@ public class Particle_SoundPlay : MonoBehaviour
     public AudioClip SE_Bubble_Long;
     public AudioClip SE_Bubble_Heavy_Short;
     public AudioClip SE_Bubble_Middle_Short;
- 
-    int rand100;
-    int rand250;  
-    int rand500;
+
+    int rand100,rand250,rand500;
 
     //ランダム
     float rand;
 
     //泡を使う場合のフラグ
-    public bool bubbleflag;
-    public bool waterdorop;
+    public bool BubbleSoundflag;
+    //public bool waterdorop;
 
     // Use this for initialization
     void Start() { }
@@ -27,7 +25,7 @@ public class Particle_SoundPlay : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (bubbleflag == true)
+        if (BubbleSoundflag == true)
         {
             rand = Random.Range(1, 500);
 

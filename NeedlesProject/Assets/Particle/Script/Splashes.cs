@@ -33,7 +33,6 @@ public class Splashes : MonoBehaviour
     {
             //リスポーンしてるなら音を出さない
             if (p_respawn_flag == false&& other.gameObject.tag == "Player") {
-                Debug.Log(other.gameObject.tag);
                 //SE再生
                 GetComponent<AudioSource>().PlayOneShot(SE_Waterdrop);
                 //位置所得
