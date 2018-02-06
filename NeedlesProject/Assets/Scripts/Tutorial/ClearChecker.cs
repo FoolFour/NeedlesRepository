@@ -16,6 +16,9 @@ public class ClearChecker : MonoBehaviour {
     /// </summary>
     public bool isNext = false;
 
+    //プレハブ(fader) or SceneChangeTimerの入ったオブジェクトを入れる
+    public SceneChanger sceneChanger;
+
     // Use this for initialization
     void Start ()
     {
@@ -27,7 +30,9 @@ public class ClearChecker : MonoBehaviour {
     {
         if(m_Conditions.IsClear())
         {
-#warning シーンChange入れて
+#warning insert scene name
+
+            sceneChanger.SceneChange("SCENE_NAME");
             Debug.Log("シーンChange");
         }	
 	}
