@@ -23,12 +23,15 @@ public class ClearChecker : MonoBehaviour {
     public string m_Scene = "none";
     public float m_delay = 1.0f;
 
-    public RectTransform m_ClearImage;
+    private RectTransform m_ClearImage;
+    private GameObject m_VideoObject;
 
     // Use this for initialization
     void Start ()
     {
-        isNext = false;	
+        isNext = false;
+        m_VideoObject = GameObject.Find("VideoImage");
+        m_ClearImage = GameObject.Find("m_ClearImage").GetComponent<RectTransform>();
 	}
 	
 	// Update is called once per frame
@@ -37,6 +40,7 @@ public class ClearChecker : MonoBehaviour {
         if(m_Conditions.IsClear())
         {
             Sound.PlaySe("TutorialClear");
+            Destroy(m_VideoObject);
             StartCoroutine(DelaySceneChange(m_delay));
             this.enabled = false;
         }	
@@ -44,15 +48,18 @@ public class ClearChecker : MonoBehaviour {
 
     IEnumerator DelaySceneChange(float second)
     {
+        if (m_ClearImage)
         {
-            float t = 0;
-            var scalefrom = m_ClearImage.localScale;
-            var scaleto = new Vector3(1f, 1f, 1.0f);
-            while (t <= 1)
             {
-                t += 0.05f;
-                m_ClearImage.localScale = Vector3.Lerp(scalefrom, scaleto, Mathf.SmoothStep(0, 1, t));
-                yield return new WaitForEndOfFrame();
+                float t = 0;
+                var scalefrom = m_ClearImage.localScale;
+                var scaleto = new Vector3(1f, 1f, 1.0f);
+                while (t <= 1)
+                {
+                    t += 0.05f;
+                    m_ClearImage.localScale = Vector3.Lerp(scalefrom, scaleto, Mathf.SmoothStep(0, 1, t));
+                    yield return new WaitForEndOfFrame();
+                }
             }
         }
         yield return new WaitForSeconds(second);
