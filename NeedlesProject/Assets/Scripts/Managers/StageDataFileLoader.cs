@@ -6,11 +6,22 @@ using IO = System.IO;
 
 public class StageDataFileLoader : MonoBehaviour
 {
+    [SerializeField]
+    [Header("何も設定しなければ シーン名でロードする")]
+    string LoadFile;
+
     private void Awake()
     {
-        string nowStageData = SceneManager.GetActiveScene().name;
-        
-        string path = Application.streamingAssetsPath + "/Stages/" + nowStageData + ".sdf";
+        string path = Application.streamingAssetsPath + "/Stages/";
+        if(LoadFile == "")
+        {
+            string nowStageData = SceneManager.GetActiveScene().name;
+            path += nowStageData + ".sdf";
+        }
+        else
+        {
+            path += LoadFile + ".sdf";
+        }
         Debug.Log(path);
 
         using (var fs = new IO.FileStream(path, IO.FileMode.Open))

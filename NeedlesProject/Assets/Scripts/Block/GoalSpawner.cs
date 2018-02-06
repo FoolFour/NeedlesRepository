@@ -58,10 +58,10 @@ public class GoalSpawner : MonoBehaviour
         GameObject instance = Instantiate(rocketPrefab, create_pos, Quaternion.identity);
         var goal = instance.GetComponent<Goal>();
 
-        goal.sceneChanger = sceneChanger;
-        goal.player       = playerObj;
+        goal.sceneChanger     = sceneChanger;
+        goal.player           = playerObj;
+        goal.transform.parent = transform;
 
-        Destroy(gameObject);
     }
 
 #if UNITY_EDITOR
