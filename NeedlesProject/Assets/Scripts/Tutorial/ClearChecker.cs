@@ -19,6 +19,9 @@ public class ClearChecker : MonoBehaviour {
     //プレハブ(fader) or SceneChangeTimerの入ったオブジェクトを入れる
     public SceneChanger sceneChanger;
 
+    public string m_Scene = "none";
+    public float m_delay = 1.0f;
+
     // Use this for initialization
     void Start ()
     {
@@ -30,10 +33,14 @@ public class ClearChecker : MonoBehaviour {
     {
         if(m_Conditions.IsClear())
         {
-#warning insert scene name
-
-            sceneChanger.SceneChange("SCENE_NAME");
-            Debug.Log("シーンChange");
+            StartCoroutine(DelaySceneChange(m_delay));
+            this.enabled = false;
         }	
 	}
+
+    IEnumerator DelaySceneChange(float second)
+    {
+        yield return new WaitForSeconds(second);
+        sceneChanger.SceneChange(m_Scene);
+    }
 }
