@@ -38,5 +38,7 @@ public class SoundManger : MonoBehaviour
         Sound.LoadSe("Spring", "Spring");
 
         Sound.LoadSe("Creak", "Creak");
+        Sound.LoadSe("TutorialClear", "StageDecision2");
+
     }
 }
