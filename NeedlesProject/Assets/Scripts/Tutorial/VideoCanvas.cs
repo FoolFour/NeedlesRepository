@@ -32,6 +32,7 @@ public class VideoCanvas : MonoBehaviour
                 var scaleto = new Vector3(0.6f, 0.6f, 1.0f);
                 while (t <= 1)
                 {
+                    GamePad.isButtonLock = true;
                     t += 0.05f;
                     m_RectTransform.localPosition = Vector3.Lerp(posfrom, posto, Mathf.SmoothStep(0, 1, t));
                     m_RectTransform.localScale = Vector3.Lerp(scalefrom, scaleto, Mathf.SmoothStep(0, 1, t));
@@ -39,5 +40,7 @@ public class VideoCanvas : MonoBehaviour
                 }
             }
         }
+        yield return new WaitForSeconds(1.0f);
+        GamePad.isButtonLock = false;
     }
 }
