@@ -25,7 +25,7 @@ public class StageSubmitToSceneChange : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetButton(GamePad.Submit))
+        if(Input.GetButtonUp(GamePad.Submit))
         {
             select.isSelect = false;
 
