@@ -42,13 +42,13 @@ namespace StageEditor
         private string fileName;
 
         //定数
-        private const int TILE_SIZE = 32;
+        private static readonly int TILE_SIZE = 32;
 
-        private const int MAP_VIEW_POS_X      =  32;
-        private const int MAP_VIEW_POS_Y      = 128;
+        private static readonly int MAP_VIEW_POS_X      =  32;
+        private static readonly int MAP_VIEW_POS_Y      = 128;
 
-        private const int MAP_VIEW_TILE_POS_X = MAP_VIEW_POS_X / TILE_SIZE;
-        private const int MAP_VIEW_TILE_POS_Y = MAP_VIEW_POS_Y / TILE_SIZE;
+        private static readonly int MAP_VIEW_TILE_POS_X = MAP_VIEW_POS_X / TILE_SIZE;
+        private static readonly int MAP_VIEW_TILE_POS_Y = MAP_VIEW_POS_Y / TILE_SIZE;
 
 
         private void OnFocus()
