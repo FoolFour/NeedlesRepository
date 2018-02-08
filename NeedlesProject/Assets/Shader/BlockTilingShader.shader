@@ -4,9 +4,11 @@
     {
         _MainTex ("Texture",     2D) = "white" {}
         _RuleTex ("RuleTexture", 2D) = "white" {}
-        _Amount  ("Amount",      Range(0, 1)) = 0
-        _Range   ("Range",       Range(0, 1)) = 0
-        _Hardness("Hardness",    Float) = 1
+        _Amount  ("Amount",      Range(0, 1))  = 0
+        _Range   ("Range",       Range(0, 1))  = 0
+        _Hardness("Hardness",    Float)        = 1
+        _MirrorX ("Mirror X",    Range(-1, 1)) = 1
+        _MirrorY ("Mirror Y",    Range(-1, 1)) = 1
     }
 
     SubShader
@@ -42,6 +44,8 @@
             float _Amount;
             float _Range;
             float _Hardness;
+            float _MirrorX;
+            float _MirrorY;
 
             v2f vert (appdata v)
             {
@@ -53,9 +57,13 @@
 
             fixed4 frag (v2f i) : SV_Target
             {
+                //signだと0の場合0のままになってしまう
+                _MirrorX = (_MirrorX >= 0) ? 1 : -1;
+                _MirrorY = (_MirrorY >= 0) ? 1 : -1;
+
                 fixed4 col = tex2D(_MainTex, i.uv);
 
-                fixed4 rule_col = tex2D(_RuleTex, i.uv);
+                fixed4 rule_col = tex2D(_RuleTex, i.uv * float2(_MirrorX, _MirrorY));
                 float len = rule_col.r;
                 if (_Amount == 0.0)
                 {

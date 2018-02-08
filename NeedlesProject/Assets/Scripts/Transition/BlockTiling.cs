@@ -31,6 +31,11 @@ public class BlockTiling : TransitionBase
 
         material.SetTexture("_RuleTex", ruleTextures[useTex]);
 
+        float x = Mathf.Sign(Random.Range(-1.0f, 1.0f));
+        float y = Mathf.Sign(Random.Range(-1.0f, 1.0f));
+
+        material.SetFloat("_MirrorX", x);
+        material.SetFloat("_MirrorY", y);
     }
 
     protected override void ChangeValue(float amount)
