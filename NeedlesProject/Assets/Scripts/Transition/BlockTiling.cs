@@ -8,8 +8,13 @@ public class BlockTiling : TransitionBase
     ///////////////////
     // 変数(private)　/
     /////////////////
-    private Image    image;
-    private Material material;
+
+    [SerializeField]
+    private Texture[] ruleTextures;
+
+
+    private Image     image;
+    private Material  material;
 
     ///////////////////
     // 関数(private)　/
@@ -21,6 +26,11 @@ public class BlockTiling : TransitionBase
 
         image    = GetComponent<Image>();
         material = image.material;
+
+        int useTex = Random.Range(0, ruleTextures.Length);
+
+        material.SetTexture("_RuleTex", ruleTextures[useTex]);
+
     }
 
     protected override void ChangeValue(float amount)

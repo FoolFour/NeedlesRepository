@@ -25,7 +25,7 @@ public class VideoStarter : MonoBehaviour
 
     public void ShowVideo()
     {
-        if (Input.anyKeyDown && !Eventing)
+        if (!Eventing)
         {
             Sound.PlaySe("TitleOnButton1");
             Eventing = true;
