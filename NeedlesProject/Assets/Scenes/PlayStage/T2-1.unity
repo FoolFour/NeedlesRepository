@@ -1740,6 +1740,26 @@ Prefab:
       propertyPath: InitialModule.startRotation.scalar
       value: -1.5707963
       objectReference: {fileID: 0}
+    - target: {fileID: 198669159369799656, guid: 552d791c2cec48941b257b794861ae43,
+        type: 2}
+      propertyPath: TrailModule.enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198669159369799656, guid: 552d791c2cec48941b257b794861ae43,
+        type: 2}
+      propertyPath: InitialModule.startSpeed.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 198669159369799656, guid: 552d791c2cec48941b257b794861ae43,
+        type: 2}
+      propertyPath: InitialModule.startSpeed.minScalar
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 198669159369799656, guid: 552d791c2cec48941b257b794861ae43,
+        type: 2}
+      propertyPath: InitialModule.startSpeed.scalar
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 552d791c2cec48941b257b794861ae43, type: 2}
   m_IsPrefabParent: 0
@@ -4240,6 +4260,11 @@ Prefab:
         type: 2}
       propertyPath: InitialModule.gravityModifier.minScalar
       value: -0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198859772653766706, guid: 23a9bca0054170e40af4d39d21cd199d,
+        type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 23a9bca0054170e40af4d39d21cd199d, type: 2}
@@ -10423,6 +10448,26 @@ Prefab:
         type: 2}
       propertyPath: InitialModule.startRotation.scalar
       value: -1.5707963
+      objectReference: {fileID: 0}
+    - target: {fileID: 198669159369799656, guid: 552d791c2cec48941b257b794861ae43,
+        type: 2}
+      propertyPath: TrailModule.enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198669159369799656, guid: 552d791c2cec48941b257b794861ae43,
+        type: 2}
+      propertyPath: InitialModule.startSpeed.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 198669159369799656, guid: 552d791c2cec48941b257b794861ae43,
+        type: 2}
+      propertyPath: InitialModule.startSpeed.minScalar
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 198669159369799656, guid: 552d791c2cec48941b257b794861ae43,
+        type: 2}
+      propertyPath: InitialModule.startSpeed.scalar
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 552d791c2cec48941b257b794861ae43, type: 2}
