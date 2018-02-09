@@ -14,6 +14,7 @@ public class StageNameDrawer : ParametersDrawerBase
 
     private void Update()
     {
+        if(text.text == data.stageName) { return; }
         text.text = data.stageName;
     }
 }

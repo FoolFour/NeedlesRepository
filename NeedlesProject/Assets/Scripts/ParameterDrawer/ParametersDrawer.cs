@@ -9,14 +9,6 @@ public class ParametersDrawerBase : MonoBehaviour
     {
         data = FindObjectOfType<StageData>();
     }
-
-	private void Awake()
-	{
-		if(data == null)
-        {
-            data = FindObjectOfType<StageData>();
-        }
-	}
 	
 	protected string ConvertTime(float time)
 	{

@@ -20,13 +20,14 @@ public class BlockTiling : TransitionBase
     // 関数(private)　/
     /////////////////
 
-    protected override void Awake()
+    protected void Awake()
     {
-        base.Awake();
-
         image    = GetComponent<Image>();
         material = image.material;
+    }
 
+    protected override void Start()
+    {
         int useTex = Random.Range(0, ruleTextures.Length);
 
         material.SetTexture("_RuleTex", ruleTextures[useTex]);
@@ -36,6 +37,8 @@ public class BlockTiling : TransitionBase
 
         material.SetFloat("_MirrorX", x);
         material.SetFloat("_MirrorY", y);
+
+        base.Start();
     }
 
     protected override void ChangeValue(float amount)

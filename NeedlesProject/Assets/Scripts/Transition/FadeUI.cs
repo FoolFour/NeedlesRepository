@@ -7,10 +7,8 @@ public class FadeUI : TransitionBase
 {
     Graphic graphic;
 
-    protected override void Awake()
+    protected void Awake()
     {
-        base.Awake();
-
         graphic = GetComponent<Graphic>();
     }
 

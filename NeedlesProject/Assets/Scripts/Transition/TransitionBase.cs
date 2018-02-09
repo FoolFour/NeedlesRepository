@@ -49,17 +49,14 @@ public abstract class TransitionBase : MonoBehaviour
         StopAllCoroutines();
     }
 
-    protected virtual void Awake()
+    protected virtual void Start()
     {
         string tmp = PlayerPrefs.GetString(PrefsDataName.FadeStart);
         if (tmp == bool.TrueString)
         {
             fadeStart = true;
         }
-    }
 
-    protected virtual void Start()
-    {
         if (fadeStart && !fadeNoStart)
         {
             FadeOutStart();
