@@ -11,6 +11,7 @@ public sealed class PrefsDataName
     public static readonly string Border2       = "Border2";
     public static readonly string Time          = "Time";
     public static readonly string SelectedWorld = "SelectedWorld";
+    public static readonly string IsTutorial    = "IsTutorial";
 
     public static string StageTime(string stageName)
     {

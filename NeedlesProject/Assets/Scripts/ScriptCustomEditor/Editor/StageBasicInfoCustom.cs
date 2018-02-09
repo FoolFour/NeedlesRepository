@@ -78,10 +78,11 @@ public class StageBasicInfoCustom : Editor
         //ステージの詳細
         var stageInfo = info.worldList[selectWorld][selectStage];
 
-        stageInfo.stageName = EditorGUILayout   .TextField ("ステージ名",       stageInfo.stageName);
-        stageInfo.sceneName = EditorGUIExtension.SceneField("ステージのシーン",  stageInfo.sceneName, serializedObject);
-        stageInfo.border1   = EditorGUILayout   .FloatField("目標タイム その１", stageInfo.border1  );
-        stageInfo.border2   = EditorGUILayout   .FloatField("目標タイム その２", stageInfo.border2  );
+        stageInfo.stageName  = EditorGUILayout   .TextField ("ステージ名",                 stageInfo.stageName );
+        stageInfo.sceneName  = EditorGUIExtension.SceneField("ステージのシーン",           stageInfo.sceneName, serializedObject);
+        stageInfo.border1    = EditorGUILayout   .FloatField("目標タイム その１",          stageInfo.border1   );
+        stageInfo.border2    = EditorGUILayout   .FloatField("目標タイム その２",          stageInfo.border2   );
+        stageInfo.isTutorial = EditorGUILayout   .Toggle    ("チュートリアルのステージか", stageInfo.isTutorial);
 
         serializedObject.ApplyModifiedProperties();
 

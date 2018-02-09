@@ -24,27 +24,26 @@ public class StageDataFileLoader : MonoBehaviour
         }
         Debug.Log(path);
 
-        using (var fs = new IO.FileStream(path, IO.FileMode.Open))
-        {
-            using (var br = new IO.BinaryReader(fs))
-            {
-                string stage_name = br.ReadString();
-                float  border1    = br.ReadSingle();
-                float  border2    = br.ReadSingle();
-                string next_stage = br.ReadString();
+        using (var fs = new IO.FileStream(path, IO.FileMode.Open)) {
+        using (var br = new IO.BinaryReader(fs)) {
+            string stage_name = br.ReadString();
+            float  border1    = br.ReadSingle();
+            float  border2    = br.ReadSingle();
+            string next_stage = br.ReadString();
+            bool   isTutorial = br.ReadBoolean();
 
-                string scene_name = SceneManager.GetActiveScene().name;
-                Debug.Log(scene_name);
+            string scene_name = SceneManager.GetActiveScene().name;
+            Debug.Log(scene_name);
 
-                PlayerPrefs.SetString(PrefsDataName.StageName, stage_name);
-                PlayerPrefs.SetString(PrefsDataName.Scene,     scene_name);
-                PlayerPrefs.SetFloat (PrefsDataName.Border1,   border1);
-                PlayerPrefs.SetFloat (PrefsDataName.Border2,   border2);
-                PlayerPrefs.SetString(PrefsDataName.NextSene,  next_stage);
+            PlayerPrefs.SetString(PrefsDataName.StageName,  stage_name);
+            PlayerPrefs.SetString(PrefsDataName.Scene,      scene_name);
+            PlayerPrefs.SetFloat (PrefsDataName.Border1,    border1);
+            PlayerPrefs.SetFloat (PrefsDataName.Border2,    border2);
+            PlayerPrefs.SetString(PrefsDataName.NextSene,   next_stage);
+            PlayerPrefs.SetString(PrefsDataName.IsTutorial, isTutorial.ToString());
 
-                br.Close();
-                fs.Close();
-            }
-        }
+            br.Close();
+            fs.Close();
+        } }
     }
 }

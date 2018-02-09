@@ -2,11 +2,11 @@
 {
     Properties
     {
-        _BaseColor     ("Base Color",      Color) = (1.0, 1.0, 1.0, 1.0)
-        _HighLightColor("HighLight Color", Color) = (1.0, 1.0, 1.0, 1.0)
-        _NWidth        ("Noise Width",     Float) = 1.0
-        _NHeight       ("Noise Height",    Float) = 1.0
-        _NOffset       ("Noise Offset",    Float) = 0
+        _BaseColor     ("Base Color",      Color)             = (1.0, 1.0, 1.0, 1.0)
+        _HighLightColor("HighLight Color", Color)             = (1.0, 1.0, 1.0, 1.0)
+        _NWidth        ("Noise Width",     Float)             = 1.0
+        _NHeight       ("Noise Height",    Float)             = 1.0
+        _NOffset       ("Noise Offset",    Float)             = 0
         _CCenter       ("Clip Center",     Range(0.0, 1.0))   = 0.5
         _CRangeMin     ("Clip Range Min",  Range(0.0, 0.5))   = 0.02
         _CRangeMax     ("Clip Range Max",  Range(0.0, 0.5))   = 0.02

@@ -38,6 +38,7 @@ public class StageBasicInfo : MonoBehaviour
         public float  border2;
         public bool   border2ClearFlag;
         public float  time;
+        public bool   isTutorial;
     }
     
     [SerializeField]
@@ -136,28 +137,26 @@ public class StageBasicInfo : MonoBehaviour
             milliseconds: 999
         );
 
-        for(int i_w = 0; i_w < WorldCount; i_w++)
+        for(int i_w = 0; i_w < WorldCount; i_w++) {
+        for(int j_s = 0; j_s < StageCount(i_w); j_s++)
         {
-            for(int j_s = 0; j_s < StageCount(i_w); j_s++)
-            {
-                string stageName = worldList[i_w][j_s].stageName;
+            string stageName = worldList[i_w][j_s].stageName;
 
-                float time = (float)timeSpan.TotalSeconds;
-                StageInfo info = worldList[i_w][j_s];
+            float time = (float)timeSpan.TotalSeconds;
+            StageInfo info = worldList[i_w][j_s];
 
-                info.time = time;
-                PlayerPrefs.SetFloat (PrefsDataName.StageTime(stageName), time);
+            info.time = time;
+            PlayerPrefs.SetFloat (PrefsDataName.StageTime(stageName), time);
 
-                info.stageClearFlag   = false;
-                PlayerPrefs.SetString(PrefsDataName.StageClearFrag(stageName),   bool.FalseString);
+            info.stageClearFlag   = false;
+            PlayerPrefs.SetString(PrefsDataName.StageClearFrag(stageName),   bool.FalseString);
 
-                info.border1ClearFlag = false;
-                PlayerPrefs.SetString(PrefsDataName.Border1ClearFrag(stageName), bool.FalseString);
-
-                info.border2ClearFlag = false;
-                PlayerPrefs.SetString(PrefsDataName.Border2ClearFrag(stageName), bool.FalseString);
-            }
-        }
+            info.border1ClearFlag = false;
+            PlayerPrefs.SetString(PrefsDataName.Border1ClearFrag(stageName), bool.FalseString);
+            
+            info.border2ClearFlag = false;
+            PlayerPrefs.SetString(PrefsDataName.Border2ClearFrag(stageName), bool.FalseString);
+        } }
         PlayerPrefs.SetString(PrefsDataName.isInit, bool.TrueString);
 
         PlayerPrefs.Save();
@@ -200,38 +199,36 @@ public class StageBasicInfo : MonoBehaviour
 
         IO.Directory.CreateDirectory(directory);
 
-        for(int i_w = 0; i_w < WorldCount; i_w++)
-        {
-            for(int j_s = 0; j_s < StageCount(i_w); j_s++)
-            {
-                var s = new System.Text.StringBuilder();
-                string sceneName = IO.Path.GetFileNameWithoutExtension(worldList[i_w][j_s].sceneName);
+        for(int i_w = 0; i_w < WorldCount;      i_w++) {
+        for(int j_s = 0; j_s < StageCount(i_w); j_s++) {
+            var s = new System.Text.StringBuilder();
+            string sceneName = IO.Path.GetFileNameWithoutExtension(worldList[i_w][j_s].sceneName);
 
-                s.Append(directory);
-                s.Append("/");
-                s.Append(sceneName);
-                s.Append(".sdf");
-                using (var fs = new IO.FileStream(s.ToString(), IO.FileMode.Create)) {
-                using (var bw = new IO.BinaryWriter(fs)) {
+            s.Append(directory);
+            s.Append("/");
+            s.Append(sceneName);
+            s.Append(".sdf");
+            using (var fs = new IO.FileStream(s.ToString(), IO.FileMode.Create)) {
+            using (var bw = new IO.BinaryWriter(fs)) {
 
-                    StageInfo info = worldList[i_w][j_s];
-                    bw.Write(info.stageName);
-                    bw.Write(info.border1);
-                    bw.Write(info.border2);
+                StageInfo info = worldList[i_w][j_s];
+                bw.Write(info.stageName);
+                bw.Write(info.border1);
+                bw.Write(info.border2);
+                bw.Write(info.isTutorial);
                     
-                    if(j_s < StageCount(i_w)-1)
-                    {
-                        bw.Write(worldList[i_w][j_s+1].sceneName);
-                    }
-                    else
-                    {
-                        bw.Write("");
-                    }
+                if(j_s < StageCount(i_w)-1)
+                {
+                    bw.Write(worldList[i_w][j_s+1].sceneName);
+                }
+                else
+                {
+                    bw.Write("");
+                }
 
-                    bw.Close();
-                    fs.Close();
-                } }
-            }
-        }
+                bw.Close();
+                fs.Close();
+            } }
+        } }
     }
 }
