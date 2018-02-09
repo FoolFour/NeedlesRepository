@@ -4,19 +4,22 @@ using UnityEngine;
 
 public class CoinClearConditions : IConditions {
 
+    TutorialCoin[] TCoins; 
+
 	// Use this for initialization
 	void Start ()
     {
         isClear = false;
+        TCoins = GetComponentsInChildren<TutorialCoin>();
 	}
 	
 	// Update is called once per frame
 	void Update ()
     {
-        if(transform.childCount == 0)
+        foreach(var dead in TCoins)
         {
-            isClear = true;
-            Debug.Log("クリア");
-        }	
-	}
+            if (!dead.IsDead()) return;
+        }
+        isClear = true;
+    }
 }

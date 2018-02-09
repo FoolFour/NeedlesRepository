@@ -39,6 +39,7 @@ GameObject:
   - component: {fileID: 4342881272077302}
   - component: {fileID: 65310178723949444}
   - component: {fileID: 114255630358851654}
+  - component: {fileID: 114298829731585990}
   m_Layer: 9
   m_Name: Coin
   m_TagString: Coin
@@ -53,7 +54,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1966160304171964}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.02, y: 4.93, z: 0}
+  m_LocalPosition: {x: 0, y: 3.84, z: 0}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 4652780506696844}
@@ -138,6 +139,17 @@ MonoBehaviour:
   isHitBlock: 0
   CheckPlayer: 0
   CheckArm: 1
+--- !u!114 &114298829731585990
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1966160304171964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee1854a109863dd48b5192b9eba928eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114333025493188938
 MonoBehaviour:
   m_ObjectHideFlags: 1
