@@ -20,7 +20,7 @@ public class ClearChecker : MonoBehaviour {
     //プレハブ(fader) or SceneChangeTimerの入ったオブジェクトを入れる
     public SceneChanger sceneChanger;
 
-    public string m_Scene = "none";
+    public string m_Scene = "StageSelect";
     public float m_delay = 1.0f;
 
     private RectTransform m_ClearImage;
@@ -39,7 +39,6 @@ public class ClearChecker : MonoBehaviour {
     {
         if(m_Conditions.IsClear())
         {
-            Sound.PlaySe("TutorialClear");
             Destroy(m_VideoObject);
             StartCoroutine(DelaySceneChange(m_delay));
             this.enabled = false;
