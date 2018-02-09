@@ -681,6 +681,7 @@ GameObject:
   - component: {fileID: 846703311}
   - component: {fileID: 813406072}
   - component: {fileID: 813406071}
+  - component: {fileID: 813406073}
   m_Layer: 9
   m_Name: Coin (1)
   m_TagString: Coin
@@ -716,6 +717,17 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 0.6, z: 3}
   m_Center: {x: 0, y: 0.4, z: 0}
+--- !u!114 &813406073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 813406070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee1854a109863dd48b5192b9eba928eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &816530431
 Prefab:
   m_ObjectHideFlags: 0
@@ -1085,6 +1097,7 @@ GameObject:
   - component: {fileID: 2007203592}
   - component: {fileID: 1150282432}
   - component: {fileID: 1150282431}
+  - component: {fileID: 1150282433}
   m_Layer: 9
   m_Name: Coin (1)
   m_TagString: Coin
@@ -1120,6 +1133,17 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 0.6, z: 3}
   m_Center: {x: 0, y: 0.4, z: 0}
+--- !u!114 &1150282433
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1150282430}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee1854a109863dd48b5192b9eba928eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1153701399 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4700052983776470, guid: 146d628ba451b2b4d98949c37ef0dd30,
