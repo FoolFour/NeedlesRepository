@@ -13,10 +13,15 @@ public class TutorialCoin : BlockBase,IRespawnMessage
     private RemoveComponent m_RCom;
     private bool isDead = false;
 
+    
+    public GameObject Coineffect_obj;   //
+    public Transform death_pos;         //
+
     public void Start()
     {
         m_RCom = GetComponent<RemoveComponent>();
         isDead = false;
+        death_pos = this.gameObject.transform;  //
     }
 
     public override void StickEnter(GameObject arm)
@@ -35,6 +40,12 @@ public class TutorialCoin : BlockBase,IRespawnMessage
         {
             if (other.CompareTag("Player"))
             {
+                //particle生成
+                GameObject Coineffect =
+                    Instantiate(Coineffect_obj, death_pos) as GameObject;//
+                //再生終わったら消す
+                Destroy(Coineffect, 5f);//
+
                 isDead = true;
                 m_RCom.SwitchActive(false);
             }
@@ -43,6 +54,12 @@ public class TutorialCoin : BlockBase,IRespawnMessage
         {
             if (other.CompareTag("PlayerArm"))
             {
+                //particle生成
+                GameObject Coineffect = 
+                    Instantiate(Coineffect_obj, death_pos) as GameObject;//
+                //再生終わったら消す
+                Destroy(Coineffect, 5f);//
+
                 isDead = true;
                 m_RCom.SwitchActive(false);
             }
