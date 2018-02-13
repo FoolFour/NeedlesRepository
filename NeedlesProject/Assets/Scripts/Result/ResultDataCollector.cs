@@ -14,7 +14,7 @@ public class ResultDataCollector : MonoBehaviour
     // 関数(private)　/
     /////////////////
 
-    private IEnumerator Start()
+    private void Start()
     {
         stageData = GetComponent<StageData>();
 
@@ -25,20 +25,18 @@ public class ResultDataCollector : MonoBehaviour
         stageData.ApplyBorder1  (PlayerPrefs.GetFloat(PrefsDataName.Border1));
         stageData.ApplyBorder2  (PlayerPrefs.GetFloat(PrefsDataName.Border2));
 
-        //PlayerPrefs.DeleteKey(PrefsDataName.Time);
-        //PlayerPrefs.DeleteKey(PrefsDataName.StageName);
-        //PlayerPrefs.DeleteKey(PrefsDataName.Border1);
-        //PlayerPrefs.DeleteKey(PrefsDataName.Border2);
-
-        yield return null;
-        yield return StartCoroutine(SubmitBestTIme(stageData.stageName, stageData.time));
-        yield return null;
+        SubmitBestTIme(stageData.stageName, stageData.time);
         SubmitStageClear(stageData.stageName);
-        yield return null;
+
+        PlayerPrefs.DeleteKey(PrefsDataName.Time);
+        PlayerPrefs.DeleteKey(PrefsDataName.StageName);
+        PlayerPrefs.DeleteKey(PrefsDataName.Border1);
+        PlayerPrefs.DeleteKey(PrefsDataName.Border2);
+        
         PlayerPrefs.Save();
     }
 
-    private IEnumerator SubmitBestTIme (string stageName, float new_time)
+    private void SubmitBestTIme (string stageName, float new_time)
     {
         var tmp_prefsName = PrefsDataName.StageTime(stageName);
         float old_time = PlayerPrefs.GetFloat(tmp_prefsName);
@@ -54,8 +52,6 @@ public class ResultDataCollector : MonoBehaviour
             stageData.ApplyIsNewRecord(false);
         }
 
-        yield return null;
-
         //提示された時間内にクリアできているか
         if (new_time < PlayerPrefs.GetFloat(PrefsDataName.Border1))
         {
@@ -67,8 +63,6 @@ public class ResultDataCollector : MonoBehaviour
         {
             stageData.ApplyIsBorder1Clear(false);
         }
-
-        yield return null;
 
         if (new_time < PlayerPrefs.GetFloat(PrefsDataName.Border2))
         {

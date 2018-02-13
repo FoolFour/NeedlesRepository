@@ -7,9 +7,10 @@ using UnityEngine.EventSystems;
 public class ClearBorder1Drawer : ParametersDrawerBase
 {
     private UIBehaviour image;
-
-    private void OnEnable()
+    
+    private IEnumerator Start()
     {
+        yield return null;
         image = GetComponent<UIBehaviour>();
         image.enabled = data.isBorder1Clear;
         foreach (Transform child in transform)

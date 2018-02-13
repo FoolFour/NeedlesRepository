@@ -30,7 +30,7 @@ public abstract class TransitionBase : MonoBehaviour
 
     public float Amount
     {
-        get { return amount; }
+        get { return amount;  }
         set { amount = value; }
     }
 

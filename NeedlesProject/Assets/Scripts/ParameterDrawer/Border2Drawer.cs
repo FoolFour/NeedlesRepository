@@ -7,9 +7,11 @@ public class Border2Drawer : ParametersDrawerBase
 {
     Text text;
 
-    private void Start()
+    private IEnumerator Start()
     {
         text = GetComponent<Text>();
+        yield return null;
+
         text.text = ConvertTime(data.border2);
     }
 }

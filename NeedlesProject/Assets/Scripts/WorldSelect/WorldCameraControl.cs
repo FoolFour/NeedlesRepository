@@ -84,6 +84,7 @@ public class WorldCameraControl : MonoBehaviour
 
         if(Input.GetButtonUp(GamePad.Submit))
         {
+            Sound.PlaySe("");
             ChangeStageSelect();
         }
 

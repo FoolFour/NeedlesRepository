@@ -34,6 +34,11 @@ public class StageDataFileLoader : MonoBehaviour
 
             string scene_name = SceneManager.GetActiveScene().name;
             Debug.Log(scene_name);
+            Debug.Log(border1);
+            Debug.Log(border2);
+
+            Debug.Log(next_stage);
+            Debug.Log(isTutorial);
 
             PlayerPrefs.SetString(PrefsDataName.StageName,  stage_name);
             PlayerPrefs.SetString(PrefsDataName.Scene,      scene_name);

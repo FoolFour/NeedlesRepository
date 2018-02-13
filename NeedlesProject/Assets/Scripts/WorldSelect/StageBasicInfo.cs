@@ -189,6 +189,8 @@ public class StageBasicInfo : MonoBehaviour
     [ContextMenu("Generate File")]
     public void GenerateFile()
     {
+        Debug.Log("ファイルの生成開始");
+
         var directory = Application.streamingAssetsPath + "/Stages";
 
         //初期化
@@ -215,20 +217,24 @@ public class StageBasicInfo : MonoBehaviour
                 bw.Write(info.stageName);
                 bw.Write(info.border1);
                 bw.Write(info.border2);
-                bw.Write(info.isTutorial);
-                    
-                if(j_s < StageCount(i_w)-1)
+                
+                try
                 {
                     bw.Write(worldList[i_w][j_s+1].sceneName);
+                    Debug.Log(worldList[i_w][j_s+1].sceneName);
                 }
-                else
+                catch
                 {
                     bw.Write("");
+                    Debug.Log("");
                 }
+                bw.Write(info.isTutorial);
 
                 bw.Close();
                 fs.Close();
             } }
         } }
+
+        Debug.Log("ファイルの生成終了");
     }
 }

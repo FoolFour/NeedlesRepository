@@ -27,7 +27,6 @@ public class VideoStarter : MonoBehaviour
     {
         if (!Eventing)
         {
-            Sound.PlaySe("TitleOnButton1");
             Eventing = true;
             m_TitleImage.enabled = false;
             m_TitleText.enabled = false;

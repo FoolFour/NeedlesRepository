@@ -8,8 +8,9 @@ public class ClearBorder2Drawer : ParametersDrawerBase
 {
 	private UIBehaviour image;
 
-	private void OnEnable()
+	private IEnumerator Start()
 	{
+        yield return null;
 		image = GetComponent<UIBehaviour>();
         image.enabled = data.isBorder2Clear;
         foreach (Transform child in transform)
