@@ -59,9 +59,4 @@ public class TutorialGoalSend : BlockBase
         yield return new WaitForSeconds(second);
         sceneChanger.SceneChange(m_Scene);
     }
-
-    //public void SceneChange()
-    //{
-    //    sceneChanger.SceneChangeAsync("Result", LoadSceneMode.Additive);
-    //}
 }
