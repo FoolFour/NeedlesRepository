@@ -47,6 +47,7 @@ public class ClearChecker : MonoBehaviour {
 
     IEnumerator DelaySceneChange(float second)
     {
+        Sound.PlaySe("HandTap");
         if (m_ClearImage)
         {
             {

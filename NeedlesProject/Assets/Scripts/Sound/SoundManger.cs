@@ -41,5 +41,7 @@ public class SoundManger : MonoBehaviour
         Sound.LoadSe("TutorialClear", "StageDecision2");
         Sound.LoadSe("CoinGet", "CoinGet");
 
+        Sound.LoadSe("HandTap", "HandTap");
+
     }
 }
