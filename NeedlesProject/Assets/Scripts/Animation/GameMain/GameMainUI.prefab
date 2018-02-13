@@ -77,6 +77,7 @@ GameObject:
   - component: {fileID: 114020409117316338}
   - component: {fileID: 114473109853521748}
   - component: {fileID: 114279700283647374}
+  - component: {fileID: 114858580651174016}
   m_Layer: 5
   m_Name: RetryButton
   m_TagString: Untagged
@@ -340,6 +341,7 @@ GameObject:
   - component: {fileID: 114174112457950322}
   - component: {fileID: 114842934516264540}
   - component: {fileID: 114405716940336738}
+  - component: {fileID: 114038089112320958}
   m_Layer: 5
   m_Name: StageSelectButton
   m_TagString: Untagged
@@ -776,6 +778,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 114063569780381228}
+--- !u!114 &114038089112320958
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1627214989506934}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fae5d3f0206fab34ca8b4916f5976730, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  submitSEName: TitleDecision
+  cancelSEName: 
 --- !u!114 &114063569780381228
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -800,6 +815,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fadeStart: 0
   fadeNoStart: 0
+  isLockInputOnFade: 1
   ruleTextures:
   - {fileID: 2800000, guid: f432cb764ab0ea745be0fca0d025af64, type: 3}
   - {fileID: 2800000, guid: e02988436dd63284ea1032515f522f85, type: 3}
@@ -1443,7 +1459,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tiling: {fileID: 114086781211516350}
-  bgmPlayer: {fileID: 0}
 --- !u!114 &114502526477264258
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1729,6 +1744,19 @@ MonoBehaviour:
     m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\u30B9\u30C6\u30FC\u30B8\u30BB\u30EC\u30AF\u30C8"
+--- !u!114 &114858580651174016
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1083096487038352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fae5d3f0206fab34ca8b4916f5976730, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  submitSEName: TitleDecision
+  cancelSEName: 
 --- !u!114 &114863219681839348
 MonoBehaviour:
   m_ObjectHideFlags: 1
