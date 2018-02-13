@@ -84,12 +84,13 @@ public class WorldCameraControl : MonoBehaviour
 
         if(Input.GetButtonUp(GamePad.Submit))
         {
-            Sound.PlaySe("");
+            Sound.PlaySe("TitleOnButton1");
             ChangeStageSelect();
         }
 
         if(Input.GetButtonUp(GamePad.Cancel))
         {
+            Sound.PlaySe("MenuClose");
             sceneChangeFade.SceneChange("title");
             state = State.WorldToTitle;
         }
@@ -99,11 +100,13 @@ public class WorldCameraControl : MonoBehaviour
     {
         if(Input.GetButtonUp(GamePad.Submit))
         {
+            Sound.PlaySe("TitleDecision");
             state = State.StageToStart;
         }
 
         if(Input.GetButtonUp(GamePad.Cancel))
         {
+            Sound.PlaySe("MenuClose");
             ChangeWorldSelect();
         }
     }

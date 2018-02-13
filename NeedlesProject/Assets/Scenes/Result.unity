@@ -160,6 +160,7 @@ GameObject:
   - component: {fileID: 22070003}
   - component: {fileID: 22070002}
   - component: {fileID: 22070004}
+  - component: {fileID: 22070005}
   m_Layer: 15
   m_Name: NextStage
   m_TagString: Untagged
@@ -334,6 +335,19 @@ MonoBehaviour:
     m_NumColorKeys: 4
     m_NumAlphaKeys: 2
   speed: 0.8
+--- !u!114 &22070005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 22069997}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fae5d3f0206fab34ca8b4916f5976730, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  submitSEName: TitleOnButton1
+  cancelSEName: 
 --- !u!1 &34360251
 GameObject:
   m_ObjectHideFlags: 0
@@ -347,6 +361,7 @@ GameObject:
   - component: {fileID: 34360253}
   - component: {fileID: 34360256}
   - component: {fileID: 34360257}
+  - component: {fileID: 34360258}
   m_Layer: 15
   m_Name: StageSelect
   m_TagString: Untagged
@@ -510,6 +525,19 @@ MonoBehaviour:
     m_NumColorKeys: 4
     m_NumAlphaKeys: 2
   speed: 0.8
+--- !u!114 &34360258
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 34360251}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fae5d3f0206fab34ca8b4916f5976730, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  submitSEName: TitleOnButton1
+  cancelSEName: 
 --- !u!1 &126842911
 GameObject:
   m_ObjectHideFlags: 0
@@ -677,7 +705,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tiling: {fileID: 2108600899}
-  bgmPlayer: {fileID: 0}
 --- !u!114 &152975094
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3676,6 +3703,7 @@ GameObject:
   - component: {fileID: 2093090678}
   - component: {fileID: 2093090681}
   - component: {fileID: 2093090682}
+  - component: {fileID: 2093090683}
   m_Layer: 15
   m_Name: Retry
   m_TagString: Untagged
@@ -3839,6 +3867,19 @@ MonoBehaviour:
     m_NumColorKeys: 4
     m_NumAlphaKeys: 2
   speed: 0.8
+--- !u!114 &2093090683
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2093090676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fae5d3f0206fab34ca8b4916f5976730, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  submitSEName: TitleOnButton1
+  cancelSEName: 
 --- !u!1 &2097012782
 GameObject:
   m_ObjectHideFlags: 0
@@ -3874,7 +3915,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.4, y: 0.38}
   m_AnchorMax: {x: 0.9, y: 0.48}
-  m_AnchoredPosition: {x: -84.47999, y: -66.2}
+  m_AnchoredPosition: {x: -84.47999, y: -66.19999}
   m_SizeDelta: {x: 322.56, y: 36.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2097012784

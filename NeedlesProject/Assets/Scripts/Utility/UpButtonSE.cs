@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.EventSystems;
 
-public class UpButtonSE : MonoBehaviour, ISubmitHandler, ICancelHandler
+public class UpButtonSE : MonoBehaviour
 {
     [SerializeField]
     string submitSEName;
@@ -11,39 +11,22 @@ public class UpButtonSE : MonoBehaviour, ISubmitHandler, ICancelHandler
     [SerializeField]
     string cancelSEName;
 
-    public void OnSubmit(BaseEventData eventData)
+    private void Update()
     {
-        StartCoroutine(WaitSubmitButtonUp());
-    }
-
-    public void OnCancel(BaseEventData eventData)
-    {
-        StartCoroutine(WaitCancelButtonUp());
-    }
-
-    public IEnumerator WaitSubmitButtonUp()
-    {
-        while (Input.GetButton(GamePad.Submit))
+        if(Input.GetButtonUp(GamePad.Submit))
         {
-            yield return null;
-        }
-        
-        if(submitSEName != "")
-        {
-            Sound.PlaySe(submitSEName);
-        }
-    }
-
-    public IEnumerator WaitCancelButtonUp()
-    {
-        while (Input.GetButton(GamePad.Cancel))
-        {
-            yield return null;
+            if(submitSEName != "")
+            {
+                Sound.PlaySeOne(submitSEName);
+            }
         }
 
-        if(cancelSEName != "")
+        if(Input.GetButtonUp(GamePad.Cancel))
         {
-            Sound.PlaySe(cancelSEName);
+            if(cancelSEName != "")
+            {
+                Sound.PlaySeOne(cancelSEName);
+            }
         }
     }
 }
