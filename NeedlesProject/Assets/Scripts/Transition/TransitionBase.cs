@@ -10,6 +10,9 @@ public abstract class TransitionBase : MonoBehaviour
     [SerializeField]
     private bool  fadeNoStart = false;
 
+    [SerializeField]
+    private bool  isLockInputOnFade = true;
+
     private float amount;
 
 	public enum FadeType
@@ -72,7 +75,8 @@ public abstract class TransitionBase : MonoBehaviour
     /// <summary>フェードイン</summary>
     private IEnumerator FadeIn(float fadeSpeed)
     {
-        GamePad.isButtonLock = true;
+        GamePadLock(true);
+
         FadeState = FadeType.FadeIn;
         for (float t = 0.0f; t <= 1.0f; t += Time.deltaTime * fadeSpeed)
         {
@@ -84,13 +88,14 @@ public abstract class TransitionBase : MonoBehaviour
         ChangeValue(amount);
         SendFadeComplete(FadeType.FadeIn);
         FadeState = FadeType.In;
-        GamePad.isButtonLock = false;
+        
+        GamePadLock(false);
     }
 
     /// <summary>フェードアウト</summary>
     private IEnumerator FadeOut(float fadeSpeed)
     {
-        GamePad.isButtonLock = true;
+        GamePadLock(true);
         FadeState = FadeType.FadeOut;
         for (float t = 1.0f; t >= 0.0f; t -= Time.deltaTime * fadeSpeed)
         {
@@ -102,7 +107,15 @@ public abstract class TransitionBase : MonoBehaviour
         ChangeValue(amount);
         SendFadeComplete(FadeType.FadeOut);
         FadeState = FadeType.Out;
-        GamePad.isButtonLock = false;
+        GamePadLock(false);
+    }
+
+    private void GamePadLock(bool isLock)
+    {
+        if(isLockInputOnFade)
+        {
+            GamePad.isButtonLock = isLock;
+        }
     }
 
     protected abstract void ChangeValue(float amount);
