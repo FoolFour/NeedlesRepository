@@ -28,6 +28,12 @@ public class TutorialCoin : BlockBase,IRespawnMessage
     {
         if (CheckArm)
         {
+            //particle生成
+            GameObject Coineffect =
+                Instantiate(Coineffect_obj, death_pos) as GameObject;//
+                                                                     //再生終わったら消す
+            Destroy(Coineffect, 5f);//
+
             m_RCom.SwitchActive(false);
             isDead = true;
         }
@@ -73,6 +79,7 @@ public class TutorialCoin : BlockBase,IRespawnMessage
 
     public void RespawnInit()
     {
+
         m_RCom.SwitchActive(true);
         isDead = false;
     }

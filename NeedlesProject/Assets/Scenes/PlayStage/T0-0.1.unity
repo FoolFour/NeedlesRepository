@@ -309,23 +309,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d282440b160836f45ae1a3e19b7b3dc7, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &334935518 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1411693092801462, guid: 154dd45b82e529f4cbccf9e519fd4a56,
-    type: 2}
-  m_PrefabInternal: {fileID: 1892387239}
---- !u!114 &334935522
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 334935518}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 732e0d24026c3124086346db71076efa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  RotationSpeed: 2
 --- !u!4 &350465051 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4342881272077302, guid: 154dd45b82e529f4cbccf9e519fd4a56,
@@ -652,6 +635,11 @@ Prefab:
         type: 2}
       propertyPath: m_Pivot.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114270567375871964, guid: f20150967712f814fb2350337b59f02f,
+        type: 2}
+      propertyPath: m_Text
+      value: "\u30B3\u30F3\u30D7\u30EA\u30FC\u30C8\uFF01"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f20150967712f814fb2350337b59f02f, type: 2}
@@ -1150,21 +1138,12 @@ Prefab:
       propertyPath: m_Name
       value: Coin (2)
       objectReference: {fileID: 0}
-    - target: {fileID: 4342881272077302, guid: 154dd45b82e529f4cbccf9e519fd4a56, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 1.5
+    - target: {fileID: 114255630358851654, guid: 154dd45b82e529f4cbccf9e519fd4a56,
+        type: 2}
+      propertyPath: CheckArm
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 4342881272077302, guid: 154dd45b82e529f4cbccf9e519fd4a56, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4342881272077302, guid: 154dd45b82e529f4cbccf9e519fd4a56, type: 2}
-      propertyPath: m_LocalScale.z
-      value: 1.5
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 0}
-    - {fileID: 0}
+    m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 154dd45b82e529f4cbccf9e519fd4a56, type: 2}
   m_IsPrefabParent: 0
 --- !u!1001 &1899115421
@@ -1221,6 +1200,11 @@ Prefab:
     - target: {fileID: 4342881272077302, guid: 154dd45b82e529f4cbccf9e519fd4a56, type: 2}
       propertyPath: m_LocalScale.z
       value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114255630358851654, guid: 154dd45b82e529f4cbccf9e519fd4a56,
+        type: 2}
+      propertyPath: isHitBlock
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 0}

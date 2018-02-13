@@ -867,6 +867,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 34
       objectReference: {fileID: 0}
+    - target: {fileID: 114270567375871964, guid: f20150967712f814fb2350337b59f02f,
+        type: 2}
+      propertyPath: m_Text
+      value: "\u30B3\u30F3\u30D7\u30EA\u30FC\u30C8\uFF01"
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f20150967712f814fb2350337b59f02f, type: 2}
   m_IsPrefabParent: 0
@@ -1997,6 +2002,9 @@ MonoBehaviour:
   isHitBlock: 0
   CheckPlayer: 1
   CheckArm: 0
+  Coineffect_obj: {fileID: 1520778785613312, guid: e5d14ef1df5656247a61ba41a085c1ce,
+    type: 2}
+  death_pos: {fileID: 0}
 --- !u!65 &2133242170
 BoxCollider:
   m_ObjectHideFlags: 0
