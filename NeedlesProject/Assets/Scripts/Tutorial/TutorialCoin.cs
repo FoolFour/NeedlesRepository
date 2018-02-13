@@ -35,6 +35,7 @@ public class TutorialCoin : BlockBase,IRespawnMessage
             Destroy(Coineffect, 5f);//
 
             m_RCom.SwitchActive(false);
+            Sound.PlaySe("CoinGet");
             isDead = true;
         }
         base.StickEnter(arm);
@@ -54,6 +55,7 @@ public class TutorialCoin : BlockBase,IRespawnMessage
 
                 isDead = true;
                 m_RCom.SwitchActive(false);
+                Sound.PlaySe("CoinGet");
             }
         }
         if (CheckArm)
@@ -68,6 +70,7 @@ public class TutorialCoin : BlockBase,IRespawnMessage
 
                 isDead = true;
                 m_RCom.SwitchActive(false);
+                Sound.PlaySe("CoinGet");
             }
         }
     }
