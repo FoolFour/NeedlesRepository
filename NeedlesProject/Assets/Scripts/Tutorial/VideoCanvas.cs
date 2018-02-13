@@ -5,6 +5,7 @@ using UnityEngine.Video;
 
 public class VideoCanvas : MonoBehaviour
 {
+    public float m_delay = 1.0f;
 
     VideoPlayer m_VideoPlayer;
     RectTransform m_RectTransform;
@@ -12,6 +13,7 @@ public class VideoCanvas : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        GamePad.isButtonLock = true;
         m_VideoPlayer = GetComponent<VideoPlayer>();
         m_RectTransform = GetComponent<RectTransform>();
         StartCoroutine(VideoStart());
@@ -20,7 +22,7 @@ public class VideoCanvas : MonoBehaviour
     IEnumerator VideoStart()
     {
         m_VideoPlayer.Play();
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(m_delay);
         {
             //videoを動かす
             {
