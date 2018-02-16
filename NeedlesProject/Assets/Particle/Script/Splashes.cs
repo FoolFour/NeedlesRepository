@@ -42,11 +42,11 @@ public class Splashes : MonoBehaviour
             //位置所得
             Transform hitPos = other.gameObject.transform;
             //particle生成
-            Splashes_obj = Instantiate(Splashes_obj, hitPos) as GameObject;
+            GameObject Splashes = Instantiate(Splashes_obj, hitPos) as GameObject;
             //GravityChangeAreaの子に入れる
-            Splashes_obj.transform.parent = GCA_obj.transform;
+            Splashes.transform.parent = GCA_obj.transform;
             //再生終わったら消す
-            Destroy(Splashes_obj, 5f);
+            Destroy(Splashes, 5f);
         }
     }
 
@@ -59,11 +59,11 @@ public class Splashes : MonoBehaviour
             //位置所得
             Transform hitPos = other.gameObject.transform;
             //particle生成
-           　Splashes_obj = Instantiate(Splashes_obj, hitPos) as GameObject;
+            GameObject Splashes = Instantiate(Splashes_obj, hitPos) as GameObject;
             //GravityChangeAreaの子に入れる
-            Splashes_obj.transform.parent = GCA_obj.transform;
+            Splashes.transform.parent = GCA_obj.transform;
             //再生終わったら消す
-            Destroy(Splashes_obj, 5f);
+            Destroy(Splashes, 5f);
         }
     }
 }
