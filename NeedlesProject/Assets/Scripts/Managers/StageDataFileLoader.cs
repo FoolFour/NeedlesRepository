@@ -24,6 +24,12 @@ public class StageDataFileLoader : MonoBehaviour
         }
         Debug.Log(path);
 
+        if(!IO.File.Exists(path))
+        {
+            Debug.LogWarning("ファイル名が見つかりません");
+            return;
+        }
+
         using (var fs = new IO.FileStream(path, IO.FileMode.Open)) {
         using (var br = new IO.BinaryReader(fs)) {
             string stage_name = br.ReadString();
