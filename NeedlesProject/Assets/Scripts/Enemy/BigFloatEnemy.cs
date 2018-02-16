@@ -14,8 +14,15 @@ public class BigFloatEnemy : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-
-        if (other.gameObject.tag.Contains("Player"))
+        if (other.gameObject.CompareTag("PlayerArm"))
+        {
+            var power = other.transform.position - transform.position;
+            power = power.normalized * 10;
+            power.y = 3;
+            Debug.Log(other.gameObject.name);
+            other.transform.parent.GetComponent<NeedleArm>().PlayerStan(power);
+        }
+        if (other.gameObject.CompareTag("Player"))
         {
             m_SpawnManager.ReSpawn();
         }
