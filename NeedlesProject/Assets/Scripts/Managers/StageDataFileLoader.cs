@@ -6,34 +6,55 @@ using IO = System.IO;
 
 public class StageDataFileLoader : MonoBehaviour
 {
+    [SerializeField]
+    [Header("何も設定しなければ シーン名でロードする")]
+    string LoadFile;
+
     private void Awake()
     {
-        string nowStageData = SceneManager.GetActiveScene().name;
-        
-        string path = Application.streamingAssetsPath + "/Stages/" + nowStageData + ".sdf";
+        string path = Application.streamingAssetsPath + "/Stages/";
+        if(LoadFile == "")
+        {
+            string nowStageData = SceneManager.GetActiveScene().name;
+            path += nowStageData + ".sdf";
+        }
+        else
+        {
+            path += LoadFile + ".sdf";
+        }
         Debug.Log(path);
 
-        using (var fs = new IO.FileStream(path, IO.FileMode.Open))
+        if(!IO.File.Exists(path))
         {
-            using (var br = new IO.BinaryReader(fs))
-            {
-                string stage_name = br.ReadString();
-                float  border1    = br.ReadSingle();
-                float  border2    = br.ReadSingle();
-                string next_stage = br.ReadString();
-
-                string scene_name = SceneManager.GetActiveScene().name;
-                Debug.Log(scene_name);
-
-                PlayerPrefs.SetString(PrefsDataName.StageName, stage_name);
-                PlayerPrefs.SetString(PrefsDataName.Scene,     scene_name);
-                PlayerPrefs.SetFloat (PrefsDataName.Border1,   border1);
-                PlayerPrefs.SetFloat (PrefsDataName.Border2,   border2);
-                PlayerPrefs.SetString(PrefsDataName.NextSene,  next_stage);
-
-                br.Close();
-                fs.Close();
-            }
+            Debug.LogWarning("ファイル名が見つかりません");
+            return;
         }
+
+        using (var fs = new IO.FileStream(path, IO.FileMode.Open)) {
+        using (var br = new IO.BinaryReader(fs)) {
+            string stage_name = br.ReadString();
+            float  border1    = br.ReadSingle();
+            float  border2    = br.ReadSingle();
+            string next_stage = br.ReadString();
+            bool   isTutorial = br.ReadBoolean();
+
+            string scene_name = SceneManager.GetActiveScene().name;
+            Debug.Log(scene_name);
+            Debug.Log(border1);
+            Debug.Log(border2);
+
+            Debug.Log(next_stage);
+            Debug.Log(isTutorial);
+
+            PlayerPrefs.SetString(PrefsDataName.StageName,  stage_name);
+            PlayerPrefs.SetString(PrefsDataName.Scene,      scene_name);
+            PlayerPrefs.SetFloat (PrefsDataName.Border1,    border1);
+            PlayerPrefs.SetFloat (PrefsDataName.Border2,    border2);
+            PlayerPrefs.SetString(PrefsDataName.NextSene,   next_stage);
+            PlayerPrefs.SetString(PrefsDataName.IsTutorial, isTutorial.ToString());
+
+            br.Close();
+            fs.Close();
+        } }
     }
 }

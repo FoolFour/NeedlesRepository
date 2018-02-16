@@ -13,35 +13,40 @@ public class Splashes : MonoBehaviour
     public ParticleSystem Splashes_Effect;
     //ゲームオブジェ
     public GameObject Splashes_obj;
-    //
-    public bool p_respawn_flag;    
+    //リスポーンしてるかのフラグ
+    public bool p_respawn_flag;
+    // GravityChangeArea
+    public GameObject GCA_obj;
 
-    // Use this for initialization
     void Start()
     {
         //AudioSourceがなければ追加
         audioSource_ = (AudioSource)gameObject.GetComponent<AudioSource>();
-        if (audioSource_ == null)  audioSource_ = (AudioSource)gameObject.AddComponent<AudioSource>();
+        if (audioSource_ == null) audioSource_ = (AudioSource)gameObject.AddComponent<AudioSource>();
+        GCA_obj = this.gameObject;
     }
 
     // Update is called once per frame
-    void Update() {
-        p_respawn_flag =GameObject.Find("Player(Clone)").GetComponent<Player>().respawn;
+    void Update()
+    {
+        p_respawn_flag = GameObject.Find("Player(Clone)").GetComponent<Player>().respawn;
     }
 
     public void OnTriggerEnter(Collider other)
     {
-            //リスポーンしてるなら音を出さない
-            if (p_respawn_flag == false&& other.gameObject.tag == "Player") {
-                Debug.Log(other.gameObject.tag);
-                //SE再生
-                GetComponent<AudioSource>().PlayOneShot(SE_Waterdrop);
-                //位置所得
-                Transform hitPos = other.gameObject.transform;
-                //particle生成
-                GameObject splashes = Instantiate(Splashes_obj, hitPos) as GameObject;
-                //再生終わったら消す
-                Destroy(splashes, 5f);            
+        //リスポーンしてるなら音を出さない
+        if (p_respawn_flag == false && other.gameObject.tag == "Player")
+        {
+            //SE再生
+            GetComponent<AudioSource>().PlayOneShot(SE_Waterdrop);
+            //位置所得
+            Transform hitPos = other.gameObject.transform;
+            //particle生成
+            GameObject Splashes = Instantiate(Splashes_obj, hitPos) as GameObject;
+            //GravityChangeAreaの子に入れる
+            Splashes.transform.parent = GCA_obj.transform;
+            //再生終わったら消す
+            Destroy(Splashes, 5f);
         }
     }
 
@@ -54,9 +59,11 @@ public class Splashes : MonoBehaviour
             //位置所得
             Transform hitPos = other.gameObject.transform;
             //particle生成
-            GameObject splashes = Instantiate(Splashes_obj, hitPos) as GameObject;
+            GameObject Splashes = Instantiate(Splashes_obj, hitPos) as GameObject;
+            //GravityChangeAreaの子に入れる
+            Splashes.transform.parent = GCA_obj.transform;
             //再生終わったら消す
-            Destroy(splashes, 5f);
+            Destroy(Splashes, 5f);
         }
     }
 }

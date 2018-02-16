@@ -163,11 +163,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51d1aee05bde1f149a3bd260080a495d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Bubble_Break: {fileID: 8300000, guid: c1225943c035db143b61870a443ac905, type: 3}
-  Bubble_Long: {fileID: 8300000, guid: 04906f89aca7ebc4d9919b66a20ce890, type: 3}
-  Bubble_Heavy_Short: {fileID: 8300000, guid: 536a451eb588d0f408d8ac4fe86a48ec, type: 3}
-  Bubble_Middle_Short: {fileID: 8300000, guid: db9aad4b666a56f47a9e4456b924a502, type: 3}
+  SE_Bubble_Break: {fileID: 8300000, guid: c1225943c035db143b61870a443ac905, type: 3}
+  SE_Bubble_Long: {fileID: 8300000, guid: 04906f89aca7ebc4d9919b66a20ce890, type: 3}
+  SE_Bubble_Heavy_Short: {fileID: 8300000, guid: 536a451eb588d0f408d8ac4fe86a48ec,
+    type: 3}
+  SE_Bubble_Middle_Short: {fileID: 8300000, guid: db9aad4b666a56f47a9e4456b924a502,
+    type: 3}
   rand: 0
+  bubbleflag: 0
+  waterdorop: 0
 --- !u!198 &198859772653766706
 ParticleSystem:
   m_ObjectHideFlags: 1

@@ -7,14 +7,13 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: GravityChangeArea
-  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
+  m_Shader: {fileID: 4800000, guid: 80e2b5ae09d1fbf44b22eb5a6c549f53, type: 3}
   m_ShaderKeywords: _ALPHABLEND_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 3000
-  stringTagMap:
-    RenderType: Transparent
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
@@ -56,22 +55,43 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - _BlendRate: 0.17
     - _BumpScale: 1
+    - _CCenter: 0.53
+    - _CRangeMax: 0.025
+    - _CRangeMin: 0.15
+    - _Center: 0.53
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 10
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
+    - _Height: 121.3893
     - _Metallic: 0
     - _Mode: 2
+    - _NHeight: 10
+    - _NOffset: 0
+    - _NWidth: 10
     - _OcclusionStrength: 1
     - _Parallax: 0.02
+    - _RangeMax: 0.025
+    - _RangeMin: 0.15
+    - _Roop: 0.015
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
+    - _Speed: 200
     - _SrcBlend: 5
     - _UVSec: 0
+    - _WHeight: 8
+    - _WRoop: 0.015
+    - _WSpeed: 100
+    - _WWidth: 10
+    - _WaveOffset: 45
+    - _Width: 40.4558
     - _ZWrite: 0
     m_Colors:
-    - _Color: {r: 0.34685582, g: 0.32352942, b: 1, a: 0.372}
+    - _BaseColor: {r: 0.34509805, g: 0.3254902, b: 1, a: 0.37254903}
+    - _Color: {r: 0.34509805, g: 0.3254902, b: 1, a: 0.372}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _HighLightColor: {r: 1, g: 1, b: 1, a: 0.8627451}

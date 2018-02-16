@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657868, g: 0.49641263, b: 0.57481706, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -17420,6 +17420,111 @@ Prefab:
     - target: {fileID: 4896447752208278, guid: 552d791c2cec48941b257b794861ae43, type: 2}
       propertyPath: m_LocalPosition.y
       value: -1.72
+      objectReference: {fileID: 0}
+    - target: {fileID: 198669159369799656, guid: 552d791c2cec48941b257b794861ae43,
+        type: 2}
+      propertyPath: InitialModule.startRotation.scalar
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198669159369799656, guid: 552d791c2cec48941b257b794861ae43,
+        type: 2}
+      propertyPath: randomSeed
+      value: -1351492005
+      objectReference: {fileID: 0}
+    - target: {fileID: 198669159369799656, guid: 552d791c2cec48941b257b794861ae43,
+        type: 2}
+      propertyPath: InitialModule.startSpeed.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 198669159369799656, guid: 552d791c2cec48941b257b794861ae43,
+        type: 2}
+      propertyPath: InitialModule.startSpeed.minScalar
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 198669159369799656, guid: 552d791c2cec48941b257b794861ae43,
+        type: 2}
+      propertyPath: InitialModule.startSpeed.scalar
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 198669159369799656, guid: 552d791c2cec48941b257b794861ae43,
+        type: 2}
+      propertyPath: TrailModule.enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198669159369799656, guid: 552d791c2cec48941b257b794861ae43,
+        type: 2}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 198669159369799656, guid: 552d791c2cec48941b257b794861ae43,
+        type: 2}
+      propertyPath: ShapeModule.m_Scale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198669159369799656, guid: 552d791c2cec48941b257b794861ae43,
+        type: 2}
+      propertyPath: ShapeModule.m_Scale.y
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 198669159369799656, guid: 552d791c2cec48941b257b794861ae43,
+        type: 2}
+      propertyPath: TrailModule.sizeAffectsWidth
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198669159369799656, guid: 552d791c2cec48941b257b794861ae43,
+        type: 2}
+      propertyPath: TrailModule.dieWithParticles
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198669159369799656, guid: 552d791c2cec48941b257b794861ae43,
+        type: 2}
+      propertyPath: TrailModule.textureMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198669159369799656, guid: 552d791c2cec48941b257b794861ae43,
+        type: 2}
+      propertyPath: TrailModule.minVertexDistance
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 198669159369799656, guid: 552d791c2cec48941b257b794861ae43,
+        type: 2}
+      propertyPath: TrailModule.lifetime.scalar
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198669159369799656, guid: 552d791c2cec48941b257b794861ae43,
+        type: 2}
+      propertyPath: TrailModule.ratio
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198669159369799656, guid: 552d791c2cec48941b257b794861ae43,
+        type: 2}
+      propertyPath: TrailModule.generateLightingData
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198669159369799656, guid: 552d791c2cec48941b257b794861ae43,
+        type: 2}
+      propertyPath: TrailModule.widthOverTrail.scalar
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198669159369799656, guid: 552d791c2cec48941b257b794861ae43,
+        type: 2}
+      propertyPath: NoiseModule.enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198669159369799656, guid: 552d791c2cec48941b257b794861ae43,
+        type: 2}
+      propertyPath: NoiseModule.scrollSpeed.scalar
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198669159369799656, guid: 552d791c2cec48941b257b794861ae43,
+        type: 2}
+      propertyPath: NoiseModule.strength.scalar
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198669159369799656, guid: 552d791c2cec48941b257b794861ae43,
+        type: 2}
+      propertyPath: NoiseModule.frequency
+      value: 0.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 552d791c2cec48941b257b794861ae43, type: 2}

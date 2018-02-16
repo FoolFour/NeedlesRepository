@@ -23,11 +23,10 @@ public class VideoStarter : MonoBehaviour
         m_VideoPanel.GetComponent<MeshRenderer>().material.color = color;
     }
 
-    public void Update()
+    public void ShowVideo()
     {
-        if (Input.anyKeyDown && !Eventing)
+        if (!Eventing)
         {
-            Sound.PlaySe("TitleOnButton1");
             Eventing = true;
             m_TitleImage.enabled = false;
             m_TitleText.enabled = false;

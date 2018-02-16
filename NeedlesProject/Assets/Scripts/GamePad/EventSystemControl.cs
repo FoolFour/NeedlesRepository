@@ -20,9 +20,9 @@ public class EventSystemControl : MonoBehaviour
         eventSystem = GetComponent<EventSystem>();
     }
 
-    public void Start()
+    public IEnumerator Start()
     {
-        Debug.Log("EventSystemの設定");
+        yield return null;
 
         EventSystem.current = eventSystem;
         EventSystem.current.UpdateModules();
@@ -36,10 +36,12 @@ public class EventSystemControl : MonoBehaviour
             EventSystem.current.SetSelectedGameObject(worldSelectButton.gameObject);
 
             Navigation navigation;
-
+            
             navigation = retryButton.navigation;
             navigation.selectOnLeft  = worldSelectButton;
             retryButton.navigation   = navigation;
+            
+            yield return null;
 
             navigation = worldSelectButton.navigation;
             navigation.selectOnRight     = retryButton;

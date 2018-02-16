@@ -5,25 +5,47 @@ using System.Collections.Generic;
 
 public class FadeRepeat : MonoBehaviour
 {
-    Graphic graphic;
+    [SerializeField]
+    float speed;
+    Graphic[] graphics;
+    Shadow shadow;
 
     private void Awake()
     {
-        graphic = GetComponent<Graphic>();
+        graphics = GetComponents<Graphic>();
+        shadow   = GetComponent<Shadow>();
     }
 
-    private void Start()
+    private IEnumerator Start()
     {
+        while(true)
+        {
+            for (float i = 0.0f; i <= 1.0f; i+=Time.deltaTime * speed)
+            {
+                SetAlpha(i);
+                yield return null;
+            }
 
+            for (float i = 0.0f; i <= 1.0f; i+=Time.deltaTime * speed)
+            {
+                SetAlpha(1.0f - i);
+                yield return null;
+            }
+        }
     }
 
-    //private IEnumerator FadeIn()
-    //{
-
-    //}
-
-    //private IEnumerator FadeOut()
-    //{
-
-    //}
+    private void SetAlpha(float a)
+    {
+        foreach (var graphic in graphics)
+        {
+            Color col = graphic.color;
+            col.a = a;
+            graphic.color = col;
+        }
+        {
+            Color col = shadow.effectColor;
+            col.a = a;
+            shadow.effectColor = col;
+        }
+    }
 }

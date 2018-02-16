@@ -78,6 +78,8 @@ public class NeedleArm : MonoBehaviour
     float m_ArmCurrentLenght;
     int m_Ignorelayer = 1 << 9; //ブロックのみ当たる
 
+    public bool isGoal = false;
+
 
     public void OnEnable()
     {
@@ -124,7 +126,7 @@ public class NeedleArm : MonoBehaviour
                 bb.StickEnter(gameObject);
             }
 
-            if(m_Hitinfo.collider.GetComponent<HardBlock>())
+            if (m_Hitinfo.collider.GetComponent<HardBlock>())
             {
                 //火花系の管理はここではないと思うがとりあえず
                 m_SparkEffect.transform.position = m_Hitinfo.point;
@@ -194,7 +196,7 @@ public class NeedleArm : MonoBehaviour
                 return true;
             }
         }
-        if (Physics.Raycast(transform.position, m_Arm.up, out hit, m_ArmCurrentLenght + 1, m_Ignorelayer,QueryTriggerInteraction.Ignore))
+        if (Physics.Raycast(transform.position, m_Arm.up, out hit, m_ArmCurrentLenght + 1, m_Ignorelayer, QueryTriggerInteraction.Ignore))
         {
             m_Hitinfo = hit;
             return true;
@@ -232,7 +234,7 @@ public class NeedleArm : MonoBehaviour
             m_Arm.localRotation = Quaternion.identity;
 
 
-            foreach(BlockBase bb in blockbases)
+            foreach (BlockBase bb in blockbases)
             {
                 bb.StickExit();
             }
@@ -313,18 +315,35 @@ public class NeedleArm : MonoBehaviour
 
     public void Goal()
     {
-        if (m_Hitinfo.collider == null) return;
-        if(m_Hitinfo.collider.tag != "Finish")
+        if (m_Hitinfo.collider == null)
+        {
+            Return_Arm();
+            m_rb.constraints = RigidbodyConstraints.None;
+            return;
+        }
+        if (m_Hitinfo.collider.tag != "Finish")
         {
             Return_Arm();
             m_rb.constraints = RigidbodyConstraints.None;
             return;
         }
 
+        isGoal = true;
         float len = Vector3.Distance(m_Hand.position, transform.position);
         m_Arm.localScale = new Vector3(3f, len, 1.5f);
         m_rb.constraints = RigidbodyConstraints.None;
 
+    }
+
+    public void Update()
+    {
+        if(isGoal)
+        {
+            m_Hand.transform.position = m_Hitinfo.transform.position;
+            float len = Vector3.Distance(m_Hitinfo.transform.position, transform.position);
+            m_Arm.localScale = new Vector3(3f, len, 1.5f);
+            m_rb.constraints = RigidbodyConstraints.None;
+        }
     }
 
     /// <summary>
@@ -370,7 +389,7 @@ public class NeedleArm : MonoBehaviour
 
     private void ArmBreakCheck(float len)
     {
-        if(len >= m_ArmMaxLength + 3)
+        if (len >= m_ArmMaxLength + 3)
         {
             Sound.PlaySeOne("Creak");
         }
@@ -393,7 +412,7 @@ public class NeedleArm : MonoBehaviour
     public void MaxSpeed(float max)
     {
         var temp = m_rb.velocity;
-        temp.x = Mathf.Clamp(temp.x, -max,max);
+        temp.x = Mathf.Clamp(temp.x, -max, max);
         temp.y = Mathf.Clamp(temp.y, -max, max);
         temp.z = Mathf.Clamp(temp.z, -max, max);
         m_rb.velocity = temp;

@@ -10,7 +10,6 @@ public class SceneChangeFade : SceneChanger
     [SerializeField]
     private TransitionBase tiling;
 
-
     private void Reset()
     {
         tiling = FindObjectOfType<TransitionBase>();
@@ -20,14 +19,24 @@ public class SceneChangeFade : SceneChanger
     {
         if(tiling == null)
         {
-            tiling = FindObjectOfType<TransitionBase>();
+            tiling    = FindObjectOfType<TransitionBase>();
         }
     }
 
     protected override IEnumerator SceneChangePerformance()
     {
+        yield return StartCoroutine(FadeOutBgm(1.0f));
         yield return tiling.FadeInStart();
 
         PlayerPrefs.SetString(PrefsDataName.FadeStart, bool.TrueString);
+    }
+
+    IEnumerator FadeOutBgm(float speed)
+    {
+        for(float t = 1.0f; t >= 0.0f; t -= Time.deltaTime * speed)
+        {
+            Sound.ChangeBgmVolume(t);
+            yield return null;
+        }
     }
 }

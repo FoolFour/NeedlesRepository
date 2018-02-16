@@ -14,7 +14,7 @@ public class ResultDataCollector : MonoBehaviour
     // 関数(private)　/
     /////////////////
 
-    private void Awake()
+    private void Start()
     {
         stageData = GetComponent<StageData>();
 
@@ -32,11 +32,11 @@ public class ResultDataCollector : MonoBehaviour
         PlayerPrefs.DeleteKey(PrefsDataName.StageName);
         PlayerPrefs.DeleteKey(PrefsDataName.Border1);
         PlayerPrefs.DeleteKey(PrefsDataName.Border2);
-
+        
         PlayerPrefs.Save();
     }
 
-    private void SubmitBestTIme(string stageName, float new_time)
+    private void SubmitBestTIme (string stageName, float new_time)
     {
         var tmp_prefsName = PrefsDataName.StageTime(stageName);
         float old_time = PlayerPrefs.GetFloat(tmp_prefsName);

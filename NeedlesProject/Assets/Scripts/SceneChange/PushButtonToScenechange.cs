@@ -5,9 +5,6 @@ using System.Collections.Generic;
 public class PushButtonToScenechange : MonoBehaviour
 {
     [SerializeField]
-    string buttonName;
-
-    [SerializeField]
     string  sceneName;
 
     [SerializeField]
@@ -25,12 +22,10 @@ public class PushButtonToScenechange : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetButtonDown(buttonName))
+        //謝ってスキップされないようにする
+        if(Input.GetButtonDown(GamePad.Submit))
         {
-            Destroy(eraseObj);
-            sceneChanger.SceneChange(sceneName, mode);
-            Sound.PlaySe("TitleDecision");
-            PlayerPrefs.SetInt(PrefsDataName.SelectedWorld, 0);
+            SceneChange();
         }
     }
 
@@ -39,5 +34,6 @@ public class PushButtonToScenechange : MonoBehaviour
         Destroy(eraseObj);
         sceneChanger.SceneChange(sceneName, mode);
         Sound.PlaySe("TitleDecision");
+        PlayerPrefs.SetInt(PrefsDataName.SelectedWorld, 0);
     }
 }
