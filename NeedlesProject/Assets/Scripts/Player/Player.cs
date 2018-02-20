@@ -51,6 +51,11 @@ public class Player : MonoBehaviour {
             }
         }
         isPrveGround = IsGround();
+
+        if(!respawn && !mWait)
+        {
+            FlashEnd();
+        }
     }
 
     // Update is called once per frame
@@ -70,7 +75,10 @@ public class Player : MonoBehaviour {
                 mStan = false;
                 mStanTimer = 0;
 
-                if (mWait) FlashEnd();
+                if (mWait)
+                {
+                    respawn = false;
+                }
                 mWait = false;
             }
             return;
@@ -179,7 +187,7 @@ public class Player : MonoBehaviour {
         {
             mr.enabled = true;
         }
-        respawn = false;    //
+        respawn = false;
     }
     /// <summary>
     /// スタンしているか
