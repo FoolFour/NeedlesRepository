@@ -118,6 +118,7 @@ public class BackGroundScroll : MonoBehaviour,IRespawnMessage {
 
     public void RespawnInit()
     {
+        m_Player = GameManagers.Instance.PlayerManager.GetPlayer().transform;
         m_playerPrevx = m_Player.position.x;
     }
 }
