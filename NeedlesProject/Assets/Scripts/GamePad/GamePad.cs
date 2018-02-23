@@ -70,8 +70,6 @@ public static class GamePad
     // Xinputモードで設定
     public static void SetXinputMode()
     {
-        
-
         if (isFlipAnalog)
         {
             vertical    = X_VERTICAL   + "2";
@@ -101,6 +99,11 @@ public static class GamePad
         {
             SetXinputMode();
         }
+    }
+
+    public static bool IsHoldBackAndStart()
+    {
+        return Input.GetButton("Start") && Input.GetButton("Back");
     }
 
     /// <summary>スティックが右方向に入力されているか</summary>
