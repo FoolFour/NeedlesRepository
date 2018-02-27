@@ -9,7 +9,11 @@ public class BGMPlayer : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        if (!Sound.CheckBGMSame(m_bgmKey))
+        if (Sound.CheckBGMSame(m_bgmKey))
+        {
+            Sound.ChangeBgmVolume(1.0f);
+        }
+        else
         {
             Sound.PlayBgm(m_bgmKey);
         }

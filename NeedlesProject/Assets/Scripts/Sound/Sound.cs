@@ -134,11 +134,11 @@ public class Sound
 
     /// BGMの再生
     /// ※事前にLoadBgmでロードしておくこと
-    public static bool PlayBgm(string key)
+    public static bool PlayBgm(string key, float volume = 1.0f)
     {
-        return GetInstance()._PlayBgm(key);
+        return GetInstance()._PlayBgm(key, volume);
     }
-    bool _PlayBgm(string key)
+    bool _PlayBgm(string key, float volume)
     {
         if (_poolBgm.ContainsKey(key) == false)
         {
@@ -157,7 +157,7 @@ public class Sound
         var source = _GetAudioSource(eType.Bgm);
         source.loop = true;
         source.clip = _data.Clip;
-        source.volume = 1.0f;
+        source.volume = volume;
         source.Play();
 
         return true;
