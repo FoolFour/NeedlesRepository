@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameExiter : MonoBehaviour
 {
@@ -11,8 +12,16 @@ public class GameExiter : MonoBehaviour
     {
         if(GamePad.IsHoldBackAndStart())
         {
-            Debug.Log("ゲームを終了");
-            Application.Quit();
+            var fade = FindObjectOfType<SceneChangeFade>();
+
+            if(fade == null)
+            {
+                SceneManager.LoadScene("title");
+            }
+            else
+            {
+                fade.SceneChange("title");
+            }
         }
     }
 }
