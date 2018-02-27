@@ -23,6 +23,8 @@ public class Pauser : MonoBehaviour
 
     ParticleSystem[] pauseParticle = null;
 
+    Collider[] pauseColliders = null;
+
     Rigidbody[]   rgBodies         = null;
     Vector3[]     rgBodyVels       = null;
     Vector3[]     rgBodyAVels      = null;
@@ -113,6 +115,11 @@ public class Pauser : MonoBehaviour
             ppa.Play();
         }
 
+        foreach (var pc in pauseColliders)
+        {
+            pc.enabled = true;
+        }
+
         for (var i = 0; i < rgBodies.Length; ++i)
         {
             rgBodies[i].WakeUp();
@@ -148,13 +155,6 @@ public class Pauser : MonoBehaviour
         // 有効なコンポーネントを取得
         pauseBehavs = Array.FindAll(GetComponentsInChildren<Behaviour>(), (obj) => { return obj; });
 
-        //Debug.Log("取得したコンポ―ネント一覧");
-        //foreach (var item in pauseBehavs)
-        //{
-        //    Debug.Log(item);
-        //}
-        //Debug.Log("取得したコンポーネント一覧終了");
-
         foreach (var com in pauseBehavs)
         {
             com.enabled = false;
@@ -164,6 +164,12 @@ public class Pauser : MonoBehaviour
         foreach (var ppa in pauseParticle)
         {
             ppa.Stop();
+        }
+
+        pauseColliders = Array.FindAll(GetComponentsInChildren<Collider>(), (obj) => { return obj.isTrigger; });
+        foreach (var pc in pauseColliders)
+        {
+                pc.enabled = false;
         }
 
         rgBodies = Array.FindAll(GetComponentsInChildren<Rigidbody>(), (obj) => { return !obj.IsSleeping(); });
