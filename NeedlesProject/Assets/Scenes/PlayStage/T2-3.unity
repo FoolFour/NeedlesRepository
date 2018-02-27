@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657868, g: 0.49641263, b: 0.57481706, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -8664,7 +8664,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 888865231
+  randomSeed: 1713512238
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -13867,12 +13867,12 @@ Prefab:
     - target: {fileID: 65087791954110334, guid: 3e1ba40991952e844b32e65a90ff56ee,
         type: 2}
       propertyPath: m_Size.z
-      value: 33.56
+      value: 25.08
       objectReference: {fileID: 0}
     - target: {fileID: 65087791954110334, guid: 3e1ba40991952e844b32e65a90ff56ee,
         type: 2}
       propertyPath: m_Center.z
-      value: 16.42
+      value: 11.9
       objectReference: {fileID: 0}
     - target: {fileID: 1753085716476794, guid: 3e1ba40991952e844b32e65a90ff56ee, type: 2}
       propertyPath: m_Name
@@ -13886,7 +13886,7 @@ Prefab:
     - target: {fileID: 198657274354845080, guid: 3e1ba40991952e844b32e65a90ff56ee,
         type: 2}
       propertyPath: randomSeed
-      value: -1270376590
+      value: -1802049318
       objectReference: {fileID: 0}
     - target: {fileID: 198370421948431472, guid: 3e1ba40991952e844b32e65a90ff56ee,
         type: 2}
@@ -13897,6 +13897,36 @@ Prefab:
         type: 2}
       propertyPath: InitialModule.startLifetime.scalar
       value: 6.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 198370421948431472, guid: 3e1ba40991952e844b32e65a90ff56ee,
+        type: 2}
+      propertyPath: lengthInSec
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 198657274354845080, guid: 3e1ba40991952e844b32e65a90ff56ee,
+        type: 2}
+      propertyPath: lengthInSec
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1522982910255794, guid: 3e1ba40991952e844b32e65a90ff56ee, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1339116305798898, guid: 3e1ba40991952e844b32e65a90ff56ee, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4028566963345886, guid: 3e1ba40991952e844b32e65a90ff56ee, type: 2}
+      propertyPath: m_LocalScale.z
+      value: 0.7749998
+      objectReference: {fileID: 0}
+    - target: {fileID: 4566469324471836, guid: 3e1ba40991952e844b32e65a90ff56ee, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 0.8249995
+      objectReference: {fileID: 0}
+    - target: {fileID: 4085955068139458, guid: 3e1ba40991952e844b32e65a90ff56ee, type: 2}
+      propertyPath: m_LocalScale.z
+      value: 0.7875006
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3e1ba40991952e844b32e65a90ff56ee, type: 2}
@@ -14553,6 +14583,11 @@ Prefab:
         type: 2}
       propertyPath: spreadCustomCurve.m_RotationOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198859772653766706, guid: 23a9bca0054170e40af4d39d21cd199d,
+        type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 23a9bca0054170e40af4d39d21cd199d, type: 2}
@@ -22190,6 +22225,21 @@ Prefab:
     - target: {fileID: 1145616433749178, guid: 121aeb77353d18a4a87aea283e6bf74d, type: 2}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224547079092141506, guid: 121aeb77353d18a4a87aea283e6bf74d,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224370354846130252, guid: 121aeb77353d18a4a87aea283e6bf74d,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224370354846130252, guid: 121aeb77353d18a4a87aea283e6bf74d,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 121aeb77353d18a4a87aea283e6bf74d, type: 2}
