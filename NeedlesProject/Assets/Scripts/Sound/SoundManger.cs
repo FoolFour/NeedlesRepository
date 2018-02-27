@@ -11,6 +11,7 @@ public class SoundManger : MonoBehaviour
         Sound.LoadBgm("Stage2", "Stage2BGM");
         Sound.LoadBgm("Stage3", "W3_BGM");
         Sound.LoadBgm("StageEX1", "Stageex1");
+        Sound.LoadBgm("StaffBGM", "staff");
 
         Sound.LoadBgm("Title",       "TitleBGM");
         Sound.LoadBgm("StageSelect", "StageSelectBGM");
