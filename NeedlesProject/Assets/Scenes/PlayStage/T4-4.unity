@@ -61053,6 +61053,16 @@ Prefab:
       propertyPath: m_FirstSpawnPoint
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 114869261759408282, guid: e14d28296d8eb7248b3b1195d32c0a87,
+        type: 2}
+      propertyPath: m_PantsColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114869261759408282, guid: e14d28296d8eb7248b3b1195d32c0a87,
+        type: 2}
+      propertyPath: m_PantsColor.b
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e14d28296d8eb7248b3b1195d32c0a87, type: 2}
   m_IsPrefabParent: 0
@@ -65411,7 +65421,7 @@ Prefab:
     - target: {fileID: 114522975187723906, guid: 589be2163c4e09642bd545be711990ce,
         type: 2}
       propertyPath: maxPositionLimit.y
-      value: 300
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 114522975187723906, guid: 589be2163c4e09642bd545be711990ce,
         type: 2}
@@ -86123,7 +86133,7 @@ Prefab:
     - target: {fileID: 114676030137403656, guid: 36dae7e697a89764aaa69a6ce0ffcdc6,
         type: 2}
       propertyPath: m_bgmKey
-      value: Stage1
+      value: StageEX1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 36dae7e697a89764aaa69a6ce0ffcdc6, type: 2}
