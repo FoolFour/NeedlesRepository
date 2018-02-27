@@ -816,6 +816,7 @@ GameObject:
   m_Component:
   - component: {fileID: 48919460}
   - component: {fileID: 48919459}
+  - component: {fileID: 48919461}
   m_Layer: 0
   m_Name: minirollinglaser
   m_TagString: Untagged
@@ -850,6 +851,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &48919461
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 48919458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c9b47439ab81b044aea7b883ddd0b5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  reverse: 0
 --- !u!4 &49638136 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4515666609017170, guid: 108edc3991ae58d4384a8392d469f6f2,
@@ -3785,6 +3798,7 @@ GameObject:
   m_Component:
   - component: {fileID: 161495032}
   - component: {fileID: 161495031}
+  - component: {fileID: 161495033}
   m_Layer: 0
   m_Name: minirollinglaser (6)
   m_TagString: Untagged
@@ -3821,6 +3835,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &161495033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 161495030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c9b47439ab81b044aea7b883ddd0b5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  reverse: 0
 --- !u!4 &161621136 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4124413271503470, guid: 81dae112405fe414e806e330e636ee01,
@@ -6062,6 +6088,7 @@ GameObject:
   m_Component:
   - component: {fileID: 303195342}
   - component: {fileID: 303195341}
+  - component: {fileID: 303195343}
   m_Layer: 0
   m_Name: minirollinglaser (8)
   m_TagString: Untagged
@@ -6098,6 +6125,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &303195343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 303195340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c9b47439ab81b044aea7b883ddd0b5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  reverse: 0
 --- !u!4 &305317952 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4124413271503470, guid: 81dae112405fe414e806e330e636ee01,
@@ -9465,6 +9504,7 @@ GameObject:
   m_Component:
   - component: {fileID: 508442264}
   - component: {fileID: 508442263}
+  - component: {fileID: 508442265}
   m_Layer: 0
   m_Name: minirollinglaser (1)
   m_TagString: Untagged
@@ -9499,6 +9539,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &508442265
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 508442262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c9b47439ab81b044aea7b883ddd0b5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  reverse: 0
 --- !u!1001 &510333932
 Prefab:
   m_ObjectHideFlags: 0
@@ -10512,6 +10564,7 @@ GameObject:
   m_Component:
   - component: {fileID: 580679490}
   - component: {fileID: 580679489}
+  - component: {fileID: 580679491}
   m_Layer: 0
   m_Name: minirollinglaser (3)
   m_TagString: Untagged
@@ -10546,6 +10599,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &580679491
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 580679488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c9b47439ab81b044aea7b883ddd0b5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  reverse: 0
 --- !u!1001 &581149623
 Prefab:
   m_ObjectHideFlags: 0
@@ -12346,6 +12411,7 @@ GameObject:
   m_Component:
   - component: {fileID: 705424228}
   - component: {fileID: 705424227}
+  - component: {fileID: 705424229}
   m_Layer: 0
   m_Name: minirollinglaser (2)
   m_TagString: Untagged
@@ -12380,6 +12446,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &705424229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 705424226}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c9b47439ab81b044aea7b883ddd0b5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  reverse: 0
 --- !u!4 &705457023 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4619588156581440, guid: 85557157b896727489f2dc35761c5a08,
@@ -32087,6 +32165,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1849098231}
   - component: {fileID: 1849098230}
+  - component: {fileID: 1849098232}
   m_Layer: 0
   m_Name: minirollinglaser (7)
   m_TagString: Untagged
@@ -32123,6 +32202,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1849098232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1849098229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c9b47439ab81b044aea7b883ddd0b5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  reverse: 0
 --- !u!4 &1849431952 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4619588156581440, guid: 85557157b896727489f2dc35761c5a08,
@@ -32844,6 +32935,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1895845213}
   - component: {fileID: 1895845212}
+  - component: {fileID: 1895845214}
   m_Layer: 0
   m_Name: minirollinglaser (9)
   m_TagString: Untagged
@@ -32880,6 +32972,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 21
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1895845214
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1895845211}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c9b47439ab81b044aea7b883ddd0b5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  reverse: 0
 --- !u!1001 &1895959057
 Prefab:
   m_ObjectHideFlags: 0
@@ -34168,6 +34272,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1989295219}
   - component: {fileID: 1989295218}
+  - component: {fileID: 1989295220}
   m_Layer: 0
   m_Name: minirollinglaser (10)
   m_TagString: Untagged
@@ -34204,6 +34309,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 22
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1989295220
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1989295217}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c9b47439ab81b044aea7b883ddd0b5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  reverse: 0
 --- !u!4 &1990783160 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4619588156581440, guid: 85557157b896727489f2dc35761c5a08,
@@ -35473,6 +35590,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2059000078}
   - component: {fileID: 2059000077}
+  - component: {fileID: 2059000079}
   m_Layer: 0
   m_Name: minirollinglaser (5)
   m_TagString: Untagged
@@ -35507,6 +35625,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2059000079
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2059000076}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c9b47439ab81b044aea7b883ddd0b5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  reverse: 0
 --- !u!1001 &2059061652
 Prefab:
   m_ObjectHideFlags: 0
@@ -35783,6 +35913,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2072835733}
   - component: {fileID: 2072835732}
+  - component: {fileID: 2072835734}
   m_Layer: 0
   m_Name: minirollinglaser (4)
   m_TagString: Untagged
@@ -35817,6 +35948,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2072835734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2072835731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c9b47439ab81b044aea7b883ddd0b5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  reverse: 0
 --- !u!1001 &2073702488
 Prefab:
   m_ObjectHideFlags: 0
