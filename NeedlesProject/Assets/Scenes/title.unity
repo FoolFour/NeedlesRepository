@@ -305,11 +305,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 146496631}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ffb5d76fd766b2a48b4aa34d17bcba87, type: 3}
+  m_Script: {fileID: 11500000, guid: 155347b26be209941a2bac7f6f82984f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enableSE: TitleOnButton1
-  disableSE: TitleOnButton1
+  seName: TitleOnButton1
 --- !u!1001 &235636244
 Prefab:
   m_ObjectHideFlags: 0
@@ -1881,7 +1880,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: c7a1f5d3b9f1bbd439f1917def861857, type: 3}
-    m_FontSize: 180
+    m_FontSize: 170
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 4
@@ -1892,7 +1891,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u3057\u3085\u3046\u308A\u3087\u3046"
+  m_Text: "\u30C7\u30FC\u30BF\u3092\u3051\u3059"
 --- !u!222 &1691052222
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2286,6 +2285,7 @@ GameObject:
   - component: {fileID: 2044566433}
   - component: {fileID: 2044566434}
   - component: {fileID: 2044566435}
+  - component: {fileID: 2044566436}
   m_Layer: 5
   m_Name: Text (1)
   m_TagString: Untagged
@@ -2450,6 +2450,18 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &2044566436
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2044566429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 155347b26be209941a2bac7f6f82984f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  seName: TitleOnButton1
 --- !u!1 &2058729846
 GameObject:
   m_ObjectHideFlags: 0
@@ -2463,6 +2475,7 @@ GameObject:
   - component: {fileID: 2058729850}
   - component: {fileID: 2058729849}
   - component: {fileID: 2058729848}
+  - component: {fileID: 2058729853}
   m_Layer: 5
   m_Name: EraseData
   m_TagString: Untagged
@@ -2477,8 +2490,8 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2058729846}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.00009918213}
-  m_LocalScale: {x: 0.24941531, y: 0.24941531, z: 0.99766123}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.25, y: 0.25, z: 1}
   m_Children:
   - {fileID: 1691052220}
   m_Father: {fileID: 908918344}
@@ -2486,7 +2499,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.013266958, y: -119.9975}
+  m_AnchoredPosition: {x: 0, y: -20}
   m_SizeDelta: {x: 1200, y: 320}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2058729848
@@ -2579,7 +2592,29 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2058729851}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 576130920}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 576130922}
+        m_MethodName: SceneChange
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: title
+          m_BoolArgument: 1
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &2058729851
@@ -2615,3 +2650,15 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2058729846}
+--- !u!114 &2058729853
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2058729846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 155347b26be209941a2bac7f6f82984f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  seName: TitleDecision
