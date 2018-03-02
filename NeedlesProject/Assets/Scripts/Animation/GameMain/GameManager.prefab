@@ -28,7 +28,6 @@ GameObject:
   - component: {fileID: 114922448997292280}
   - component: {fileID: 114699570451365594}
   - component: {fileID: 114571589777226050}
-  - component: {fileID: 114922419957934020}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -97,8 +96,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e873c084a4800224a923cb8fc83fec45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nowStageData: Assets/StreamingAssets/Stages/World1/1-1.sdf
-  nextStageScene: Assets/Scenes/PlayStage/T1-2.unity
+  LoadFile: 
 --- !u!114 &114571589777226050
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -136,21 +134,6 @@ MonoBehaviour:
   m_Gravity: {x: 0, y: -9.81, z: 0}
   m_PlayerPants: {fileID: 2100000, guid: 58a16d86ab549184a927ef250095c2b1, type: 2}
   m_PantsColor: {r: 1, g: 0, b: 0.84827566, a: 1}
---- !u!114 &114922419957934020
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1237952258836030}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 671e1b48453203646828c71e94813e76, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  skyboxMaterial: {fileID: 2100000, guid: df9c09804d36d4b4193b21cf3505841b, type: 2}
-  skyColor: {r: 0.3019608, g: 0.39607847, b: 0.5529412, a: 0}
-  equatorColor: {r: 0.45882356, g: 0.5137255, b: 0.5137255, a: 0}
-  groundColor: {r: 0.4156863, g: 0.3921569, b: 0.3803922, a: 0}
 --- !u!114 &114922448997292280
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -178,3 +161,4 @@ MonoBehaviour:
   PlayerManager: {fileID: 114499938982631344}
   StageManager: {fileID: 114869261759408282}
   GameStateManager: {fileID: 0}
+  GameTimer: {fileID: 0}
