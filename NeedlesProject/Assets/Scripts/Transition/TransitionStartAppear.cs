@@ -17,7 +17,23 @@ public class TransitionStartAppear : MonoBehaviour
 
     private void Start()
     {
+        float height = Screen.height;
+        float width  = Screen.width;
+        Rect texRect = GetComponent<Image>().sprite.textureRect;
+
+        float imageWidth  = texRect.width;
+        float imageHeight = texRect.height;
+
+        Vector2 pos;
+        pos.x = imageWidth /10.0f + width /20.0f;
+        pos.x *= -1;
+        pos.y = imageHeight/10.0f + height/20.0f;
+
+        Debug.Log(pos);
+
         
+
+        GetComponent<RectTransform>().anchoredPosition = pos;
     }
 
     private void Update()
